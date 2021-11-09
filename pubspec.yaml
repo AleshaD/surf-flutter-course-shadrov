@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  
+
   flutter_svg: ^0.23.0+1
 
 dev_dependencies:
@@ -25,3 +25,38 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  assets:
+    - res/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: res/fonts/Roboto-Regular.ttf
+        - asset: res/fonts/Roboto-Italic.ttf
+          style: italic
+        - asset: res/fonts/Roboto-Black.ttf
+          weight: 900
+        - asset: res/fonts/Roboto-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: res/fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: res/fonts/Roboto-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: res/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: res/fonts/Roboto-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: res/fonts/Roboto-Light.ttf
+          weight: 300
+        - asset: res/fonts/Roboto-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: res/fonts/Roboto-Thin.ttf
+          weight: 100
+        - asset: res/fonts/Roboto-ThinItalic.ttf
+          weight: 100
+          style: italic
