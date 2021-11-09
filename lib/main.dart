@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
 class MyApp extends StatelessWidget {
@@ -71,7 +71,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class App extends StatelessWidget {
+  const App({ Key? key }) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: MySecondWidget(),
+      title: 'App Super Title',
+    );
+  }
+}
 class MyFirstWidget extends StatelessWidget {
   int buildCounter = 0;
   MyFirstWidget({ Key? key }) : super(key: key);
@@ -84,6 +94,10 @@ class MyFirstWidget extends StatelessWidget {
       child: Text('Hello'),
     );
   }
+
+  // Type getContextRuntime() {
+  //   return context.runtimeType;
+  // }
 }
 
 class MySecondWidget extends StatefulWidget {
@@ -100,8 +114,15 @@ class _MySecondWidgetState extends State<MySecondWidget> {
   Widget build(BuildContext context) {
     buildCounter++;
     debugPrint('stFull Build counter: $buildCounter');
-    return const Center(
-      child: Text('Hello'),
+    return GestureDetector(
+      onTap: () => debugPrint('Runtime type is: ${getContextRuntime().toString()}'),
+      child: const Center(
+        child: Text('Hello'),
+      ),
     );
+  }
+
+  Type getContextRuntime() {
+    return context.runtimeType;
   }
 }
