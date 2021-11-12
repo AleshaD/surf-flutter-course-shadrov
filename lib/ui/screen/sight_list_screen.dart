@@ -17,9 +17,11 @@ class _SightListScreenState extends State<SightListScreen> {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           toolbarHeight: 156,
-          title: Text(
-            'Список\nинтересных мест',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: Colors.black),
+          title: RichText(
+            text: TextSpan(
+                text: 'Список\n',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: Colors.black),
+                children: [TextSpan(text: 'интересных мест')]),
           )),
       body: Center(
         child: Text(''),
