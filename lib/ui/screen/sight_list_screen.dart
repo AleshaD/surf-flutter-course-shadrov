@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SightListScreen extends StatefulWidget {
   const SightListScreen({Key? key}) : super(key: key);
@@ -12,8 +13,24 @@ class _SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        toolbarHeight: 156,
+        title: RichText(
+          text: TextSpan(
+              text: 'C',
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: Colors.green),
+              children: [
+                TextSpan(text: 'писок\n', style: TextStyle(color: Colors.black)),
+                TextSpan(text: 'и', style: TextStyle(color: Colors.orange)),
+                TextSpan(text: 'нтересных мест', style: TextStyle(color: Colors.black)),
+              ]),
+          maxLines: 2,
+        ),
+      ),
       body: Center(
-        child: Text('Hello'),
+        child: Text(''),
       ),
     );
   }
