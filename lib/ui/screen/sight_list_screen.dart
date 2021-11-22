@@ -10,6 +10,9 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
+  final toolbarHeight = 156.0;
+  final appBarTextSize = 32.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +20,8 @@ class _SightListScreenState extends State<SightListScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        toolbarHeight: 156,
-        title: Text('Список \nинтеренсных мест', style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: Colors.black))
+        toolbarHeight: toolbarHeight,
+        title: Text('Список \nинтеренсных мест', style: TextStyle(fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black))
       ),
       body: SingleChildScrollView(
         child: Column(

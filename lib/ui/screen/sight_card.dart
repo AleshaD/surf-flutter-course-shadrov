@@ -8,6 +8,7 @@ class SightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double cornerRadius = 12;
+    
     return Column(children: [
       Stack(
         children: [
