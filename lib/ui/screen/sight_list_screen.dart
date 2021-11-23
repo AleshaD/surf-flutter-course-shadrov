@@ -21,14 +21,26 @@ class _SightListScreenState extends State<SightListScreen> {
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         toolbarHeight: toolbarHeight,
-        title: Text('Список \nинтеренсных мест', style: TextStyle(fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black))
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ConstrainedBox(
+              constraints: BoxConstraints.tightFor(width: double.infinity),
+              child: Text('Список \nинтересных мест',
+                  style: TextStyle(fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black)),
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: List.generate(sightMocks.length, (index) => Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: SightCard(sightMocks[index]),
-          )),
+          children: List.generate(
+              sightMocks.length,
+              (index) => Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: SightCard(sightMocks[index]),
+                  )),
         ),
       ),
     );
