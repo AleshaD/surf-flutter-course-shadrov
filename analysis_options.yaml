@@ -32,9 +32,9 @@ dart_code_metrics:
     - no-empty-block
     - prefer-const-border-radius
     - prefer-correct-identifier-length:
-        exceptions:
-          - id
-          - qa
+        max-identifier-length: 30
+        min-identifier-length: 2
+        exceptions: ['id', 'qa', 'x', 'y', 'z']
         exclude:
           - test/**
     - prefer-correct-type-name
@@ -42,12 +42,14 @@ dart_code_metrics:
     - prefer-match-file-name:
         exclude:
           - test/**
+          - lib/main.dart
     - prefer-first
     - prefer-last
     - prefer-single-widget-per-file
     - prefer-conditional-expressions
     - prefer-intl-name
     - provide-correct-intl-args
+    - no-magic-number
 
 linter:
   rules:

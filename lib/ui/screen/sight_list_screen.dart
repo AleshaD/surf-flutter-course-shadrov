@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:places/mocks.dart';
+import 'package:places/ui/screen/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
   const SightListScreen({Key? key}) : super(key: key);
@@ -9,6 +10,9 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
+  final toolbarHeight = 156.0;
+  final appBarTextSize = 32.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,21 +20,16 @@ class _SightListScreenState extends State<SightListScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        toolbarHeight: 156,
-        title: RichText(
-          text: TextSpan(
-              text: 'C',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: Colors.green),
-              children: [
-                TextSpan(text: 'писок\n', style: TextStyle(color: Colors.black)),
-                TextSpan(text: 'и', style: TextStyle(color: Colors.orange)),
-                TextSpan(text: 'нтересных мест', style: TextStyle(color: Colors.black)),
-              ]),
-          maxLines: 2,
-        ),
+        toolbarHeight: toolbarHeight,
+        title: Text('Список \nинтеренсных мест', style: TextStyle(fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black))
       ),
-      body: Center(
-        child: Text(''),
+      body: SingleChildScrollView(
+        child: Column(
+          children: List.generate(sightMocks.length, (index) => Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: SightCard(sightMocks[index]),
+          )),
+        ),
       ),
     );
   }
