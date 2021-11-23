@@ -4,12 +4,14 @@ import 'package:places/domain/sight.dart';
 class SightCard extends StatelessWidget {
   final Sight sight;
   final double cornerRadius = 12;
+  final double cardAspectRatio = 3/2;
+  
   const SightCard(this.sight);
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 3/2,
+      aspectRatio: cardAspectRatio,
       child: Column(children: [
         Expanded(
           flex: 3,
