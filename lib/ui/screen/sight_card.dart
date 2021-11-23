@@ -3,12 +3,11 @@ import 'package:places/domain/sight.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
+  final double cornerRadius = 12;
   const SightCard(this.sight);
 
   @override
   Widget build(BuildContext context) {
-    double cornerRadius = 12;
-    
     return Column(children: [
       Stack(
         children: [
@@ -53,7 +52,8 @@ class SightCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 200),
               child: Text(
                 sight.name,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
