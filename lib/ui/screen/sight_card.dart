@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightCard extends StatelessWidget {
-  final double cardAspectRatio = 3/2;
+  const SightCard(this.sight);
+
+  final double cardAspectRatio = 3 / 2;
   final double cornerRadius = 12;
   final Sight sight;
-
-  const SightCard(this.sight);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,12 @@ class SightCard extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                // Виджет под фотографию
                 width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(cornerRadius), topRight: Radius.circular(cornerRadius)),
-                    color: Colors.amber),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(cornerRadius), topRight: Radius.circular(cornerRadius)),
+                  child: NetworkImageWithProgress(sight.url)
+                ),
               ),
               Align(
                 alignment: Alignment.topLeft,
