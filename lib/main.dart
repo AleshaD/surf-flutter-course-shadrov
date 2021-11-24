@@ -9,9 +9,9 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  final mockNumber = 3;
-
   const App({Key? key}) : super(key: key);
+
+  final mockNumber = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SightListScreen(),
+      home: SightDetails(sightMocks[mockNumber]),
     );
   }
 }
