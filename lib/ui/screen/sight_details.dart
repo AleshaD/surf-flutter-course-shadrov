@@ -3,8 +3,10 @@ import 'package:places/domain/sight.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
 
 class SightDetails extends StatelessWidget {
-  final Sight sight;
   static const Color secondaryColor = Color(0xff3B3E5B); //временно, пока стилизацию не прошли
+
+  final Sight sight;
+
   const SightDetails(this.sight);
 
   @override

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 
 class SightCard extends StatelessWidget {
-  final Sight sight;
-  final double cornerRadius = 12;
   final double cardAspectRatio = 3/2;
-  
+  final double cornerRadius = 12;
+  final Sight sight;
+
   const SightCard(this.sight);
 
   @override
@@ -70,7 +71,7 @@ class SightCard extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: 2),
                   child: Text(
-                    'краткое описание',
+                    AppStrings.shotrDescription,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Color(0xff7C7E92)),
                   ),
                 )
