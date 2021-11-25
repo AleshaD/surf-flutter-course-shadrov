@@ -29,7 +29,8 @@ class _SightListScreenState extends State<SightListScreen> {
             child: ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: double.infinity),
               child: Text(AppStrings.sightListScrAppBar,
-                  style: TextStyle(fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black)),
+                  style: TextStyle(
+                      fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black)),
             ),
           ),
         ),

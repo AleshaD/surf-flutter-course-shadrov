@@ -13,7 +13,7 @@ dart_code_metrics:
     source-lines-of-code: 50
     number-of-methods: 10
     weight-of-class: 0.33
-    maintainability-index: 50
+    maintainability-index: 30
   anti-patterns:
     - long-method
     - long-parameter-list

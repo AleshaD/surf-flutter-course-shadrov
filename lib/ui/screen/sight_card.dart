@@ -22,10 +22,10 @@ class SightCard extends StatelessWidget {
               Container(
                 width: double.infinity,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(cornerRadius), topRight: Radius.circular(cornerRadius)),
-                  child: NetworkImageWithProgress(sight.url)
-                ),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(cornerRadius),
+                        topRight: Radius.circular(cornerRadius)),
+                    child: NetworkImageWithProgress(sight.url)),
               ),
               Align(
                 alignment: Alignment.topLeft,
@@ -33,7 +33,8 @@ class SightCard extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     sight.type,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
                   ),
                 ),
               ),
@@ -58,7 +59,8 @@ class SightCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Color(0xffF5F5F5),
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(cornerRadius), bottomRight: Radius.circular(cornerRadius))),
+                    bottomLeft: Radius.circular(cornerRadius),
+                    bottomRight: Radius.circular(cornerRadius))),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,8 +74,9 @@ class SightCard extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: 2),
                   child: Text(
-                    AppStrings.shotrDescription,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Color(0xff7C7E92)),
+                    AppStrings.shortDescription,
+                    style: TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w400, color: Color(0xff7C7E92)),
                   ),
                 )
               ],
