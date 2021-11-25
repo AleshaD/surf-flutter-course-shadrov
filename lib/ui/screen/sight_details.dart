@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
+import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightDetails extends StatelessWidget {
-  final Sight sight;
-  static const Color secondaryColor = Color(0xff3B3E5B); //временно, пока стилизацию не прошли
   const SightDetails(this.sight);
+
+  static const Color secondaryColor = Color(0xff3B3E5B); //временно, пока стилизацию не прошли
+
+  final Sight sight;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class SightDetails extends StatelessWidget {
               Container(
                 height: 360,
                 width: double.infinity,
-                color: Colors.blueAccent,
+                child: NetworkImageWithProgress(sight.url),
               ),
               Container(
                 height: 32,

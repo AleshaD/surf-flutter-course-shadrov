@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/sight_card.dart';
 
@@ -10,8 +11,8 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
-  final toolbarHeight = 156.0;
   final appBarTextSize = 32.0;
+  final toolbarHeight = 156.0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,9 @@ class _SightListScreenState extends State<SightListScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: double.infinity),
-              child: Text('Список \nинтересных мест',
-                  style: TextStyle(fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black)),
+              child: Text(AppStrings.sightListScrAppBar,
+                  style: TextStyle(
+                      fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black)),
             ),
           ),
         ),

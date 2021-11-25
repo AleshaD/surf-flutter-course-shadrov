@@ -13,7 +13,7 @@ final List<Sight> sightMocks = [
       name: 'Воронежский областной краеведческий музей',
       lat: 1.0,
       lon: 1.0,
-      url: '',
+      url: 'https://visit-voronezh.ru/assets/components/phpthumbof/cache/0bd7bd9d67a0c362eca6811d8cd1a1e1-w2048-h2048.196a527c526537c45ead89437634006a264.jpg',
       details: 'О Воронеже',
       type: 'музей'),
   Sight(
@@ -28,7 +28,7 @@ final List<Sight> sightMocks = [
       name: 'Пряности и радости',
       lat: 1.0,
       lon: 2.2,
-      url: '',
+      url: 'https://media-cdn.tripadvisor.com/media/photo-s/0f/39/96/8d/caption.jpg',
       details:
           'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
       type: 'ресторан')

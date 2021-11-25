@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/Sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Places',
+      title: AppStrings.appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
