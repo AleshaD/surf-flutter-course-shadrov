@@ -21,7 +21,10 @@ class VisitingScreen extends StatelessWidget {
                   child: Text(AppStrings.favorites,
                       style: TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black))),
-              bottom: VisitScreenTabBar()),
+              bottom: VisitScreenTabBar(tabs: [
+                Tab(text: AppStrings.wantToGo),
+                Tab(text: AppStrings.visited),
+              ])),
           body: Container(
             color: Colors.white,
             padding: EdgeInsets.all(16),

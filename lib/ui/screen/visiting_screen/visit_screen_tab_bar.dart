@@ -3,8 +3,9 @@ import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_strings.dart';
 
 class VisitScreenTabBar extends StatelessWidget implements PreferredSizeWidget {
-  const VisitScreenTabBar();
+  const VisitScreenTabBar({required this.tabs});
 
+  final List<Tab> tabs;
   final double horizontalMargin = 16;
   final TextStyle labelStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.w700);
   final double tabBarHeight = 40;
@@ -29,10 +30,7 @@ class VisitScreenTabBar extends StatelessWidget implements PreferredSizeWidget {
         indicator: ShapeDecoration.fromBoxDecoration(BoxDecoration(
             color: AppColors.secondary,
             borderRadius: BorderRadius.all(Radius.circular(tabBarHeight)))),
-        tabs: [
-          Tab(text: AppStrings.wantToGo),
-          Tab(text: AppStrings.visited),
-        ],
+        tabs: tabs,
       ),
     );
   }
