@@ -10,4 +10,5 @@ class AppStrings {
   static const emptyVisitedList = 'Завершите маршрут,\nчтобы место попало сюда.';
   static const closeUntil = 'закрыто до';
   static const planToVisit = 'Запланировано на';
+  static const goalIsAchieved = 'Цель достигнута';
 }
