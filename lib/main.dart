@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/ui/screen/visiting_screen.dart';
+import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 
 void main() {
   runApp(const App());

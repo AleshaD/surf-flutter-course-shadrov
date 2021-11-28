@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/ui/widgets/visit_screen_tab_bar.dart';
+import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
 
 class VisitingScreen extends StatelessWidget {
   const VisitingScreen();
@@ -21,6 +21,7 @@ class VisitingScreen extends StatelessWidget {
               bottom: VisitScreenTabBar()),
           body: Container(
             color: Colors.white,
+            padding: EdgeInsets.all(16),
             child: TabBarView(children: [
               Center(child: Text('First')),
               Center(child: Text('Second')),
