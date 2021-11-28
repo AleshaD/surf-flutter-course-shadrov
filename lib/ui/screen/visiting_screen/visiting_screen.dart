@@ -27,7 +27,7 @@ class VisitingScreen extends StatelessWidget {
               ])),
           body: Container(
             color: Colors.white,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             child: TabBarView(children: [
               WantToVisitPage(
                   sightMocks.where((element) => element.planToVisitDate != null).toList()),

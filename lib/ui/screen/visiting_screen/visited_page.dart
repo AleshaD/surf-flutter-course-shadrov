@@ -19,7 +19,7 @@ class VisitedPage extends StatelessWidget {
         : ListView(children: [
             for (var i = 0; i < sights.length; i++)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: VisitedSightCard(sights[i]),
               )
           ]);
