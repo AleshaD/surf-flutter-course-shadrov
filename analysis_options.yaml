@@ -49,7 +49,8 @@ dart_code_metrics:
     - prefer-conditional-expressions
     - prefer-intl-name
     - provide-correct-intl-args
-    - no-magic-number
+    - no-magic-number:
+        allowed: [0, 2, 8, 16, 18, 100, 12]
 
 linter:
   rules:
