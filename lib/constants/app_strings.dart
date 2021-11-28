@@ -6,6 +6,8 @@ class AppStrings {
   static const wantToGo = 'Хочу посетить';
   static const visited = 'Посетил';
   static const empty = 'Пусто';
-  static const emptyWnatToGoList = 'Отмечайте понравившиеся\nместа и они появиятся здесь.';
+  static const emptyWnatToGoList = 'Отмечайте понравившиеся\nместа и они появятся здесь.';
   static const emptyVisitedList = 'Завершите маршрут,\nчтобы место попало сюда.';
+  static const closeUntil = 'закрыто до';
+  static const planToVisit = 'Запланировано на';
 }
