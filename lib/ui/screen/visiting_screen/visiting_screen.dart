@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/mocks.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
+import 'package:places/ui/screen/visiting_screen/want_to_visit_page.dart';
 
 class VisitingScreen extends StatelessWidget {
   const VisitingScreen();
@@ -23,7 +25,8 @@ class VisitingScreen extends StatelessWidget {
             color: Colors.white,
             padding: EdgeInsets.all(16),
             child: TabBarView(children: [
-              Center(child: Text('First')),
+              WantToVisitPage(
+                  sightMocks.where((element) => element.planToVisitDate != null).toList()),
               Center(child: Text('Second')),
             ]),
           )),
