@@ -34,7 +34,7 @@ dart_code_metrics:
     - prefer-correct-identifier-length:
         max-identifier-length: 30
         min-identifier-length: 2
-        exceptions: ['id', 'qa', 'x', 'y', 'z']
+        exceptions: ['id', 'qa', 'x', 'y', 'z', 'i']
         exclude:
           - test/**
     - prefer-correct-type-name
@@ -49,8 +49,6 @@ dart_code_metrics:
     - prefer-conditional-expressions
     - prefer-intl-name
     - provide-correct-intl-args
-    - no-magic-number:
-        allowed: [0, 2, 8, 16, 18, 100, 12]
 
 linter:
   rules:
