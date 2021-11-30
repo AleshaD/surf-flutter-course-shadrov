@@ -28,14 +28,19 @@ class SightDetails extends StatelessWidget {
                 height: 32,
                 width: 32,
                 margin: EdgeInsets.only(top: 36, left: 16),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
                 child: Center(
                   child: Icon(
                     Icons.chevron_left_rounded,
                     color: Color(0xff252849),
                   ),
                 ),
-              )
+              ),
             ],
           ),
           SizedBox(height: childMargin),
@@ -47,7 +52,11 @@ class SightDetails extends StatelessWidget {
               children: [
                 Text(
                   sight.name,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: secondaryColor),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: secondaryColor,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 2.0),
@@ -55,28 +64,44 @@ class SightDetails extends StatelessWidget {
                     children: [
                       Text(
                         sight.type,
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: secondaryColor),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: secondaryColor,
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
                           'закрыто до 09:00',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Color(0xff7C7E92)),
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff7C7E92),
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: childMargin),
                 Text(
                   sight.details,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: secondaryColor, height: 1.2),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: secondaryColor,
+                      height: 1.2),
                 ),
                 SizedBox(height: childMargin),
                 Container(
                   height: 48,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12)), color: Color(0xff4caf50)),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                    color: Color(0xff4caf50),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -88,22 +113,37 @@ class SightDetails extends StatelessWidget {
                         padding: EdgeInsets.only(left: 10),
                         child: Text(
                           'ПОСТРОИТЬ МАРШРУТ',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: childMargin),
-                Container(height: 0.8, color: Color.fromRGBO(124, 126, 146, 0.24)),
+                Container(
+                  height: 0.8,
+                  color: Color.fromRGBO(124, 126, 146, 0.24),
+                ),
                 SizedBox(height: 18),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconTextButton(icon: Icons.calendar_today, name: 'Запланировать', isActive: false),
-                    IconTextButton(icon: Icons.favorite_border, name: 'В Избранное', isActive: true)
+                    IconTextButton(
+                      icon: Icons.calendar_today,
+                      name: 'Запланировать',
+                      isActive: false,
+                    ),
+                    IconTextButton(
+                      icon: Icons.favorite_border,
+                      name: 'В Избранное',
+                      isActive: true,
+                    )
                   ],
-                )
+                ),
               ],
             ),
           ),

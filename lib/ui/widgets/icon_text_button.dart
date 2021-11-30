@@ -13,7 +13,7 @@ class IconTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color color = isActive ? Color(0xff3B3E5B) : Color.fromRGBO(124, 126, 146, 0.56);
-    
+
     return Row(
       children: [
         Icon(
@@ -24,9 +24,13 @@ class IconTextButton extends StatelessWidget {
           padding: const EdgeInsets.only(left: 9.0),
           child: Text(
             name,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: color),
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
           ),
-        )
+        ),
       ],
     );
   }
