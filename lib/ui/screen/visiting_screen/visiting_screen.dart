@@ -16,24 +16,38 @@ class VisitingScreen extends StatelessWidget {
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.white,
-            shadowColor: Colors.transparent,
-            title: Center(
-                child: Text(AppStrings.favorites,
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black))),
-            bottom: VisitScreenTabBar(tabs: [
+          backgroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+          title: Center(
+            child: Text(
+              AppStrings.favorites,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          bottom: VisitScreenTabBar(
+            tabs: [
               Tab(text: AppStrings.wantToGo),
               Tab(text: AppStrings.visited),
-            ])),
+            ],
+          ),
+        ),
         body: Container(
           color: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: TabBarView(children: [
-            WantToVisitPage(
-                sightMocks.where((element) => element.planToVisitDate != null).toList()),
-            VisitedPage(sightMocks.where((element) => element.visitedDate != null).toList()),
-          ]),
+          child: TabBarView(
+            children: [
+              WantToVisitPage(
+                sightMocks.where((element) => element.planToVisitDate != null).toList(),
+              ),
+              VisitedPage(
+                sightMocks.where((element) => element.visitedDate != null).toList(),
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: AppBottomNavigationBar(),
       ),

@@ -28,10 +28,17 @@ class _SightListScreenState extends State<SightListScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ConstrainedBox(
-              constraints: BoxConstraints.tightFor(width: double.infinity),
-              child: Text(AppStrings.sightListScrAppBar,
-                  style: TextStyle(
-                      fontSize: appBarTextSize, fontWeight: FontWeight.w700, color: Colors.black)),
+              constraints: BoxConstraints.tightFor(
+                width: double.infinity,
+              ),
+              child: Text(
+                AppStrings.sightListScrAppBar,
+                style: TextStyle(
+                  fontSize: appBarTextSize,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
         ),
@@ -39,11 +46,14 @@ class _SightListScreenState extends State<SightListScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: List.generate(
-              sightMocks.length,
-              (index) => Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                    child: SightCard(sightMocks[index]),
-                  )),
+            sightMocks.length,
+            (index) => Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: SightCard(
+                sightMocks[index],
+              ),
+            ),
+          ),
         ),
       ),
       bottomNavigationBar: AppBottomNavigationBar(),

@@ -13,7 +13,11 @@ class WantToVisitSightCard extends SightCardBase {
         sight.planToVisitDate != null
             ? '${AppStrings.planToVisit} ${DateFormat(dateFormatStr, 'ru').format(sight.planToVisitDate!)}'
             : '',
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.greenColor),
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: AppColors.greenColor,
+        ),
       );
 
   @override
@@ -28,7 +32,11 @@ class WantToVisitSightCard extends SightCardBase {
           SizedBox(
             width: 20,
           ),
-          Icon(Icons.close, size: topIconSize, color: topIconColor)
+          Icon(
+            Icons.close,
+            size: topIconSize,
+            color: topIconColor,
+          )
         ],
       );
 }

@@ -16,12 +16,14 @@ class VisitedPage extends StatelessWidget {
             icon: Icons.map_outlined,
             message: AppStrings.emptyVisitedList,
           )
-        : ListView(children: [
-            for (var i = 0; i < sights.length; i++)
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: VisitedSightCard(sights[i]),
-              )
-          ]);
+        : ListView(
+            children: [
+              for (var i = 0; i < sights.length; i++)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: VisitedSightCard(sights[i]),
+                ),
+            ],
+          );
   }
 }

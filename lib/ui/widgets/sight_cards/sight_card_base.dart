@@ -26,10 +26,12 @@ class SightCardBase extends StatelessWidget {
             Container(
               width: double.infinity,
               child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(cornerRadius),
-                      topRight: Radius.circular(cornerRadius)),
-                  child: NetworkImageWithProgress(sight.url)),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(cornerRadius),
+                  topRight: Radius.circular(cornerRadius),
+                ),
+                child: NetworkImageWithProgress(sight.url),
+              ),
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -37,17 +39,17 @@ class SightCardBase extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   sight.type,
-                  style:
-                      TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
                 ),
               ),
             ),
             Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 18, top: 12),
-                  child: topRightIcons,
-                )),
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(right: 18, top: 12),
+                child: topRightIcons,
+              ),
+            ),
           ],
         ),
       ),
@@ -55,10 +57,12 @@ class SightCardBase extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-            color: Color(0xffF5F5F5),
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(cornerRadius),
-                bottomRight: Radius.circular(cornerRadius))),
+          color: Color(0xffF5F5F5),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(cornerRadius),
+            bottomRight: Radius.circular(cornerRadius),
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,11 +83,13 @@ class SightCardBase extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 12,),
+            SizedBox(
+              height: 12,
+            ),
             Text(
               '${AppStrings.closeUntil} 09:00',
-              style: TextStyle(
-                  fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.secondary),
+              style:
+                  TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.secondary),
             )
           ],
         ),

@@ -13,7 +13,11 @@ class VisitedSightCard extends SightCardBase {
         sight.visitedDate != null
             ? '${AppStrings.goalIsAchieved} ${DateFormat(dateFormatStr, 'ru').format(sight.visitedDate!)}'
             : '',
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.secondary),
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: AppColors.secondary,
+        ),
       );
 
   @override
@@ -28,7 +32,11 @@ class VisitedSightCard extends SightCardBase {
           SizedBox(
             width: 20,
           ),
-          Icon(Icons.close, size: topIconSize, color: topIconColor)
+          Icon(
+            Icons.close,
+            size: topIconSize,
+            color: topIconColor,
+          )
         ],
       );
 }

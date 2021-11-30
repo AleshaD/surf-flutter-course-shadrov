@@ -25,7 +25,10 @@ class EmptyListPage extends StatelessWidget {
           Text(
             AppStrings.empty,
             style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.w500, color: AppColors.inactiveBlack),
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: AppColors.inactiveBlack,
+            ),
           ),
           SizedBox(
             height: 8,
@@ -34,7 +37,10 @@ class EmptyListPage extends StatelessWidget {
             message,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.inactiveBlack),
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: AppColors.inactiveBlack,
+            ),
           ),
           SizedBox(
             height: 32,

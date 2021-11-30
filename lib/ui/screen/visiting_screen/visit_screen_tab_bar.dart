@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_colors.dart';
-import 'package:places/constants/app_strings.dart';
 
 class VisitScreenTabBar extends StatelessWidget implements PreferredSizeWidget {
   const VisitScreenTabBar({required this.tabs});
@@ -21,15 +20,23 @@ class VisitScreenTabBar extends StatelessWidget implements PreferredSizeWidget {
         horizontal: horizontalMargin,
       ),
       decoration: BoxDecoration(
-          color: AppColors.greyBackground,
-          borderRadius: BorderRadius.all(Radius.circular(tabBarHeight))),
+        color: AppColors.greyBackground,
+        borderRadius: BorderRadius.all(
+          Radius.circular(tabBarHeight),
+        ),
+      ),
       child: TabBar(
         labelStyle: labelStyle,
         unselectedLabelStyle: labelStyle,
         unselectedLabelColor: AppColors.inactiveBlack,
-        indicator: ShapeDecoration.fromBoxDecoration(BoxDecoration(
+        indicator: ShapeDecoration.fromBoxDecoration(
+          BoxDecoration(
             color: AppColors.secondary,
-            borderRadius: BorderRadius.all(Radius.circular(tabBarHeight)))),
+            borderRadius: BorderRadius.all(
+              Radius.circular(tabBarHeight),
+            ),
+          ),
+        ),
         tabs: tabs,
       ),
     );

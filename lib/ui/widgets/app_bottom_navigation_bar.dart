@@ -14,10 +14,22 @@ class AppBottomNavigationBar extends StatelessWidget {
       showSelectedLabels: false,
       showUnselectedLabels: false,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined, color: iconColor), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.map, color: iconColor), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite, color: iconColor), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.settings, color: iconColor), label: ''),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.list_alt_outlined, color: iconColor),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.map, color: iconColor),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite, color: iconColor),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings, color: iconColor),
+          label: '',
+        ),
       ],
     );
   }

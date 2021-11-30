@@ -16,12 +16,14 @@ class WantToVisitPage extends StatelessWidget {
             icon: Icons.camera,
             message: AppStrings.emptyWnatToGoList,
           )
-        : ListView(children: [
-            for (var i = 0; i < sights.length; i++)
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: WantToVisitSightCard(sights[i]),
-              )
-          ]);
+        : ListView(
+            children: [
+              for (var i = 0; i < sights.length; i++)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: WantToVisitSightCard(sights[i]),
+                )
+            ],
+          );
   }
 }
