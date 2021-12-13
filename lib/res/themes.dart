@@ -34,4 +34,12 @@ final lightTheme = ThemeData(
     centerTitle: true,
     titleTextStyle: subtitleStyle.apply(color: lmSecondaryColor),
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: lmWhiteColor,
+    type: BottomNavigationBarType.fixed,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+    selectedItemColor: lmSecondaryColor,
+    unselectedItemColor: lmSecondaryColor,
+  ),
 );
