@@ -45,7 +45,7 @@ final lightTheme = ThemeData(
     unselectedLabelColor: lmInactiveBlack,
     indicator: ShapeDecoration.fromBoxDecoration(
       BoxDecoration(
-        color: AppColors.secondary,
+        color: lmSecondaryColor,
         borderRadius: BorderRadius.all(
           Radius.circular(40),
         ),

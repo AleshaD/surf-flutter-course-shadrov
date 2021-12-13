@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/constants/app_colors.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({Key? key}) : super(key: key);
-
-  final Color iconColor = AppColors.main;
 
   @override
   Widget build(BuildContext context) {
