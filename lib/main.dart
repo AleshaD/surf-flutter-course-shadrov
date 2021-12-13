@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/mocks.dart';
 import 'package:places/res/themes.dart';
+import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -19,7 +21,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: AppStrings.appTitle,
       theme: lightTheme,
-      home: SightListScreen(),
+      home: SightDetails(sightMocks[mockNumber]),
     );
   }
 }

@@ -7,8 +7,8 @@ final lightTheme = ThemeData(
   colorScheme: ColorScheme(
     primary: lmWhiteColor,
     primaryVariant: lmBackgroundColor,
-    secondary: lmSecondaryColor,
-    secondaryVariant: lmSecondaryColor2,
+    secondary: lmGreenColor,
+    secondaryVariant: lmGreenColor,
     surface: lmWhiteColor,
     background: lmWhiteColor,
     error: lmErrorAndDeleteColor,
@@ -21,15 +21,19 @@ final lightTheme = ThemeData(
   ),
   textTheme: TextTheme(
     headline4: largeTitleStyle.apply(color: lmSecondaryColor),
-    headline5: titleStyle,
-    headline6: subtitleStyle,
+    headline5: titleStyle.apply(color: lmSecondaryColor),
+    headline6: subtitleStyle.apply(color: lmSecondaryColor),
     bodyText1: textStyle.apply(color: lmSecondaryColor),
     subtitle1: smallBoldTxtStyle.apply(color: lmWhiteColor),
     subtitle2: smallTxtStyle.apply(color: lmSecondaryColor2),
     button: buttonTxtStyle,
   ),
+  primaryTextTheme: TextTheme(
+    subtitle1: smallBoldTxtStyle.apply(color: lmSecondaryColor),
+    subtitle2: smallTxtStyle.apply(color: lmSecondaryColor),
+  ),
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.white,
+    backgroundColor: lmWhiteColor,
     shadowColor: Colors.transparent,
     centerTitle: true,
     titleTextStyle: subtitleStyle.apply(color: lmSecondaryColor),
@@ -41,5 +45,8 @@ final lightTheme = ThemeData(
     showUnselectedLabels: false,
     selectedItemColor: lmSecondaryColor,
     unselectedItemColor: lmSecondaryColor,
+  ),
+  dividerTheme: DividerThemeData(
+    color: lmInactiveBlack,
   ),
 );
