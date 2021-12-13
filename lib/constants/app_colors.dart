@@ -8,8 +8,6 @@ class AppColors {
   static const Color main = Color.fromRGBO(37, 40, 73, 1);
 }
 
-const Color backgroundColor = Color(0xffF5F5F5);
-
 const Color lmGreenColor = Color(0xff4CAF50),
     lmYellowColor = Color(0xffFCDD3D),
     lmErrorAndDeleteColor = Color(0xffEF4343),
@@ -17,7 +15,8 @@ const Color lmGreenColor = Color(0xff4CAF50),
     lmSecondaryColor = Color(0xff3B3E5B),
     lmSecondaryColor2 = Color(0xff7C7E92),
     lmInactiveBlack = Color.fromRGBO(124, 126, 146, 0.56),
-    lmWhiteColor = Color(0xFFFFFFFF);
+    lmWhiteColor = Color(0xFFFFFFFF),
+    lmBackgroundColor = Color(0xffF5F5F5);
 
 const Color dmGreemColor = Color(0xff6ADA6F),
     dmRedColor = Color(0xffCF2A2A),

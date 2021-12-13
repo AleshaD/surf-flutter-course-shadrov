@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
@@ -39,7 +38,7 @@ class SightCardBase extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   sight.type,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
             ),
@@ -74,7 +73,7 @@ class SightCardBase extends StatelessWidget {
                   constraints: BoxConstraints(maxWidth: 200),
                   child: Text(
                     sight.name,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 Padding(
@@ -88,9 +87,8 @@ class SightCardBase extends StatelessWidget {
             ),
             Text(
               '${AppStrings.closeUntil} 09:00',
-              style:
-                  TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.secondary),
-            )
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
           ],
         ),
       )
