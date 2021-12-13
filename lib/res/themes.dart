@@ -14,7 +14,7 @@ final lightTheme = ThemeData(
     error: lmErrorAndDeleteColor,
     onPrimary: lmSecondaryColor,
     onSecondary: lmWhiteColor,
-    onSurface: lmSecondaryColor,
+    onSurface: lmInactiveBlack,
     onBackground: lmSecondaryColor,
     onError: lmWhiteColor,
     brightness: Brightness.light,
@@ -37,6 +37,20 @@ final lightTheme = ThemeData(
     shadowColor: Colors.transparent,
     centerTitle: true,
     titleTextStyle: subtitleStyle.apply(color: lmSecondaryColor),
+  ),
+  tabBarTheme: TabBarTheme(
+    labelStyle: smallBoldTxtStyle,
+    labelColor: lmWhiteColor,
+    unselectedLabelStyle: smallBoldTxtStyle,
+    unselectedLabelColor: lmInactiveBlack,
+    indicator: ShapeDecoration.fromBoxDecoration(
+      BoxDecoration(
+        color: AppColors.secondary,
+        borderRadius: BorderRadius.all(
+          Radius.circular(40),
+        ),
+      ),
+    ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: lmWhiteColor,
