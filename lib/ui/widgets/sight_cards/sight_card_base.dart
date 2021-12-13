@@ -6,7 +6,6 @@ import 'package:places/ui/widgets/network_image_with_progress.dart';
 class SightCardBase extends StatelessWidget {
   const SightCardBase(this.sight);
 
-  final Widget aboutVisitInfo = const Text('');
   final double cardAspectRatio = 3 / 2;
   final double cornerRadius = 12;
   final String dateFormatStr = 'dd MMM yyyy';
@@ -14,6 +13,8 @@ class SightCardBase extends StatelessWidget {
   final Color topIconColor = Colors.white;
   final double topIconSize = 26;
   final Widget topRightIcons = const Text('');
+
+  Widget aboutVisitInfo(BuildContext context) => const Text('');
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,7 @@ class SightCardBase extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 4.0),
-                  child: aboutVisitInfo,
+                  child: aboutVisitInfo(context),
                 )
               ],
             ),
