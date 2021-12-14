@@ -39,7 +39,9 @@ class SightCardBase extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   sight.type,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.subtitle1!.apply(
+                        color: Colors.white,
+                      ),
                 ),
               ),
             ),
@@ -57,7 +59,7 @@ class SightCardBase extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Color(0xffF5F5F5),
+          color: Theme.of(context).colorScheme.primaryVariant,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(cornerRadius),
             bottomRight: Radius.circular(cornerRadius),

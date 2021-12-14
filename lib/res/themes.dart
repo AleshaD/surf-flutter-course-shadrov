@@ -4,6 +4,7 @@ import 'package:places/constants/app_txt_styles.dart';
 
 final lightTheme = ThemeData(
   primaryColor: lmWhiteColor,
+  scaffoldBackgroundColor: lmWhiteColor,
   colorScheme: ColorScheme(
     primary: lmWhiteColor,
     primaryVariant: lmBackgroundColor,
@@ -14,7 +15,7 @@ final lightTheme = ThemeData(
     error: lmErrorAndDeleteColor,
     onPrimary: lmSecondaryColor,
     onSecondary: lmWhiteColor,
-    onSurface: lmInactiveBlack,
+    onSurface: lmInactiveBlack, // цвет для не активного элемента
     onBackground: lmSecondaryColor,
     onError: lmWhiteColor,
     brightness: Brightness.light,
@@ -62,5 +63,70 @@ final lightTheme = ThemeData(
   ),
   dividerTheme: DividerThemeData(
     color: lmInactiveBlack,
+  ),
+);
+
+
+final darkTheme = ThemeData(
+  primaryColor: dmMainColor,
+  scaffoldBackgroundColor: dmMainColor,
+  colorScheme: ColorScheme(
+    primary: dmMainColor,
+    primaryVariant: dmDarkColor,
+    secondary: dmGreenColor,
+    secondaryVariant: dmGreenColor,
+    surface: dmMainColor,
+    background: dmMainColor,
+    error: dmErrorAndDeleteColor,
+    onPrimary: dmWhiteColor,
+    onSecondary: dmMainColor,
+    onSurface: dmInactiveBlack, // цвет для не активного элемента
+    onBackground: dmWhiteColor,
+    onError: dmMainColor,
+    brightness: Brightness.dark,
+  ),
+  textTheme: TextTheme(
+    headline4: largeTitleStyle.apply(color: dmWhiteColor),
+    headline5: titleStyle.apply(color: dmWhiteColor),
+    headline6: subtitleStyle.apply(color: dmWhiteColor),
+    bodyText1: textStyle.apply(color: dmWhiteColor),
+    subtitle1: smallBoldTxtStyle.apply(color: dmMainColor),
+    subtitle2: smallTxtStyle.apply(color: dmSecondaryColor2),
+    button: buttonTxtStyle,
+  ),
+  primaryTextTheme: TextTheme(
+    subtitle1: smallBoldTxtStyle.apply(color: dmSecondaryColor2),
+    subtitle2: smallTxtStyle.apply(color: dmWhiteColor),
+  ),
+  appBarTheme: AppBarTheme(
+    backgroundColor: dmMainColor,
+    shadowColor: Colors.transparent,
+    centerTitle: true,
+    titleTextStyle: subtitleStyle.apply(color: dmWhiteColor),
+  ),
+  tabBarTheme: TabBarTheme(
+    labelStyle: smallBoldTxtStyle,
+    labelColor: dmMainColor,
+    unselectedLabelStyle: smallBoldTxtStyle,
+    unselectedLabelColor: dmInactiveBlack,
+    indicator: ShapeDecoration.fromBoxDecoration(
+      BoxDecoration(
+        color: dmWhiteColor,
+        borderRadius: BorderRadius.all(
+          Radius.circular(40),
+        ),
+      ),
+    ),
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: dmMainColor,
+    type: BottomNavigationBarType.fixed,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+    selectedItemColor: dmWhiteColor,
+    unselectedItemColor: dmWhiteColor,
+  ),
+  dividerTheme: DividerThemeData(
+    color: dmInactiveBlack,
   ),
 );

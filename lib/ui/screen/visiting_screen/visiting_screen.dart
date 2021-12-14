@@ -29,7 +29,6 @@ class VisitingScreen extends StatelessWidget {
           ),
         ),
         body: Container(
-          color: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: TabBarView(
             children: [
