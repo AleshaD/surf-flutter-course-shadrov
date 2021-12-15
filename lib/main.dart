@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
+import 'package:places/mocks.dart';
+import 'package:places/res/themes.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:places/ui/screen/sight_details.dart';
 
 void main() {
   initializeDateFormatting();
@@ -17,10 +19,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: VisitingScreen(),
+      theme: darkTheme,
+      home: SightDetails(sightMocks[mockNumber]),
     );
   }
 }

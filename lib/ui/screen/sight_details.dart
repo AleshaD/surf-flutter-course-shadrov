@@ -29,7 +29,7 @@ class SightDetails extends StatelessWidget {
                 width: 32,
                 margin: EdgeInsets.only(top: 36, left: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
@@ -37,7 +37,7 @@ class SightDetails extends StatelessWidget {
                 child: Center(
                   child: Icon(
                     Icons.chevron_left_rounded,
-                    color: Color(0xff252849),
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
               ),
@@ -52,11 +52,7 @@ class SightDetails extends StatelessWidget {
               children: [
                 Text(
                   sight.name,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: secondaryColor,
-                  ),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 2.0),
@@ -64,21 +60,13 @@ class SightDetails extends StatelessWidget {
                     children: [
                       Text(
                         sight.type,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: secondaryColor,
-                        ),
+                        style: Theme.of(context).primaryTextTheme.subtitle1,
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
                           'закрыто до 09:00',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff7C7E92),
-                          ),
+                          style: Theme.of(context).textTheme.subtitle2,
                         ),
                       ),
                     ],
@@ -87,11 +75,7 @@ class SightDetails extends StatelessWidget {
                 SizedBox(height: childMargin),
                 Text(
                   sight.details,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: secondaryColor,
-                      height: 1.2),
+                  style: Theme.of(context).primaryTextTheme.subtitle2,
                 ),
                 SizedBox(height: childMargin),
                 Container(
@@ -100,14 +84,14 @@ class SightDetails extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(12),
                     ),
-                    color: Color(0xff4caf50),
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.moving_sharp,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onSecondary,
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 10),
@@ -116,7 +100,7 @@ class SightDetails extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onSecondary,
                           ),
                         ),
                       ),
@@ -124,9 +108,8 @@ class SightDetails extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: childMargin),
-                Container(
+                Divider(
                   height: 0.8,
-                  color: Color.fromRGBO(124, 126, 146, 0.24),
                 ),
                 SizedBox(height: 18),
                 Row(
@@ -141,7 +124,7 @@ class SightDetails extends StatelessWidget {
                       icon: Icons.favorite_border,
                       name: 'В Избранное',
                       isActive: true,
-                    )
+                    ),
                   ],
                 ),
               ],

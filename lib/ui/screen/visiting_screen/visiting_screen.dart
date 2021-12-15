@@ -16,16 +16,9 @@ class VisitingScreen extends StatelessWidget {
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          shadowColor: Colors.transparent,
           title: Center(
             child: Text(
               AppStrings.favorites,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-              ),
             ),
           ),
           bottom: VisitScreenTabBar(
@@ -36,7 +29,6 @@ class VisitingScreen extends StatelessWidget {
           ),
         ),
         body: Container(
-          color: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: TabBarView(
             children: [

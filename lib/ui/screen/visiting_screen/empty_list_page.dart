@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_strings.dart';
 
 class EmptyListPage extends StatelessWidget {
@@ -16,7 +15,7 @@ class EmptyListPage extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: AppColors.inactiveBlack,
+            color: Theme.of(context).colorScheme.onSurface,
             size: 50,
           ),
           SizedBox(
@@ -24,11 +23,10 @@ class EmptyListPage extends StatelessWidget {
           ),
           Text(
             AppStrings.empty,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: AppColors.inactiveBlack,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .headline6!
+                .apply(color: Theme.of(context).colorScheme.onSurface),
           ),
           SizedBox(
             height: 8,
@@ -36,11 +34,10 @@ class EmptyListPage extends StatelessWidget {
           Text(
             message,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: AppColors.inactiveBlack,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .subtitle2!
+                .apply(color: Theme.of(context).colorScheme.onSurface),
           ),
           SizedBox(
             height: 32,

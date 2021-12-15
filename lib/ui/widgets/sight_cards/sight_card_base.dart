@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
@@ -7,7 +6,6 @@ import 'package:places/ui/widgets/network_image_with_progress.dart';
 class SightCardBase extends StatelessWidget {
   const SightCardBase(this.sight);
 
-  final Widget aboutVisitInfo = const Text('');
   final double cardAspectRatio = 3 / 2;
   final double cornerRadius = 12;
   final String dateFormatStr = 'dd MMM yyyy';
@@ -15,6 +13,8 @@ class SightCardBase extends StatelessWidget {
   final Color topIconColor = Colors.white;
   final double topIconSize = 26;
   final Widget topRightIcons = const Text('');
+
+  Widget aboutVisitInfo(BuildContext context) => const Text('');
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,9 @@ class SightCardBase extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   sight.type,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                  style: Theme.of(context).textTheme.subtitle1!.apply(
+                        color: Colors.white,
+                      ),
                 ),
               ),
             ),
@@ -57,7 +59,7 @@ class SightCardBase extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Color(0xffF5F5F5),
+          color: Theme.of(context).colorScheme.primaryVariant,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(cornerRadius),
             bottomRight: Radius.circular(cornerRadius),
@@ -74,12 +76,12 @@ class SightCardBase extends StatelessWidget {
                   constraints: BoxConstraints(maxWidth: 200),
                   child: Text(
                     sight.name,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 4.0),
-                  child: aboutVisitInfo,
+                  child: aboutVisitInfo(context),
                 )
               ],
             ),
@@ -88,9 +90,8 @@ class SightCardBase extends StatelessWidget {
             ),
             Text(
               '${AppStrings.closeUntil} 09:00',
-              style:
-                  TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.secondary),
-            )
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
           ],
         ),
       )

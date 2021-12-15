@@ -20,8 +20,6 @@ class _SightListScreenState extends State<SightListScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
         toolbarHeight: toolbarHeight,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(0),
@@ -33,11 +31,7 @@ class _SightListScreenState extends State<SightListScreen> {
               ),
               child: Text(
                 AppStrings.sightListScrAppBar,
-                style: TextStyle(
-                  fontSize: appBarTextSize,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
           ),
