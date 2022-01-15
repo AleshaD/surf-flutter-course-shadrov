@@ -4,6 +4,7 @@ import 'package:places/mocks.dart';
 import 'package:places/res/themes.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:places/ui/screen/sight_details.dart';
+import 'package:places/ui/screen/sight_list_screen.dart';
 
 void main() {
   initializeDateFormatting();
@@ -20,7 +21,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: AppStrings.appTitle,
       theme: darkTheme,
-      home: SightDetails(sightMocks[mockNumber]),
+      home: SightListScreen(),
     );
   }
 }

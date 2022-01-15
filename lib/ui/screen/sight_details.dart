@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
@@ -36,7 +37,8 @@ class SightDetails extends StatelessWidget {
                 ),
                 child: Center(
                   child: Icon(
-                    Icons.chevron_left_rounded,
+                    CustomIcons.arrow_back,
+                    size: 14,
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
@@ -90,7 +92,7 @@ class SightDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.moving_sharp,
+                        CustomIcons.go,
                         color: Theme.of(context).colorScheme.onSecondary,
                       ),
                       Padding(
@@ -116,12 +118,12 @@ class SightDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconTextButton(
-                      icon: Icons.calendar_today,
+                      icon: CustomIcons.calendar,
                       name: 'Запланировать',
                       isActive: false,
                     ),
                     IconTextButton(
-                      icon: Icons.favorite_border,
+                      icon: CustomIcons.menu_heart,
                       name: 'В Избранное',
                       isActive: true,
                     ),

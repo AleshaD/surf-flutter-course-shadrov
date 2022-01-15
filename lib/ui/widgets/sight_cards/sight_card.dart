@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 
 class SightCard extends SightCardBase {
@@ -7,7 +8,7 @@ class SightCard extends SightCardBase {
 
   @override
   Widget get topRightIcons => Icon(
-        Icons.favorite_border_outlined,
+        CustomIcons.menu_heart,
         size: topIconSize,
         color: topIconColor,
       );

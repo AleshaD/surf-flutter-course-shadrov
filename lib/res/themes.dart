@@ -36,6 +36,7 @@ final lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: lmWhiteColor,
     shadowColor: Colors.transparent,
+    elevation: 0,
     centerTitle: true,
     titleTextStyle: subtitleStyle.apply(color: lmSecondaryColor),
   ),
@@ -101,6 +102,7 @@ final darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: dmMainColor,
     shadowColor: Colors.transparent,
+    elevation: 0,
     centerTitle: true,
     titleTextStyle: subtitleStyle.apply(color: dmWhiteColor),
   ),

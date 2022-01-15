@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 
 class WantToVisitSightCard extends SightCardBase {
@@ -23,7 +24,7 @@ class WantToVisitSightCard extends SightCardBase {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Icon(
-            Icons.calendar_view_month_outlined,
+            CustomIcons.calendar,
             size: topIconSize,
             color: topIconColor,
           ),
@@ -31,7 +32,7 @@ class WantToVisitSightCard extends SightCardBase {
             width: 20,
           ),
           Icon(
-            Icons.close,
+            CustomIcons.close,
             size: topIconSize,
             color: topIconColor,
           )

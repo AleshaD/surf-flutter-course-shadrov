@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 
 class VisitedSightCard extends SightCardBase {
@@ -20,7 +21,7 @@ class VisitedSightCard extends SightCardBase {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Icon(
-            Icons.share,
+            CustomIcons.share,
             size: topIconSize,
             color: topIconColor,
           ),
@@ -28,7 +29,7 @@ class VisitedSightCard extends SightCardBase {
             width: 20,
           ),
           Icon(
-            Icons.close,
+            CustomIcons.close,
             size: topIconSize,
             color: topIconColor,
           )

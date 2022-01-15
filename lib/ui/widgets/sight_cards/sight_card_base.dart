@@ -11,7 +11,7 @@ class SightCardBase extends StatelessWidget {
   final String dateFormatStr = 'dd MMM yyyy';
   final Sight sight;
   final Color topIconColor = Colors.white;
-  final double topIconSize = 26;
+  final double topIconSize = 22;
   final Widget topRightIcons = const Text('');
 
   Widget aboutVisitInfo(BuildContext context) => const Text('');
