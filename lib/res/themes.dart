@@ -28,6 +28,7 @@ final lightTheme = ThemeData(
     subtitle1: smallBoldTxtStyle.apply(color: lmWhiteColor),
     subtitle2: smallTxtStyle.apply(color: lmSecondaryColor2),
     button: buttonTxtStyle,
+    caption: superSmallw400TxtStyle.apply(color: lmInactiveBlack),
   ),
   primaryTextTheme: TextTheme(
     subtitle1: smallBoldTxtStyle.apply(color: lmSecondaryColor),
@@ -94,6 +95,7 @@ final darkTheme = ThemeData(
     subtitle1: smallBoldTxtStyle.apply(color: dmMainColor),
     subtitle2: smallTxtStyle.apply(color: dmSecondaryColor2),
     button: buttonTxtStyle,
+    caption: superSmallw400TxtStyle.apply(color: dmInactiveBlack),
   ),
   primaryTextTheme: TextTheme(
     subtitle1: smallBoldTxtStyle.apply(color: dmSecondaryColor2),

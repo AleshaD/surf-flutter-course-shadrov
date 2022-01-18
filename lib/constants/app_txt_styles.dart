@@ -12,4 +12,5 @@ TextStyle textStyle = _text.copyWith(fontSize: 16);
 TextStyle smallBoldTxtStyle = _text.copyWith(fontSize: 14, fontWeight: FontWeight.bold);
 TextStyle smallTxtStyle = _text.copyWith(fontSize: 14, fontWeight: FontWeight.w400, height: 1.2);
 TextStyle superSmallTxtStyle = _text.copyWith(fontSize: 12);
+TextStyle superSmallw400TxtStyle = _text.copyWith(fontSize: 12, fontWeight: FontWeight.w400);
 TextStyle buttonTxtStyle = _text.copyWith(fontSize: 14, fontWeight: FontWeight.bold);
