@@ -7,9 +7,15 @@ class SightCard extends SightCardBase {
   SightCard(Sight sight) : super(sight);
 
   @override
-  Widget get topRightIcons => Icon(
-        CustomIcons.menu_heart,
-        size: topIconSize,
-        color: topIconColor,
+  Widget get topRightIcons => IconButton(
+        padding: EdgeInsets.all(0),
+        constraints: BoxConstraints(maxHeight: topIconSize, maxWidth: topIconSize),
+        splashRadius: topIconSize,
+        onPressed: () => print('Heart of ${sight.name} is pressed'),
+        icon: Icon(
+          CustomIcons.menu_heart,
+          size: topIconSize,
+          color: topIconColor,
+        ),
       );
 }

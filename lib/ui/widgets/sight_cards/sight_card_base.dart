@@ -45,11 +45,14 @@ class SightCardBase extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: EdgeInsets.only(right: 18, top: 12),
-                child: topRightIcons,
+            Material(
+              type: MaterialType.transparency,
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 18, top: 12),
+                  child: topRightIcons,
+                ),
               ),
             ),
           ],
