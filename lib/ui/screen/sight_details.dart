@@ -72,7 +72,7 @@ class SightDetails extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        sight.type,
+                        sight.typeName.toLowerCase(),
                         style: Theme.of(context).primaryTextTheme.subtitle1,
                       ),
                       Padding(

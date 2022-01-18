@@ -38,7 +38,7 @@ class SightCardBase extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  sight.type,
+                  sight.typeName.toLowerCase(),
                   style: Theme.of(context).textTheme.subtitle1!.apply(
                         color: Colors.white,
                       ),
