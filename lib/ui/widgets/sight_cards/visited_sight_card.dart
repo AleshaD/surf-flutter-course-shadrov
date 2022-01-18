@@ -4,6 +4,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
+import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
 class VisitedSightCard extends SightCardBase {
   const VisitedSightCard(Sight sight) : super(sight);
@@ -20,19 +21,21 @@ class VisitedSightCard extends SightCardBase {
   Widget get topRightIcons => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Icon(
-            CustomIcons.share,
-            size: topIconSize,
-            color: topIconColor,
+          SightCardIconButton(
+            icon: CustomIcons.share,
+            iconSize: topIconSize,
+            iconColor: topIconColor,
+            onPressed: () => print('Share of ${sight.name} is pressed'),
           ),
           SizedBox(
             width: 20,
           ),
-          Icon(
-            CustomIcons.close,
-            size: topIconSize,
-            color: topIconColor,
-          )
+          SightCardIconButton(
+            icon: CustomIcons.close,
+            iconSize: topIconSize,
+            iconColor: topIconColor,
+            onPressed: () => print('Close of ${sight.name} is pressed'),
+          ),
         ],
       );
 }
