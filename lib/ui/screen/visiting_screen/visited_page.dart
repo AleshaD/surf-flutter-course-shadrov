@@ -14,7 +14,7 @@ class VisitedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return sights.isEmpty
         ? EmptyListPage(
-            icon: CustomIcons.menu_map,
+            icon: CustomIcons.go,
             message: AppStrings.emptyVisitedList,
           )
         : ListView(
