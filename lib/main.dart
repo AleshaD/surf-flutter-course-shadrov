@@ -20,8 +20,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appTitle,
-      theme: darkTheme,
-      home: SightListScreen(),
+      theme: lightTheme,
+      home: SightDetails(sightMocks[mockNumber]),
     );
   }
 }
