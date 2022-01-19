@@ -28,7 +28,7 @@ final lightTheme = ThemeData(
     bodyText2: superSmallw400TxtStyle.apply(color: lmSecondaryColor),
     subtitle1: smallBoldTxtStyle.apply(color: lmWhiteColor),
     subtitle2: smallTxtStyle.apply(color: lmSecondaryColor2),
-    button: buttonTxtStyle,
+    button: buttonTxtStyle.apply(color: lmWhiteColor),
     caption: superSmallw400TxtStyle.apply(color: lmInactiveBlack),
   ),
   primaryTextTheme: TextTheme(
@@ -68,9 +68,10 @@ final lightTheme = ThemeData(
     color: lmInactiveBlack,
   ),
   sliderTheme: SliderThemeData(
-    trackHeight: 2,
+    trackHeight: 1,
     activeTrackColor: lmGreenColor,
     inactiveTrackColor: lmInactiveBlack,
+    overlayShape: SliderComponentShape.noOverlay,
   ),
 );
 
@@ -100,7 +101,7 @@ final darkTheme = ThemeData(
     bodyText2: superSmallw400TxtStyle.apply(color: dmSecondaryColor),
     subtitle1: smallBoldTxtStyle.apply(color: dmMainColor),
     subtitle2: smallTxtStyle.apply(color: dmSecondaryColor2),
-    button: buttonTxtStyle,
+    button: buttonTxtStyle.apply(color: dmWhiteColor),
     caption: superSmallw400TxtStyle.apply(color: dmInactiveBlack),
   ),
   primaryTextTheme: TextTheme(
@@ -138,5 +139,11 @@ final darkTheme = ThemeData(
   ),
   dividerTheme: DividerThemeData(
     color: dmInactiveBlack,
+  ),
+  sliderTheme: SliderThemeData(
+    trackHeight: 1,
+    activeTrackColor: dmGreenColor,
+    inactiveTrackColor: dmInactiveBlack,
+    overlayShape: SliderComponentShape.noOverlay,
   ),
 );
