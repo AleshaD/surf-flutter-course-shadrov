@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
+import 'package:places/ui/widgets/large_app_button.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightDetails extends StatelessWidget {
   const SightDetails(this.sight);
 
-  static const Color secondaryColor = Color(0xff3B3E5B); //временно, пока стилизацию не прошли
-
   final Sight sight;
-  final BorderRadius _btnBorderRadius = const BorderRadius.all(
-    Radius.circular(12),
-  );
   final BorderRadius _backBtnRadius = const BorderRadius.all(
     Radius.circular(10),
   );
@@ -91,36 +87,21 @@ class SightDetails extends StatelessWidget {
                   style: Theme.of(context).primaryTextTheme.subtitle2,
                 ),
                 SizedBox(height: childMargin),
-                Material(
-                  borderRadius: _btnBorderRadius,
-                  color: Theme.of(context).colorScheme.secondary,
-                  child: InkWell(
-                    borderRadius: _btnBorderRadius,
-                    onTap: () => print('ПОСТРОИТЬ МАРШРУТ'),
-                    child: Container(
-                      height: 48,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            CustomIcons.go,
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(
-                              'ПОСТРОИТЬ МАРШРУТ',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Theme.of(context).colorScheme.onSecondary,
-                              ),
-                            ),
-                          ),
-                        ],
+                LargeAppButton(
+                  onPressed: () => print('ПОСТРОИТЬ МАРШРУТ'),
+                  titleWidgets: [
+                    Icon(
+                      CustomIcons.go,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'ПОСТРОИТЬ МАРШРУТ',
+                        style: Theme.of(context).textTheme.button,
                       ),
                     ),
-                  ),
+                  ],
                 ),
                 SizedBox(height: childMargin),
                 Divider(
