@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/mocks.dart';
 import 'package:places/res/themes.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
@@ -19,7 +20,10 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: AppStrings.appTitle,
       theme: lightTheme,
-      home: FiltersScreen(),
+      home: FiltersScreen(
+        sights: sightMocks,
+        myCoordinate: myCoordinateMock,
+      ),
     );
   }
 }

@@ -4,8 +4,8 @@ import 'package:places/domain/sight_type.dart';
 import 'domain/coordinate.dart';
 
 final myCoordinateMock = Coordinate(
-  lat: 42.13,
-  lon: 32.01,
+  lat: 44.592977,
+  lon: 33.8013008,
 );
 
 final List<Sight> sightMocks = [

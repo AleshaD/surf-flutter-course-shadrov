@@ -1,4 +1,7 @@
+import 'dart:math' as Math;
+
 import 'package:flutter/material.dart';
+import 'package:places/domain/coordinate.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
@@ -6,7 +9,13 @@ import 'package:places/ui/screen/filters_screen/filter_category.dart';
 import 'package:places/ui/widgets/large_app_button.dart';
 
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({Key? key}) : super(key: key);
+  const FiltersScreen({
+    required this.sights,
+    required this.myCoordinate,
+  });
+
+  final List<Sight> sights;
+  final Coordinate myCoordinate;
 
   @override
   FiltersScreenState createState() => FiltersScreenState();
@@ -14,7 +23,7 @@ class FiltersScreen extends StatefulWidget {
 
 class FiltersScreenState extends State<FiltersScreen> {
   Set<SightType> _activeCategories = {};
-  RangeValues _sliderValues = RangeValues(500, 3000);
+  RangeValues _sliderValues = RangeValues(0, 3000);
 
   void changeActiveCategory(SightType type) {
     setState(() {
@@ -37,7 +46,20 @@ class FiltersScreenState extends State<FiltersScreen> {
   }
 
   bool isSightInRange(Sight sight) {
-    return true;
+    var ky = 40000 / 360;
+    var kx = Math.cos(Math.pi * widget.myCoordinate.lat / 180.0) * ky;
+    var dx = (widget.myCoordinate.lon - sight.lon).abs() * kx;
+    var dy = (widget.myCoordinate.lat - sight.lat).abs() * ky;
+    var distance = Math.sqrt(dx * dx + dy * dy) * 1000;
+    return _sliderValues.start <= distance && _sliderValues.end >= distance;
+  }
+
+  String sightsNumInRange() {
+    int inRange = 0;
+    widget.sights.forEach((sight) {
+      if (isSightInRange(sight)) inRange++;
+    });
+    return '$inRange';
   }
 
   bool isActiveCategory(SightType type) => _activeCategories.contains(type);
@@ -136,11 +158,14 @@ class FiltersScreenState extends State<FiltersScreen> {
                     height: 24,
                   ),
                   RangeSlider(
-                    min: 100,
+                    min: 0,
                     max: 10000,
                     values: _sliderValues,
                     onChanged: (RangeValues vals) => setState(() {
-                      _sliderValues = vals;
+                      if (vals.end < 100)
+                        _sliderValues = RangeValues(vals.start, 100);
+                      else
+                        _sliderValues = vals;
                     }),
                   ),
                 ],
@@ -150,7 +175,7 @@ class FiltersScreenState extends State<FiltersScreen> {
                 onPressed: () => print('Показать taped'),
                 titleWidgets: [
                   Text(
-                    'ПОКАЗАТЬ',
+                    'ПОКАЗАТЬ (${sightsNumInRange()})',
                     style: Theme.of(context).textTheme.button,
                   ),
                 ],
