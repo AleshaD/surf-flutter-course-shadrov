@@ -19,7 +19,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appTitle,
-      theme: lightTheme,
+      theme: darkTheme,
       home: FiltersScreen(
         sights: sightMocks,
         myCoordinate: myCoordinateMock,

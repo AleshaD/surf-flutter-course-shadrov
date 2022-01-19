@@ -76,7 +76,7 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
-  primaryColor: dmMainColor,
+  primaryColor: dmWhiteColor,
   scaffoldBackgroundColor: dmMainColor,
   colorScheme: ColorScheme(
     primary: dmMainColor,
@@ -98,7 +98,7 @@ final darkTheme = ThemeData(
     headline5: titleStyle.apply(color: dmWhiteColor),
     headline6: subtitleStyle.apply(color: dmWhiteColor),
     bodyText1: textStyle.apply(color: dmWhiteColor),
-    bodyText2: superSmallw400TxtStyle.apply(color: dmSecondaryColor),
+    bodyText2: superSmallw400TxtStyle.apply(color: dmWhiteColor),
     subtitle1: smallBoldTxtStyle.apply(color: dmMainColor),
     subtitle2: smallTxtStyle.apply(color: dmSecondaryColor2),
     button: buttonTxtStyle.apply(color: dmWhiteColor),
@@ -142,6 +142,7 @@ final darkTheme = ThemeData(
   ),
   sliderTheme: SliderThemeData(
     trackHeight: 1,
+    thumbColor: dmWhiteColor,
     activeTrackColor: dmGreenColor,
     inactiveTrackColor: dmInactiveBlack,
     overlayShape: SliderComponentShape.noOverlay,
