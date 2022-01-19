@@ -37,7 +37,7 @@ class Sight {
       case SightType.restaurant:
         return 'Ресторан';
       case SightType.specialPlace:
-        return 'Специальное место';
+        return 'Особое место';
       default:
         return 'empty';
     }

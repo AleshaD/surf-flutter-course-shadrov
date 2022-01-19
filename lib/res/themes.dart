@@ -3,7 +3,7 @@ import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_txt_styles.dart';
 
 final lightTheme = ThemeData(
-  primaryColor: lmWhiteColor,
+  primaryColor: lmMainColor,
   scaffoldBackgroundColor: lmWhiteColor,
   colorScheme: ColorScheme(
     primary: lmWhiteColor,
@@ -25,6 +25,7 @@ final lightTheme = ThemeData(
     headline5: titleStyle.apply(color: lmSecondaryColor),
     headline6: subtitleStyle.apply(color: lmSecondaryColor),
     bodyText1: textStyle.apply(color: lmSecondaryColor),
+    bodyText2: superSmallw400TxtStyle.apply(color: lmSecondaryColor),
     subtitle1: smallBoldTxtStyle.apply(color: lmWhiteColor),
     subtitle2: smallTxtStyle.apply(color: lmSecondaryColor2),
     button: buttonTxtStyle,
@@ -66,8 +67,12 @@ final lightTheme = ThemeData(
   dividerTheme: DividerThemeData(
     color: lmInactiveBlack,
   ),
+  sliderTheme: SliderThemeData(
+    trackHeight: 2,
+    activeTrackColor: lmGreenColor,
+    inactiveTrackColor: lmInactiveBlack,
+  ),
 );
-
 
 final darkTheme = ThemeData(
   primaryColor: dmMainColor,
@@ -92,6 +97,7 @@ final darkTheme = ThemeData(
     headline5: titleStyle.apply(color: dmWhiteColor),
     headline6: subtitleStyle.apply(color: dmWhiteColor),
     bodyText1: textStyle.apply(color: dmWhiteColor),
+    bodyText2: superSmallw400TxtStyle.apply(color: dmSecondaryColor),
     subtitle1: smallBoldTxtStyle.apply(color: dmMainColor),
     subtitle2: smallTxtStyle.apply(color: dmSecondaryColor2),
     button: buttonTxtStyle,
