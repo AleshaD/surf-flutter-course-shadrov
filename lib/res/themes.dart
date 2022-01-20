@@ -76,11 +76,7 @@ final lightTheme = ThemeData(
   switchTheme: SwitchThemeData(
     thumbColor: MaterialStateProperty.all(lmGreenColor),
     trackColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return lmGreenColor.withAlpha(80);
-      } else {
-        return lmInactiveBlack;
-      }
+      return states.contains(MaterialState.selected) ? lmGreenColor.withAlpha(80) : lmInactiveBlack;
     }),
   ),
 );
@@ -160,11 +156,7 @@ final darkTheme = ThemeData(
   switchTheme: SwitchThemeData(
     thumbColor: MaterialStateProperty.all(dmWhiteColor),
     trackColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
-        return dmGreenColor;
-      } else {
-        return dmInactiveBlack;
-      }
+      return states.contains(MaterialState.selected) ? dmGreenColor : dmInactiveBlack;
     }),
   ),
 );

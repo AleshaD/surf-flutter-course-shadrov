@@ -19,6 +19,7 @@ class FilterCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     var parentScreen = context.findAncestorStateOfType<FiltersScreenState>()!;
     final bool isActiveCategory = parentScreen.isActiveCategory(type);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
