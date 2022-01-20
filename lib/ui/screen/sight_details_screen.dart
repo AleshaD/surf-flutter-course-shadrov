@@ -5,8 +5,8 @@ import 'package:places/ui/widgets/icon_text_button.dart';
 import 'package:places/ui/widgets/large_app_button.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
-class SightDetails extends StatelessWidget {
-  const SightDetails(this.sight);
+class SightDetailsScreen extends StatelessWidget {
+  const SightDetailsScreen(this.sight);
 
   final Sight sight;
   final BorderRadius _backBtnRadius = const BorderRadius.all(
