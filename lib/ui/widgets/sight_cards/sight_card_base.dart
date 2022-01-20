@@ -18,86 +18,103 @@ class SightCardBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        height: 96,
-        child: Stack(
+    return Stack(
+      children: [
+        Column(
           children: [
             Container(
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(cornerRadius),
-                  topRight: Radius.circular(cornerRadius),
-                ),
-                child: NetworkImageWithProgress(sight.url),
-              ),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  sight.typeName.toLowerCase(),
-                  style: Theme.of(context).textTheme.subtitle1!.apply(
-                        color: Colors.white,
+              height: 96,
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(cornerRadius),
+                        topRight: Radius.circular(cornerRadius),
                       ),
-                ),
+                      child: NetworkImageWithProgress(sight.url),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        sight.typeName.toLowerCase(),
+                        style: Theme.of(context).textTheme.subtitle1!.apply(
+                              color: Colors.white,
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Material(
-              type: MaterialType.transparency,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 18, top: 12),
-                  child: topRightIcons,
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryVariant,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(cornerRadius),
+                  bottomRight: Radius.circular(cornerRadius),
                 ),
               ),
-            ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 200),
+                        child: Text(
+                          sight.name,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: aboutVisitInfo(context),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    '${AppStrings.closeUntil} 09:00',
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
-      ),
-      Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryVariant,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(cornerRadius),
-            bottomRight: Radius.circular(cornerRadius),
+        Positioned.fill(
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              borderRadius: BorderRadius.all(
+                Radius.circular(cornerRadius),
+              ),
+              onTap: () => print('Card is tapped'),
+            ),
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 200),
-                  child: Text(
-                    sight.name,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
-                  child: aboutVisitInfo(context),
-                )
-              ],
+        Material(
+          type: MaterialType.transparency,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(right: 8),
+              child: topRightIcons,
             ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              '${AppStrings.closeUntil} 09:00',
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-          ],
+          ),
         ),
-      )
-    ]);
+      ],
+    );
   }
 }
