@@ -73,6 +73,16 @@ final lightTheme = ThemeData(
     inactiveTrackColor: lmInactiveBlack,
     overlayShape: SliderComponentShape.noOverlay,
   ),
+  switchTheme: SwitchThemeData(
+    thumbColor: MaterialStateProperty.all(lmGreenColor),
+    trackColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return lmGreenColor.withAlpha(80);
+      } else {
+        return lmInactiveBlack;
+      }
+    }),
+  ),
 );
 
 final darkTheme = ThemeData(
@@ -146,5 +156,15 @@ final darkTheme = ThemeData(
     activeTrackColor: dmGreenColor,
     inactiveTrackColor: dmInactiveBlack,
     overlayShape: SliderComponentShape.noOverlay,
+  ),
+  switchTheme: SwitchThemeData(
+    thumbColor: MaterialStateProperty.all(dmWhiteColor),
+    trackColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return dmGreenColor;
+      } else {
+        return dmInactiveBlack;
+      }
+    }),
   ),
 );
