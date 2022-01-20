@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_txt_styles.dart';
 
+final OutlineInputBorder _defaultInputBorder = OutlineInputBorder(
+  borderRadius: BorderRadius.all(
+    Radius.circular(8),
+  ),
+  borderSide: BorderSide(
+    color: lmGreenColor.withAlpha(40),
+  ),
+);
+
 final lightTheme = ThemeData(
   primaryColor: lmMainColor,
   scaffoldBackgroundColor: lmWhiteColor,
@@ -21,6 +30,7 @@ final lightTheme = ThemeData(
     brightness: Brightness.light,
   ),
   textTheme: TextTheme(
+    headline3: textStyle.copyWith(fontWeight: FontWeight.w500, color: lmSecondaryColor2),
     headline4: largeTitleStyle.apply(color: lmSecondaryColor),
     headline5: titleStyle.apply(color: lmSecondaryColor),
     headline6: subtitleStyle.apply(color: lmSecondaryColor),
@@ -79,6 +89,18 @@ final lightTheme = ThemeData(
       return states.contains(MaterialState.selected) ? lmGreenColor.withAlpha(80) : lmInactiveBlack;
     }),
   ),
+  inputDecorationTheme: InputDecorationTheme(
+    isDense: true,
+    enabledBorder: _defaultInputBorder,
+    focusedBorder: _defaultInputBorder.copyWith(
+      borderSide: BorderSide(
+        color: lmGreenColor.withAlpha(40),
+        width: 2,
+      ),
+    ),
+    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
+    suffixIconColor: lmSecondaryColor2,
+  ),
 );
 
 final darkTheme = ThemeData(
@@ -100,6 +122,7 @@ final darkTheme = ThemeData(
     brightness: Brightness.dark,
   ),
   textTheme: TextTheme(
+    headline3: textStyle.copyWith(fontWeight: FontWeight.w500, color: dmSecondaryColor2),
     headline4: largeTitleStyle.apply(color: dmWhiteColor),
     headline5: titleStyle.apply(color: dmWhiteColor),
     headline6: subtitleStyle.apply(color: dmWhiteColor),
@@ -158,5 +181,21 @@ final darkTheme = ThemeData(
     trackColor: MaterialStateProperty.resolveWith((states) {
       return states.contains(MaterialState.selected) ? dmGreenColor : dmInactiveBlack;
     }),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    isDense: true,
+    enabledBorder: _defaultInputBorder.copyWith(
+      borderSide: BorderSide(
+        color: dmGreenColor.withAlpha(40),
+      ),
+    ),
+    focusedBorder: _defaultInputBorder.copyWith(
+      borderSide: BorderSide(
+        color: dmGreenColor.withAlpha(40),
+        width: 2,
+      ),
+    ),
+    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
+    suffixIconColor: dmSecondaryColor2,
   ),
 );
