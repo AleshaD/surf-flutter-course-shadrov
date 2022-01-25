@@ -101,6 +101,22 @@ final lightTheme = ThemeData(
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
     suffixIconColor: lmSecondaryColor2,
   ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      textStyle: MaterialStateProperty.resolveWith(
+        (states) {
+          return textStyle.copyWith(fontWeight: FontWeight.w500);
+        },
+      ),
+      foregroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          return states.contains(MaterialState.pressed) ? lmGreenColor.withAlpha(70) : lmGreenColor;
+        },
+      ),
+      padding: MaterialStateProperty.all(EdgeInsets.zero),
+      alignment: Alignment.centerLeft,
+    ),
+  ),
 );
 
 final darkTheme = ThemeData(
@@ -197,5 +213,21 @@ final darkTheme = ThemeData(
     ),
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
     suffixIconColor: dmSecondaryColor2,
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      textStyle: MaterialStateProperty.resolveWith(
+        (states) {
+          return textStyle.copyWith(fontWeight: FontWeight.w500);
+        },
+      ),
+      foregroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          return states.contains(MaterialState.pressed) ? dmGreenColor.withAlpha(70) : dmGreenColor;
+        },
+      ),
+      padding: MaterialStateProperty.all(EdgeInsets.zero),
+      alignment: Alignment.centerLeft,
+    ),
   ),
 );

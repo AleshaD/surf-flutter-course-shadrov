@@ -7,21 +7,30 @@ class AppTextFormField extends StatefulWidget {
     required this.textController,
     required this.focusNode,
     required this.onEditingComplete,
-    TextInputType? textInputType,
-  }) : this.textInputType = textInputType ?? TextInputType.text;
+    this.textInputType = TextInputType.text,
+    this.textInputAction = TextInputAction.done,
+    this.showClearTxtBtn = true,
+    this.hint = '',
+    this.maxLines,
+  });
 
   final FocusNode focusNode;
   final String name;
   final VoidCallback onEditingComplete;
   final TextEditingController textController;
   final TextInputType textInputType;
+  final TextInputAction textInputAction;
+  final bool showClearTxtBtn;
+  final String hint;
+  final int? maxLines;
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
 }
 
 class _AppTextFormFieldState extends State<AppTextFormField> {
-  bool get showClearSuffix => widget.focusNode.hasFocus && widget.textController.text != '';
+  bool get showClearBtnSuffix =>
+      widget.showClearTxtBtn && widget.focusNode.hasFocus && widget.textController.text != '';
 
   @override
   void initState() {
@@ -50,15 +59,19 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           textCapitalization: TextCapitalization.sentences,
           cursorColor: Theme.of(context).primaryColor,
           cursorWidth: 1,
-          maxLines: null,
-          textInputAction: TextInputAction.done,
+          maxLines: widget.maxLines,
+          textInputAction: widget.textInputAction,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: InputDecoration(
+            hintText: widget.hint,
+            hintStyle: Theme.of(context).textTheme.caption!.copyWith(
+                  fontSize: 16,
+                ),
             suffixIconConstraints: BoxConstraints(maxHeight: 34, maxWidth: 34),
-            suffixIcon: Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: widget.focusNode.hasFocus && widget.textController.text != ''
-                  ? IconButton(
+            suffixIcon: showClearBtnSuffix
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: IconButton(
                       padding: EdgeInsets.all(0),
                       splashRadius: 16,
                       iconSize: 20,
@@ -69,9 +82,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                         CustomIcons.clear,
                         size: 20,
                       ),
-                    )
-                  : Container(),
-            ),
+                    ),
+                  )
+                : Container(),
           ),
           onEditingComplete: () => setState(() {
             widget.focusNode.unfocus();
