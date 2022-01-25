@@ -98,6 +98,16 @@ final lightTheme = ThemeData(
         width: 2,
       ),
     ),
+    errorBorder: _defaultInputBorder.copyWith(
+      borderSide: BorderSide(
+        color: lmErrorAndDeleteColor,
+      ),
+    ),
+    focusedErrorBorder: _defaultInputBorder.copyWith(
+      borderSide: BorderSide(
+        color: lmErrorAndDeleteColor,
+      ),
+    ),
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
     suffixIconColor: lmSecondaryColor2,
   ),
@@ -209,6 +219,16 @@ final darkTheme = ThemeData(
       borderSide: BorderSide(
         color: dmGreenColor.withAlpha(40),
         width: 2,
+      ),
+    ),
+    errorBorder: _defaultInputBorder.copyWith(
+      borderSide: BorderSide(
+        color: dmErrorAndDeleteColor,
+      ),
+    ),
+    focusedErrorBorder: _defaultInputBorder.copyWith(
+      borderSide: BorderSide(
+        color: dmErrorAndDeleteColor,
       ),
     ),
     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),

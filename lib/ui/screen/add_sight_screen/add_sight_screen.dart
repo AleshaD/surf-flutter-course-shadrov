@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/enums/coordinate_type.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
+import 'package:places/ui/screen/add_sight_screen/coordinate_text_field.dart';
+import 'package:places/ui/widgets/large_app_button.dart';
 
 class AddSightScreen extends StatefulWidget {
   const AddSightScreen({Key? key}) : super(key: key);
@@ -10,6 +13,7 @@ class AddSightScreen extends StatefulWidget {
 }
 
 class _AddSightScreenState extends State<AddSightScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final double _blockMarginSize = 24;
   final double _sideScreenPadding = 16;
   final double _spaceBetwenTextFields = 16;
@@ -21,6 +25,15 @@ class _AddSightScreenState extends State<AddSightScreen> {
   final FocusNode longitudeNode = FocusNode();
   final TextEditingController descriptionController = TextEditingController();
   final FocusNode descriptionNode = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    latitudeController.dispose();
+    longitudeController.dispose();
+    descriptionController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,71 +101,97 @@ class _AddSightScreenState extends State<AddSightScreen> {
               SizedBox(
                 height: _blockMarginSize,
               ),
-              AppTextFormField(
-                name: 'Название',
-                textController: nameController,
-                focusNode: nameNode,
-                onEditingComplete: () => FocusScope.of(context).requestFocus(longitudeNode),
-              ),
-              SizedBox(
-                height: _blockMarginSize,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: widthOfCoordinateTxtFields,
-                    child: AppTextFormField(
-                      name: 'Широта',
-                      textController: longitudeController,
-                      focusNode: longitudeNode,
-                      textInputType: TextInputType.number,
-                      onEditingComplete: () {
-                        if (latitudeController.text == '')
-                          FocusScope.of(context).requestFocus(latitudeNode);
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppTextFormField(
+                      name: 'Название',
+                      textController: nameController,
+                      focusNode: nameNode,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Введите название места';
+                        }
                       },
+                      onEditingComplete: () => FocusScope.of(context).requestFocus(longitudeNode),
                     ),
-                  ),
-                  SizedBox(
-                    width: _spaceBetwenTextFields,
-                  ),
-                  SizedBox(
-                    width: widthOfCoordinateTxtFields,
-                    child: AppTextFormField(
-                      name: 'Долгота',
-                      textController: latitudeController,
-                      focusNode: latitudeNode,
-                      textInputType: TextInputType.number,
-                      onEditingComplete: () {
-                        if (descriptionController.text == '')
-                          FocusScope.of(context).requestFocus(descriptionNode);
-                      },
+                    SizedBox(
+                      height: _blockMarginSize,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              TextButton(
-                onPressed: () => print('Указать на карте'),
-                child: Text(
-                  'Указать на карте',
-                  textAlign: TextAlign.left,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: widthOfCoordinateTxtFields,
+                          child: CoordinateTextField(
+                            type: CoordinateType.longitude,
+                            textController: longitudeController,
+                            focusNode: longitudeNode,
+                            onEditingComplete: () {
+                              if (latitudeController.text == '')
+                                FocusScope.of(context).requestFocus(latitudeNode);
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: _spaceBetwenTextFields,
+                        ),
+                        SizedBox(
+                          width: widthOfCoordinateTxtFields,
+                          child: CoordinateTextField(
+                            type: CoordinateType.latitude,
+                            textController: latitudeController,
+                            focusNode: latitudeNode,
+                            onEditingComplete: () {
+                              if (descriptionController.text == '')
+                                FocusScope.of(context).requestFocus(descriptionNode);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextButton(
+                      onPressed: () => print('Указать на карте'),
+                      child: Text(
+                        'Указать на карте',
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 37,
+                    ),
+                    AppTextFormField(
+                      name: 'Описание',
+                      hint: 'введите текст',
+                      textController: descriptionController,
+                      focusNode: descriptionNode,
+                      textInputType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
+                      showClearTxtBtn: false,
+                      maxLines: 4,
+                      onEditingComplete: () {},
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
-                height: 37,
+                height: 16,
               ),
-              AppTextFormField(
-                name: 'Описание',
-                hint: 'введите текст',
-                textController: descriptionController,
-                focusNode: descriptionNode,
-                textInputType: TextInputType.multiline,
-                textInputAction: TextInputAction.newline,
-                showClearTxtBtn: false,
-                maxLines: 4,
-                onEditingComplete: () {},
+              LargeAppButton(
+                onPressed: () {
+                  _formKey.currentState!.validate();
+                },
+                titleWidgets: [
+                  Text(
+                    'Создать'.toUpperCase(),
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ],
               ),
             ],
           ),

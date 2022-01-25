@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:places/styles/custom_icons.dart';
 
 class AppTextFormField extends StatefulWidget {
@@ -7,6 +8,8 @@ class AppTextFormField extends StatefulWidget {
     required this.textController,
     required this.focusNode,
     required this.onEditingComplete,
+    this.validator,
+    this.inputFormatters,
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.showClearTxtBtn = true,
@@ -14,6 +17,8 @@ class AppTextFormField extends StatefulWidget {
     this.maxLines,
   });
 
+  final FormFieldValidator<String>? validator;
+  final List<TextInputFormatter>? inputFormatters;
   final FocusNode focusNode;
   final String name;
   final VoidCallback onEditingComplete;
@@ -62,6 +67,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           maxLines: widget.maxLines,
           textInputAction: widget.textInputAction,
           style: Theme.of(context).textTheme.bodyText1,
+          validator: widget.validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          inputFormatters: widget.inputFormatters,
           decoration: InputDecoration(
             hintText: widget.hint,
             hintStyle: Theme.of(context).textTheme.caption!.copyWith(
