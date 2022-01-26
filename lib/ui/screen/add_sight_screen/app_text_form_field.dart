@@ -8,6 +8,7 @@ class AppTextFormField extends StatefulWidget {
     required this.textController,
     required this.focusNode,
     required this.onEditingComplete,
+    this.onChange,
     this.validator,
     this.inputFormatters,
     this.textInputType = TextInputType.text,
@@ -22,6 +23,7 @@ class AppTextFormField extends StatefulWidget {
   final FocusNode focusNode;
   final String name;
   final VoidCallback onEditingComplete;
+  final VoidCallback? onChange;
   final TextEditingController textController;
   final TextInputType textInputType;
   final TextInputAction textInputAction;
@@ -85,6 +87,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                       iconSize: 20,
                       onPressed: () => setState(() {
                         widget.textController.clear();
+                        if (widget.onChange != null) widget.onChange!();
                       }),
                       icon: Icon(
                         CustomIcons.clear,
@@ -98,7 +101,10 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             widget.focusNode.unfocus();
             widget.onEditingComplete();
           }),
-          onChanged: (value) => setState(() {}),
+          onChanged: (value) {
+            setState(() {});
+            if (widget.onChange != null) widget.onChange!();
+          },
         ),
       ],
     );

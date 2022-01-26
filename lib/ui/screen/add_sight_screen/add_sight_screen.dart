@@ -26,6 +26,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
   final TextEditingController descriptionController = TextEditingController();
   final FocusNode descriptionNode = FocusNode();
 
+  bool _createBtnIsActive = false;
+
   @override
   void dispose() {
     super.dispose();
@@ -33,6 +35,21 @@ class _AddSightScreenState extends State<AddSightScreen> {
     latitudeController.dispose();
     longitudeController.dispose();
     descriptionController.dispose();
+  }
+
+  void _changeCreateBtnState() {
+    bool canBeActive = nameController.text != '' &&
+        latitudeController.text != '' &&
+        longitudeController.text != '';
+
+    // меняем стэйт виджета только если это необходимо
+    if (canBeActive != _createBtnIsActive) {
+      if (canBeActive && _formKey.currentState!.validate())
+        _createBtnIsActive = true;
+      else
+        _createBtnIsActive = false;
+      setState(() {});
+    }
   }
 
   @override
@@ -115,6 +132,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           return 'Введите название места';
                         }
                       },
+                      onChange: _changeCreateBtnState,
                       onEditingComplete: () => FocusScope.of(context).requestFocus(longitudeNode),
                     ),
                     SizedBox(
@@ -129,6 +147,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                             type: CoordinateType.longitude,
                             textController: longitudeController,
                             focusNode: longitudeNode,
+                            onChange: _changeCreateBtnState,
                             onEditingComplete: () {
                               if (latitudeController.text == '')
                                 FocusScope.of(context).requestFocus(latitudeNode);
@@ -144,6 +163,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                             type: CoordinateType.latitude,
                             textController: latitudeController,
                             focusNode: latitudeNode,
+                            onChange: _changeCreateBtnState,
                             onEditingComplete: () {
                               if (descriptionController.text == '')
                                 FocusScope.of(context).requestFocus(descriptionNode);
@@ -183,6 +203,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                 height: 16,
               ),
               LargeAppButton(
+                isActive: _createBtnIsActive,
                 onPressed: () {
                   _formKey.currentState!.validate();
                 },

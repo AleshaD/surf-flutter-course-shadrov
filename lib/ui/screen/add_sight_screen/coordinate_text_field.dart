@@ -9,11 +9,13 @@ class CoordinateTextField extends AppTextFormField {
     required textController,
     required focusNode,
     required onEditingComplete,
+    VoidCallback? onChange,
     this.isNecessaryField = true,
   }) : super(
           name: type == CoordinateType.longitude ? 'Широта' : 'Долгота',
           textController: textController,
           focusNode: focusNode,
+          onChange: onChange,
           onEditingComplete: onEditingComplete,
           textInputType: TextInputType.number,
         );
