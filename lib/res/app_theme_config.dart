@@ -125,6 +125,37 @@ class AppThemeConfig {
             alignment: Alignment.centerLeft,
           ),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0),
+            foregroundColor: MaterialStateProperty.resolveWith(
+              (states) {
+                if (states.contains(MaterialState.disabled))
+                  return inactiveClr;
+                else
+                  return whiteClr;
+              },
+            ),
+            backgroundColor: MaterialStateProperty.resolveWith(
+              (states) {
+                if (states.contains(MaterialState.disabled))
+                  return isLight ? backgroundClr : darkClr;
+                else
+                  return greenClr;
+              },
+            ),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12),
+                ),
+              ),
+            ),
+            minimumSize: MaterialStateProperty.all(
+              Size(50, 48),
+            ),
+          ),
+        ),
       );
 
   SliderThemeData _sliderThemeDataBuilder({Color? thumbClr}) => SliderThemeData(

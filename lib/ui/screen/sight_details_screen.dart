@@ -92,13 +92,11 @@ class SightDetailsScreen extends StatelessWidget {
                   titleWidgets: [
                     Icon(
                       CustomIcons.go,
-                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Text(
                         'ПОСТРОИТЬ МАРШРУТ',
-                        style: Theme.of(context).textTheme.button,
                       ),
                     ),
                   ],

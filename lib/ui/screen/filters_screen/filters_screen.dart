@@ -180,7 +180,6 @@ class FiltersScreenState extends State<FiltersScreen> {
               titleWidgets: [
                 Text(
                   'ПОКАЗАТЬ (${sightsNumInRange()})',
-                  style: Theme.of(context).textTheme.button,
                 ),
               ],
             ),

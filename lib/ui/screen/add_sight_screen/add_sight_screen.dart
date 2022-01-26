@@ -189,7 +189,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
                 titleWidgets: [
                   Text(
                     'Создать'.toUpperCase(),
-                    style: Theme.of(context).textTheme.button,
                   ),
                 ],
               ),
