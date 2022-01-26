@@ -24,7 +24,7 @@ class CoordinateTextField extends AppTextFormField {
   final CoordinateType type;
 
   @override
-  FormFieldValidator<String>? get validator => longitudeValidator;
+  FormFieldValidator<String>? get validator => coordinateValidator;
 
   @override
   List<TextInputFormatter>? get inputFormatters => [
@@ -33,7 +33,7 @@ class CoordinateTextField extends AppTextFormField {
 
   String get coordinateName => type == CoordinateType.longitude ? 'Широта' : 'Долгота';
 
-  String? longitudeValidator(String? val) {
+  String? coordinateValidator(String? val) {
     if (isNecessaryField && (val == null || val == '')) {
       return '${coordinateName.toLowerCase()} обязательна';
     }
