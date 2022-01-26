@@ -3,7 +3,7 @@ import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_txt_styles.dart';
 
 final lightTheme = ThemeData(
-  primaryColor: lmWhiteColor,
+  primaryColor: lmMainColor,
   scaffoldBackgroundColor: lmWhiteColor,
   colorScheme: ColorScheme(
     primary: lmWhiteColor,
@@ -25,9 +25,11 @@ final lightTheme = ThemeData(
     headline5: titleStyle.apply(color: lmSecondaryColor),
     headline6: subtitleStyle.apply(color: lmSecondaryColor),
     bodyText1: textStyle.apply(color: lmSecondaryColor),
+    bodyText2: superSmallw400TxtStyle.apply(color: lmSecondaryColor),
     subtitle1: smallBoldTxtStyle.apply(color: lmWhiteColor),
     subtitle2: smallTxtStyle.apply(color: lmSecondaryColor2),
-    button: buttonTxtStyle,
+    button: buttonTxtStyle.apply(color: lmWhiteColor),
+    caption: superSmallw400TxtStyle.apply(color: lmInactiveBlack),
   ),
   primaryTextTheme: TextTheme(
     subtitle1: smallBoldTxtStyle.apply(color: lmSecondaryColor),
@@ -36,6 +38,7 @@ final lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: lmWhiteColor,
     shadowColor: Colors.transparent,
+    elevation: 0,
     centerTitle: true,
     titleTextStyle: subtitleStyle.apply(color: lmSecondaryColor),
   ),
@@ -64,11 +67,22 @@ final lightTheme = ThemeData(
   dividerTheme: DividerThemeData(
     color: lmInactiveBlack,
   ),
+  sliderTheme: SliderThemeData(
+    trackHeight: 1,
+    activeTrackColor: lmGreenColor,
+    inactiveTrackColor: lmInactiveBlack,
+    overlayShape: SliderComponentShape.noOverlay,
+  ),
+  switchTheme: SwitchThemeData(
+    thumbColor: MaterialStateProperty.all(lmGreenColor),
+    trackColor: MaterialStateProperty.resolveWith((states) {
+      return states.contains(MaterialState.selected) ? lmGreenColor.withAlpha(80) : lmInactiveBlack;
+    }),
+  ),
 );
 
-
 final darkTheme = ThemeData(
-  primaryColor: dmMainColor,
+  primaryColor: dmWhiteColor,
   scaffoldBackgroundColor: dmMainColor,
   colorScheme: ColorScheme(
     primary: dmMainColor,
@@ -90,9 +104,11 @@ final darkTheme = ThemeData(
     headline5: titleStyle.apply(color: dmWhiteColor),
     headline6: subtitleStyle.apply(color: dmWhiteColor),
     bodyText1: textStyle.apply(color: dmWhiteColor),
+    bodyText2: superSmallw400TxtStyle.apply(color: dmWhiteColor),
     subtitle1: smallBoldTxtStyle.apply(color: dmMainColor),
     subtitle2: smallTxtStyle.apply(color: dmSecondaryColor2),
-    button: buttonTxtStyle,
+    button: buttonTxtStyle.apply(color: dmWhiteColor),
+    caption: superSmallw400TxtStyle.apply(color: dmInactiveBlack),
   ),
   primaryTextTheme: TextTheme(
     subtitle1: smallBoldTxtStyle.apply(color: dmSecondaryColor2),
@@ -101,6 +117,7 @@ final darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: dmMainColor,
     shadowColor: Colors.transparent,
+    elevation: 0,
     centerTitle: true,
     titleTextStyle: subtitleStyle.apply(color: dmWhiteColor),
   ),
@@ -128,5 +145,18 @@ final darkTheme = ThemeData(
   ),
   dividerTheme: DividerThemeData(
     color: dmInactiveBlack,
+  ),
+  sliderTheme: SliderThemeData(
+    trackHeight: 1,
+    thumbColor: dmWhiteColor,
+    activeTrackColor: dmGreenColor,
+    inactiveTrackColor: dmInactiveBlack,
+    overlayShape: SliderComponentShape.noOverlay,
+  ),
+  switchTheme: SwitchThemeData(
+    thumbColor: MaterialStateProperty.all(dmWhiteColor),
+    trackColor: MaterialStateProperty.resolveWith((states) {
+      return states.contains(MaterialState.selected) ? dmGreenColor : dmInactiveBlack;
+    }),
   ),
 );

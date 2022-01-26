@@ -23,8 +23,14 @@ class VisitScreenTabBar extends StatelessWidget implements PreferredSizeWidget {
           Radius.circular(tabBarHeight),
         ),
       ),
-      child: TabBar(
-        tabs: tabs,
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: TabBar(
+          tabs: tabs,
+        ),
       ),
     );
   }

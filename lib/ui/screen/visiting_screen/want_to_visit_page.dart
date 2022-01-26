@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/sight_cards/want_to_visit_sight_card.dart';
 
@@ -13,7 +14,7 @@ class WantToVisitPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return sights.isEmpty
         ? EmptyListPage(
-            icon: Icons.camera,
+            icon: CustomIcons.card,
             message: AppStrings.emptyWnatToGoList,
           )
         : ListView(

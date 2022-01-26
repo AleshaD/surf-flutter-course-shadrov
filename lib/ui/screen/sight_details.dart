@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
+import 'package:places/ui/widgets/large_app_button.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightDetails extends StatelessWidget {
   const SightDetails(this.sight);
 
-  static const Color secondaryColor = Color(0xff3B3E5B); //временно, пока стилизацию не прошли
-
   final Sight sight;
+  final BorderRadius _backBtnRadius = const BorderRadius.all(
+    Radius.circular(10),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,20 @@ class SightDetails extends StatelessWidget {
                 margin: EdgeInsets.only(top: 36, left: 16),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
+                  borderRadius: _backBtnRadius,
                 ),
                 child: Center(
-                  child: Icon(
-                    Icons.chevron_left_rounded,
-                    color: Theme.of(context).colorScheme.onPrimary,
+                  child: Material(
+                    borderRadius: _backBtnRadius,
+                    child: IconButton(
+                      splashRadius: 18,
+                      onPressed: () => print('Back Btn pressed'),
+                      icon: Icon(
+                        CustomIcons.arrow_back,
+                        size: 14,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -59,7 +68,7 @@ class SightDetails extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        sight.type,
+                        sight.typeName.toLowerCase(),
                         style: Theme.of(context).primaryTextTheme.subtitle1,
                       ),
                       Padding(
@@ -78,34 +87,21 @@ class SightDetails extends StatelessWidget {
                   style: Theme.of(context).primaryTextTheme.subtitle2,
                 ),
                 SizedBox(height: childMargin),
-                Container(
-                  height: 48,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
+                LargeAppButton(
+                  onPressed: () => print('ПОСТРОИТЬ МАРШРУТ'),
+                  titleWidgets: [
+                    Icon(
+                      CustomIcons.go,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.moving_sharp,
-                        color: Theme.of(context).colorScheme.onSecondary,
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'ПОСТРОИТЬ МАРШРУТ',
+                        style: Theme.of(context).textTheme.button,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(
-                          'ПОСТРОИТЬ МАРШРУТ',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: childMargin),
                 Divider(
@@ -116,14 +112,16 @@ class SightDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconTextButton(
-                      icon: Icons.calendar_today,
+                      icon: CustomIcons.calendar,
                       name: 'Запланировать',
                       isActive: false,
+                      onPressed: () => print('Запланировать'),
                     ),
                     IconTextButton(
-                      icon: Icons.favorite_border,
+                      icon: CustomIcons.menu_heart,
                       name: 'В Избранное',
                       isActive: true,
+                      onPressed: () => print('В избранное'),
                     ),
                   ],
                 ),

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
 class IconTextButton extends StatelessWidget {
-  final IconData icon;
-  final String name;
-  final bool isActive;
   const IconTextButton({
     required this.icon,
     required this.name,
     required this.isActive,
+    required this.onPressed,
   });
+
+  final IconData icon;
+  final bool isActive;
+  final String name;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +19,25 @@ class IconTextButton extends StatelessWidget {
         ? Theme.of(context).colorScheme.onPrimary
         : Theme.of(context).colorScheme.onSurface;
 
-    return Row(
-      children: [
-        Icon(
-          icon,
-          color: color,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 9.0),
-          child: Text(
-            name,
-            style: Theme.of(context).textTheme.subtitle2!.apply(
-                  color: color,
-                ),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: color,
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(left: 9.0),
+            child: Text(
+              name,
+              style: Theme.of(context).textTheme.subtitle2!.apply(
+                    color: color,
+                  ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
