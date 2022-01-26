@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:places/domain/enums/coordinate_type.dart';
 import 'package:places/styles/custom_icons.dart';
@@ -25,8 +27,28 @@ class _AddSightScreenState extends State<AddSightScreen> {
   final FocusNode longitudeNode = FocusNode();
   final TextEditingController descriptionController = TextEditingController();
   final FocusNode descriptionNode = FocusNode();
+  final ScrollController scrollController = ScrollController();
 
   bool _createBtnIsActive = false;
+
+  @override
+  void initState() {
+    super.initState();
+    descriptionNode.addListener(() {
+      if (descriptionNode.hasFocus) {
+        // при фокусе на поле описания переводим скролл наверх,
+        // чтобы открыть кнопку создания места если она скрыта
+        // таймер чтобы подождать когда клавиатура выедет полностью
+        Timer(Duration(milliseconds: 300), () {
+          scrollController.animateTo(
+            scrollController.offset + scrollController.position.extentAfter,
+            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 150),
+          );
+        });
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -35,6 +57,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
     latitudeController.dispose();
     longitudeController.dispose();
     descriptionController.dispose();
+    descriptionNode.dispose();
+    scrollController.dispose();
   }
 
   void _changeCreateBtnState() {
@@ -77,144 +101,156 @@ class _AddSightScreenState extends State<AddSightScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: _sideScreenPadding),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: _blockMarginSize,
-              ),
-              Text(
-                'КАТЕГОРИЯ',
-                style: Theme.of(context).textTheme.caption,
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              InkWell(
-                onTap: () => print('Chose category'),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Не выбрано',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
-                        child: Icon(
-                          CustomIcons.view,
-                          size: 24,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ],
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: _blockMarginSize,
                   ),
-                ),
-              ),
-              Divider(),
-              SizedBox(
-                height: _blockMarginSize,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppTextFormField(
-                      name: 'Название',
-                      textController: nameController,
-                      focusNode: nameNode,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Введите название места';
-                        }
-                      },
-                      onChange: _changeCreateBtnState,
-                      onEditingComplete: () => FocusScope.of(context).requestFocus(longitudeNode),
+                  Text(
+                    'КАТЕГОРИЯ',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  InkWell(
+                    onTap: () => print('Chose category'),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Не выбрано',
+                            style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Icon(
+                              CustomIcons.view,
+                              size: 24,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(
-                      height: _blockMarginSize,
-                    ),
-                    Row(
+                  ),
+                  Divider(),
+                  SizedBox(
+                    height: _blockMarginSize,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        AppTextFormField(
+                          name: 'Название',
+                          textController: nameController,
+                          focusNode: nameNode,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Введите название места';
+                            }
+                          },
+                          onChange: _changeCreateBtnState,
+                          onEditingComplete: () =>
+                              FocusScope.of(context).requestFocus(longitudeNode),
+                        ),
                         SizedBox(
-                          width: widthOfCoordinateTxtFields,
-                          child: CoordinateTextField(
-                            type: CoordinateType.longitude,
-                            textController: longitudeController,
-                            focusNode: longitudeNode,
-                            onChange: _changeCreateBtnState,
-                            onEditingComplete: () {
-                              if (latitudeController.text == '')
-                                FocusScope.of(context).requestFocus(latitudeNode);
-                            },
+                          height: _blockMarginSize,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: widthOfCoordinateTxtFields,
+                              child: CoordinateTextField(
+                                type: CoordinateType.longitude,
+                                textController: longitudeController,
+                                focusNode: longitudeNode,
+                                onChange: _changeCreateBtnState,
+                                onEditingComplete: () {
+                                  if (latitudeController.text == '')
+                                    FocusScope.of(context).requestFocus(latitudeNode);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: _spaceBetwenTextFields,
+                            ),
+                            SizedBox(
+                              width: widthOfCoordinateTxtFields,
+                              child: CoordinateTextField(
+                                type: CoordinateType.latitude,
+                                textController: latitudeController,
+                                focusNode: latitudeNode,
+                                onChange: _changeCreateBtnState,
+                                onEditingComplete: () {
+                                  if (descriptionController.text == '')
+                                    FocusScope.of(context).requestFocus(descriptionNode);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextButton(
+                          onPressed: () => print('Указать на карте'),
+                          child: Text(
+                            'Указать на карте',
+                            textAlign: TextAlign.left,
                           ),
                         ),
                         SizedBox(
-                          width: _spaceBetwenTextFields,
+                          height: 37,
                         ),
-                        SizedBox(
-                          width: widthOfCoordinateTxtFields,
-                          child: CoordinateTextField(
-                            type: CoordinateType.latitude,
-                            textController: latitudeController,
-                            focusNode: latitudeNode,
-                            onChange: _changeCreateBtnState,
-                            onEditingComplete: () {
-                              if (descriptionController.text == '')
-                                FocusScope.of(context).requestFocus(descriptionNode);
-                            },
-                          ),
+                        AppTextFormField(
+                          name: 'Описание',
+                          hint: 'введите текст',
+                          textController: descriptionController,
+                          focusNode: descriptionNode,
+                          textInputType: TextInputType.multiline,
+                          textInputAction: TextInputAction.newline,
+                          showClearTxtBtn: false,
+                          maxLines: 4,
+                          onEditingComplete: () {},
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextButton(
-                      onPressed: () => print('Указать на карте'),
-                      child: Text(
-                        'Указать на карте',
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 37,
-                    ),
-                    AppTextFormField(
-                      name: 'Описание',
-                      hint: 'введите текст',
-                      textController: descriptionController,
-                      focusNode: descriptionNode,
-                      textInputType: TextInputType.multiline,
-                      textInputAction: TextInputAction.newline,
-                      showClearTxtBtn: false,
-                      maxLines: 4,
-                      onEditingComplete: () {},
+                  ),
+                  SizedBox(
+                    height: 64,
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: LargeAppButton(
+                  isActive: _createBtnIsActive,
+                  onPressed: () {
+                    _formKey.currentState!.validate();
+                  },
+                  titleWidgets: [
+                    Text(
+                      'Создать'.toUpperCase(),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 16,
-              ),
-              LargeAppButton(
-                isActive: _createBtnIsActive,
-                onPressed: () {
-                  _formKey.currentState!.validate();
-                },
-                titleWidgets: [
-                  Text(
-                    'Создать'.toUpperCase(),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
