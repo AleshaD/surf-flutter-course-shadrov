@@ -8,7 +8,7 @@ final myCoordinateMock = Coordinate(
   lon: 33.8013008,
 );
 
-final List<Sight> sightMocks = [
+List<Sight> sightMocks = [
   Sight(
     name: 'Мангуп',
     lat: 44.592976159,

@@ -1,7 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/domain/enums/coordinate_type.dart';
+import 'package:places/domain/sight.dart';
+import 'package:places/domain/sight_type.dart';
+import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
 import 'package:places/ui/screen/add_sight_screen/coordinate_text_field.dart';
@@ -15,40 +20,21 @@ class AddSightScreen extends StatefulWidget {
 }
 
 class _AddSightScreenState extends State<AddSightScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final double _blockMarginSize = 24;
-  final double _sideScreenPadding = 16;
-  final double _spaceBetwenTextFields = 16;
-  final TextEditingController nameController = TextEditingController();
-  final FocusNode nameNode = FocusNode();
+  final TextEditingController descriptionController = TextEditingController();
+  final FocusNode descriptionNode = FocusNode();
   final TextEditingController latitudeController = TextEditingController();
   final FocusNode latitudeNode = FocusNode();
   final TextEditingController longitudeController = TextEditingController();
   final FocusNode longitudeNode = FocusNode();
-  final TextEditingController descriptionController = TextEditingController();
-  final FocusNode descriptionNode = FocusNode();
+  final TextEditingController nameController = TextEditingController();
+  final FocusNode nameNode = FocusNode();
   final ScrollController scrollController = ScrollController();
 
+  final double _blockMarginSize = 24;
   bool _createBtnIsActive = false;
-
-  @override
-  void initState() {
-    super.initState();
-    descriptionNode.addListener(() {
-      if (descriptionNode.hasFocus) {
-        // при фокусе на поле описания переводим скролл наверх,
-        // чтобы открыть кнопку создания места если она скрыта
-        // таймер чтобы подождать когда клавиатура выедет полностью
-        Timer(Duration(milliseconds: 300), () {
-          scrollController.animateTo(
-            scrollController.offset + scrollController.position.extentAfter,
-            curve: Curves.easeOut,
-            duration: const Duration(milliseconds: 150),
-          );
-        });
-      }
-    });
-  }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final double _sideScreenPadding = 16;
+  final double _spaceBetwenTextFields = 16;
 
   @override
   void dispose() {
@@ -59,6 +45,25 @@ class _AddSightScreenState extends State<AddSightScreen> {
     descriptionController.dispose();
     descriptionNode.dispose();
     scrollController.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    descriptionNode.addListener(() {
+      if (descriptionNode.hasFocus) {
+        // при фокусе на поле описания переводим скролл наверх,
+        // чтобы открыть кнопку создания места если она скрыта.
+        // таймер чтобы подождать когда клавиатура выедет полностью
+        Timer(Duration(milliseconds: 300), () {
+          scrollController.animateTo(
+            scrollController.offset + scrollController.position.extentAfter,
+            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 150),
+          );
+        });
+      }
+    });
   }
 
   void _changeCreateBtnState() {
@@ -74,6 +79,38 @@ class _AddSightScreenState extends State<AddSightScreen> {
         _createBtnIsActive = false;
       setState(() {});
     }
+  }
+
+  void _showOkDialog(String title, BuildContext context) {
+    Text okTxt = Text('Ok');
+    Platform.isAndroid
+        ? showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(title),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: Navigator.of(context).pop,
+                    child: okTxt,
+                  ),
+                ],
+              );
+            },
+            barrierDismissible: true)
+        : showCupertinoDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (_) => CupertinoAlertDialog(
+              title: Text(title),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  onPressed: Navigator.of(context).pop,
+                  child: okTxt,
+                ),
+              ],
+            ),
+          );
   }
 
   @override
@@ -219,7 +256,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           textController: descriptionController,
                           focusNode: descriptionNode,
                           textInputType: TextInputType.multiline,
-                          textInputAction: TextInputAction.newline,
                           showClearTxtBtn: false,
                           maxLines: 4,
                           onEditingComplete: () {},
@@ -241,6 +277,18 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   isActive: _createBtnIsActive,
                   onPressed: () {
                     _formKey.currentState!.validate();
+                    sightMocks.add(
+                      Sight(
+                        name: nameController.text,
+                        lat: double.parse(latitudeController.text),
+                        lon: double.parse(longitudeController.text),
+                        url: '',
+                        details: descriptionController.text,
+                        type: SightType.museum,
+                      ),
+                    );
+                    _showOkDialog('Место сохранено', context);
+                    FocusScope.of(context).unfocus();
                   },
                   titleWidgets: [
                     Text(
