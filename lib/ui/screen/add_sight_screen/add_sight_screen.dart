@@ -10,7 +10,7 @@ import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
 import 'package:places/ui/screen/add_sight_screen/coordinate_text_field.dart';
-import 'package:places/ui/widgets/large_app_button.dart';
+import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
 class AddSightScreen extends StatefulWidget {
   const AddSightScreen({Key? key}) : super(key: key);

@@ -6,7 +6,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';
-import 'package:places/ui/widgets/large_app_button.dart';
+import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({

@@ -4,6 +4,7 @@ import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
+import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
@@ -64,54 +65,28 @@ class _SightListScreenState extends State<SightListScreen> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
-              child: Container(
-                height: 48,
-                width: 180,
-                decoration: BoxDecoration(
-                  borderRadius: newPlaceBtnRadius,
-                  gradient: LinearGradient(
-                    colors: [
-                      Theme.of(context).colorScheme.secondaryVariant,
-                      Theme.of(context).colorScheme.secondary,
-                    ],
-                  ),
-                ),
-                child: ElevatedButton(
-                  style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                        backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: newPlaceBtnRadius,
-                          ),
-                        ),
-                      ),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AddSightScreen(),
-                      ),
-                    );
-                  },
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          CustomIcons.plus,
-                          size: 16,
-                          color: Theme.of(context).textTheme.button!.color,
-                        ),
-                        SizedBox(
-                          width: 14,
-                        ),
-                        Text(
-                          'Новое место'.toUpperCase(),
-                          style: Theme.of(context).textTheme.button,
-                        ),
-                      ],
+              child: RoundedGradientButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AddSightScreen(),
                     ),
+                  );
+                },
+                titleWidgets: [
+                  Icon(
+                    CustomIcons.plus,
+                    size: 16,
+                    color: Theme.of(context).textTheme.button!.color,
                   ),
-                ),
+                  SizedBox(
+                    width: 14,
+                  ),
+                  Text(
+                    'Новое место'.toUpperCase(),
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ],
               ),
             ),
           ),
