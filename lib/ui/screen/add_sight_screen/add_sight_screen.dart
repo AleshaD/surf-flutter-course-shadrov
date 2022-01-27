@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/enums/coordinate_type.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_type.dart';
@@ -82,7 +83,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   }
 
   void _showOkDialog(String title, BuildContext context) {
-    Text okTxt = Text('Ok');
+    Text okTxt = Text(AppStrings.ok);
     Platform.isAndroid
         ? showDialog(
             context: context,
@@ -120,7 +121,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text('Новое место'),
+        title: const Text(AppStrings.newPlace),
         leadingWidth: double.infinity,
         leading: Align(
           alignment: Alignment.centerLeft,
@@ -129,7 +130,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
-                'Отмена',
+                AppStrings.cancel,
                 style: Theme.of(context).textTheme.headline3,
               ),
             ),
@@ -149,7 +150,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     height: _blockMarginSize,
                   ),
                   Text(
-                    'КАТЕГОРИЯ',
+                    AppStrings.category.toUpperCase(),
                     style: Theme.of(context).textTheme.caption,
                   ),
                   SizedBox(
@@ -163,7 +164,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Не выбрано',
+                            AppStrings.noPick,
                             style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
                           ),
                           Padding(
@@ -188,12 +189,12 @@ class _AddSightScreenState extends State<AddSightScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppTextFormField(
-                          name: 'Название',
+                          name: AppStrings.title,
                           textController: nameController,
                           focusNode: nameNode,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Введите название места';
+                              return AppStrings.enterTheTitle;
                             }
                           },
                           onChange: _changeCreateBtnState,
@@ -241,9 +242,9 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           height: 15,
                         ),
                         TextButton(
-                          onPressed: () => print('Указать на карте'),
+                          onPressed: () => print(AppStrings.pickOnMap),
                           child: Text(
-                            'Указать на карте',
+                            AppStrings.pickOnMap,
                             textAlign: TextAlign.left,
                           ),
                         ),
@@ -251,8 +252,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           height: 37,
                         ),
                         AppTextFormField(
-                          name: 'Описание',
-                          hint: 'введите текст',
+                          name: AppStrings.description,
+                          hint: AppStrings.enterTheText.toLowerCase(),
                           textController: descriptionController,
                           focusNode: descriptionNode,
                           textInputType: TextInputType.multiline,
@@ -287,12 +288,12 @@ class _AddSightScreenState extends State<AddSightScreen> {
                         type: SightType.museum,
                       ),
                     );
-                    _showOkDialog('Место сохранено', context);
+                    _showOkDialog(AppStrings.placeIsSaved, context);
                     FocusScope.of(context).unfocus();
                   },
                   titleWidgets: [
                     Text(
-                      'Создать'.toUpperCase(),
+                      AppStrings.create.toUpperCase(),
                     ),
                   ],
                 ),

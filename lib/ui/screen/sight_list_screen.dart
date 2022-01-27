@@ -83,7 +83,7 @@ class _SightListScreenState extends State<SightListScreen> {
                     width: 14,
                   ),
                   Text(
-                    'Новое место'.toUpperCase(),
+                    AppStrings.newPlace.toUpperCase(),
                     style: Theme.of(context).textTheme.button,
                   ),
                 ],

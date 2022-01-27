@@ -1,6 +1,7 @@
 import 'dart:math' as Math;
 
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/coordinate.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_type.dart';
@@ -45,7 +46,7 @@ class FiltersScreenState extends State<FiltersScreen> {
     } else {
       double km = m / 1000;
 
-      return '${km.toStringAsFixed(1)} км';
+      return '${km.toStringAsFixed(1)} ${AppStrings.km.toLowerCase()}';
     }
   }
 
@@ -90,7 +91,7 @@ class FiltersScreenState extends State<FiltersScreen> {
                 _activeCategories.clear();
               }),
               child: Text(
-                'Очистить',
+                AppStrings.cleare,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -111,7 +112,7 @@ class FiltersScreenState extends State<FiltersScreen> {
               height: 24,
             ),
             Text(
-              'КАТЕГОРИИ',
+              AppStrings.categoryes.toUpperCase(),
               style: Theme.of(context).textTheme.caption,
             ),
             SizedBox(
@@ -145,14 +146,14 @@ class FiltersScreenState extends State<FiltersScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Расстояние',
+                      AppStrings.distance,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
                           .copyWith(fontWeight: FontWeight.w400),
                     ),
                     Text(
-                      'от ${_readableDistanceVal(_sliderValues.start)} до ${_readableDistanceVal(_sliderValues.end)}',
+                      '${AppStrings.from.toLowerCase()} ${_readableDistanceVal(_sliderValues.start)} ${AppStrings.to.toLowerCase()} ${_readableDistanceVal(_sliderValues.end)}',
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
                             fontSize: 16,
                           ),
@@ -179,7 +180,7 @@ class FiltersScreenState extends State<FiltersScreen> {
               onPressed: () => print('Показать taped'),
               titleWidgets: [
                 Text(
-                  'ПОКАЗАТЬ (${sightsNumInRange()})',
+                  '${AppStrings.show.toUpperCase()} (${sightsNumInRange()})',
                 ),
               ],
             ),

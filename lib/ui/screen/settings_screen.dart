@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/main.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
@@ -16,7 +17,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Настройки'),
+        title: Text(AppStrings.setting),
       ),
       bottomNavigationBar: AppBottomNavigationBar(),
       body: Padding(
@@ -26,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             ListTile(
               leading: Text(
-                'Тёмная тема',
+                AppStrings.darkTheme,
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               trailing: Switch.adaptive(
@@ -42,16 +43,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Divider(),
             ListTile(
-              onTap: () => print('См туториал'),
-              leading: Text(
-                'Смотреть туториал',
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              trailing: Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: Icon(CustomIcons.info, color: Theme.of(context).colorScheme.secondary,),
-              )
-            ),
+                onTap: () => print('См туториал'),
+                leading: Text(
+                  AppStrings.lookTutorial,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                trailing: Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Icon(
+                    CustomIcons.info,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                )),
             Divider(),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/enums/coordinate_type.dart';
 import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
 
@@ -12,7 +13,7 @@ class CoordinateTextField extends AppTextFormField {
     VoidCallback? onChange,
     this.isNecessaryField = true,
   }) : super(
-          name: type == CoordinateType.longitude ? 'Широта' : 'Долгота',
+          name: type == CoordinateType.longitude ? AppStrings.longitude : AppStrings.latitude,
           textController: textController,
           focusNode: focusNode,
           onChange: onChange,
@@ -31,23 +32,24 @@ class CoordinateTextField extends AppTextFormField {
         ChangeCommaToDotFormatter(),
       ];
 
-  String get coordinateName => type == CoordinateType.longitude ? 'Широта' : 'Долгота';
+  String get coordinateName =>
+      type == CoordinateType.longitude ? AppStrings.longitude : AppStrings.latitude;
 
   String? coordinateValidator(String? val) {
     if (isNecessaryField && (val == null || val == '')) {
-      return '${coordinateName.toLowerCase()} обязательна';
+      return '${coordinateName.toLowerCase()} ${AppStrings.needed.toLowerCase()}';
     }
 
     if (val != null) {
       double? d = double.tryParse(val) ?? null;
       if (d != null) {
         double max = type == CoordinateType.longitude ? 90 : 180, min = max * -1;
-        if (d < min) return 'мин ${coordinateName.toLowerCase()} $min';
-        if (d > max) return 'макс ${coordinateName.toLowerCase()} $max';
+        if (d < min) return '${AppStrings.min.toLowerCase()} ${coordinateName.toLowerCase()} $min';
+        if (d > max) return '${AppStrings.max.toLowerCase()} ${coordinateName.toLowerCase()} $max';
 
         return null;
       } else {
-        return 'не верный формат';
+        return AppStrings.wrongFormat.toLowerCase();
       }
     }
   }

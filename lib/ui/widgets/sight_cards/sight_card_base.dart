@@ -89,7 +89,7 @@ class SightCardBase extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
-                    '${AppStrings.closeUntil} 09:00',
+                    '${AppStrings.closeUntil.toLowerCase()} 09:00',
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ],

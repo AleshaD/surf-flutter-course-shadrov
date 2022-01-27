@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
@@ -74,7 +75,7 @@ class SightDetailsScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
-                          'закрыто до 09:00',
+                          '${AppStrings.closeUntil.toLowerCase()} 09:00',
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                       ),
@@ -96,7 +97,7 @@ class SightDetailsScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Text(
-                        'ПОСТРОИТЬ МАРШРУТ',
+                        AppStrings.createRout.toUpperCase(),
                       ),
                     ),
                   ],
@@ -111,13 +112,13 @@ class SightDetailsScreen extends StatelessWidget {
                   children: [
                     IconTextButton(
                       icon: CustomIcons.calendar,
-                      name: 'Запланировать',
+                      name: AppStrings.plan,
                       isActive: false,
                       onPressed: () => print('Запланировать'),
                     ),
                     IconTextButton(
                       icon: CustomIcons.menu_heart,
-                      name: 'В Избранное',
+                      name: AppStrings.toFavorite,
                       isActive: true,
                       onPressed: () => print('В избранное'),
                     ),
