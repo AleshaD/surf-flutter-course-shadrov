@@ -4,11 +4,75 @@ import 'package:places/domain/sight_type.dart';
 import 'domain/coordinate.dart';
 
 final myCoordinateMock = Coordinate(
-  lat: 44.592977,
-  lon: 33.8013008,
+  lat: 44.467748,
+  lon: 33.691336,
 );
 
 List<Sight> sightMocks = [
+  Sight(
+    name: 'Орли',
+    lat: 44.435251,
+    lon: 33.780875,
+    url: 'https://media-cdn.tripadvisor.com/media/photo-s/0b/ca/a4/ea/caption.jpg',
+    details: 'Отличный ресторан',
+    type: SightType.cafe,
+  ),
+  Sight(
+    name: 'Источник Варналы',
+    lat: 44.465456,
+    lon: 33.696824,
+    url: 'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d546336b31d92762c999c239f15/XXXL',
+    details: 'Отличный ресторан',
+    type: SightType.specialPlace,
+  ),
+  Sight(
+    name: 'Балаклавский подземный музейный комплекс',
+    lat: 44.500751,
+    lon: 33.598167,
+    url: 'https://avatars.mds.yandex.net/get-altay/4537001/2a00000179f50eb18d7cc17e59180ac3a570/L',
+    details: 'Музей базирования подводных лодок',
+    type: SightType.museum,
+  ),
+  Sight(
+    name: 'Крепость Чембало',
+    lat: 44.494673,
+    lon: 33.599951,
+    url: 'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL',
+    details: 'Древняя Этрусская крепость',
+    type: SightType.specialPlace,
+  ),
+  Sight(
+    name: 'Мемориальный комплекс Сапун-гора',
+    lat: 44.554698,
+    lon: 33.586735,
+    url: 'https://avatars.mds.yandex.net/get-altay/5236391/2a0000017b7f675abfc93a59763ed82986fa/L',
+    details: 'Гора с военной техникой',
+    type: SightType.museum,
+  ),
+  Sight(
+    name: 'Музей-заповедник Херсонес Таврический',
+    lat: 44.568491,
+    lon: 33.557130,
+    url: 'https://avatars.mds.yandex.net/get-altay/1879929/2a0000016ae2fd9a1e0f897adb972249c6ba/L',
+    details: 'Хорошо сохранившиеся развалины древнего города',
+    type: SightType.museum,
+  ),
+  Sight(
+    name: 'Винодельня 78',
+    lat: 44.533711,
+    lon: 33.617736,
+    url: 'https://avatars.mds.yandex.net/get-tycoon/1534662/2a00000179d0d1a2f830c2c70489044f03f8/priority-headline-main-narrow',
+    details: 'Хорошо сохранившиеся развалины древнего города',
+    type: SightType.restaurant,
+  ),
+  Sight(
+    name: 'Старик Хинкалыч',
+    lat: 44.552229,
+    lon: 33.530981,
+    url: 'https://avatars.mds.yandex.net/get-altay/4660612/2a0000017a80bb8a5ebcf07cfa1841ea14d5/L',
+    details: 'Хорошо сохранившиеся развалины древнего города',
+    type: SightType.restaurant,
+  ),
   Sight(
     name: 'Мангуп',
     lat: 44.592976159,
