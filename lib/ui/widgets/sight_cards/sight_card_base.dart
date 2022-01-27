@@ -33,7 +33,11 @@ class SightCardBase extends StatelessWidget {
                         topLeft: Radius.circular(cornerRadius),
                         topRight: Radius.circular(cornerRadius),
                       ),
-                      child: NetworkImageWithProgress(sight.url),
+                      child: sight.url != ''
+                          ? NetworkImageWithProgress(sight.url)
+                          : Container(
+                              color: Colors.amber,
+                            ),
                     ),
                   ),
                   Align(

@@ -23,6 +23,7 @@ class AppThemeConfig {
   Color get secondaryClr2 => isLight ? lmSecondaryColor2 : dmSecondaryColor2;
   Color get inactiveClr => isLight ? lmInactiveBlack : dmInactiveBlack;
   Color get whiteClr => isLight ? lmWhiteColor : dmWhiteColor;
+  Color get yellowClr => isLight ? lmYellowColor : dmYellowColor;
   Color get backgroundClr => lmBackgroundColor; // в тёмной теме нету
   Color get darkClr => dmDarkColor; // в светлой нету
 
@@ -36,7 +37,7 @@ class AppThemeConfig {
           primary: lightWhiteDarkIsMain,
           primaryVariant: isLight ? backgroundClr : darkClr,
           secondary: greenClr,
-          secondaryVariant: greenClr,
+          secondaryVariant: yellowClr,
           surface: lightWhiteDarkIsMain,
           background: lightWhiteDarkIsMain,
           error: errorClr,
