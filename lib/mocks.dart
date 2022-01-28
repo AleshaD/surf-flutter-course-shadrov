@@ -1,4 +1,5 @@
 import 'package:places/domain/sight.dart';
+import 'package:places/domain/sight_filter.dart';
 import 'package:places/domain/sight_type.dart';
 
 import 'domain/coordinate.dart';
@@ -7,6 +8,8 @@ final myCoordinateMock = Coordinate(
   lat: 44.467748,
   lon: 33.691336,
 );
+
+SightFilter mockSightFilter = SightFilter.dafult();
 
 List<Sight> sightMocks = [
   Sight(
@@ -21,7 +24,8 @@ List<Sight> sightMocks = [
     name: 'Источник Варналы',
     lat: 44.465456,
     lon: 33.696824,
-    url: 'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d546336b31d92762c999c239f15/XXXL',
+    url:
+        'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d546336b31d92762c999c239f15/XXXL',
     details: 'Отличный ресторан',
     type: SightType.specialPlace,
   ),
@@ -37,7 +41,8 @@ List<Sight> sightMocks = [
     name: 'Крепость Чембало',
     lat: 44.494673,
     lon: 33.599951,
-    url: 'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL',
+    url:
+        'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL',
     details: 'Древняя Этрусская крепость',
     type: SightType.specialPlace,
   ),
@@ -61,7 +66,8 @@ List<Sight> sightMocks = [
     name: 'Винодельня 78',
     lat: 44.533711,
     lon: 33.617736,
-    url: 'https://avatars.mds.yandex.net/get-tycoon/1534662/2a00000179d0d1a2f830c2c70489044f03f8/priority-headline-main-narrow',
+    url:
+        'https://avatars.mds.yandex.net/get-tycoon/1534662/2a00000179d0d1a2f830c2c70489044f03f8/priority-headline-main-narrow',
     details: 'Хорошо сохранившиеся развалины древнего города',
     type: SightType.restaurant,
   ),

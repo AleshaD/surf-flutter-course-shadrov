@@ -1,12 +1,10 @@
-import 'dart:math' as Math;
-
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/coordinate.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/domain/sight_filter.dart';
 import 'package:places/domain/sight_type.dart';
 import 'package:places/mocks.dart';
-import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
@@ -22,18 +20,18 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class FiltersScreenState extends State<FiltersScreen> {
-  final double _maxSliderRange = 10000;
-  final double _minSliderRange = 0;
+  final double _maxSliderRange = SightFilter.maxUntilDist;
+  final double _minSliderRange = SightFilter.minFromDist;
 
-  Set<SightType> _activeCategories = {};
-  RangeValues _sliderValues = RangeValues(0, 3000);
+  /// пока не прошли сохранение данных изменяем глобальный мок объект
+  SightFilter sightFilter = mockSightFilter;
 
   void changeActiveCategory(SightType type) {
     setState(() {
-      if (_activeCategories.contains(type)) {
-        _activeCategories.remove(type);
+      if (sightFilter.activeTypes.contains(type)) {
+        sightFilter.activeTypes.remove(type);
       } else {
-        _activeCategories.add(type);
+        sightFilter.activeTypes.add(type);
       }
     });
   }
@@ -49,26 +47,16 @@ class FiltersScreenState extends State<FiltersScreen> {
     }
   }
 
-  bool isSightInRange(Sight sight) {
-    var ky = 40000 / 360;
-    var kx = Math.cos(Math.pi * widget.myCoordinate.lat / 180.0) * ky;
-    var dx = (widget.myCoordinate.lon - sight.lon).abs() * kx;
-    var dy = (widget.myCoordinate.lat - sight.lat).abs() * ky;
-    var distance = Math.sqrt(dx * dx + dy * dy) * 1000;
-
-    return _sliderValues.start <= distance && _sliderValues.end >= distance;
-  }
-
   String sightsNumInRange() {
     int inRange = 0;
     widget.sights.forEach((sight) {
-      if (isSightInRange(sight)) inRange++;
+      if (sightFilter.sightInFilter(sight, widget.myCoordinate)) inRange++;
     });
 
     return '$inRange';
   }
 
-  bool isActiveCategory(SightType type) => _activeCategories.contains(type);
+  bool isActiveCategory(SightType type) => sightFilter.activeTypes.contains(type);
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +68,7 @@ class FiltersScreenState extends State<FiltersScreen> {
             padding: const EdgeInsets.only(right: 8.0),
             child: TextButton(
               onPressed: () => setState(() {
-                _activeCategories.clear();
+                sightFilter.activeTypes.clear();
               }),
               child: Text(
                 AppStrings.cleare,
@@ -145,7 +133,7 @@ class FiltersScreenState extends State<FiltersScreen> {
                           .copyWith(fontWeight: FontWeight.w400),
                     ),
                     Text(
-                      '${AppStrings.from.toLowerCase()} ${_readableDistanceVal(_sliderValues.start)} ${AppStrings.to.toLowerCase()} ${_readableDistanceVal(_sliderValues.end)}',
+                      '${AppStrings.from.toLowerCase()} ${_readableDistanceVal(sightFilter.fromDist)} ${AppStrings.to.toLowerCase()} ${_readableDistanceVal(sightFilter.toDist)}',
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
                             fontSize: 16,
                           ),
@@ -158,11 +146,11 @@ class FiltersScreenState extends State<FiltersScreen> {
                 RangeSlider(
                   min: _minSliderRange,
                   max: _maxSliderRange,
-                  values: _sliderValues,
+                  values: sightFilter.getRange,
                   onChanged: (RangeValues vals) => setState(() {
                     vals.end < 100
-                        ? _sliderValues = RangeValues(vals.start, 100)
-                        : _sliderValues = vals;
+                        ? sightFilter.setByRange(RangeValues(vals.start, 100))
+                        : sightFilter.setByRange(vals);
                   }),
                 ),
               ],
