@@ -94,6 +94,9 @@ class AppThemeConfig {
         ),
         dividerTheme: DividerThemeData(
           color: inactiveClr,
+          indent: 0,
+          endIndent: 0,
+          space: 0,
         ),
         sliderTheme: _sliderThemeDataBuilder(thumbClr: isLight ? null : whiteClr),
         switchTheme: SwitchThemeData(

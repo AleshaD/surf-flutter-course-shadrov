@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/res/themes.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 
 void main() {
   initializeDateFormatting();
@@ -32,7 +32,7 @@ class AppState extends State<App> {
     return MaterialApp(
       title: AppStrings.appTitle,
       theme: _currentTheme,
-      home: SightListScreen(),
+      home: SightSearchScreen(),
     );
   }
 }
