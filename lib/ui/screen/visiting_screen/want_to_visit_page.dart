@@ -15,7 +15,7 @@ class WantToVisitPage extends StatelessWidget {
     return sights.isEmpty
         ? EmptyListPage(
             icon: CustomIcons.card,
-            message: AppStrings.emptyWnatToGoList,
+            bodyMessage: AppStrings.emptyWnatToGoList,
           )
         : ListView(
             children: [
