@@ -8,6 +8,7 @@ import 'package:places/domain/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';
+import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
 class FiltersScreen extends StatefulWidget {
@@ -73,14 +74,7 @@ class FiltersScreenState extends State<FiltersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          splashRadius: 18,
-          onPressed: Navigator.of(context).pop,
-          icon: Icon(
-            CustomIcons.arrow_back,
-            size: 14,
-          ),
-        ),
+        leading: AppBarBackButton(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),

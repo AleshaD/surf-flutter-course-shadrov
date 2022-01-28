@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 
 class SightSearchScreen extends StatefulWidget {
   const SightSearchScreen({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: AppBarBackButton(),
         title: Text(
           AppStrings.sightListScrAppBar,
         ),
