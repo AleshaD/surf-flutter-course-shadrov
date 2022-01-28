@@ -110,7 +110,7 @@ class AppThemeConfig {
           errorBorder: _outlineInputBorderBuilder(borderSideClr: errorClr),
           focusedErrorBorder: _outlineInputBorderBuilder(borderSideClr: errorClr, borderWidth: 2),
           contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
-          suffixIconColor: secondaryClr2,
+          suffixIconColor: mainClr,
         ),
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(

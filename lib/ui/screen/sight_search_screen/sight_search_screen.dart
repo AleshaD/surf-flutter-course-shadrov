@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
+import 'package:places/ui/widgets/search_bar.dart';
 
 class SightSearchScreen extends StatefulWidget {
   const SightSearchScreen({Key? key}) : super(key: key);
@@ -17,6 +18,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         leading: AppBarBackButton(),
         title: Text(
           AppStrings.sightListScrAppBar,
+        ),
+        bottom: SearchBar(
+          autoFocus: true,
         ),
       ),
       body: Container(

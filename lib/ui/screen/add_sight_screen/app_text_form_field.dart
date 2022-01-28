@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/widgets/buttons/suffix_button.dart';
 
 class AppTextFormField extends StatefulWidget {
   const AppTextFormField({
@@ -77,24 +78,14 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             hintStyle: Theme.of(context).textTheme.caption!.copyWith(
                   fontSize: 16,
                 ),
-            suffixIconConstraints: BoxConstraints(maxHeight: 34, maxWidth: 34),
+            suffixIconConstraints: BoxConstraints(maxHeight: 34, maxWidth: 60),
             suffixIcon: showClearBtnSuffix
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: IconButton(
-                      padding: EdgeInsets.all(0),
-                      splashRadius: 16,
-                      iconSize: 20,
-                      onPressed: () => setState(() {
-                        widget.textController.clear();
-                        if (widget.onChange != null) widget.onChange!();
-                      }),
-                      icon: Icon(
-                        CustomIcons.clear,
-                        size: 20,
-                      ),
-                    ),
-                  )
+                ? SuffixButton(
+                    onPressed: () => setState(() {
+                          widget.textController.clear();
+                          if (widget.onChange != null) widget.onChange!();
+                        }),
+                    iconData: CustomIcons.clear)
                 : Container(),
           ),
           onEditingComplete: () => setState(() {
