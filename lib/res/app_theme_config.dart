@@ -24,8 +24,7 @@ class AppThemeConfig {
   Color get inactiveClr => isLight ? lmInactiveBlack : dmInactiveBlack;
   Color get whiteClr => isLight ? lmWhiteColor : dmWhiteColor;
   Color get yellowClr => isLight ? lmYellowColor : dmYellowColor;
-  Color get backgroundClr => lmBackgroundColor; // в тёмной теме нету
-  Color get darkClr => dmDarkColor; // в светлой нету
+  Color get backgroundClr => isLight ? lmBackgroundColor : dmDarkColor; // в тёмной теме нету
 
   Color get lightSecondaryDarkIsWhite => isLight ? secondaryClr : whiteClr;
   Color get lightWhiteDarkIsMain => isLight ? whiteClr : mainClr;
@@ -35,7 +34,7 @@ class AppThemeConfig {
         scaffoldBackgroundColor: lightWhiteDarkIsMain,
         colorScheme: ColorScheme(
           primary: lightWhiteDarkIsMain,
-          primaryVariant: isLight ? backgroundClr : darkClr,
+          primaryVariant: backgroundClr,
           secondary: greenClr,
           secondaryVariant: yellowClr,
           surface: lightWhiteDarkIsMain,
@@ -140,7 +139,7 @@ class AppThemeConfig {
             backgroundColor: MaterialStateProperty.resolveWith(
               (states) {
                 if (states.contains(MaterialState.disabled))
-                  return isLight ? backgroundClr : darkClr;
+                  return backgroundClr;
                 else
                   return greenClr;
               },

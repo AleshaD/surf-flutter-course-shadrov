@@ -5,18 +5,16 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/coordinate.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_type.dart';
+import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({
-    required this.sights,
-    required this.myCoordinate,
-  });
+  FiltersScreen();
 
-  final Coordinate myCoordinate;
-  final List<Sight> sights;
+  final Coordinate myCoordinate = myCoordinateMock;
+  final List<Sight> sights = sightMocks;
 
   @override
   FiltersScreenState createState() => FiltersScreenState();
@@ -77,7 +75,7 @@ class FiltersScreenState extends State<FiltersScreen> {
       appBar: AppBar(
         leading: IconButton(
           splashRadius: 18,
-          onPressed: () => print('Back btn pressed'),
+          onPressed: Navigator.of(context).pop,
           icon: Icon(
             CustomIcons.arrow_back,
             size: 14,

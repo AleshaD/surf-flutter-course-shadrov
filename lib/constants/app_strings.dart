@@ -1,6 +1,6 @@
 class AppStrings {
   static const appTitle = 'Places';
-  static const sightListScrAppBar = 'Список \nинтересных мест';
+  static const sightListScrAppBar = 'Список интересных мест';
   static const shortDescription = 'краткое описание';
   static const favorites = 'Избранное';
   static const wantToGo = 'Хочу посетить';
@@ -47,4 +47,6 @@ class AppStrings {
   static const createRout = 'Построить маршрут';
   static const plan = 'Запланировать';
   static const toFavorite = 'В Избранное';
+
+  static const searh = 'Поиск';
 }

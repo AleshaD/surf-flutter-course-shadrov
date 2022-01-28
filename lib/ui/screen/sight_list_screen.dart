@@ -3,8 +3,10 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
 import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
+import 'package:places/ui/widgets/search_bar.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
@@ -26,39 +28,38 @@ class _SightListScreenState extends State<SightListScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        toolbarHeight: toolbarHeight,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ConstrainedBox(
-              constraints: BoxConstraints.tightFor(
-                width: double.infinity,
-              ),
-              child: Text(
-                AppStrings.sightListScrAppBar,
-                style: Theme.of(context).textTheme.headline4,
-              ),
+        title: Text(
+          AppStrings.sightListScrAppBar,
+        ),
+        bottom: SearchBar(
+          readOnly: true,
+          showFilterBtn: true,
+          onFieldTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SightSearchScreen(),
             ),
           ),
         ),
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                for (var i = 0; i < sightMocks.length; i++)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                    child: SightCard(
-                      sightMocks[i],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (var i = 0; i < sightMocks.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: SightCard(
+                        sightMocks[i],
+                      ),
                     ),
+                  SizedBox(
+                    height: 80,
                   ),
-                SizedBox(
-                  height: 80,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Align(
