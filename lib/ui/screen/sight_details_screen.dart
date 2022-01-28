@@ -41,7 +41,7 @@ class SightDetailsScreen extends StatelessWidget {
                     borderRadius: _backBtnRadius,
                     child: IconButton(
                       splashRadius: 18,
-                      onPressed: () => print('Back Btn pressed'),
+                      onPressed: () => Navigator.of(context).pop(),
                       icon: Icon(
                         CustomIcons.arrow_back,
                         size: 14,

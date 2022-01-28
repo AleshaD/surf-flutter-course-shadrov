@@ -1,9 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/enums/search_screen_state_type.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_filter.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/screen/sight_details_screen.dart';
+import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_card_tile.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
@@ -16,9 +22,21 @@ class SightSearchScreen extends StatefulWidget {
 }
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
+  int enterDelayMs = 250;
   SearchScreenType pageState = SearchScreenType.searchHystory;
   List<String> searchHystory = ['Привет', 'Кафе', '78'];
+  String searchedString = '';
   SightFilter sightFilter = mockSightFilter;
+  Timer timerToSearch = Timer(Duration.zero, () {});
+  TextEditingController txtController = TextEditingController();
+  bool searchInProgres = false;
+  List<Sight> findedSights = [];
+
+  @override
+  void dispose() {
+    super.dispose();
+    txtController.dispose();
+  }
 
   @override
   void initState() {
@@ -31,68 +49,107 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   bool pgStateIs(SearchScreenType type) => pageState == type;
 
   void setEmptyPgState() => pageState = SearchScreenType.emptyPage;
+  void setSearchedPgState() => pageState = SearchScreenType.searchedSights;
+  void setHystoryPgState() => pageState = SearchScreenType.searchHystory;
+  void setNoResultPgState() => pageState = SearchScreenType.noResults;
+
+  void onSearchBarChanged(String val) {
+    if (txtController.text.isEmpty) return showEmptyOrHystoryPg();
+
+    // поиск после ввода символа с небольшой задержкой
+    if (timerToSearch.isActive) timerToSearch.cancel();
+    timerToSearch = Timer(Duration(milliseconds: enterDelayMs), () {
+      doSearch(val);
+    });
+  }
+
+  void doSearch(String query) async {
+    setState(() {
+      setSearchedPgState();
+      searchInProgres = true;
+      findedSights.clear();
+    });
+
+    for (var i = 0; i < sightMocks.length; i++) {
+      Sight sight = sightMocks[i];
+      if (sightFilter.sightInFilter(sight, myCoordinateMock) && sight.name.contains(query)) {
+        findedSights.add(sight);
+      }
+    }
+
+    Future.delayed(
+      // имитация загрузки
+      Duration(milliseconds: 1500),
+      () => setState(
+        () {
+          searchInProgres = false;
+          if (findedSights.isEmpty) setNoResultPgState();
+        },
+      ),
+    );
+  }
+
+  void onCompleteSearchEnter() {
+    doSearch(txtController.text);
+  }
+
+  void showEmptyOrHystoryPg() => setState(() {
+        searchHystory.isNotEmpty ? setHystoryPgState() : setEmptyPgState();
+      });
 
   Widget getBodyByState() {
     switch (pageState) {
       case SearchScreenType.searchHystory:
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: ListView(
-            children: [
-              SizedBox(
-                height: 32,
-              ),
-              Text(
-                AppStrings.youSearched.toUpperCase(),
-                style: Theme.of(context).textTheme.caption,
-              ),
-              for (var i = 0; i < searchHystory.length; i++)
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 48,
-                      child: ListTile(
-                        onTap: () {},
-                        dense: true,
-                        contentPadding: const EdgeInsets.only(left: 0, right: 16),
-                        leading: Text(
-                          searchHystory[i],
-                          style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                                fontSize: 16,
-                                height: 1,
-                              ),
-                        ),
-                        trailing: IconButton(
-                          onPressed: () => setState(() {
-                            searchHystory.removeAt(i);
-                            if (searchHystory.isEmpty) setEmptyPgState();
-                          }),
-                          splashRadius: 20,
-                          icon: Icon(
-                            CustomIcons.close,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                    i != searchHystory.length - 1 ? Divider() : Container()
-                  ],
-                ),
-              TextButton(
-                onPressed: () => setState(() {
-                  searchHystory.clear();
-                  setEmptyPgState();
-                }),
-                child: Text(
-                  AppStrings.cleanHystory,
+        return ListView(
+          children: [
+            SizedBox(
+              height: 32,
+            ),
+            Text(
+              AppStrings.youSearched.toUpperCase(),
+              style: Theme.of(context).textTheme.caption,
+            ),
+            for (var i = 0; i < searchHystory.length; i++)
+              SearchHystoryTile(
+                name: searchHystory[i],
+                showDevider: i != searchHystory.length - 1,
+                tileTaped: () {},
+                onDelBtnPressed: () => setState(
+                  () {
+                    searchHystory.removeAt(i);
+                    if (searchHystory.isEmpty) setEmptyPgState();
+                  },
                 ),
               ),
-            ],
-          ),
+            TextButton(
+              onPressed: () => setState(() {
+                searchHystory.clear();
+                setEmptyPgState();
+              }),
+              child: Text(
+                AppStrings.cleanHystory,
+              ),
+            ),
+          ],
         );
       case SearchScreenType.searchedSights:
-        return Container();
+        return ListView(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            for (var i = 0; i < findedSights.length; i++)
+              SightCardTile(
+                sight: findedSights[i],
+                showDevider: i != findedSights.length - 1,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SightDetailsScreen(findedSights[i]),
+                  ),
+                ),
+              )
+          ],
+        );
       case SearchScreenType.emptyPage:
         return EmptyListPage(
           icon: CustomIcons.search,
@@ -126,8 +183,14 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           ),
           bottom: SearchBar(
             autoFocus: true,
+            controller: txtController,
+            onChanged: onSearchBarChanged,
+            onEditingComplete: onCompleteSearchEnter,
           ),
         ),
-        body: getBodyByState());
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: getBodyByState(),
+        ));
   }
 }

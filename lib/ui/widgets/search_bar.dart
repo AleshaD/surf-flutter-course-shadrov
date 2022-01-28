@@ -9,13 +9,19 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget {
     this.readOnly = false,
     this.showFilterBtn = false,
     this.autoFocus = false,
+    this.controller,
     this.onFieldTap,
+    this.onChanged,
+    this.onEditingComplete,
   });
 
   final bool readOnly;
   final bool showFilterBtn;
   final bool autoFocus;
+  final TextEditingController? controller;
   final VoidCallback? onFieldTap;
+  final VoidCallback? onEditingComplete;
+  final Function(String)? onChanged;
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -25,7 +31,7 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  TextEditingController controller = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   final OutlineInputBorder defaultBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(
@@ -37,9 +43,19 @@ class _SearchBarState extends State<SearchBar> {
   );
 
   @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      if (!focusNode.hasFocus && widget.onEditingComplete != null) {
+        widget.onEditingComplete!();
+      }
+    });
+  }
+
+  @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    focusNode.dispose();
   }
 
   @override
@@ -47,14 +63,18 @@ class _SearchBarState extends State<SearchBar> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: TextField(
-        controller: controller,
+        controller: widget.controller,
+        focusNode: focusNode,
         cursorColor: Theme.of(context).primaryColor,
         cursorWidth: 1,
         style: Theme.of(context).textTheme.bodyText1,
         textAlignVertical: TextAlignVertical.bottom,
+        textInputAction: TextInputAction.search,
         readOnly: widget.readOnly,
         autofocus: widget.autoFocus,
         onTap: widget.onFieldTap,
+        onChanged: widget.onChanged,
+        onEditingComplete: widget.onEditingComplete,
         decoration: InputDecoration(
           hintText: AppStrings.searh,
           hintStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 16),
@@ -87,7 +107,8 @@ class _SearchBarState extends State<SearchBar> {
                 )
               : SuffixButton(
                   onPressed: () {
-                    controller.clear();
+                    if (widget.controller != null) widget.controller!.clear();
+                    if (widget.onChanged != null) widget.onChanged!('');
                   },
                   iconData: CustomIcons.clear,
                 ),

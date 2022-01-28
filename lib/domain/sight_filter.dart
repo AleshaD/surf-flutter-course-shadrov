@@ -16,7 +16,7 @@ class SightFilter {
 
   SightFilter.dafult()
       : this._fromDist = 0,
-        this._toDist = 6000,
+        this._toDist = 10000,
         this.activeTypes = {
           SightType.cafe,
           SightType.hotel,
