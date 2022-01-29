@@ -22,7 +22,7 @@ class SightSearchScreen extends StatefulWidget {
 }
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
-  int enterDelayMs = 250;
+  int enterDelayMs = 1000;
   SearchScreenType pageState = SearchScreenType.searchHystory;
   List<String> searchHystory = ['Привет', 'Кафе', '78'];
   String searchedString = '';
@@ -54,13 +54,17 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void setNoResultPgState() => pageState = SearchScreenType.noResults;
 
   void onSearchBarChanged(String val) {
+    timerToSearch.cancel();
     if (txtController.text.isEmpty) return showEmptyOrHystoryPg();
 
-    // поиск после ввода символа с небольшой задержкой
-    if (timerToSearch.isActive) timerToSearch.cancel();
-    timerToSearch = Timer(Duration(milliseconds: enterDelayMs), () {
-      doSearch(val);
-    });
+    // поиск если ввели слово
+    if (txtController.text.endsWith(' ')) return doSearch(txtController.text);
+
+    // если не вводили символ в течении enterDelay
+    timerToSearch = Timer(
+      Duration(milliseconds: enterDelayMs),
+      () => doSearch(txtController.text),
+    );
   }
 
   void doSearch(String query) async {
@@ -70,18 +74,18 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       findedSights.clear();
     });
 
-    for (var i = 0; i < sightMocks.length; i++) {
-      Sight sight = sightMocks[i];
-      if (sightFilter.sightInFilter(sight, myCoordinateMock) && sight.name.contains(query)) {
-        findedSights.add(sight);
-      }
-    }
-
     Future.delayed(
       // имитация загрузки
       Duration(milliseconds: 1500),
       () => setState(
         () {
+          for (var i = 0; i < sightMocks.length; i++) {
+            Sight sight = sightMocks[i];
+            if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
+                checkFraseInName(sight.name, query)) {
+              findedSights.add(sight);
+            }
+          }
           searchInProgres = false;
           if (findedSights.isEmpty) setNoResultPgState();
         },
@@ -96,6 +100,15 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void showEmptyOrHystoryPg() => setState(() {
         searchHystory.isNotEmpty ? setHystoryPgState() : setEmptyPgState();
       });
+
+  bool checkFraseInName(String name, String frase) {
+    List<String> words = frase.split(' ');
+    for (var i = 0; i < words.length; i++) {
+      String word = words[i].trim().toLowerCase();
+      if (!name.toLowerCase().contains(word)) return false;
+    }
+    return true;
+  }
 
   Widget getBodyByState() {
     switch (pageState) {
@@ -190,7 +203,19 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: getBodyByState(),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: searchInProgres
+                    ? LinearProgressIndicator(
+                        color: Theme.of(context).colorScheme.secondary,
+                      )
+                    : Container(),
+              ),
+              getBodyByState(),
+            ],
+          ),
         ));
   }
 }
