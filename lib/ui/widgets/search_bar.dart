@@ -13,6 +13,7 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget {
     this.onFieldTap,
     this.onChanged,
     this.onEditingComplete,
+    this.onFocusDismiss,
   });
 
   final bool readOnly;
@@ -21,6 +22,7 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget {
   final TextEditingController? controller;
   final VoidCallback? onFieldTap;
   final VoidCallback? onEditingComplete;
+  final VoidCallback? onFocusDismiss;
   final Function(String)? onChanged;
 
   @override
@@ -46,8 +48,8 @@ class _SearchBarState extends State<SearchBar> {
   void initState() {
     super.initState();
     focusNode.addListener(() {
-      if (!focusNode.hasFocus && widget.onEditingComplete != null) {
-        widget.onEditingComplete!();
+      if (!focusNode.hasFocus && widget.onFocusDismiss != null) {
+        widget.onFocusDismiss!();
       }
     });
   }

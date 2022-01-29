@@ -95,8 +95,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void onCompleteSearchEnter() {
     timerToSearch.cancel();
+    saveSearchedStr();
     doSearch(txtController.text);
-    searchHystory.add(txtController.text.trim());
+  }
+
+  void saveSearchedStr() {
+    String searchedStr = txtController.text.trim();
+    if (searchedStr.isNotEmpty) searchHystory.add(txtController.text.trim());
   }
 
   void showEmptyOrHystoryPg() => setState(() {
@@ -211,6 +216,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             controller: txtController,
             onChanged: onSearchBarChanged,
             onEditingComplete: onCompleteSearchEnter,
+            onFocusDismiss: saveSearchedStr,
           ),
         ),
         body: Padding(
