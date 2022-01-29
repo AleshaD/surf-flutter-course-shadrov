@@ -24,7 +24,7 @@ class SightSearchScreen extends StatefulWidget {
 class _SightSearchScreenState extends State<SightSearchScreen> {
   int enterDelayMs = 1000;
   SearchScreenType pageState = SearchScreenType.searchHystory;
-  List<String> searchHystory = ['Привет', 'Кафе', '78'];
+  Set<String> searchHystory = {'Привет', 'Кафе', '78'};
   String searchedString = '';
   SightFilter sightFilter = mockSightFilter;
   Timer timerToSearch = Timer(Duration.zero, () {});
@@ -94,7 +94,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void onCompleteSearchEnter() {
+    timerToSearch.cancel();
     doSearch(txtController.text);
+    searchHystory.add(txtController.text.trim());
   }
 
   void showEmptyOrHystoryPg() => setState(() {
@@ -124,12 +126,22 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             ),
             for (var i = 0; i < searchHystory.length; i++)
               SearchHystoryTile(
-                name: searchHystory[i],
+                name: searchHystory.elementAt(i),
                 showDevider: i != searchHystory.length - 1,
-                tileTaped: () {},
+                tileTaped: () {
+                  String searchTxt = searchHystory.elementAt(i) + ' ';
+                  txtController.value = TextEditingValue(
+                    text: searchTxt,
+                    selection: TextSelection(
+                      baseOffset: searchTxt.length,
+                      extentOffset: searchTxt.length,
+                    ),
+                  );
+                  doSearch(searchTxt);
+                },
                 onDelBtnPressed: () => setState(
                   () {
-                    searchHystory.removeAt(i);
+                    searchHystory.remove(searchHystory.elementAt(i));
                     if (searchHystory.isEmpty) setEmptyPgState();
                   },
                 ),
