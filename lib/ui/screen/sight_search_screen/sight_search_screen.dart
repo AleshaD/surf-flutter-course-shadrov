@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/enums/search_screen_state_type.dart';
+import 'package:places/domain/searched_sight.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_filter.dart';
 import 'package:places/mocks.dart';
@@ -30,7 +31,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   Timer timerToSearch = Timer(Duration.zero, () {});
   TextEditingController txtController = TextEditingController();
   bool searchInProgres = false;
-  List<Sight> findedSights = [];
+  List<SearchedSight> findedSights = [];
 
   @override
   void dispose() {
@@ -68,6 +69,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void doSearch(String query) async {
+    if (searchInProgres) return;
+
     setState(() {
       setSearchedPgState();
       searchInProgres = true;
@@ -83,7 +86,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             Sight sight = sightMocks[i];
             if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
                 checkFraseInName(sight.name, query)) {
-              findedSights.add(sight);
+              findedSights.add(SearchedSight(sight, query));
             }
           }
           searchInProgres = false;
@@ -170,11 +173,18 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             ),
             for (var i = 0; i < findedSights.length; i++)
               SightCardTile(
-                sight: findedSights[i],
+                searched: findedSights[i],
+                highliteStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                normalStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
                 showDevider: i != findedSights.length - 1,
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => SightDetailsScreen(findedSights[i]),
+                    builder: (context) => SightDetailsScreen(findedSights[i].sight),
                   ),
                 ),
               )
