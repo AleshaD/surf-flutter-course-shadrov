@@ -56,7 +56,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void onSearchBarChanged(String val) {
     timerToSearch.cancel();
-    if (txtController.text.isEmpty) return showEmptyOrHystoryPg();
+    if (txtController.text.trim().isEmpty) return showEmptyOrHystoryPg();
 
     // поиск если ввели слово
     if (txtController.text.endsWith(' ')) return doSearch(txtController.text);
