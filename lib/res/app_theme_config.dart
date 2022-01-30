@@ -106,6 +106,11 @@ class AppThemeConfig {
             return states.contains(MaterialState.selected) ? selectedColor : inactiveClr;
           }),
         ),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: lightSecondaryDarkIsWhite,
+          selectionColor: lightSecondaryDarkIsWhite.withAlpha(30),
+          selectionHandleColor: lightSecondaryDarkIsWhite.withAlpha(90),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           isDense: true,
           enabledBorder: _outlineInputBorderBuilder(),
