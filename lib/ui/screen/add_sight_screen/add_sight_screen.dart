@@ -44,7 +44,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
     latitudeController.dispose();
     longitudeController.dispose();
     descriptionController.dispose();
-    descriptionNode.dispose();
     scrollController.dispose();
   }
 
