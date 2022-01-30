@@ -8,9 +8,8 @@ import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_filter.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/sight_details_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';
-import 'package:places/ui/screen/sight_search_screen/sight_card_tile.dart';
+import 'package:places/ui/screen/sight_search_screen/searched_sights_list_view.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
@@ -179,29 +178,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           ],
         );
       case SearchScreenType.searchedSights:
-        return ListView(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            for (var i = 0; i < findedSights.length; i++)
-              SightCardTile(
-                searched: findedSights[i],
-                highliteStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                normalStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                showDevider: i != findedSights.length - 1,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => SightDetailsScreen(findedSights[i].sight),
-                  ),
-                ),
-              )
-          ],
+        return SearchedSightsListView(
+          findedSights,
         );
       case SearchScreenType.emptyPage:
         return EmptyListPage(
