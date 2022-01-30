@@ -69,7 +69,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void doSearch(String query) async {
-    if (searchInProgres) return;
+    if (query.trim().isEmpty || searchInProgres) return;
 
     setState(() {
       setSearchedPgState();
