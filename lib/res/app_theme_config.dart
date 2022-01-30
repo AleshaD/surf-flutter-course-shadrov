@@ -103,6 +103,7 @@ class AppThemeConfig {
           thumbColor: MaterialStateProperty.all(isLight ? greenClr : whiteClr),
           trackColor: MaterialStateProperty.resolveWith((states) {
             Color selectedColor = isLight ? greenClr.withAlpha(80) : greenClr;
+
             return states.contains(MaterialState.selected) ? selectedColor : inactiveClr;
           }),
         ),
@@ -138,18 +139,12 @@ class AppThemeConfig {
             elevation: MaterialStateProperty.all(0),
             foregroundColor: MaterialStateProperty.resolveWith(
               (states) {
-                if (states.contains(MaterialState.disabled))
-                  return inactiveClr;
-                else
-                  return whiteClr;
+                return states.contains(MaterialState.disabled) ? inactiveClr : whiteClr;
               },
             ),
             backgroundColor: MaterialStateProperty.resolveWith(
               (states) {
-                if (states.contains(MaterialState.disabled))
-                  return backgroundClr;
-                else
-                  return greenClr;
+                return states.contains(MaterialState.disabled) ? backgroundClr : greenClr;
               },
             ),
             shape: MaterialStateProperty.all(
@@ -176,6 +171,7 @@ class AppThemeConfig {
 
   OutlineInputBorder _outlineInputBorderBuilder({Color? borderSideClr, double borderWidth = 1.0}) {
     borderSideClr = borderSideClr ?? greenClr.withAlpha(40);
+
     return OutlineInputBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(8),

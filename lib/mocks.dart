@@ -57,7 +57,7 @@ List<Sight> sightMocks = [
   Sight(
     name: 'Музей-заповедник Херсонес Таврический',
     lat: 44.568491,
-    lon: 33.557130,
+    lon: 33.55713,
     url: 'https://avatars.mds.yandex.net/get-altay/1879929/2a0000016ae2fd9a1e0f897adb972249c6ba/L',
     details: 'Хорошо сохранившиеся развалины древнего города',
     type: SightType.museum,

@@ -43,23 +43,21 @@ class _SightListScreenState extends State<SightListScreen> {
       ),
       body: Stack(
         children: [
-          Padding(
+          SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  for (var i = 0; i < sightMocks.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: SightCard(
-                        sightMocks[i],
-                      ),
+            child: Column(
+              children: [
+                for (var i = 0; i < sightMocks.length; i++)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: SightCard(
+                      sightMocks[i],
                     ),
-                  SizedBox(
-                    height: 80,
                   ),
-                ],
-              ),
+                SizedBox(
+                  height: 80,
+                ),
+              ],
             ),
           ),
           Align(
