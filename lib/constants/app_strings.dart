@@ -26,8 +26,8 @@ class AppStrings {
   static const placeIsSaved = 'Место сохранено';
   static const create = 'Создать';
 
-  static const longitude = 'Широта';
-  static const latitude = 'Долгота';
+  static const longitude = 'Долгота';
+  static const latitude = 'Широта';
   static const needed = 'Обязательна';
   static const min = 'Мин';
   static const max = 'Макс';

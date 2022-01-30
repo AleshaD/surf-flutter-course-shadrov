@@ -199,7 +199,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           },
                           onChange: _changeCreateBtnState,
                           onEditingComplete: () =>
-                              FocusScope.of(context).requestFocus(longitudeNode),
+                              FocusScope.of(context).requestFocus(latitudeNode),
                         ),
                         SizedBox(
                           height: _blockMarginSize,
@@ -210,13 +210,13 @@ class _AddSightScreenState extends State<AddSightScreen> {
                             SizedBox(
                               width: widthOfCoordinateTxtFields,
                               child: CoordinateTextField(
-                                type: CoordinateType.longitude,
-                                textController: longitudeController,
-                                focusNode: longitudeNode,
+                                type: CoordinateType.latitude,
+                                textController: latitudeController,
+                                focusNode: latitudeNode,
                                 onChange: _changeCreateBtnState,
                                 onEditingComplete: () {
-                                  if (latitudeController.text == '')
-                                    FocusScope.of(context).requestFocus(latitudeNode);
+                                  if (longitudeController.text == '')
+                                    FocusScope.of(context).requestFocus(longitudeNode);
                                 },
                               ),
                             ),
@@ -226,9 +226,9 @@ class _AddSightScreenState extends State<AddSightScreen> {
                             SizedBox(
                               width: widthOfCoordinateTxtFields,
                               child: CoordinateTextField(
-                                type: CoordinateType.latitude,
-                                textController: latitudeController,
-                                focusNode: latitudeNode,
+                                type: CoordinateType.longitude,
+                                textController: longitudeController,
+                                focusNode: longitudeNode,
                                 onChange: _changeCreateBtnState,
                                 onEditingComplete: () {
                                   if (descriptionController.text == '')
