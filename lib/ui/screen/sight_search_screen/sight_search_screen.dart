@@ -25,7 +25,7 @@ class SightSearchScreen extends StatefulWidget {
 class _SightSearchScreenState extends State<SightSearchScreen> {
   int enterDelayMs = 1000;
   SearchScreenType pageState = SearchScreenType.searchHystory;
-  Set<String> searchHystory = {'Привет', 'Кафе', '78'};
+  Set<String> searchHystory = {'Музей балаклав', 'орли', '78 вино', 'Варна', 'ошибка'};
   String searchedString = '';
   SightFilter sightFilter = mockSightFilter;
   Timer timerToSearch = Timer(Duration.zero, () {});
@@ -53,6 +53,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void setSearchedPgState() => pageState = SearchScreenType.searchedSights;
   void setHystoryPgState() => pageState = SearchScreenType.searchHystory;
   void setNoResultPgState() => pageState = SearchScreenType.noResults;
+  void setErrorPgState() => pageState = SearchScreenType.error;
 
   void onSearchBarChanged(String val) {
     timerToSearch.cancel();
@@ -79,18 +80,24 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
     Future.delayed(
       // имитация загрузки
-      Duration(milliseconds: 1500),
+      Duration(milliseconds: 1000),
       () => setState(
         () {
-          for (var i = 0; i < sightMocks.length; i++) {
-            Sight sight = sightMocks[i];
-            if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
-                checkFraseInName(sight.name, query)) {
-              findedSights.add(SearchedSight(sight, query));
+          try {
+            for (var i = 0; i < sightMocks.length; i++) {
+              Sight sight = sightMocks[i];
+              if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
+                  checkFraseInName(sight.name, query)) {
+                findedSights.add(SearchedSight(sight, query));
+              }
             }
+            searchInProgres = false;
+            if (findedSights.isEmpty) setNoResultPgState();
+            if (query == 'ошибка ') throw ('Error');
+          } catch (e) {
+            searchInProgres = false;
+            setErrorPgState();
           }
-          searchInProgres = false;
-          if (findedSights.isEmpty) setNoResultPgState();
         },
       ),
     );
@@ -104,7 +111,12 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void saveSearchedStr() {
     String searchedStr = txtController.text.trim();
-    if (searchedStr.isNotEmpty) searchHystory.add(txtController.text.trim());
+    if (searchedStr.isNotEmpty) {
+      // добавить в начало списка
+      var list = searchHystory.toList();
+      list.insert(0, txtController.text.trim());
+      searchHystory = list.toSet();
+    }
   }
 
   void showEmptyOrHystoryPg() => setState(() {
