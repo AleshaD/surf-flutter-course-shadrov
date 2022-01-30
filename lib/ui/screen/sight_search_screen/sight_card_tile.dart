@@ -17,6 +17,8 @@ class SightCardTile extends StatelessWidget {
   final SearchedSight searched;
   final bool showDevider;
 
+  /// суть функции в том чтобы найти вложения слов в строке которые нужно подсветить
+  /// и далее сформировать RichText
   RichText nameWithHighlites() {
     Set<String> words = {};
     searched.query.split(' ').forEach(
@@ -31,33 +33,11 @@ class SightCardTile extends StatelessWidget {
     List<TextSpan> children = [];
 
     // найдём диапазоны вложений слов в строке
-    wordsloop:
     for (var i = 0; i < words.length; i++) {
       String word = words.elementAt(i);
 
       int startIndex = compareName.indexOf(word);
       int endIndex = startIndex + word.length;
-
-      // исключаем пересечения в диапазонах
-      for (var j = 0; j < higlitedRanges.length; j++) {
-        RangeValues range = higlitedRanges[j];
-        if (range.start <= startIndex && range.end >= startIndex) {
-          if (range.end <= endIndex) {
-            // расширяем диапазон
-            higlitedRanges.removeAt(j);
-            higlitedRanges.add(
-              RangeValues(
-                range.start,
-                endIndex.toDouble(),
-              ),
-            );
-            continue wordsloop;
-          } else {
-            // пропускаем слово, поскольку эта область уже будет подсвечена
-            continue wordsloop;
-          }
-        }
-      }
 
       higlitedRanges.add(
         RangeValues(
@@ -66,6 +46,8 @@ class SightCardTile extends StatelessWidget {
         ),
       );
     }
+
+    higlitedRanges = _cleanRanges(higlitedRanges);
 
     higlitedRanges.sort((a, b) {
       return a.end.compareTo(b.end);
@@ -94,6 +76,34 @@ class SightCardTile extends StatelessWidget {
         children: children,
       ),
     );
+  }
+
+  /// убирает в списке вложенные диапазоны или
+  /// диапазоны которые накладываются друг на друга
+  List<RangeValues> _cleanRanges(List<RangeValues> ranges) {
+    for (var i = 0; i < ranges.length; i++) {
+      var checkedRange = ranges[i];
+      for (var j = 0; j < ranges.length; j++) {
+        if (i == j) continue;
+        var compareRange = ranges[j];
+        if ((checkedRange.start >= compareRange.start && checkedRange.start <= compareRange.end) ||
+            (checkedRange.end <= compareRange.end && checkedRange.end >= compareRange.start)) {
+          double start =
+              checkedRange.start < compareRange.start ? checkedRange.start : compareRange.start;
+          double end = checkedRange.end > compareRange.end ? checkedRange.end : compareRange.end;
+          var firstDel = i, secondDel = j;
+          if (i < j) {
+            firstDel = j;
+            secondDel = i;
+          }
+          ranges.remove(ranges[firstDel]);
+          ranges.remove(ranges[secondDel]);
+          ranges.add(RangeValues(start, end));
+          return _cleanRanges(ranges);
+        }
+      }
+    }
+    return ranges;
   }
 
   TextSpan higliteSpan(String txt) => TextSpan(text: txt, style: highliteStyle);
