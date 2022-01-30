@@ -57,15 +57,15 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void onSearchBarChanged(String val) {
     timerToSearch.cancel();
-    if (txtController.text.trim().isEmpty) return showEmptyOrHystoryPg();
+    if (val.trim().isEmpty) return showEmptyOrHystoryPg();
 
     // поиск если ввели слово
-    if (txtController.text.endsWith(' ')) return doSearch(txtController.text);
+    if (val.endsWith(' ')) return doSearch(val);
 
     // если не вводили символ в течении enterDelay
     timerToSearch = Timer(
       Duration(milliseconds: enterDelayMs),
-      () => doSearch(txtController.text),
+      () => doSearch(val),
     );
   }
 
@@ -129,6 +129,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       String word = words[i].trim().toLowerCase();
       if (!name.toLowerCase().contains(word)) return false;
     }
+
     return true;
   }
 

@@ -74,11 +74,11 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
     // меняем стэйт виджета только если это необходимо
     if (canBeActive != _createBtnIsActive) {
-      if (canBeActive && _formKey.currentState!.validate())
-        _createBtnIsActive = true;
-      else
-        _createBtnIsActive = false;
-      setState(() {});
+      setState(() {
+        canBeActive && _formKey.currentState!.validate()
+            ? _createBtnIsActive = true
+            : _createBtnIsActive = false;
+      });
     }
   }
 
@@ -118,6 +118,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   Widget build(BuildContext context) {
     final double widthOfCoordinateTxtFields =
         (MediaQuery.of(context).size.width - (_sideScreenPadding * 2 + _spaceBetwenTextFields)) / 2;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -259,7 +260,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           textInputType: TextInputType.multiline,
                           showClearTxtBtn: false,
                           maxLines: 4,
-                          onEditingComplete: () {},
                         ),
                       ],
                     ),

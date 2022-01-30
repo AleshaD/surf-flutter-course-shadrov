@@ -99,10 +99,12 @@ class SightCardTile extends StatelessWidget {
           ranges.remove(ranges[firstDel]);
           ranges.remove(ranges[secondDel]);
           ranges.add(RangeValues(start, end));
+
           return _cleanRanges(ranges);
         }
       }
     }
+
     return ranges;
   }
 

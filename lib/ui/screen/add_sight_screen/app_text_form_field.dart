@@ -8,7 +8,7 @@ class AppTextFormField extends StatefulWidget {
     required this.name,
     required this.textController,
     required this.focusNode,
-    required this.onEditingComplete,
+    this.onEditingComplete,
     this.onChange,
     this.validator,
     this.inputFormatters,
@@ -23,7 +23,7 @@ class AppTextFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final FocusNode focusNode;
   final String name;
-  final VoidCallback onEditingComplete;
+  final VoidCallback? onEditingComplete;
   final VoidCallback? onChange;
   final TextEditingController textController;
   final TextInputType textInputType;
@@ -44,8 +44,17 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   void initState() {
     super.initState();
     widget.focusNode.addListener(() {
-      setState(() {});
+      setState(() {
+        //перестроить виджет на случай нужно ли показывать
+        //кнопку удаления
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.focusNode.dispose();
   }
 
   @override
@@ -90,10 +99,13 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           ),
           onEditingComplete: () => setState(() {
             widget.focusNode.unfocus();
-            widget.onEditingComplete();
+            if (widget.onEditingComplete != null) widget.onEditingComplete!();
           }),
           onChanged: (value) {
-            setState(() {});
+            setState(() {
+              //перестроить виджет на случай нужно ли показывать
+              //кнопку удаления
+            });
             if (widget.onChange != null) widget.onChange!();
           },
         ),
