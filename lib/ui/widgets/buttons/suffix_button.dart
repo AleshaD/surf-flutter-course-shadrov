@@ -23,7 +23,7 @@ class SuffixButton extends StatelessWidget {
         icon: Icon(
           iconData,
           size: 20,
-          color: iconColor,
+          color: iconColor ?? Theme.of(context).primaryColor,
         ),
       ),
     );
