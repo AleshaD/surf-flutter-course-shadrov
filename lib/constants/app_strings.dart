@@ -13,6 +13,7 @@ class AppStrings {
   static const goalIsAchieved = 'Цель достигнута';
 
   static const ok = 'Ok';
+  static const save = 'Сохранить';
   static const newPlace = 'Новое место';
   static const cancel = 'Отмена';
   static const category = 'Категория';

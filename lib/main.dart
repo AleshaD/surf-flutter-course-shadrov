@@ -19,7 +19,7 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   final mockNumber = 3;
 
-  ThemeData _currentTheme = lightTheme;
+  ThemeData _currentTheme = darkTheme;
 
   void changeTheme(bool toDarkTheme) {
     setState(() {

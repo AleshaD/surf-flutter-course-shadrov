@@ -10,6 +10,7 @@ import 'package:places/domain/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
+import 'package:places/ui/screen/add_sight_screen/choose_category_screen.dart';
 import 'package:places/ui/screen/add_sight_screen/coordinate_text_field.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
@@ -33,6 +34,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
   final double _blockMarginSize = 24;
   bool _createBtnIsActive = false;
+  SightType? chosenCategory;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final double _sideScreenPadding = 16;
   final double _spaceBetwenTextFields = 16;
@@ -70,7 +72,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
     bool canBeActive = nameController.text != '' &&
         latitudeController.text != '' &&
         longitudeController.text != '' &&
-        descriptionController.text != '';
+        descriptionController.text != '' &&
+        chosenCategory != null;
 
     // меняем стэйт виджета только если это необходимо
     if (canBeActive != _createBtnIsActive) {
@@ -158,14 +161,38 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     height: 4,
                   ),
                   InkWell(
-                    onTap: () => print('Chose category'),
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(
+                            MaterialPageRoute(
+                              builder: (context) => ChooseCategoryScreen(
+                                initCategory: chosenCategory,
+                              ),
+                            ),
+                          )
+                          .then(
+                            (value) => setState(
+                              () {
+                                print(value);
+                                if (value != null) {
+                                  if (value is SightType) {
+                                    chosenCategory = value;
+                                    _changeCreateBtnState();
+                                  }
+                                }
+                              },
+                            ),
+                          );
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppStrings.noPick,
+                            chosenCategory == null
+                                ? AppStrings.noPick
+                                : Sight.getTypeNameBy(chosenCategory!),
                             style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
                           ),
                           Padding(
@@ -279,7 +306,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(bottom: 16.0),
                 child: LargeAppButton(
                   isActive: _createBtnIsActive,
                   onPressed: () {
@@ -292,7 +319,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                         lon: double.parse(longitudeController.text),
                         url: '',
                         details: descriptionController.text,
-                        type: SightType.museum,
+                        type: chosenCategory!,
                       ),
                     );
                     _showOkDialog(AppStrings.placeIsSaved, context);
