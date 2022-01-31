@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 
 class EmptyListPage extends StatelessWidget {
-  const EmptyListPage({required this.icon, required this.message});
+  const EmptyListPage({
+    required this.icon,
+    required this.bodyMessage,
+    this.titleMessage = AppStrings.empty,
+  });
 
   final IconData icon;
-  final String message;
+  final String bodyMessage;
+  final String titleMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class EmptyListPage extends StatelessWidget {
             height: 32,
           ),
           Text(
-            AppStrings.empty,
+            titleMessage,
             style: Theme.of(context)
                 .textTheme
                 .headline6!
@@ -32,7 +37,7 @@ class EmptyListPage extends StatelessWidget {
             height: 8,
           ),
           Text(
-            message,
+            bodyMessage,
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme

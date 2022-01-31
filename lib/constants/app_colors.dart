@@ -11,6 +11,7 @@ const Color lmGreenColor = Color(0xff4CAF50),
     lmBackgroundColor = Color(0xffF5F5F5);
 
 const Color dmGreenColor = Color(0xff6ADA6F),
+    dmYellowColor = Color(0xffFFE769),
     dmErrorAndDeleteColor = Color(0xffCF2A2A),
     dmDarkColor = Color(0xff1A1A20),
     dmMainColor = Color(0xff21222C),

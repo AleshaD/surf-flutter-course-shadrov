@@ -33,7 +33,11 @@ class SightCardBase extends StatelessWidget {
                         topLeft: Radius.circular(cornerRadius),
                         topRight: Radius.circular(cornerRadius),
                       ),
-                      child: NetworkImageWithProgress(sight.url),
+                      child: sight.url != ''
+                          ? NetworkImageWithProgress(sight.url)
+                          : Container(
+                              color: Colors.amber,
+                            ),
                     ),
                   ),
                   Align(
@@ -85,7 +89,7 @@ class SightCardBase extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
-                    '${AppStrings.closeUntil} 09:00',
+                    '${AppStrings.closeUntil.toLowerCase()} 09:00',
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ],
