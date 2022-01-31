@@ -13,10 +13,10 @@ class SightListScreen extends StatefulWidget {
   const SightListScreen({Key? key}) : super(key: key);
 
   @override
-  _SightListScreenState createState() => _SightListScreenState();
+  SightListScreenState createState() => SightListScreenState();
 }
 
-class _SightListScreenState extends State<SightListScreen> {
+class SightListScreenState extends State<SightListScreen> {
   final appBarTextSize = 32.0;
   final toolbarHeight = 156.0;
   final newPlaceBtnRadius = BorderRadius.all(
@@ -47,13 +47,16 @@ class _SightListScreenState extends State<SightListScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                for (var i = 0; i < sightMocks.length; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: SightCard(
-                      sightMocks[i],
-                    ),
-                  ),
+                ...sightMocks
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: SightCard(
+                          e,
+                        ),
+                      ),
+                    )
+                    .toList(),
                 SizedBox(
                   height: 80,
                 ),
@@ -66,11 +69,13 @@ class _SightListScreenState extends State<SightListScreen> {
               padding: const EdgeInsets.only(bottom: 16.0),
               child: RoundedGradientButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => AddSightScreen(),
-                    ),
-                  );
+                  Navigator.of(context)
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) => AddSightScreen(),
+                        ),
+                      )
+                      .then((value) => setState(() {}));
                 },
                 titleWidgets: [
                   Icon(
