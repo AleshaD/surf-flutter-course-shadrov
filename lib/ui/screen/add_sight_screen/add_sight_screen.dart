@@ -69,7 +69,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
   void _changeCreateBtnState() {
     bool canBeActive = nameController.text != '' &&
         latitudeController.text != '' &&
-        longitudeController.text != '';
+        longitudeController.text != '' &&
+        descriptionController.text != '';
 
     // меняем стэйт виджета только если это необходимо
     if (canBeActive != _createBtnIsActive) {
@@ -256,6 +257,12 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           hint: AppStrings.enterTheText.toLowerCase(),
                           textController: descriptionController,
                           focusNode: descriptionNode,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return AppStrings.enterTheDescription;
+                            }
+                          },
+                          onChange: _changeCreateBtnState,
                           textInputType: TextInputType.multiline,
                           showClearTxtBtn: false,
                           maxLines: 4,
@@ -277,7 +284,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   isActive: _createBtnIsActive,
                   onPressed: () {
                     _formKey.currentState!.validate();
-                    sightMocks.add(
+                    sightMocks.insert(
+                      0,
                       Sight(
                         name: nameController.text,
                         lat: double.parse(latitudeController.text),

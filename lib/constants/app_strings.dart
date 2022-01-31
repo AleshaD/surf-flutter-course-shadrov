@@ -20,6 +20,7 @@ class AppStrings {
   static const noPick = 'Не выбрано';
   static const title = 'Название';
   static const enterTheTitle = 'Введите название места';
+  static const enterTheDescription = 'Введите описание места';
   static const pickOnMap = 'Указать на карте';
   static const description = 'Описание';
   static const enterTheText = 'Введите текст';
