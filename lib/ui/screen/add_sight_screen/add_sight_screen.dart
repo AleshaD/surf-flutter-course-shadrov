@@ -173,7 +173,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
                           .then(
                             (value) => setState(
                               () {
-                                print(value);
                                 if (value != null) {
                                   if (value is SightType) {
                                     chosenCategory = value;
