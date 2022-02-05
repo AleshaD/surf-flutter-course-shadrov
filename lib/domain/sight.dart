@@ -10,17 +10,23 @@ class Sight {
       required this.url,
       required this.details,
       required this.type,
-      this.planToVisitDate,
+      required this.wantToVisit,
+      required this.visited,
+      required this.liked,
+      this.wantToVisitAtDate,
       this.visitedDate});
 
   final String details;
   final double lat;
   final double lon;
   final String name;
-  final DateTime? planToVisitDate;
   final SightType type;
   final String url;
+  final bool visited;
+  final bool wantToVisit;
+  final bool liked;
   final DateTime? visitedDate;
+  final DateTime? wantToVisitAtDate;
 
   String get typeName => getTypeNameBy(this.type);
 
