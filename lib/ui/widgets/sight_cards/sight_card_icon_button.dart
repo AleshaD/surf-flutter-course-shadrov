@@ -17,6 +17,7 @@ class SightCardIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       padding: EdgeInsets.all(0),
+      constraints: BoxConstraints(maxWidth: iconSize, minHeight: 48),
       splashRadius: iconSize,
       onPressed: onPressed,
       icon: Icon(

@@ -7,12 +7,18 @@ import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
 class WantToVisitSightCard extends SightCardBase {
-  const WantToVisitSightCard(Sight sight) : super(sight);
+  const WantToVisitSightCard({
+    required Sight sight,
+    required this.onClosePressed,
+    Key? key,
+  }) : super(sight, key: key);
+
+  final VoidCallback onClosePressed;
 
   @override
   Widget aboutVisitInfo(BuildContext context) => Text(
-        sight.planToVisitDate != null
-            ? '${AppStrings.planToVisit} ${DateFormat(dateFormatStr, 'ru').format(sight.planToVisitDate!)}'
+        sight.wantToVisitAtDate != null
+            ? '${AppStrings.planToVisit} ${DateFormat(dateFormatStr, 'ru').format(sight.wantToVisitAtDate!)}'
             : '',
         style: Theme.of(context)
             .textTheme
@@ -37,7 +43,10 @@ class WantToVisitSightCard extends SightCardBase {
             icon: CustomIcons.close,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: () => print('Close of ${sight.name} is pressed'),
+            onPressed: onClosePressed,
+          ),
+          SizedBox(
+            width: 12,
           ),
         ],
       );

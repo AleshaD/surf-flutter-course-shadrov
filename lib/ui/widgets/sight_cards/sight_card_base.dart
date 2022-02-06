@@ -4,7 +4,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightCardBase extends StatelessWidget {
-  const SightCardBase(this.sight);
+  const SightCardBase(this.sight, {Key? key}) : super(key: key);
 
   final double cardAspectRatio = 3 / 2;
   final double cornerRadius = 12;
