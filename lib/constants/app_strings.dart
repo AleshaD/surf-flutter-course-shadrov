@@ -57,4 +57,11 @@ class AppStrings {
   static const tryAganinLater = 'Попробуйте позже';
   static const youSearched = 'Вы искали';
   static const cleanHystory = 'Очистить историю';
+
+  static const cafe = 'Кафе';
+  static const hotel = 'Отель';
+  static const museum = 'Музей';
+  static const park = 'Парк';
+  static const restaurant = 'Ресторан';
+  static const specialPlace = 'Особое место';
 }

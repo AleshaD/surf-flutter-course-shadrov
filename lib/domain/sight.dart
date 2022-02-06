@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 
 class Sight {
-  const Sight(
+  Sight(
       {required this.name,
       required this.lat,
       required this.lon,
@@ -14,7 +15,22 @@ class Sight {
       required this.visited,
       required this.liked,
       this.wantToVisitAtDate,
-      this.visitedDate});
+      this.visitedDate})
+      : id = _idCreator(lat);
+
+  Sight.onCreate({
+    required this.name,
+    required this.lat,
+    required this.lon,
+    required this.url,
+    required this.details,
+    required this.type,
+  })  : wantToVisit = false,
+        visited = false,
+        liked = false,
+        wantToVisitAtDate = null,
+        visitedDate = null,
+        id = _idCreator(lat);
 
   final String details;
   final double lat;
@@ -22,30 +38,34 @@ class Sight {
   final String name;
   final SightType type;
   final String url;
-  final bool visited;
-  final bool wantToVisit;
-  final bool liked;
+  final String id;
   final DateTime? visitedDate;
   final DateTime? wantToVisitAtDate;
+  bool wantToVisit;
+  bool visited;
+  bool liked;
 
   String get typeName => getTypeNameBy(this.type);
+
+  static String _idCreator(double additionalValue) =>
+      (DateTime.now().microsecondsSinceEpoch + additionalValue).toString();
 
   static String getTypeNameBy(SightType type) {
     switch (type) {
       case SightType.cafe:
-        return 'Кафе';
+        return AppStrings.cafe;
       case SightType.hotel:
-        return 'Отель';
+        return AppStrings.hotel;
       case SightType.museum:
-        return 'Музей';
+        return AppStrings.museum;
       case SightType.park:
-        return 'Парк';
+        return AppStrings.park;
       case SightType.restaurant:
-        return 'Ресторан';
+        return AppStrings.restaurant;
       case SightType.specialPlace:
-        return 'Особое место';
+        return AppStrings.specialPlace;
       default:
-        return 'empty';
+        return AppStrings.empty;
     }
   }
 
