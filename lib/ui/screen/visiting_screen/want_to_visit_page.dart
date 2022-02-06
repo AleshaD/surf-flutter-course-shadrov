@@ -3,6 +3,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
+import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 import 'package:places/ui/widgets/sight_cards/want_to_visit_sight_card.dart';
 
 class WantToVisitPage extends StatelessWidget {
@@ -18,13 +19,20 @@ class WantToVisitPage extends StatelessWidget {
             bodyMessage: AppStrings.emptyWnatToGoList,
           )
         : ListView(
-            children: [
-              for (var i = 0; i < sights.length; i++)
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: WantToVisitSightCard(sights[i]),
+            children: sights
+                .map(
+                  (sight) => Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: WantToVisitSightCard(
+                      key: ValueKey(sight.id),
+                      sight: sight,
+                      onClosePressed: () => context
+                          .findAncestorStateOfType<VisitingScreenState>()!
+                          .changeWantToVisitFlag(sight.id),
+                    ),
+                  ),
                 )
-            ],
+                .toList(),
           );
   }
 }
