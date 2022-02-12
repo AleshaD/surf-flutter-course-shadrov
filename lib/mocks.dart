@@ -11,6 +11,9 @@ final myCoordinateMock = Coordinate(
 
 SightFilter mockSightFilter = SightFilter.dafult();
 
+final List<String> mockImagesPaths =
+    List.generate(6, (index) => 'assets/images/photo_$index.jpeg');
+
 List<Sight> sightMocks = [
   Sight(
     name: 'Орли',
