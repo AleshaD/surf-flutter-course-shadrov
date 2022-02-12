@@ -17,6 +17,7 @@ class SuffixButton extends StatelessWidget {
       type: MaterialType.transparency,
       child: IconButton(
         padding: EdgeInsets.all(0),
+        constraints: BoxConstraints.tight(Size(32, 32)),
         splashRadius: 16,
         iconSize: 20,
         onPressed: onPressed,
