@@ -89,12 +89,15 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                 ),
             suffixIconConstraints: BoxConstraints(maxHeight: 34, maxWidth: 60),
             suffixIcon: showClearBtnSuffix
-                ? SuffixButton(
-                    onPressed: () => setState(() {
-                          widget.textController.clear();
-                          if (widget.onChange != null) widget.onChange!();
-                        }),
-                    iconData: CustomIcons.clear)
+                ? Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: SuffixButton(
+                      onPressed: () => setState(() {
+                            widget.textController.clear();
+                            if (widget.onChange != null) widget.onChange!();
+                          }),
+                      iconData: CustomIcons.clear),
+                )
                 : Container(),
           ),
           onEditingComplete: () => setState(() {

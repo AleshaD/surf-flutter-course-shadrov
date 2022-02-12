@@ -95,25 +95,28 @@ class _SearchBarState extends State<SearchBar> {
             ),
           ),
           suffixIconConstraints: BoxConstraints(maxHeight: 34),
-          suffixIcon: widget.showFilterBtn
-              ? SuffixButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => FiltersScreen(),
-                      ),
-                    );
-                  },
-                  iconData: CustomIcons.filter,
-                  iconColor: Theme.of(context).colorScheme.secondary,
-                )
-              : SuffixButton(
-                  onPressed: () {
-                    if (widget.controller != null) widget.controller!.clear();
-                    if (widget.onChanged != null) widget.onChanged!('');
-                  },
-                  iconData: CustomIcons.clear,
-                ),
+          suffixIcon: Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: widget.showFilterBtn
+                ? SuffixButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => FiltersScreen(),
+                        ),
+                      );
+                    },
+                    iconData: CustomIcons.filter,
+                    iconColor: Theme.of(context).colorScheme.secondary,
+                  )
+                : SuffixButton(
+                    onPressed: () {
+                      if (widget.controller != null) widget.controller!.clear();
+                      if (widget.onChanged != null) widget.onChanged!('');
+                    },
+                    iconData: CustomIcons.clear,
+                  ),
+          ),
         ),
       ),
     );
