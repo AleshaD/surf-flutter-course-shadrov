@@ -19,6 +19,10 @@ List<Sight> sightMocks = [
     url: 'https://media-cdn.tripadvisor.com/media/photo-s/0b/ca/a4/ea/caption.jpg',
     details: 'Отличный ресторан',
     type: SightType.cafe,
+    visitedDate: DateTime(2022, 1, 20),
+    wantToVisit: true,
+    visited: false,
+    liked: false,
   ),
   Sight(
     name: 'Источник Варналы',
@@ -28,6 +32,10 @@ List<Sight> sightMocks = [
         'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d546336b31d92762c999c239f15/XXXL',
     details: 'Отличный ресторан',
     type: SightType.specialPlace,
+    visitedDate: DateTime(2022, 1, 20),
+    wantToVisit: true,
+    visited: false,
+    liked: false,
   ),
   Sight(
     name: 'Балаклавский подземный музейный комплекс',
@@ -36,6 +44,10 @@ List<Sight> sightMocks = [
     url: 'https://avatars.mds.yandex.net/get-altay/4537001/2a00000179f50eb18d7cc17e59180ac3a570/L',
     details: 'Музей базирования подводных лодок',
     type: SightType.museum,
+    visitedDate: DateTime(2022, 1, 20),
+    wantToVisit: true,
+    visited: false,
+    liked: false,
   ),
   Sight(
     name: 'Крепость Чембало',
@@ -45,6 +57,10 @@ List<Sight> sightMocks = [
         'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL',
     details: 'Древняя Этрусская крепость',
     type: SightType.specialPlace,
+    wantToVisitAtDate: DateTime(2022, 1, 20),
+    wantToVisit: true,
+    visited: false,
+    liked: false,
   ),
   Sight(
     name: 'Мемориальный комплекс Сапун-гора',
@@ -53,6 +69,10 @@ List<Sight> sightMocks = [
     url: 'https://avatars.mds.yandex.net/get-altay/5236391/2a0000017b7f675abfc93a59763ed82986fa/L',
     details: 'Гора с военной техникой',
     type: SightType.museum,
+    wantToVisitAtDate: DateTime(2022, 1, 20),
+    wantToVisit: false,
+    visited: true,
+    liked: false,
   ),
   Sight(
     name: 'Музей-заповедник Херсонес Таврический',
@@ -61,6 +81,10 @@ List<Sight> sightMocks = [
     url: 'https://avatars.mds.yandex.net/get-altay/1879929/2a0000016ae2fd9a1e0f897adb972249c6ba/L',
     details: 'Хорошо сохранившиеся развалины древнего города',
     type: SightType.museum,
+    wantToVisitAtDate: DateTime(2022, 1, 20),
+    wantToVisit: false,
+    visited: true,
+    liked: false,
   ),
   Sight(
     name: 'Винодельня 78',
@@ -70,6 +94,10 @@ List<Sight> sightMocks = [
         'https://avatars.mds.yandex.net/get-tycoon/1534662/2a00000179d0d1a2f830c2c70489044f03f8/priority-headline-main-narrow',
     details: 'Хорошо сохранившиеся развалины древнего города',
     type: SightType.restaurant,
+    wantToVisitAtDate: DateTime(2022, 1, 20),
+    wantToVisit: false,
+    visited: true,
+    liked: false,
   ),
   Sight(
     name: 'Старик Хинкалыч',
@@ -78,6 +106,9 @@ List<Sight> sightMocks = [
     url: 'https://avatars.mds.yandex.net/get-altay/4660612/2a0000017a80bb8a5ebcf07cfa1841ea14d5/L',
     details: 'Хорошо сохранившиеся развалины древнего города',
     type: SightType.restaurant,
+    wantToVisit: false,
+    visited: true,
+    liked: false,
   ),
   Sight(
     name: 'Мангуп',
@@ -87,7 +118,10 @@ List<Sight> sightMocks = [
     details:
         'Мангу́п (Мангу́п-Кале́; укр. Мангуп, крымскотат. Mangup, Мангуп) — средневековый город-крепость в Бахчисарайском районе Крыма. Историческое название — Дорос. Столица княжества Феодоро (Крымская Готия), затем турецкая крепость. Расположен на вершине горы-останца, возвышающейся над уровнем окрестных долин на 250 м, а над уровнем моря на 583 м и образующей плато площадью около 90 га. На территории крепости расположены два больших родника (всего их больше пятнадцати), которые впоследствии стали называть Мужским и Женским. В 1975 году на территории крепости создан одноимённый комплексный памятник природы общегосударственного значения.',
     type: SightType.specialPlace,
-    planToVisitDate: DateTime(2021, 12, 25),
+    wantToVisitAtDate: DateTime(2021, 12, 25),
+    wantToVisit: false,
+    visited: true,
+    liked: false,
   ),
   Sight(
     name: 'Воронежский областной краеведческий музей',
@@ -98,6 +132,9 @@ List<Sight> sightMocks = [
     details: 'О Воронеже',
     type: SightType.museum,
     visitedDate: DateTime(2021, 11, 23),
+    wantToVisit: false,
+    visited: true,
+    liked: false,
   ),
   Sight(
     name: 'Бочка смерти',
@@ -108,15 +145,22 @@ List<Sight> sightMocks = [
     details:
         'Бочка смерти является частью укрепленного бастиона, который берет свое начало во второй Русско-Турецкой войне. Изначально Бочек Смерти в Балаклаве было две, одна из них не дошла до наших дней, а вторая находится в аварийном состоянии. Назначение бочек было сугубо практического характера. Высота скалы и небольшая удаленность от скальной породы делают эти объекты отличными наблюдательными пунктами. Бочки выполнены практически как башенные установки бронепоезда того времени. Двойная броня бойницы для ведения огня и прорези для обзора. Такое исполнение этого грозного наблюдательного пункта хорошо вписывалось в общую концепцию бастиона.',
     type: SightType.specialPlace,
-    planToVisitDate: DateTime(2021, 12, 31),
+    wantToVisitAtDate: DateTime(2021, 12, 31),
+    wantToVisit: false,
+    visited: true,
+    liked: false,
   ),
   Sight(
-      name: 'Пряности и радости',
-      lat: 1.0,
-      lon: 2.2,
-      url: 'https://media-cdn.tripadvisor.com/media/photo-s/0f/39/96/8d/caption.jpg',
-      details:
-          'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
-      type: SightType.restaurant,
-      visitedDate: DateTime(2021, 11, 11))
+    name: 'Пряности и радости',
+    lat: 1.0,
+    lon: 2.2,
+    url: 'https://media-cdn.tripadvisor.com/media/photo-s/0f/39/96/8d/caption.jpg',
+    details:
+        'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
+    type: SightType.restaurant,
+    visitedDate: DateTime(2021, 11, 11),
+    wantToVisit: false,
+    visited: true,
+    liked: false,
+  )
 ];

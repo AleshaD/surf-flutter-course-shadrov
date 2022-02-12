@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/res/themes.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 
 void main() {
   initializeDateFormatting();
@@ -19,7 +19,7 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   final mockNumber = 3;
 
-  ThemeData _currentTheme = darkTheme;
+  ThemeData _currentTheme = lightTheme;
 
   void changeTheme(bool toDarkTheme) {
     setState(() {
@@ -32,7 +32,7 @@ class AppState extends State<App> {
     return MaterialApp(
       title: AppStrings.appTitle,
       theme: _currentTheme,
-      home: SightListScreen(),
+      home: VisitingScreen(),
     );
   }
 }

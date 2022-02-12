@@ -312,7 +312,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     _formKey.currentState!.validate();
                     sightMocks.insert(
                       0,
-                      Sight(
+                      Sight.onCreate(
                         name: nameController.text,
                         lat: double.parse(latitudeController.text),
                         lon: double.parse(longitudeController.text),

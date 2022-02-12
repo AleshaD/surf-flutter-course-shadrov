@@ -7,7 +7,13 @@ import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
 class VisitedSightCard extends SightCardBase {
-  const VisitedSightCard(Sight sight) : super(sight);
+  const VisitedSightCard({
+    required Sight sight,
+    required this.onClosePressed,
+    Key? key,
+  }) : super(sight, key: key);
+
+  final VoidCallback onClosePressed;
 
   @override
   Widget aboutVisitInfo(BuildContext context) => Text(
@@ -34,7 +40,10 @@ class VisitedSightCard extends SightCardBase {
             icon: CustomIcons.close,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: () => print('Close of ${sight.name} is pressed'),
+            onPressed: onClosePressed,
+          ),
+          SizedBox(
+            width: 12,
           ),
         ],
       );
