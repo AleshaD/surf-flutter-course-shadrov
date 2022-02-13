@@ -19,8 +19,8 @@ class AddedPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: UniqueKey(),
-      onDismissed: (direction) => onDelete(),
       direction: DismissDirection.up,
+      onDismissed: (direction) => onDelete(),
       child: Container(
         width: photoSize,
         height: photoSize,

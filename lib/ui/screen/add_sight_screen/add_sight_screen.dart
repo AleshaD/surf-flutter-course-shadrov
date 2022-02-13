@@ -167,9 +167,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: _blockMarginSize,
-                  ),
                   AddSightPhotoList(
                     imagePaths: pathsToSightPhotos,
                     addNewPhotoPressed: _addNewSightPhoto,
