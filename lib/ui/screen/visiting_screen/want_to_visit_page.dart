@@ -21,15 +21,12 @@ class WantToVisitPage extends StatelessWidget {
         : ListView(
             children: sights
                 .map(
-                  (sight) => Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: WantToVisitSightCard(
-                      key: ValueKey(sight.id),
-                      sight: sight,
-                      onClosePressed: () => context
-                          .findAncestorStateOfType<VisitingScreenState>()!
-                          .changeWantToVisitFlag(sight.id),
-                    ),
+                  (sight) => WantToVisitSightCard(
+                    key: ValueKey(sight.id),
+                    sight: sight,
+                    onClosePressed: () => context
+                        .findAncestorStateOfType<VisitingScreenState>()!
+                        .changeWantToVisitFlag(sight.id),
                   ),
                 )
                 .toList(),

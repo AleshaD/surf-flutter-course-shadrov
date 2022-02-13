@@ -50,4 +50,12 @@ class WantToVisitSightCard extends SightCardDismissible {
           ),
         ],
       );
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: super.build(context),
+    );
+  }
 }
