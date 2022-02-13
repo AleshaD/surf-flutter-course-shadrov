@@ -3,15 +3,15 @@ import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
+import 'package:places/ui/widgets/sight_cards/sight_card_dismissble.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
-class WantToVisitSightCard extends SightCardBase {
+class WantToVisitSightCard extends SightCardDismissible {
   const WantToVisitSightCard({
     required Sight sight,
     required this.onClosePressed,
     Key? key,
-  }) : super(sight, key: key);
+  }) : super(sight, onDismissed: onClosePressed, key: key);
 
   final VoidCallback onClosePressed;
 
