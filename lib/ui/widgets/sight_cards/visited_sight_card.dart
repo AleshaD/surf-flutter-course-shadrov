@@ -3,15 +3,16 @@ import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/widgets/sight_cards/sight_card_dismissble.dart';
+import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
 class VisitedSightCard extends SightCardDismissible {
   const VisitedSightCard({
     required Sight sight,
     required this.onClosePressed,
+    bool showElevation = false,
     Key? key,
-  }) : super(sight, onDismissed: onClosePressed, key: key);
+  }) : super(sight, onDismissed: onClosePressed, showElevation: showElevation, key: key);
 
   final VoidCallback onClosePressed;
 
@@ -51,7 +52,7 @@ class VisitedSightCard extends SightCardDismissible {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: super.build(context),
     );
   }

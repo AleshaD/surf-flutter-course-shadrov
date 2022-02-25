@@ -8,10 +8,12 @@ class SightCardDismissible extends SightCardBase {
   const SightCardDismissible(
     Sight sight, {
     required this.onDismissed,
+    this.showElevation = false,
     Key? key,
   }) : super(sight, key: key);
 
   final VoidCallback onDismissed;
+  final bool showElevation;
 
   @override
   Widget aboutVisitInfo(BuildContext context) => SizedBox();
@@ -27,6 +29,7 @@ class SightCardDismissible extends SightCardBase {
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.error,
+              boxShadow: showElevation ? kElevationToShadow[4] : null,
               borderRadius: BorderRadius.all(
                 Radius.circular(cornerRadius),
               ),
