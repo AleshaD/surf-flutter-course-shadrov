@@ -15,17 +15,38 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class VisitingScreenState extends State<VisitingScreen> {
-  void changeWantToVisitFlag(String sightId) {
+  void removeFromWantToVisitList(String sightId) {
     setState(() {
-      int? index = getIndexBySightId(sightMocks, sightId);
-      if (index != null) sightMocks[index].wantToVisit = !sightMocks[index].wantToVisit;
+      int? index = getIndexBySightId(mockWantToVisitSights, sightId);
+      if (index != null) mockWantToVisitSights.removeAt(index);
     });
   }
 
-  void changeVisitedFlag(String sightId) {
+  void changeWantToVisitCardsSequences(int fromIndex, int toIndex) {
     setState(() {
-      int? index = getIndexBySightId(sightMocks, sightId);
-      if (index != null) sightMocks[index].visited = !sightMocks[index].visited;
+      _changeCardSequences(mockWantToVisitSights, fromIndex, toIndex);
+    });
+  }
+
+  void changeVisitedCardsSequences(int fromIndex, int toIndex) {
+    setState(() {
+      _changeCardSequences(mockVisitedSights, fromIndex, toIndex);
+    });
+  }
+
+  void _changeCardSequences(List<Sight> sights, int fromIndex, int toIndex) {
+    if (toIndex > fromIndex) toIndex--;
+    if (toIndex < 0) toIndex = 0;
+    sights.insert(
+      toIndex,
+      sights.removeAt(fromIndex),
+    );
+  }
+
+  void removeFromVisitedList(String sightId) {
+    setState(() {
+      int? index = getIndexBySightId(mockVisitedSights, sightId);
+      if (index != null) mockVisitedSights.removeAt(index);
     });
   }
 
@@ -53,14 +74,14 @@ class VisitingScreenState extends State<VisitingScreen> {
           ),
         ),
         body: Container(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          // padding: const EdgeInsets.symmetric(vertical: 16),
           child: TabBarView(
             children: [
               WantToVisitPage(
-                sightMocks.where((sight) => sight.wantToVisit).toList(),
+                mockWantToVisitSights,
               ),
               VisitedPage(
-                sightMocks.where((sight) => sight.visited).toList(),
+                mockVisitedSights,
               ),
             ],
           ),

@@ -64,4 +64,6 @@ class AppStrings {
   static const park = 'Парк';
   static const restaurant = 'Ресторан';
   static const specialPlace = 'Особое место';
+
+  static const delete = 'Удалить';
 }

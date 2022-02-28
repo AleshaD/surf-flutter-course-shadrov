@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math' as Math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/screen/add_sight_screen/add_sight_photo_list.dart';
 import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
 import 'package:places/ui/screen/add_sight_screen/choose_category_screen.dart';
 import 'package:places/ui/screen/add_sight_screen/coordinate_text_field.dart';
@@ -38,6 +40,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final double _sideScreenPadding = 16;
   final double _spaceBetwenTextFields = 16;
+
+  List<String> pathsToSightPhotos = mockImagesPaths.toList();
 
   @override
   void dispose() {
@@ -117,6 +121,19 @@ class _AddSightScreenState extends State<AddSightScreen> {
           );
   }
 
+  void _addNewSightPhoto() {
+    setState(() {
+      int photoIndex = Math.Random().nextInt(5);
+      pathsToSightPhotos.insert(0, mockImagesPaths[photoIndex]);
+    });
+  }
+
+  void _removePhotoByPath(String path) {
+    setState(() {
+      pathsToSightPhotos.removeWhere((photoPath) => photoPath == path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double widthOfCoordinateTxtFields =
@@ -150,6 +167,11 @@ class _AddSightScreenState extends State<AddSightScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  AddSightPhotoList(
+                    imagePaths: pathsToSightPhotos,
+                    addNewPhotoPressed: _addNewSightPhoto,
+                    onDeletePhoto: _removePhotoByPath,
+                  ),
                   SizedBox(
                     height: _blockMarginSize,
                   ),
@@ -297,7 +319,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 64,
+                    height: 76,
                   ),
                 ],
               ),
