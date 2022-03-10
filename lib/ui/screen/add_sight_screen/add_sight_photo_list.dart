@@ -21,29 +21,33 @@ class AddSightPhotoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 24),
-        child: Row(
-          children: [
-            AddPhotoButton(
+    return Container(
+      height: 96,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: AddPhotoButton(
               borderRadius: _borderRadius,
               onTap: addNewPhotoPressed,
               btnSize: cardSize,
             ),
-            ...imagePaths
-                .map(
-                  (path) => AddedPhoto(
+          ),
+          ...imagePaths
+              .map(
+                (path) => Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AddedPhoto(
                     photoPath: path,
                     photoSize: cardSize,
                     borderRadius: _borderRadius,
                     onDelete: () => onDeletePhoto(path),
                   ),
-                )
-                .toList(),
-          ],
-        ),
+                ),
+              )
+              .toList(),
+        ],
       ),
     );
   }

@@ -17,16 +17,17 @@ class AddPhotoButton extends StatelessWidget {
     return InkWell(
       borderRadius: borderRadius,
       onTap: onTap,
-      child: Container(
-        height: btnSize,
-        width: btnSize,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          borderRadius: borderRadius,
+      child: ConstrainedBox(
+        constraints: BoxConstraints.tight(
+          Size(btnSize, btnSize),
         ),
-        child: Center(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            borderRadius: borderRadius,
+          ),
           child: Icon(
             CustomIcons.plus,
             color: Theme.of(context).colorScheme.secondary,
