@@ -40,7 +40,7 @@ class AppThemeConfig {
           surface: lightWhiteDarkIsMain,
           background: lightWhiteDarkIsMain,
           error: errorClr,
-          onPrimary: isLight ? secondaryClr : mainClr,
+          onPrimary: isLight ? secondaryClr : whiteClr,
           onSecondary: lightWhiteDarkIsMain,
           onSurface: inactiveClr,
           onBackground: lightSecondaryDarkIsWhite,
