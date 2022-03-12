@@ -14,6 +14,7 @@ class SearchedSightsListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final isFirstItem = index == 0;
         final double topPadding = isFirstItem ? 30 : 0;
+
         return Padding(
           padding: EdgeInsets.only(top: topPadding),
           child: SightCardTile(
