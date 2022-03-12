@@ -24,14 +24,10 @@ class PhotoPagePagination extends StatelessWidget {
                 height: 6,
                 margin: EdgeInsets.symmetric(horizontal: 2),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context).scaffoldBackgroundColor.withAlpha(70),
-                  ),
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                   color: i <= currentPage
                       ? Theme.of(context).primaryColor
-                      : Theme.of(context).primaryColor.withAlpha(70),
+                      : Theme.of(context).primaryColor.withAlpha(100),
                 ),
               ),
             )
