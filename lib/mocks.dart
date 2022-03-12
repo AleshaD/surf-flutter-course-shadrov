@@ -62,7 +62,10 @@ List<Sight> sightMocks = [
     lat: 44.494673,
     lon: 33.599951,
     photoUrls: [
-      'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL'
+      'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL',
+      'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
+      'https://avatars.mds.yandex.net/i?id=9c224314735b00b961234b18fcc0dc74-5523440-images-thumbs&n=13&exp=1',
+      'https://avatars.mds.yandex.net/i?id=b7a6cbf535d6e6459999b9e17ea0e221-5109160-images-thumbs&n=13&exp=1',
     ],
     details: 'Древняя Этрусская крепость',
     type: SightType.specialPlace,
