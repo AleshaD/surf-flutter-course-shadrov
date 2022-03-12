@@ -34,7 +34,12 @@ List<Sight> sightMocks = [
     lat: 44.465456,
     lon: 33.696824,
     photoUrls: [
-      'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d546336b31d92762c999c239f15/XXXL'
+      'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d546336b31d92762c999c239f15/XXXL',
+      'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
+      'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL',
+      'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
+      'https://avatars.mds.yandex.net/i?id=9c224314735b00b961234b18fcc0dc74-5523440-images-thumbs&n=13&exp=1',
+      'https://avatars.mds.yandex.net/i?id=b7a6cbf535d6e6459999b9e17ea0e221-5109160-images-thumbs&n=13&exp=1',
     ],
     details: 'Отличный ресторан',
     type: SightType.specialPlace,
@@ -48,7 +53,8 @@ List<Sight> sightMocks = [
     lat: 44.500751,
     lon: 33.598167,
     photoUrls: [
-      'https://avatars.mds.yandex.net/get-altay/4537001/2a00000179f50eb18d7cc17e59180ac3a570/L'
+      'https://avatars.mds.yandex.net/get-altay/4537001/2a00000179f50eb18d7cc17e59180ac3a570/L',
+      'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
     ],
     details: 'Музей базирования подводных лодок',
     type: SightType.museum,

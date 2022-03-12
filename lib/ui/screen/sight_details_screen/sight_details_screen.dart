@@ -4,7 +4,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
-import 'package:places/ui/widgets/network_image_with_progress.dart';
+import 'package:places/ui/widgets/photo_page_view/photo_page_view.dart';
 
 class SightDetailsScreen extends StatelessWidget {
   const SightDetailsScreen(this.sight);
@@ -24,10 +24,8 @@ class SightDetailsScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 360,
-                  width: double.infinity,
-                  child: NetworkImageWithProgress(sight.photoUrls[0]),
+                PhotoPageView(
+                  photoUrls: sight.photoUrls,
                 ),
                 Container(
                   height: 32,
