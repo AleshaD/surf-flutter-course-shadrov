@@ -19,115 +19,120 @@ class SightDetailsScreen extends StatelessWidget {
     double childMargin = 24;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 360,
-                width: double.infinity,
-                child: NetworkImageWithProgress(sight.url),
-              ),
-              Container(
-                height: 32,
-                width: 32,
-                margin: EdgeInsets.only(top: 36, left: 16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: _backBtnRadius,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 360,
+                  width: double.infinity,
+                  child: NetworkImageWithProgress(sight.photoUrls[0]),
                 ),
-                child: Center(
-                  child: Material(
+                Container(
+                  height: 32,
+                  width: 32,
+                  margin: EdgeInsets.only(top: 36, left: 16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: _backBtnRadius,
-                    child: IconButton(
-                      splashRadius: 18,
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: Icon(
-                        CustomIcons.arrow_back,
-                        size: 14,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  child: Center(
+                    child: Material(
+                      borderRadius: _backBtnRadius,
+                      child: IconButton(
+                        splashRadius: 18,
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: Icon(
+                          CustomIcons.arrow_back,
+                          size: 14,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: childMargin),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  sight.name,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 2.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        sight.typeName.toLowerCase(),
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
+              ],
+            ),
+            SizedBox(height: childMargin),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    sight.name,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 2.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          sight.typeName.toLowerCase(),
+                          style: Theme.of(context).primaryTextTheme.subtitle1,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 16),
+                          child: Text(
+                            '${AppStrings.closeUntil.toLowerCase()} 09:00',
+                            style: Theme.of(context).textTheme.subtitle2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: childMargin),
+                  Text(
+                    sight.details,
+                    style: Theme.of(context).primaryTextTheme.subtitle2,
+                  ),
+                  SizedBox(height: childMargin),
+                  LargeAppButton(
+                    onPressed: () => print('ПОСТРОИТЬ МАРШРУТ'),
+                    titleWidgets: [
+                      Icon(
+                        CustomIcons.go,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 16),
+                        padding: EdgeInsets.only(left: 10),
                         child: Text(
-                          '${AppStrings.closeUntil.toLowerCase()} 09:00',
-                          style: Theme.of(context).textTheme.subtitle2,
+                          AppStrings.createRout.toUpperCase(),
                         ),
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: childMargin),
-                Text(
-                  sight.details,
-                  style: Theme.of(context).primaryTextTheme.subtitle2,
-                ),
-                SizedBox(height: childMargin),
-                LargeAppButton(
-                  onPressed: () => print('ПОСТРОИТЬ МАРШРУТ'),
-                  titleWidgets: [
-                    Icon(
-                      CustomIcons.go,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        AppStrings.createRout.toUpperCase(),
+                  SizedBox(height: childMargin),
+                  Divider(
+                    height: 0.8,
+                  ),
+                  SizedBox(height: 18),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconTextButton(
+                        icon: CustomIcons.calendar,
+                        name: AppStrings.plan,
+                        isActive: false,
+                        onPressed: () => print('Запланировать'),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: childMargin),
-                Divider(
-                  height: 0.8,
-                ),
-                SizedBox(height: 18),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconTextButton(
-                      icon: CustomIcons.calendar,
-                      name: AppStrings.plan,
-                      isActive: false,
-                      onPressed: () => print('Запланировать'),
-                    ),
-                    IconTextButton(
-                      icon: CustomIcons.menu_heart,
-                      name: AppStrings.toFavorite,
-                      isActive: true,
-                      onPressed: () => print('В избранное'),
-                    ),
-                  ],
-                ),
-              ],
+                      IconTextButton(
+                        icon: CustomIcons.menu_heart,
+                        name: AppStrings.toFavorite,
+                        isActive: true,
+                        onPressed: () => print('В избранное'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: childMargin,
+            )
+          ],
+        ),
       ),
     );
   }

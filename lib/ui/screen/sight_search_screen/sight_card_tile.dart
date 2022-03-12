@@ -126,8 +126,8 @@ class SightCardTile extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(12),
               ),
-              child: searched.sight.url != ''
-                  ? NetworkImageWithProgress(searched.sight.url)
+              child: searched.sight.photoUrls.isNotEmpty
+                  ? NetworkImageWithProgress(searched.sight.photoUrls[0])
                   : Container(
                       color: Colors.amber,
                     ),
