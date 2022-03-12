@@ -43,25 +43,24 @@ class SightListScreenState extends State<SightListScreen> {
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                ...sightMocks
-                    .map(
-                      (e) => Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: SightCard(
-                          e,
-                        ),
-                      ),
-                    )
-                    .toList(),
-                SizedBox(
-                  height: 80,
+          ListView.builder(
+            itemCount: sightMocks.length,
+            itemBuilder: (context, index) {
+              double bottomPadding = 0;
+              bool isLastElement = index == sightMocks.length - 1;
+              if (isLastElement) bottomPadding = 80;
+              return Padding(
+                padding: EdgeInsets.only(
+                  left: 16,
+                  top: 16,
+                  right: 16,
+                  bottom: bottomPadding,
                 ),
-              ],
-            ),
+                child: SightCard(
+                  sightMocks[index],
+                ),
+              );
+            },
           ),
           Align(
             alignment: Alignment.bottomCenter,

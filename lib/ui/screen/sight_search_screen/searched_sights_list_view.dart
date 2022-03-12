@@ -9,14 +9,15 @@ class SearchedSightsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        SizedBox(
-          height: 30,
-        ),
-        for (var i = 0; i < searshedSights.length; i++)
-          SightCardTile(
-            searched: searshedSights[i],
+    return ListView.builder(
+      itemCount: searshedSights.length,
+      itemBuilder: (context, index) {
+        final isFirstItem = index == 0;
+        final double topPadding = isFirstItem ? 30 : 0;
+        return Padding(
+          padding: EdgeInsets.only(top: topPadding),
+          child: SightCardTile(
+            searched: searshedSights[index],
             highliteStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.w600,
@@ -24,14 +25,15 @@ class SearchedSightsListView extends StatelessWidget {
             normalStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: Theme.of(context).primaryColor,
                 ),
-            showDevider: i != searshedSights.length - 1,
+            showDevider: index != searshedSights.length - 1,
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => SightDetailsScreen(searshedSights[i].sight),
+                builder: (context) => SightDetailsScreen(searshedSights[index].sight),
               ),
             ),
-          )
-      ],
+          ),
+        );
+      },
     );
   }
 }
