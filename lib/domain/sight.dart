@@ -8,7 +8,7 @@ class Sight {
       {required this.name,
       required this.lat,
       required this.lon,
-      required this.url,
+      required this.photoUrls,
       required this.details,
       required this.type,
       required this.wantToVisit,
@@ -22,7 +22,7 @@ class Sight {
     required this.name,
     required this.lat,
     required this.lon,
-    required this.url,
+    required this.photoUrls,
     required this.details,
     required this.type,
   })  : wantToVisit = false,
@@ -37,7 +37,7 @@ class Sight {
   final double lon;
   final String name;
   final SightType type;
-  final String url;
+  final List<String> photoUrls;
   final String id;
   final DateTime? visitedDate;
   final DateTime? wantToVisitAtDate;

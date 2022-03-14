@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/searched_sight.dart';
-import 'package:places/ui/screen/sight_details_screen.dart';
+import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_card_tile.dart';
 
 class SearchedSightsListView extends StatelessWidget {
@@ -14,6 +14,7 @@ class SearchedSightsListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final isFirstItem = index == 0;
         final double topPadding = isFirstItem ? 30 : 0;
+
         return Padding(
           padding: EdgeInsets.only(top: topPadding),
           child: SightCardTile(

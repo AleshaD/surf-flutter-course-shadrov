@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/mocks.dart';
 import 'package:places/res/themes.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
+import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 
 void main() {
   initializeDateFormatting();
@@ -32,7 +33,7 @@ class AppState extends State<App> {
     return MaterialApp(
       title: AppStrings.appTitle,
       theme: _currentTheme,
-      home: VisitingScreen(),
+      home: SightDetailsScreen(sightMocks[mockNumber]),
     );
   }
 }

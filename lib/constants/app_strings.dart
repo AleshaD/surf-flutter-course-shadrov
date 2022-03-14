@@ -66,4 +66,13 @@ class AppStrings {
   static const specialPlace = 'Особое место';
 
   static const delete = 'Удалить';
+
+  static const welcomeToApp = 'Добро пожаловать в Путеводитель';
+  static const findNewLocation = 'Ищи новые локации и сохраняй самые любимые.';
+  static const createRouteAndGo = 'Построй маршрут и отправляйся в путь';
+  static const fastGetGoal = 'Достигай цели максимально быстро и комфортно.';
+  static const addYourOwnPlace = 'Добавляй места, которые нашёл сам';
+  static const shareBestPlace = 'Делись самыми интересными и помоги нам стать лучше!';
+  static const letsGo = 'На старт';
+  static const skip = 'Пропустить';
 }

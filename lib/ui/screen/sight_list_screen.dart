@@ -49,6 +49,7 @@ class SightListScreenState extends State<SightListScreen> {
               double bottomPadding = 0;
               bool isLastElement = index == sightMocks.length - 1;
               if (isLastElement) bottomPadding = 80;
+
               return Padding(
                 padding: EdgeInsets.only(
                   left: 16,
