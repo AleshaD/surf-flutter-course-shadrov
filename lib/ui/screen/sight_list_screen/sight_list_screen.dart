@@ -3,6 +3,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
+import 'package:places/ui/screen/sight_list_screen/sight_list_search_bar_delegate.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
 import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
@@ -27,76 +28,96 @@ class SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          AppStrings.sightListScrAppBar,
-        ),
-        bottom: SearchBar(
-          readOnly: true,
-          showFilterBtn: true,
-          onFieldTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => SightSearchScreen(),
-            ),
-          ),
-        ),
-      ),
-      body: Stack(
-        children: [
-          ListView.builder(
-            itemCount: sightMocks.length,
-            itemBuilder: (context, index) {
-              double bottomPadding = 0;
-              bool isLastElement = index == sightMocks.length - 1;
-              if (isLastElement) bottomPadding = 80;
-
-              return Padding(
-                padding: EdgeInsets.only(
-                  left: 16,
-                  top: 16,
-                  right: 16,
-                  bottom: bottomPadding,
+      bottomNavigationBar: AppBottomNavigationBar(),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: 134,
+                  collapsedHeight: 56,
+                  centerTitle: true,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text(
+                      AppStrings.sightListScrAppBar,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  ),
                 ),
-                child: SightCard(
-                  sightMocks[index],
-                ),
-              );
-            },
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: RoundedGradientButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(
+                SliverPersistentHeader(
+                  delegate: SightListSearchBarDelegate(
+                    child: SearchBar(
+                      readOnly: true,
+                      showFilterBtn: true,
+                      onFieldTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => AddSightScreen(),
+                          builder: (context) => SightSearchScreen(),
                         ),
-                      )
-                      .then((value) => setState(() {}));
-                },
-                titleWidgets: [
-                  Icon(
-                    CustomIcons.plus,
-                    size: 16,
-                    color: Theme.of(context).textTheme.button!.color,
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    width: 14,
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      double bottomPadding = 0;
+                      bool isLastElement = index == sightMocks.length - 1;
+                      if (isLastElement) bottomPadding = 80;
+
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: 16,
+                          top: 16,
+                          right: 16,
+                          bottom: bottomPadding,
+                        ),
+                        child: SightCard(
+                          sightMocks[index],
+                        ),
+                      );
+                    },
+                    childCount: sightMocks.length,
                   ),
-                  Text(
-                    AppStrings.newPlace.toUpperCase(),
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                ],
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: RoundedGradientButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(
+                          MaterialPageRoute(
+                            builder: (context) => AddSightScreen(),
+                          ),
+                        )
+                        .then((value) => setState(() {}));
+                  },
+                  titleWidgets: [
+                    Icon(
+                      CustomIcons.plus,
+                      size: 16,
+                      color: Theme.of(context).textTheme.button!.color,
+                    ),
+                    SizedBox(
+                      width: 14,
+                    ),
+                    Text(
+                      AppStrings.newPlace.toUpperCase(),
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      bottomNavigationBar: AppBottomNavigationBar(),
     );
   }
 }
