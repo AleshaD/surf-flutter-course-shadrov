@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
           begin: Alignment(-2.28, -1),
           end: Alignment.topRight,
           colors: [
-            Theme.of(context).colorScheme.secondaryVariant,
+            Theme.of(context).colorScheme.secondaryContainer,
             Theme.of(context).colorScheme.secondary
           ],
         ),

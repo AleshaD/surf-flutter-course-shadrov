@@ -34,9 +34,9 @@ class AppThemeConfig {
         scaffoldBackgroundColor: lightWhiteDarkIsMain,
         colorScheme: ColorScheme(
           primary: lightWhiteDarkIsMain,
-          primaryVariant: backgroundClr,
+          primaryContainer: backgroundClr,
           secondary: greenClr,
-          secondaryVariant: yellowClr,
+          secondaryContainer: yellowClr,
           surface: lightWhiteDarkIsMain,
           background: lightWhiteDarkIsMain,
           error: errorClr,

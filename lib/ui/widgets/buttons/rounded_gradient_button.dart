@@ -27,7 +27,7 @@ class RoundedGradientButton extends StatelessWidget {
         borderRadius: borderRadius,
         gradient: LinearGradient(
           colors: [
-            Theme.of(context).colorScheme.secondaryVariant,
+            Theme.of(context).colorScheme.secondaryContainer,
             Theme.of(context).colorScheme.secondary,
           ],
         ),
