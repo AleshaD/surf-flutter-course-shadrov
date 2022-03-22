@@ -33,7 +33,7 @@ class SightDetailsScreen extends StatelessWidget {
                   Container(
                     height: 32,
                     width: 32,
-                    margin: EdgeInsets.only(top: 36, left: 16),
+                    margin: EdgeInsets.only(top: 52, left: 16),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: _backBtnRadius,

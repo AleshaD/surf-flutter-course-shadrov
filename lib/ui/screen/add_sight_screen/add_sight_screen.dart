@@ -158,178 +158,177 @@ class _AddSightScreenState extends State<AddSightScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: _sideScreenPadding),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              controller: scrollController,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AddSightPhotoList(
-                    imagePaths: pathsToSightPhotos,
-                    addNewPhotoPressed: _addNewSightPhoto,
-                    onDeletePhoto: _removePhotoByPath,
-                  ),
-                  SizedBox(
-                    height: _blockMarginSize,
-                  ),
-                  Text(
-                    AppStrings.category.toUpperCase(),
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context)
-                          .push(
-                            MaterialPageRoute(
-                              builder: (context) => ChooseCategoryScreen(
-                                initCategory: chosenCategory,
-                              ),
-                            ),
-                          )
-                          .then(
-                            (value) => setState(
-                              () {
-                                if (value != null) {
-                                  if (value is SightType) {
-                                    chosenCategory = value;
-                                    _changeCreateBtnState();
-                                  }
-                                }
-                              },
-                            ),
-                          );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            chosenCategory == null
-                                ? AppStrings.noPick
-                                : Sight.getTypeNameBy(chosenCategory!),
-                            style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Icon(
-                              CustomIcons.view,
-                              size: 24,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: _sideScreenPadding),
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                controller: scrollController,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AddSightPhotoList(
+                      imagePaths: pathsToSightPhotos,
+                      addNewPhotoPressed: _addNewSightPhoto,
+                      onDeletePhoto: _removePhotoByPath,
                     ),
-                  ),
-                  Divider(),
-                  SizedBox(
-                    height: _blockMarginSize,
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppTextFormField(
-                          name: AppStrings.title,
-                          textController: nameController,
-                          focusNode: nameNode,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return AppStrings.enterTheTitle;
-                            }
-                            return null;
-                          },
-                          onChange: _changeCreateBtnState,
-                          onEditingComplete: () =>
-                              FocusScope.of(context).requestFocus(latitudeNode),
-                        ),
-                        SizedBox(
-                          height: _blockMarginSize,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: widthOfCoordinateTxtFields,
-                              child: CoordinateTextField(
-                                type: CoordinateType.latitude,
-                                textController: latitudeController,
-                                focusNode: latitudeNode,
-                                onChange: _changeCreateBtnState,
-                                onEditingComplete: () {
-                                  if (longitudeController.text == '')
-                                    FocusScope.of(context).requestFocus(longitudeNode);
+                    SizedBox(
+                      height: _blockMarginSize,
+                    ),
+                    Text(
+                      AppStrings.category.toUpperCase(),
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(
+                              MaterialPageRoute(
+                                builder: (context) => ChooseCategoryScreen(
+                                  initCategory: chosenCategory,
+                                ),
+                              ),
+                            )
+                            .then(
+                              (value) => setState(
+                                () {
+                                  if (value != null) {
+                                    if (value is SightType) {
+                                      chosenCategory = value;
+                                      _changeCreateBtnState();
+                                    }
+                                  }
                                 },
                               ),
+                            );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              chosenCategory == null
+                                  ? AppStrings.noPick
+                                  : Sight.getTypeNameBy(chosenCategory!),
+                              style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
                             ),
-                            SizedBox(
-                              width: _spaceBetwenTextFields,
-                            ),
-                            SizedBox(
-                              width: widthOfCoordinateTxtFields,
-                              child: CoordinateTextField(
-                                type: CoordinateType.longitude,
-                                textController: longitudeController,
-                                focusNode: longitudeNode,
-                                onChange: _changeCreateBtnState,
-                                onEditingComplete: () {
-                                  if (descriptionController.text == '')
-                                    FocusScope.of(context).requestFocus(descriptionNode);
-                                },
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: Icon(
+                                CustomIcons.view,
+                                size: 24,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextButton(
-                          onPressed: () => print(AppStrings.pickOnMap),
-                          child: Text(
-                            AppStrings.pickOnMap,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 37,
-                        ),
-                        AppTextFormField(
-                          name: AppStrings.description,
-                          hint: AppStrings.enterTheText.toLowerCase(),
-                          textController: descriptionController,
-                          focusNode: descriptionNode,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return AppStrings.enterTheDescription;
-                            }
-                            return null;
-                          },
-                          onChange: _changeCreateBtnState,
-                          textInputType: TextInputType.multiline,
-                          showClearTxtBtn: false,
-                          maxLines: 4,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 76,
-                  ),
-                ],
+                    Divider(),
+                    SizedBox(
+                      height: _blockMarginSize,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppTextFormField(
+                            name: AppStrings.title,
+                            textController: nameController,
+                            focusNode: nameNode,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return AppStrings.enterTheTitle;
+                              }
+                              return null;
+                            },
+                            onChange: _changeCreateBtnState,
+                            onEditingComplete: () =>
+                                FocusScope.of(context).requestFocus(latitudeNode),
+                          ),
+                          SizedBox(
+                            height: _blockMarginSize,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: widthOfCoordinateTxtFields,
+                                child: CoordinateTextField(
+                                  type: CoordinateType.latitude,
+                                  textController: latitudeController,
+                                  focusNode: latitudeNode,
+                                  onChange: _changeCreateBtnState,
+                                  onEditingComplete: () {
+                                    if (longitudeController.text == '')
+                                      FocusScope.of(context).requestFocus(longitudeNode);
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: _spaceBetwenTextFields,
+                              ),
+                              SizedBox(
+                                width: widthOfCoordinateTxtFields,
+                                child: CoordinateTextField(
+                                  type: CoordinateType.longitude,
+                                  textController: longitudeController,
+                                  focusNode: longitudeNode,
+                                  onChange: _changeCreateBtnState,
+                                  onEditingComplete: () {
+                                    if (descriptionController.text == '')
+                                      FocusScope.of(context).requestFocus(descriptionNode);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextButton(
+                            onPressed: () => print(AppStrings.pickOnMap),
+                            child: Text(
+                              AppStrings.pickOnMap,
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 37,
+                          ),
+                          AppTextFormField(
+                            name: AppStrings.description,
+                            hint: AppStrings.enterTheText.toLowerCase(),
+                            textController: descriptionController,
+                            focusNode: descriptionNode,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return AppStrings.enterTheDescription;
+                              }
+                              return null;
+                            },
+                            onChange: _changeCreateBtnState,
+                            textInputType: TextInputType.multiline,
+                            showClearTxtBtn: false,
+                            maxLines: 4,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 76,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+              Align(
+                alignment: Alignment.bottomCenter,
                 child: LargeAppButton(
                   isActive: _createBtnIsActive,
                   onPressed: () {
@@ -355,8 +354,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
