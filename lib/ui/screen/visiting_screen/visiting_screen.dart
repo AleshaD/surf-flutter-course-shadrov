@@ -87,7 +87,6 @@ class VisitingScreenState extends State<VisitingScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: AppBottomNavigationBar(),
       ),
     );
   }
