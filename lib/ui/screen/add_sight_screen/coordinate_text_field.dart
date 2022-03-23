@@ -44,14 +44,17 @@ class CoordinateTextField extends AppTextFormField {
       double? distance = double.tryParse(val) ?? null;
       if (distance != null) {
         double max = type == CoordinateType.longitude ? 90 : 180, min = max * -1;
-        if (distance < min) return '${AppStrings.min.toLowerCase()} ${coordinateName.toLowerCase()} $min';
-        if (distance > max) return '${AppStrings.max.toLowerCase()} ${coordinateName.toLowerCase()} $max';
+        if (distance < min)
+          return '${AppStrings.min.toLowerCase()} ${coordinateName.toLowerCase()} $min';
+        if (distance > max)
+          return '${AppStrings.max.toLowerCase()} ${coordinateName.toLowerCase()} $max';
 
         return null;
       } else {
         return AppStrings.wrongFormat.toLowerCase();
       }
-    }
+    } else
+      return null;
   }
 }
 

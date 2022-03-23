@@ -66,7 +66,7 @@ class SightCardBase extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryVariant,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(cornerRadius),
                   bottomRight: Radius.circular(cornerRadius),

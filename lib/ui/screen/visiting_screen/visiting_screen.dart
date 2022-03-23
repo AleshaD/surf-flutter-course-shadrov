@@ -52,6 +52,7 @@ class VisitingScreenState extends State<VisitingScreen> {
 
   int? getIndexBySightId(List<Sight> sights, String id) {
     for (var i = 0; i < sights.length; i++) if (sights[i].id == id) return i;
+    return null;
   }
 
   @override
@@ -86,7 +87,6 @@ class VisitingScreenState extends State<VisitingScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: AppBottomNavigationBar(),
       ),
     );
   }

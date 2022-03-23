@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
+import 'package:places/ui/screen/onboarding_screen/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,9 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => SightListScreen(),
+          builder: (context) => OnboardingScreen(),
         ),
       );
     });
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
           begin: Alignment(-2.28, -1),
           end: Alignment.topRight,
           colors: [
-            Theme.of(context).colorScheme.secondaryVariant,
+            Theme.of(context).colorScheme.secondaryContainer,
             Theme.of(context).colorScheme.secondary
           ],
         ),

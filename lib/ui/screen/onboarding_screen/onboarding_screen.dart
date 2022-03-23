@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/onboard_page_pagination.dart';
 import 'package:places/ui/screen/onboarding_screen/onboarding_page.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
@@ -70,7 +71,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: LargeAppButton(
                     onPressed: () {
-                      if (showToStartBtn) print('НА СТАРТ');
+                      if (showToStartBtn)
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
                     },
                     titleWidgets: [
                       Text(

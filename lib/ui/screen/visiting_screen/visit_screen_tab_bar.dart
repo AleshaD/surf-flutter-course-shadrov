@@ -18,7 +18,7 @@ class VisitScreenTabBar extends StatelessWidget implements PreferredSizeWidget {
         horizontal: horizontalMargin,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryVariant,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.all(
           Radius.circular(tabBarHeight),
         ),

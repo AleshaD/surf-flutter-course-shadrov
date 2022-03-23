@@ -5,7 +5,6 @@ import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_search_bar_delegate.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
-import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
 import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card.dart';
@@ -28,7 +27,6 @@ class SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: AppBottomNavigationBar(),
       body: SafeArea(
         child: Stack(
           children: [

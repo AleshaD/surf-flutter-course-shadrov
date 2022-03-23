@@ -84,7 +84,7 @@ class _SearchBarState extends State<SearchBar> {
           enabledBorder: defaultBorder,
           focusedBorder: defaultBorder,
           filled: true,
-          fillColor: Theme.of(context).colorScheme.primaryVariant,
+          fillColor: Theme.of(context).colorScheme.primaryContainer,
           prefixIconConstraints: BoxConstraints(maxHeight: 40),
           prefixIcon: Container(
             margin: const EdgeInsets.only(left: 16, right: 14),

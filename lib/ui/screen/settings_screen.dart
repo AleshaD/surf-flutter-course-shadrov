@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/main.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -19,7 +18,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: Text(AppStrings.setting),
       ),
-      bottomNavigationBar: AppBottomNavigationBar(),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, top: 42, right: 16),
         child: ListView(
