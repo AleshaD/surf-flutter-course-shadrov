@@ -6,10 +6,12 @@ class PhotoPageView extends StatefulWidget {
   const PhotoPageView({
     required this.photoUrls,
     this.height = 360,
+    this.topCornerRadius = 0,
   });
 
   final List<String> photoUrls;
   final double height;
+  final double topCornerRadius;
 
   @override
   _PhotoPageViewState createState() => _PhotoPageViewState();
@@ -38,7 +40,16 @@ class _PhotoPageViewState extends State<PhotoPageView> {
               currentPage = value;
             }),
             itemBuilder: (context, index) {
-              return NetworkImageWithProgress(widget.photoUrls[index]);
+              return ClipRRect(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(
+                    widget.topCornerRadius,
+                  ),
+                ),
+                child: NetworkImageWithProgress(
+                  widget.photoUrls[index],
+                ),
+              );
             },
           ),
           widget.photoUrls.length > 1

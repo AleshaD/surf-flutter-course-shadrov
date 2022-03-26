@@ -8,19 +8,67 @@ import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/photo_page_view/photo_page_view.dart';
 
 class SightDetailsScreen extends StatelessWidget {
-  const SightDetailsScreen(this.sight);
+  const SightDetailsScreen(
+    this.sight,
+    this.scrollController, {
+    this.topCornersRadius = 0,
+  });
 
   final Sight sight;
+  final ScrollController scrollController;
+  final double topCornersRadius;
   final BorderRadius _backBtnRadius = const BorderRadius.all(
     Radius.circular(10),
   );
+
+  static void showInBottomSheet(Sight sight, BuildContext context) {
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double bottomSheetHeight = deviceHeight - 64;
+    double topCornerRadius = 12;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return ConstrainedBox(
+          constraints: BoxConstraints.tight(
+            Size(bottomSheetHeight, bottomSheetHeight),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(topCornerRadius),
+            ),
+            child: DraggableScrollableSheet(
+              initialChildSize: 1.0,
+              minChildSize: .8,
+              snap: true,
+              builder: (_, scrollController) {
+                return SightDetailsScreen(
+                  sight,
+                  scrollController,
+                  topCornersRadius: topCornerRadius,
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     double childMargin = 24;
 
-    return Scaffold(
-      body: CustomScrollView(
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(topCornersRadius),
+        ),
+      ),
+      child: CustomScrollView(
+        controller: scrollController,
         slivers: [
           SliverPersistentHeader(
             delegate: SightDetailsHeaderDelegate(
@@ -29,6 +77,7 @@ class SightDetailsScreen extends StatelessWidget {
                   PhotoPageView(
                     photoUrls: sight.photoUrls,
                     height: SightDetailsHeaderDelegate.maxHeight,
+                    topCornerRadius: topCornersRadius,
                   ),
                   Container(
                     height: 32,

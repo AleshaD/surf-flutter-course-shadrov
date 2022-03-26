@@ -159,6 +159,9 @@ class AppThemeConfig {
             ),
           ),
         ),
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+        ),
       );
 
   SliderThemeData _sliderThemeDataBuilder({Color? thumbClr}) => SliderThemeData(
