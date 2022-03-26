@@ -75,4 +75,8 @@ class AppStrings {
   static const shareBestPlace = 'Делись самыми интересными и помоги нам стать лучше!';
   static const letsGo = 'На старт';
   static const skip = 'Пропустить';
+
+  static const camera = 'Камера';
+  static const photo = 'Фотография';
+  static const file = 'Файл';
 }
