@@ -8,7 +8,7 @@ import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/photo_page_view/photo_page_view.dart';
 
 class SightDetailsScreen extends StatelessWidget {
-  const SightDetailsScreen(
+  SightDetailsScreen(
     this.sight,
     this.scrollController, {
     this.topCornersRadius = 0,
@@ -17,8 +17,8 @@ class SightDetailsScreen extends StatelessWidget {
   final Sight sight;
   final ScrollController scrollController;
   final double topCornersRadius;
-  final BorderRadius _backBtnRadius = const BorderRadius.all(
-    Radius.circular(10),
+  final BorderRadius _backBtnRadius = BorderRadius.circular(
+    40,
   );
 
   static void showInBottomSheet(Sight sight, BuildContext context) {
@@ -79,25 +79,38 @@ class SightDetailsScreen extends StatelessWidget {
                     height: SightDetailsHeaderDelegate.maxHeight,
                     topCornerRadius: topCornersRadius,
                   ),
-                  Container(
-                    height: 32,
-                    width: 32,
-                    margin: EdgeInsets.only(top: 52, left: 16),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: _backBtnRadius,
-                    ),
-                    child: Center(
-                      child: Material(
-                        borderRadius: _backBtnRadius,
-                        child: IconButton(
-                          splashRadius: 18,
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: Icon(
-                            CustomIcons.arrow_back,
-                            size: 14,
-                            color: Theme.of(context).colorScheme.onPrimary,
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      margin: EdgeInsets.only(top: 16, right: 16),
+                      child: Center(
+                        child: Material(
+                          borderRadius: _backBtnRadius,
+                          child: IconButton(
+                            splashRadius: 20,
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: Icon(
+                              CustomIcons.close,
+                              size: 25,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
                           ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      height: 4,
+                      width: 40,
+                      margin: EdgeInsets.only(top: 12),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
                         ),
                       ),
                     ),
