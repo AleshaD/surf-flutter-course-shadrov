@@ -5,7 +5,6 @@ import 'package:places/mocks.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
 import 'package:places/ui/screen/visiting_screen/visited_page.dart';
 import 'package:places/ui/screen/visiting_screen/want_to_visit_page.dart';
-import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
 
 class VisitingScreen extends StatefulWidget {
   const VisitingScreen();
@@ -52,6 +51,7 @@ class VisitingScreenState extends State<VisitingScreen> {
 
   int? getIndexBySightId(List<Sight> sights, String id) {
     for (var i = 0; i < sights.length; i++) if (sights[i].id == id) return i;
+
     return null;
   }
 

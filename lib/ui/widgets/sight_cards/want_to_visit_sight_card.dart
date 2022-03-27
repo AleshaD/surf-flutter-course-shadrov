@@ -40,15 +40,15 @@ class WantToVisitSightCard extends SightCardDismissible {
               context: context,
               initialDate: DateTime.now(),
               firstDate: DateTime.now(),
+              lastDate: DateTime.now().add(
+                Duration(days: 730),
+              ),
               builder: (context, child) {
                 return Theme(
                   data: context.findAncestorStateOfType<AppState>()!.appThemeConfig.datePickerTheme,
                   child: child!,
                 );
               },
-              lastDate: DateTime.now().add(
-                Duration(days: 730),
-              ),
             ),
           ),
           SizedBox(
