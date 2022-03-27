@@ -11,7 +11,7 @@ class SightCardIconButton extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final double iconSize;
-  final void Function() onPressed;
+  final void Function(BuildContext) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SightCardIconButton extends StatelessWidget {
       padding: EdgeInsets.all(0),
       constraints: BoxConstraints(maxWidth: iconSize, minHeight: 48),
       splashRadius: iconSize,
-      onPressed: onPressed,
+      onPressed: () => onPressed(context),
       icon: Icon(
         icon,
         size: iconSize,

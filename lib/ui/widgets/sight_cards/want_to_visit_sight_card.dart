@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/main.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
@@ -35,7 +36,7 @@ class WantToVisitSightCard extends SightCardDismissible {
             icon: CustomIcons.calendar,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: () => print('Calendar of ${sight.name} is pressed'),
+            onPressed: (context) => print('Calendar of ${sight.name} is pressed'),
           ),
           SizedBox(
             width: 20,
@@ -44,7 +45,7 @@ class WantToVisitSightCard extends SightCardDismissible {
             icon: CustomIcons.close,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: onClosePressed,
+            onPressed: (context) => onClosePressed(),
           ),
           SizedBox(
             width: 12,
