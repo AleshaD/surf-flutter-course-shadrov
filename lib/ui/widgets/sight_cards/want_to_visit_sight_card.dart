@@ -36,7 +36,20 @@ class WantToVisitSightCard extends SightCardDismissible {
             icon: CustomIcons.calendar,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: (context) => print('Calendar of ${sight.name} is pressed'),
+            onPressed: (context) => showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now(),
+              builder: (context, child) {
+                return Theme(
+                  data: context.findAncestorStateOfType<AppState>()!.appThemeConfig.datePickerTheme,
+                  child: child!,
+                );
+              },
+              lastDate: DateTime.now().add(
+                Duration(days: 730),
+              ),
+            ),
           ),
           SizedBox(
             width: 20,
