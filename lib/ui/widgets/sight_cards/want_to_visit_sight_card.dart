@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
-import 'package:places/main.dart';
 import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/widgets/pickers.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
@@ -16,6 +16,13 @@ class WantToVisitSightCard extends SightCardDismissible {
   }) : super(sight, onDismissed: onClosePressed, showElevation: showElevation, key: key);
 
   final VoidCallback onClosePressed;
+
+  void pickVisitDate(BuildContext context) async {
+    DateTime? dateTime = await Pickers.pickDateAndAfterTime(context);
+    if (dateTime != null) {
+      print('pickedDate: $dateTime');
+    }
+  }
 
   @override
   Widget aboutVisitInfo(BuildContext context) => Text(
@@ -36,20 +43,7 @@ class WantToVisitSightCard extends SightCardDismissible {
             icon: CustomIcons.calendar,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: (context) => showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(
-                Duration(days: 730),
-              ),
-              builder: (context, child) {
-                return Theme(
-                  data: context.findAncestorStateOfType<AppState>()!.appThemeConfig.datePickerTheme,
-                  child: child!,
-                );
-              },
-            ),
+            onPressed: pickVisitDate,
           ),
           SizedBox(
             width: 20,

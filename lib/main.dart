@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/res/app_theme_config.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:places/ui/screen/splash_screen/splash_screen.dart';
 
 void main() {
-  initializeDateFormatting();
   runApp(const App());
 }
 
@@ -34,6 +33,13 @@ class AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+         GlobalMaterialLocalizations.delegate
+       ],
+       supportedLocales: [
+         const Locale('en'),
+         const Locale('ru')
+       ],
       title: AppStrings.appTitle,
       theme: _appThemeConfig.data,
       home: SplashScreen(),
