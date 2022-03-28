@@ -8,19 +8,67 @@ import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/photo_page_view/photo_page_view.dart';
 
 class SightDetailsScreen extends StatelessWidget {
-  const SightDetailsScreen(this.sight);
+  SightDetailsScreen(
+    this.sight,
+    this.scrollController, {
+    this.topCornersRadius = 0,
+  });
 
   final Sight sight;
-  final BorderRadius _backBtnRadius = const BorderRadius.all(
-    Radius.circular(10),
+  final ScrollController scrollController;
+  final double topCornersRadius;
+  final BorderRadius _backBtnRadius = BorderRadius.circular(
+    40,
   );
+
+  static void showInBottomSheet(Sight sight, BuildContext context) {
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double bottomSheetHeight = deviceHeight - 64;
+    double topCornerRadius = 12;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return ConstrainedBox(
+          constraints: BoxConstraints.tight(
+            Size(bottomSheetHeight, bottomSheetHeight),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(topCornerRadius),
+            ),
+            child: DraggableScrollableSheet(
+              initialChildSize: 1.0,
+              minChildSize: .8,
+              snap: true,
+              builder: (_, scrollController) {
+                return SightDetailsScreen(
+                  sight,
+                  scrollController,
+                  topCornersRadius: topCornerRadius,
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     double childMargin = 24;
 
-    return Scaffold(
-      body: CustomScrollView(
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(topCornersRadius),
+        ),
+      ),
+      child: CustomScrollView(
+        controller: scrollController,
         slivers: [
           SliverPersistentHeader(
             delegate: SightDetailsHeaderDelegate(
@@ -29,26 +77,40 @@ class SightDetailsScreen extends StatelessWidget {
                   PhotoPageView(
                     photoUrls: sight.photoUrls,
                     height: SightDetailsHeaderDelegate.maxHeight,
+                    topCornerRadius: topCornersRadius,
                   ),
-                  Container(
-                    height: 32,
-                    width: 32,
-                    margin: EdgeInsets.only(top: 52, left: 16),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: _backBtnRadius,
-                    ),
-                    child: Center(
-                      child: Material(
-                        borderRadius: _backBtnRadius,
-                        child: IconButton(
-                          splashRadius: 18,
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: Icon(
-                            CustomIcons.arrow_back,
-                            size: 14,
-                            color: Theme.of(context).colorScheme.onPrimary,
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      margin: EdgeInsets.only(top: 16, right: 16),
+                      child: Center(
+                        child: Material(
+                          borderRadius: _backBtnRadius,
+                          child: IconButton(
+                            splashRadius: 20,
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: Icon(
+                              CustomIcons.close,
+                              size: 25,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
                           ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      height: 4,
+                      width: 40,
+                      margin: EdgeInsets.only(top: 12),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
                         ),
                       ),
                     ),

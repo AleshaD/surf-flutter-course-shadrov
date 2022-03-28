@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightCardBase extends StatelessWidget {
@@ -111,7 +112,7 @@ class SightCardBase extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(cornerRadius),
               ),
-              onTap: () => print('Card is tapped'),
+              onTap: () => SightDetailsScreen.showInBottomSheet(sight, context),
             ),
           ),
         ),

@@ -27,11 +27,12 @@ class SearchedSightsListView extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
             showDevider: index != searshedSights.length - 1,
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SightDetailsScreen(searshedSights[index].sight),
-              ),
-            ),
+            onTap: () {
+              SightDetailsScreen.showInBottomSheet(
+                searshedSights[index].sight,
+                context,
+              );
+            },
           ),
         );
       },

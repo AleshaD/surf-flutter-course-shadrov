@@ -159,6 +159,9 @@ class AppThemeConfig {
             ),
           ),
         ),
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+        ),
       );
 
   ThemeData get datePickerTheme => data.copyWith(

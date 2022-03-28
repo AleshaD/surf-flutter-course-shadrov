@@ -6,22 +6,49 @@ class PhotoPageView extends StatefulWidget {
   const PhotoPageView({
     required this.photoUrls,
     this.height = 360,
+    this.topCornerRadius = 0,
   });
 
-  final List<String> photoUrls;
   final double height;
+  final List<String> photoUrls;
+  final double topCornerRadius;
 
   @override
   _PhotoPageViewState createState() => _PhotoPageViewState();
 }
 
 class _PhotoPageViewState extends State<PhotoPageView> {
-  final _pageController = PageController();
+  double clipCornerRadius = 0;
   int currentPage = 0;
+
+  final _pageController = PageController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
+    clipCornerRadius = widget.topCornerRadius;
+    _pageController.addListener(_straightenTopCornersWhenMoving);
+  }
+
+  void _straightenTopCornersWhenMoving() {
+    bool pageOnMoving = _pageController.page! % 1 != 0;
+    if (pageOnMoving && clipCornerRadius != 0) {
+      setState(() {
+        clipCornerRadius = 0;
+      });
+    }
+
+    if (!pageOnMoving && clipCornerRadius != widget.topCornerRadius) {
+      setState(() {
+        clipCornerRadius = widget.topCornerRadius;
+      });
+    }
   }
 
   @override
@@ -38,7 +65,16 @@ class _PhotoPageViewState extends State<PhotoPageView> {
               currentPage = value;
             }),
             itemBuilder: (context, index) {
-              return NetworkImageWithProgress(widget.photoUrls[index]);
+              return ClipRRect(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(
+                    clipCornerRadius,
+                  ),
+                ),
+                child: NetworkImageWithProgress(
+                  widget.photoUrls[index],
+                ),
+              );
             },
           ),
           widget.photoUrls.length > 1

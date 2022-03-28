@@ -10,6 +10,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/domain/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/screen/add_sight_screen/add_photo_pick_source_page.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_photo_list.dart';
 import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
 import 'package:places/ui/screen/add_sight_screen/choose_category_screen.dart';
@@ -121,11 +122,16 @@ class _AddSightScreenState extends State<AddSightScreen> {
           );
   }
 
-  void _addNewSightPhoto() {
-    setState(() {
-      int photoIndex = Math.Random().nextInt(5);
-      pathsToSightPhotos.insert(0, mockImagesPaths[photoIndex]);
-    });
+  void _addNewSightPhoto() async {
+    PickPhotoSourceType? fromSource = await showModalBottomSheet<PickPhotoSourceType>(
+      context: context,
+      builder: (context) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: AddPhotoPickSourcePage());
+      },
+    );
+    if (fromSource != null) print('pick from $fromSource');
   }
 
   void _removePhotoByPath(String path) {
