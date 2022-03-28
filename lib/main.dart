@@ -34,12 +34,10 @@ class AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       localizationsDelegates: [
-         GlobalMaterialLocalizations.delegate
-       ],
-       supportedLocales: [
-         const Locale('en'),
-         const Locale('ru')
-       ],
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [const Locale('en'), const Locale('ru')],
       title: AppStrings.appTitle,
       theme: _appThemeConfig.data,
       home: SplashScreen(),
