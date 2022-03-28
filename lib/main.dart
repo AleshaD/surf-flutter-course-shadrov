@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/res/themes.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:places/res/app_theme_config.dart';
 import 'package:places/ui/screen/splash_screen/splash_screen.dart';
 
 void main() {
-  initializeDateFormatting();
   runApp(const App());
 }
 
@@ -19,19 +18,28 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   final mockNumber = 8;
 
-  ThemeData _currentTheme = lightTheme;
+  AppThemeConfig _appThemeConfig = AppThemeConfig.light();
 
   void changeTheme(bool toDarkTheme) {
     setState(() {
-      toDarkTheme ? _currentTheme = darkTheme : _currentTheme = lightTheme;
+      toDarkTheme
+          ? _appThemeConfig = AppThemeConfig.dark()
+          : _appThemeConfig = AppThemeConfig.light();
     });
   }
+
+  AppThemeConfig get appThemeConfig => _appThemeConfig;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [const Locale('en'), const Locale('ru')],
       title: AppStrings.appTitle,
-      theme: _currentTheme,
+      theme: _appThemeConfig.data,
       home: SplashScreen(),
     );
   }

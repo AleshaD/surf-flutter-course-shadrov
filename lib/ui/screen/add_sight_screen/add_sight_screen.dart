@@ -246,6 +246,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                               if (value == null || value.isEmpty) {
                                 return AppStrings.enterTheTitle;
                               }
+
                               return null;
                             },
                             onChange: _changeCreateBtnState,
@@ -311,6 +312,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                               if (value == null || value.isEmpty) {
                                 return AppStrings.enterTheDescription;
                               }
+
                               return null;
                             },
                             onChange: _changeCreateBtnState,

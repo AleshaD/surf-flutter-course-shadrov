@@ -12,6 +12,6 @@ class SightCard extends SightCardBase {
         icon: CustomIcons.menu_heart,
         iconSize: topIconSize,
         iconColor: topIconColor,
-        onPressed: () => print('Heart of ${sight.name} is pressed'),
+        onPressed: (context) => print('Heart of ${sight.name} is pressed'),
       );
 }

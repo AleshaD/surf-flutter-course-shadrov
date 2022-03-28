@@ -161,6 +161,17 @@ class AppThemeConfig {
         ),
       );
 
+  ThemeData get datePickerTheme => data.copyWith(
+        colorScheme: data.colorScheme.copyWith(
+          primary: mainClr,
+          onPrimary: whiteClr,
+          onSurface: isLight ? secondaryClr2 : whiteClr,
+        ),
+        textTheme: data.textTheme.copyWith(
+          subtitle1: smallBoldTxtStyle.apply(color: lightSecondaryDarkIsWhite),
+        )
+      );
+
   SliderThemeData _sliderThemeDataBuilder({Color? thumbClr}) => SliderThemeData(
         trackHeight: 1,
         thumbColor: thumbClr,

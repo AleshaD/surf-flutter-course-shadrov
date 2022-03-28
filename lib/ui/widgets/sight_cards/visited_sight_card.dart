@@ -32,7 +32,7 @@ class VisitedSightCard extends SightCardDismissible {
             icon: CustomIcons.share,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: () => print('Share of ${sight.name} is pressed'),
+            onPressed: (context) => print('Share of ${sight.name} is pressed'),
           ),
           SizedBox(
             width: 20,
@@ -41,7 +41,7 @@ class VisitedSightCard extends SightCardDismissible {
             icon: CustomIcons.close,
             iconSize: topIconSize,
             iconColor: topIconColor,
-            onPressed: onClosePressed,
+            onPressed: (context) => onClosePressed(),
           ),
           SizedBox(
             width: 12,
