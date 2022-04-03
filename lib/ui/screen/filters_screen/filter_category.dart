@@ -19,6 +19,7 @@ class FilterCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     var parentScreen = context.findAncestorStateOfType<FiltersScreenState>()!;
     final bool isActiveCategory = parentScreen.isActiveCategory(type);
+    final double horizontalMargin = MediaQuery.of(context).size.width < 350 ? 12 : 22;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,7 +32,7 @@ class FilterCategory extends StatelessWidget {
           child: Container(
             height: _mainContainerSize,
             width: _mainContainerSize,
-            margin: EdgeInsets.symmetric(horizontal: 22),
+            margin: EdgeInsets.symmetric(horizontal: horizontalMargin),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Theme.of(context).colorScheme.secondary.withAlpha(24),
