@@ -22,6 +22,7 @@ class SightCardBase extends StatelessWidget {
     return Stack(
       children: [
         Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               height: 96,
@@ -74,18 +75,18 @@ class SightCardBase extends StatelessWidget {
                 ),
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 200),
-                        child: Text(
-                          sight.name,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
+                      Text(
+                        sight.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 4.0),
