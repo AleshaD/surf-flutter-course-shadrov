@@ -3,11 +3,12 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
+import 'package:places/ui/screen/sight_list_screen/sight_list_landscape_orientation.dart';
+import 'package:places/ui/screen/sight_list_screen/sight_list_portrate_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_search_bar_delegate.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
-import 'package:places/ui/widgets/sight_cards/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
   const SightListScreen({Key? key}) : super(key: key);
@@ -58,28 +59,9 @@ class SightListScreenState extends State<SightListScreen> {
                     ),
                   ),
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      double bottomPadding = 0;
-                      bool isLastElement = index == sightMocks.length - 1;
-                      if (isLastElement) bottomPadding = 80;
-
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          left: 16,
-                          top: 16,
-                          right: 16,
-                          bottom: bottomPadding,
-                        ),
-                        child: SightCard(
-                          sightMocks[index],
-                        ),
-                      );
-                    },
-                    childCount: sightMocks.length,
-                  ),
-                ),
+                MediaQuery.of(context).orientation == Orientation.portrait
+                    ? SightListPortrateOrientation(sightMocks)
+                    : SightListLandscapeOrientation(sightMocks)
               ],
             ),
             Align(

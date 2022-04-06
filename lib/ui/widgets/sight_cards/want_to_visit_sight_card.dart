@@ -18,7 +18,7 @@ class WantToVisitSightCard extends SightCardDismissible {
   final VoidCallback onClosePressed;
 
   void pickVisitDate(BuildContext context) async {
-    DateTime? dateTime = await Pickers.pickDateAndAfterTime(context);
+    DateTime? dateTime = await Pickers.pickDateAndTime(context);
     if (dateTime != null) {
       print('pickedDate: $dateTime');
     }
