@@ -1,8 +1,8 @@
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_filter.dart';
-import 'package:places/domain/sight_type.dart';
+import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/sight_filter.dart';
+import 'package:places/data/model/enums/sight_type.dart';
 
-import 'domain/coordinate.dart';
+import 'data/model/coordinate.dart';
 
 final myCoordinateMock = Coordinate(
   lat: 44.467748,

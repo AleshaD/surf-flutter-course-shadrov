@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/coordinate.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_filter.dart';
-import 'package:places/domain/sight_type.dart';
+import 'package:places/data/model/coordinate.dart';
+import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/sight_filter.dart';
+import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';

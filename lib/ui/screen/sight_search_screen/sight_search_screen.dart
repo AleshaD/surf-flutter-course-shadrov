@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/enums/search_screen_state_type.dart';
-import 'package:places/domain/searched_sight.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_filter.dart';
+import 'package:places/data/model/enums/search_screen_state_type.dart';
+import 'package:places/data/model/searched_sight.dart';
+import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/sight_filter.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';

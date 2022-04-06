@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_type.dart';
+import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
 

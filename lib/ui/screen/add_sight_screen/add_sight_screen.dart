@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math' as Math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/enums/coordinate_type.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_type.dart';
+import 'package:places/data/model/enums/coordinate_type.dart';
+import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_photo_pick_source_page.dart';

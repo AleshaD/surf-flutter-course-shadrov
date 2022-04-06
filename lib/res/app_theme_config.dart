@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_colors.dart';
 import 'package:places/constants/app_txt_styles.dart';
-import 'package:places/domain/enums/theme_type.dart';
+import 'package:places/data/model/enums/theme_type.dart';
 
 class AppThemeConfig {
   AppThemeConfig(this._type);

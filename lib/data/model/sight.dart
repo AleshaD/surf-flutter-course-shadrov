@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/sight_type.dart';
+import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 
 class Sight {
