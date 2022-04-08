@@ -346,9 +346,9 @@ class _AddSightScreenState extends State<AddSightScreen> {
                         name: nameController.text,
                         lat: double.parse(latitudeController.text),
                         lon: double.parse(longitudeController.text),
-                        photoUrls: [],
-                        details: descriptionController.text,
-                        type: chosenCategory!,
+                        urls: [],
+                        description: descriptionController.text,
+                        placeType: chosenCategory!,
                       ),
                     );
                     _showOkDialog(AppStrings.placeIsSaved, context);

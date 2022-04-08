@@ -75,7 +75,7 @@ class SightDetailsScreen extends StatelessWidget {
               child: Stack(
                 children: [
                   PhotoPageView(
-                    photoUrls: sight.photoUrls,
+                    photoUrls: sight.urls,
                     height: SightDetailsHeaderDelegate.maxHeight,
                     topCornerRadius: topCornersRadius,
                   ),
@@ -153,7 +153,7 @@ class SightDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: childMargin),
                       Text(
-                        sight.details,
+                        sight.description,
                         style: Theme.of(context).primaryTextTheme.subtitle2,
                       ),
                       SizedBox(height: childMargin),

@@ -4,27 +4,28 @@ import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 
 class Place {
-  Place(
-      {required this.name,
-      required this.lat,
-      required this.lon,
-      required this.photoUrls,
-      required this.details,
-      required this.type,
-      required this.wantToVisit,
-      required this.visited,
-      required this.liked,
-      this.wantToVisitAtDate,
-      this.visitedDate})
-      : id = _idCreator(lat);
+  Place({
+    required this.id,
+    required this.lat,
+    required this.lon,
+    required this.name,
+    required this.urls,
+    required this.placeType,
+    required this.description,
+    required this.wantToVisit,
+    required this.visited,
+    required this.liked,
+    this.wantToVisitAtDate,
+    this.visitedDate,
+  });
 
   Place.onCreate({
     required this.name,
     required this.lat,
     required this.lon,
-    required this.photoUrls,
-    required this.details,
-    required this.type,
+    required this.urls,
+    required this.description,
+    required this.placeType,
   })  : wantToVisit = false,
         visited = false,
         liked = false,
@@ -32,12 +33,12 @@ class Place {
         visitedDate = null,
         id = _idCreator(lat);
 
-  final String details;
+  final String description;
   final double lat;
   final double lon;
   final String name;
-  final SightType type;
-  final List<String> photoUrls;
+  final SightType placeType;
+  final List<String> urls;
   final String id;
   final DateTime? visitedDate;
   final DateTime? wantToVisitAtDate;
@@ -45,7 +46,7 @@ class Place {
   bool visited;
   bool liked;
 
-  String get typeName => getTypeNameBy(this.type);
+  String get typeName => getTypeNameBy(this.placeType);
 
   static String _idCreator(double additionalValue) =>
       (DateTime.now().microsecondsSinceEpoch + additionalValue).toString();

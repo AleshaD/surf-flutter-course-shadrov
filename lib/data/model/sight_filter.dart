@@ -69,6 +69,6 @@ class SightFilter {
   }
 
   bool isSightInType(Place sight) {
-    return activeTypes.contains(sight.type);
+    return activeTypes.contains(sight.placeType);
   }
 }

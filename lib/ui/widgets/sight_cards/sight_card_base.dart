@@ -42,8 +42,8 @@ class SightCardBase extends StatelessWidget {
                         topLeft: Radius.circular(cornerRadius),
                         topRight: Radius.circular(cornerRadius),
                       ),
-                      child: sight.photoUrls.isNotEmpty
-                          ? NetworkImageWithProgress(sight.photoUrls[0])
+                      child: sight.urls.isNotEmpty
+                          ? NetworkImageWithProgress(sight.urls[0])
                           : Container(
                               color: Colors.amber,
                             ),
