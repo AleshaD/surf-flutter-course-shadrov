@@ -1,7 +1,7 @@
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:places/data/model/coordinate.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 
 class SightFilter {
@@ -55,10 +55,10 @@ class SightFilter {
     toDist = range.end;
   }
 
-  bool sightInFilter(Sight sight, Coordinate myCoordinate) =>
+  bool sightInFilter(Place sight, Coordinate myCoordinate) =>
       isSightInRange(sight, myCoordinate) && isSightInType(sight);
 
-  bool isSightInRange(Sight sight, Coordinate myCoordinate) {
+  bool isSightInRange(Place sight, Coordinate myCoordinate) {
     var ky = 40000 / 360;
     var kx = Math.cos(Math.pi * myCoordinate.lat / 180.0) * ky;
     var dx = (myCoordinate.lon - sight.lon).abs() * kx;
@@ -68,7 +68,7 @@ class SightFilter {
     return _fromDist <= distance && _toDist >= distance;
   }
 
-  bool isSightInType(Sight sight) {
+  bool isSightInType(Place sight) {
     return activeTypes.contains(sight.type);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_imitation.dart';
 import 'package:places/ui/widgets/sight_cards/visited_sight_card.dart';
@@ -15,7 +15,7 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
     required this.onReplaceCard,
   });
 
-  final List<Sight> sights;
+  final List<Place> sights;
   final RemoveCardCallback removeCard;
   final RaplaceCardCallback onReplaceCard;
 
@@ -37,7 +37,7 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
     );
   }
 
-  Widget draggbleChild(Sight sight) {
+  Widget draggbleChild(Place sight) {
     if (T == WantToVisitSightCard)
       return WantToVisitSightCard(
         sight: sight,
@@ -54,7 +54,7 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
       return Container();
   }
 
-  Widget cardChild(Sight sight) {
+  Widget cardChild(Place sight) {
     if (T == WantToVisitSightCard)
       return WantToVisitSightCard(
         key: ValueKey(sight.id),

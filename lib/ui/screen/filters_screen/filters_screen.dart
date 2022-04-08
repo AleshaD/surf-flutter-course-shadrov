@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/coordinate.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/data/model/sight_filter.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/mocks.dart';
@@ -13,7 +13,7 @@ class FiltersScreen extends StatefulWidget {
   FiltersScreen();
 
   final Coordinate myCoordinate = myCoordinateMock;
-  final List<Sight> sights = sightMocks;
+  final List<Place> sights = sightMocks;
 
   @override
   FiltersScreenState createState() => FiltersScreenState();

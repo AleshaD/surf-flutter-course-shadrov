@@ -3,8 +3,8 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 
-class Sight {
-  Sight(
+class Place {
+  Place(
       {required this.name,
       required this.lat,
       required this.lon,
@@ -18,7 +18,7 @@ class Sight {
       this.visitedDate})
       : id = _idCreator(lat);
 
-  Sight.onCreate({
+  Place.onCreate({
     required this.name,
     required this.lat,
     required this.lon,

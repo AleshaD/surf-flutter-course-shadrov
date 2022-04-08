@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
@@ -10,7 +10,7 @@ class SightCardBase extends StatelessWidget {
   final double cardAspectRatio = 3 / 2;
   final double cornerRadius = 12;
   final String dateFormatStr = 'dd MMM yyyy';
-  final Sight sight;
+  final Place sight;
   final Color topIconColor = Colors.white;
   final double topIconSize = 22;
   final Widget topRightIcons = const Text('');

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
 import 'package:places/ui/screen/visiting_screen/visited_page.dart';
@@ -33,7 +33,7 @@ class VisitingScreenState extends State<VisitingScreen> {
     });
   }
 
-  void _changeCardSequences(List<Sight> sights, int fromIndex, int toIndex) {
+  void _changeCardSequences(List<Place> sights, int fromIndex, int toIndex) {
     if (toIndex > fromIndex) toIndex--;
     if (toIndex < 0) toIndex = 0;
     sights.insert(
@@ -49,7 +49,7 @@ class VisitingScreenState extends State<VisitingScreen> {
     });
   }
 
-  int? getIndexBySightId(List<Sight> sights, String id) {
+  int? getIndexBySightId(List<Place> sights, String id) {
     for (var i = 0; i < sights.length; i++) if (sights[i].id == id) return i;
 
     return null;

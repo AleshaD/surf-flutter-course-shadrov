@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/search_screen_state_type.dart';
 import 'package:places/data/model/searched_sight.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/data/model/sight_filter.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
@@ -84,7 +84,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         () {
           try {
             for (var i = 0; i < sightMocks.length; i++) {
-              Sight sight = sightMocks[i];
+              Place sight = sightMocks[i];
               if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
                   checkFraseInName(sight.name, query)) {
                 findedSights.add(SearchedSight(sight, query));

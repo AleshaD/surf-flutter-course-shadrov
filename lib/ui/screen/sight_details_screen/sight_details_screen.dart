@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_header_delegate.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
@@ -14,14 +14,14 @@ class SightDetailsScreen extends StatelessWidget {
     this.topCornersRadius = 0,
   });
 
-  final Sight sight;
+  final Place sight;
   final ScrollController scrollController;
   final double topCornersRadius;
   final BorderRadius _backBtnRadius = BorderRadius.circular(
     40,
   );
 
-  static void showInBottomSheet(Sight sight, BuildContext context) {
+  static void showInBottomSheet(Place sight, BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double bottomSheetHeight = deviceHeight - 64;
     double topCornerRadius = 12;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/filters_screen/filters_screen.dart';
@@ -41,7 +41,7 @@ class FilterCategory extends StatelessWidget {
               children: [
                 Center(
                   child: Icon(
-                    Sight.getTypeIconBy(type),
+                    Place.getTypeIconBy(type),
                     size: _iconSize,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
@@ -75,7 +75,7 @@ class FilterCategory extends StatelessWidget {
         ),
         Center(
           child: Text(
-            Sight.getTypeNameBy(type),
+            Place.getTypeNameBy(type),
             style: Theme.of(context).textTheme.bodyText2,
           ),
         )

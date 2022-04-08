@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 
 class SightCardDismissible extends SightCardBase {
   const SightCardDismissible(
-    Sight sight, {
+    Place sight, {
     required this.onDismissed,
     this.showElevation = false,
     Key? key,

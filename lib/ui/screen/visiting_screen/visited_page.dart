@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/visiting_screen/draggable_sight_cards_list_view.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
@@ -10,7 +10,7 @@ import 'package:places/ui/widgets/sight_cards/visited_sight_card.dart';
 class VisitedPage extends StatelessWidget {
   const VisitedPage(this.sights);
 
-  final List<Sight> sights;
+  final List<Place> sights;
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/coordinate_type.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
@@ -219,7 +219,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                             Text(
                               chosenCategory == null
                                   ? AppStrings.noPick
-                                  : Sight.getTypeNameBy(chosenCategory!),
+                                  : Place.getTypeNameBy(chosenCategory!),
                               style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
                             ),
                             Padding(
@@ -342,7 +342,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     _formKey.currentState!.validate();
                     sightMocks.insert(
                       0,
-                      Sight.onCreate(
+                      Place.onCreate(
                         name: nameController.text,
                         lat: double.parse(latitudeController.text),
                         lon: double.parse(longitudeController.text),
