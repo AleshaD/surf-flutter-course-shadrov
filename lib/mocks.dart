@@ -21,7 +21,7 @@ List<Place> sightMocks = [
     id: '1',
     name: 'Орли',
     lat: 44.435251,
-    lon: 33.780875,
+    lng: 33.780875,
     urls: ['https://media-cdn.tripadvisor.com/media/photo-s/0b/ca/a4/ea/caption.jpg'],
     description: 'Отличный ресторан',
     placeType: SightType.cafe,
@@ -34,7 +34,7 @@ List<Place> sightMocks = [
     id: '2',
     name: 'Источник Варналы',
     lat: 44.465456,
-    lon: 33.696824,
+    lng: 33.696824,
     urls: [
       'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d546336b31d92762c999c239f15/XXXL',
       'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
@@ -54,7 +54,7 @@ List<Place> sightMocks = [
     id: '13',
     name: 'Балаклавский подземный музейный комплекс',
     lat: 44.500751,
-    lon: 33.598167,
+    lng: 33.598167,
     urls: [
       'https://avatars.mds.yandex.net/get-altay/4537001/2a00000179f50eb18d7cc17e59180ac3a570/L',
       'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
@@ -70,7 +70,7 @@ List<Place> sightMocks = [
     id: '14',
     name: 'Крепость Чембало',
     lat: 44.494673,
-    lon: 33.599951,
+    lng: 33.599951,
     urls: [
       'https://avatars.mds.yandex.net/get-altay/1975185/2a0000016d54f112c642a14ca55d9cea42b3/XXXL',
       'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
@@ -88,7 +88,7 @@ List<Place> sightMocks = [
     id: '15',
     name: 'Мемориальный комплекс Сапун-гора',
     lat: 44.554698,
-    lon: 33.586735,
+    lng: 33.586735,
     urls: [
       'https://avatars.mds.yandex.net/get-altay/5236391/2a0000017b7f675abfc93a59763ed82986fa/L'
     ],
@@ -103,7 +103,7 @@ List<Place> sightMocks = [
     id: '16',
     name: 'Музей-заповедник Херсонес Таврический',
     lat: 44.568491,
-    lon: 33.55713,
+    lng: 33.55713,
     urls: [
       'https://avatars.mds.yandex.net/get-altay/1879929/2a0000016ae2fd9a1e0f897adb972249c6ba/L'
     ],
@@ -118,7 +118,7 @@ List<Place> sightMocks = [
     id: '17',
     name: 'Винодельня 78',
     lat: 44.533711,
-    lon: 33.617736,
+    lng: 33.617736,
     urls: [
       'https://avatars.mds.yandex.net/get-tycoon/1534662/2a00000179d0d1a2f830c2c70489044f03f8/priority-headline-main-narrow'
     ],
@@ -133,7 +133,7 @@ List<Place> sightMocks = [
     id: '18',
     name: 'Старик Хинкалыч',
     lat: 44.552229,
-    lon: 33.530981,
+    lng: 33.530981,
     urls: [
       'https://avatars.mds.yandex.net/get-altay/4660612/2a0000017a80bb8a5ebcf07cfa1841ea14d5/L'
     ],
@@ -147,7 +147,7 @@ List<Place> sightMocks = [
     id: '19',
     name: 'Мангуп',
     lat: 44.592976159,
-    lon: 33.801300943,
+    lng: 33.801300943,
     urls: [
       "https://en.travelcrimea.com/images/00/81/008105.jpg",
       'https://avatars.mds.yandex.net/i?id=22f7ccefa4deef705502e389428aaecc-5910407-images-thumbs&n=13&exp=1',
@@ -165,7 +165,7 @@ List<Place> sightMocks = [
     id: '111',
     name: 'Воронежский областной краеведческий музей',
     lat: 1.0,
-    lon: 1.0,
+    lng: 1.0,
     urls: [
       'https://visit-voronezh.ru/assets/components/phpthumbof/cache/0bd7bd9d67a0c362eca6811d8cd1a1e1-w2048-h2048.196a527c526537c45ead89437634006a264.jpg'
     ],
@@ -180,7 +180,7 @@ List<Place> sightMocks = [
     id: '112',
     name: 'Бочка смерти',
     lat: 44.49245,
-    lon: 33.6194,
+    lng: 33.6194,
     urls: [
       'https://www.krym4you.com/files/catalog/481/gallery/big/balaklava-bochka-smerti-b_1458199677.jpg'
     ],
@@ -196,7 +196,7 @@ List<Place> sightMocks = [
     id: '113',
     name: 'Пряности и радости',
     lat: 1.0,
-    lon: 2.2,
+    lng: 2.2,
     urls: ['https://media-cdn.tripadvisor.com/media/photo-s/0f/39/96/8d/caption.jpg'],
     description:
         'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',

@@ -7,7 +7,7 @@ class Place {
   Place({
     required this.id,
     required this.lat,
-    required this.lon,
+    required this.lng,
     required this.name,
     required this.urls,
     required this.placeType,
@@ -22,7 +22,7 @@ class Place {
   Place.onCreate({
     required this.name,
     required this.lat,
-    required this.lon,
+    required this.lng,
     required this.urls,
     required this.description,
     required this.placeType,
@@ -35,7 +35,7 @@ class Place {
 
   final String description;
   final double lat;
-  final double lon;
+  final double lng;
   final String name;
   final SightType placeType;
   final List<String> urls;

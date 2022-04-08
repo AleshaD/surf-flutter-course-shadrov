@@ -61,7 +61,7 @@ class SightFilter {
   bool isSightInRange(Place sight, Coordinate myCoordinate) {
     var ky = 40000 / 360;
     var kx = Math.cos(Math.pi * myCoordinate.lat / 180.0) * ky;
-    var dx = (myCoordinate.lon - sight.lon).abs() * kx;
+    var dx = (myCoordinate.lon - sight.lng).abs() * kx;
     var dy = (myCoordinate.lat - sight.lat).abs() * ky;
     var distance = Math.sqrt(dx * dx + dy * dy) * 1000;
 

@@ -345,7 +345,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                       Place.onCreate(
                         name: nameController.text,
                         lat: double.parse(latitudeController.text),
-                        lon: double.parse(longitudeController.text),
+                        lng: double.parse(longitudeController.text),
                         urls: [],
                         description: descriptionController.text,
                         placeType: chosenCategory!,
