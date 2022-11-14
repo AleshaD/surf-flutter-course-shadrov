@@ -1,9 +1,12 @@
 
 enum SightType {
+  temple,
+  monument,
+  park,
+  theater,
+  museum,
   hotel,
   restaurant,
-  specialPlace,
-  park,
-  museum,
-  cafe
+  cafe,
+  other,
 }
