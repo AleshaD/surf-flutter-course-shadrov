@@ -1,4 +1,4 @@
-import 'package:places/data/model/place.dart';
+import 'package:places/data/model/sight.dart';
 import 'package:places/data/model/sight_filter.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:places/data/model/coordinate.dart';
-import 'package:places/data/model/place.dart';
+import 'package:places/data/model/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 
 class SightFilter {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/model/place.dart';
+import 'package:places/data/model/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
 import 'package:places/ui/screen/visiting_screen/visited_page.dart';
