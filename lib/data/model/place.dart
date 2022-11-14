@@ -47,23 +47,30 @@ class Place {
   bool liked;
 
   String get typeName => getTypeNameBy(this.placeType);
+  IconData get icon => getTypeIconBy(this.placeType);
 
   static String _idCreator(double additionalValue) =>
       (DateTime.now().microsecondsSinceEpoch + additionalValue).toString();
 
   static String getTypeNameBy(SightType type) {
     switch (type) {
+      case SightType.temple:
+        return AppStrings.temple;
+      case SightType.monument:
+        return AppStrings.monument;
+      case SightType.park:
+        return AppStrings.park;
+      case SightType.theater:
+        return AppStrings.theater;
       case SightType.cafe:
         return AppStrings.cafe;
       case SightType.hotel:
         return AppStrings.hotel;
       case SightType.museum:
         return AppStrings.museum;
-      case SightType.park:
-        return AppStrings.park;
       case SightType.restaurant:
         return AppStrings.restaurant;
-      case SightType.specialPlace:
+      case SightType.other:
         return AppStrings.specialPlace;
       default:
         return AppStrings.empty;
@@ -82,8 +89,12 @@ class Place {
         return CustomIcons.park;
       case SightType.restaurant:
         return CustomIcons.restourant;
-      case SightType.specialPlace:
+      case SightType.temple:
+        return CustomIcons.museum;
+      case SightType.other:
         return CustomIcons.particular_place;
+        default: CustomIcons.particular_place;
     }
+    return Icons.abc;
   }
 }

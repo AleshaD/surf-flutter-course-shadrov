@@ -104,7 +104,7 @@ class FiltersScreenState extends State<FiltersScreen> {
                 children: [
                   FilterCategory(type: SightType.hotel),
                   FilterCategory(type: SightType.restaurant),
-                  FilterCategory(type: SightType.specialPlace),
+                  FilterCategory(type: SightType.other),
                 ],
               ),
               SizedBox(

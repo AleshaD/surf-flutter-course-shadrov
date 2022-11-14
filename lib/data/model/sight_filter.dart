@@ -23,7 +23,7 @@ class SightFilter {
           SightType.museum,
           SightType.park,
           SightType.restaurant,
-          SightType.specialPlace,
+          SightType.other,
         };
 
   static double maxUntilDist = 10000;
