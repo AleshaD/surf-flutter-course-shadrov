@@ -41,7 +41,7 @@ class FilterCategory extends StatelessWidget {
               children: [
                 Center(
                   child: Icon(
-                    Place.getTypeIconBy(type),
+                    Sight.getTypeIconBy(type),
                     size: _iconSize,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
@@ -75,7 +75,7 @@ class FilterCategory extends StatelessWidget {
         ),
         Center(
           child: Text(
-            Place.getTypeNameBy(type),
+            Sight.getTypeNameBy(type),
             style: Theme.of(context).textTheme.bodyText2,
           ),
         )

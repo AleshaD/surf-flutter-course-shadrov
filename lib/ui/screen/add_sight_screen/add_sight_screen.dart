@@ -219,7 +219,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                             Text(
                               chosenCategory == null
                                   ? AppStrings.noPick
-                                  : Place.getTypeNameBy(chosenCategory!),
+                                  : Sight.getTypeNameBy(chosenCategory!),
                               style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 16),
                             ),
                             Padding(
@@ -342,7 +342,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     _formKey.currentState!.validate();
                     sightMocks.insert(
                       0,
-                      Place.onCreate(
+                      Sight.onCreate(
                         name: nameController.text,
                         lat: double.parse(latitudeController.text),
                         lng: double.parse(longitudeController.text),

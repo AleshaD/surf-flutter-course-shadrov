@@ -10,7 +10,7 @@ import 'package:places/ui/widgets/sight_cards/visited_sight_card.dart';
 class VisitedPage extends StatelessWidget {
   const VisitedPage(this.sights);
 
-  final List<Place> sights;
+  final List<Sight> sights;
 
   @override
   Widget build(BuildContext context) {

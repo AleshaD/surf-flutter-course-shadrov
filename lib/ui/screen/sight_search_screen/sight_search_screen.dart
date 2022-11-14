@@ -84,7 +84,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         () {
           try {
             for (var i = 0; i < sightMocks.length; i++) {
-              Place sight = sightMocks[i];
+              Sight sight = sightMocks[i];
               if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
                   checkFraseInName(sight.name, query)) {
                 findedSights.add(SearchedSight(sight, query));

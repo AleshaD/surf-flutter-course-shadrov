@@ -5,7 +5,7 @@ import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
 class SightCard extends SightCardBase {
-  SightCard(Place sight) : super(sight);
+  SightCard(Sight sight) : super(sight);
 
   @override
   Widget get topRightIcons => SightCardIconButton(

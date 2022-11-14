@@ -13,11 +13,11 @@ SightFilter mockSightFilter = SightFilter.dafult();
 
 final List<String> mockImagesPaths = List.generate(6, (index) => 'assets/images/photo_$index.jpeg');
 
-List<Place> mockWantToVisitSights = sightMocks.where((sight) => sight.wantToVisit).toList();
-List<Place> mockVisitedSights = sightMocks.where((sight) => sight.visited).toList();
+List<Sight> mockWantToVisitSights = sightMocks.where((sight) => sight.wantToVisit).toList();
+List<Sight> mockVisitedSights = sightMocks.where((sight) => sight.visited).toList();
 
-List<Place> sightMocks = [
-  Place(
+List<Sight> sightMocks = [
+  Sight(
     id: '1',
     name: 'Орли',
     lat: 44.435251,
@@ -30,7 +30,7 @@ List<Place> sightMocks = [
     visited: false,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '2',
     name: 'Источник Варналы',
     lat: 44.465456,
@@ -50,7 +50,7 @@ List<Place> sightMocks = [
     visited: false,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '13',
     name: 'Балаклавский подземный музейный комплекс',
     lat: 44.500751,
@@ -66,7 +66,7 @@ List<Place> sightMocks = [
     visited: false,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '14',
     name: 'Крепость Чембало',
     lat: 44.494673,
@@ -84,7 +84,7 @@ List<Place> sightMocks = [
     visited: false,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '15',
     name: 'Мемориальный комплекс Сапун-гора',
     lat: 44.554698,
@@ -99,7 +99,7 @@ List<Place> sightMocks = [
     visited: true,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '16',
     name: 'Музей-заповедник Херсонес Таврический',
     lat: 44.568491,
@@ -114,7 +114,7 @@ List<Place> sightMocks = [
     visited: true,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '17',
     name: 'Винодельня 78',
     lat: 44.533711,
@@ -129,7 +129,7 @@ List<Place> sightMocks = [
     visited: true,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '18',
     name: 'Старик Хинкалыч',
     lat: 44.552229,
@@ -143,7 +143,7 @@ List<Place> sightMocks = [
     visited: true,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '19',
     name: 'Мангуп',
     lat: 44.592976159,
@@ -161,7 +161,7 @@ List<Place> sightMocks = [
     visited: true,
     liked: true,
   ),
-  Place(
+  Sight(
     id: '111',
     name: 'Воронежский областной краеведческий музей',
     lat: 1.0,
@@ -176,7 +176,7 @@ List<Place> sightMocks = [
     visited: true,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '112',
     name: 'Бочка смерти',
     lat: 44.49245,
@@ -192,7 +192,7 @@ List<Place> sightMocks = [
     visited: true,
     liked: false,
   ),
-  Place(
+  Sight(
     id: '113',
     name: 'Пряности и радости',
     lat: 1.0,

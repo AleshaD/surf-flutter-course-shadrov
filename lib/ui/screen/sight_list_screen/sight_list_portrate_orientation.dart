@@ -6,7 +6,7 @@ import '../../widgets/sight_cards/sight_card.dart';
 class SightListPortrateOrientation extends StatelessWidget {
   const SightListPortrateOrientation(this.sights);
 
-  final List<Place> sights;
+  final List<Sight> sights;
 
   @override
   Widget build(BuildContext context) {

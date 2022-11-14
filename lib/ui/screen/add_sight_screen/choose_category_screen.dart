@@ -50,7 +50,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                               choosen = type;
                             }),
                             leading: Text(
-                              Place.getTypeNameBy(type),
+                              Sight.getTypeNameBy(type),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!

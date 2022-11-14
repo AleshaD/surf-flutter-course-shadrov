@@ -4,5 +4,5 @@ class SearchedSight {
   SearchedSight(this.sight, this.query);
 
   final String query;
-  final Place sight;
+  final Sight sight;
 }

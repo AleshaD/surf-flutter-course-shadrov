@@ -55,10 +55,10 @@ class SightFilter {
     toDist = range.end;
   }
 
-  bool sightInFilter(Place sight, Coordinate myCoordinate) =>
+  bool sightInFilter(Sight sight, Coordinate myCoordinate) =>
       isSightInRange(sight, myCoordinate) && isSightInType(sight);
 
-  bool isSightInRange(Place sight, Coordinate myCoordinate) {
+  bool isSightInRange(Sight sight, Coordinate myCoordinate) {
     var ky = 40000 / 360;
     var kx = Math.cos(Math.pi * myCoordinate.lat / 180.0) * ky;
     var dx = (myCoordinate.lon - sight.lng).abs() * kx;
@@ -68,7 +68,7 @@ class SightFilter {
     return _fromDist <= distance && _toDist >= distance;
   }
 
-  bool isSightInType(Place sight) {
+  bool isSightInType(Sight sight) {
     return activeTypes.contains(sight.placeType);
   }
 }

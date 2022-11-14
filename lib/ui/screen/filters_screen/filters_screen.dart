@@ -13,7 +13,7 @@ class FiltersScreen extends StatefulWidget {
   FiltersScreen();
 
   final Coordinate myCoordinate = myCoordinateMock;
-  final List<Place> sights = sightMocks;
+  final List<Sight> sights = sightMocks;
 
   @override
   FiltersScreenState createState() => FiltersScreenState();

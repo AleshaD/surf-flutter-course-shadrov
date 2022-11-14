@@ -6,7 +6,7 @@ import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 
 class SightCardDismissible extends SightCardBase {
   const SightCardDismissible(
-    Place sight, {
+    Sight sight, {
     required this.onDismissed,
     this.showElevation = false,
     Key? key,

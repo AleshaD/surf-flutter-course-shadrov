@@ -33,7 +33,7 @@ class VisitingScreenState extends State<VisitingScreen> {
     });
   }
 
-  void _changeCardSequences(List<Place> sights, int fromIndex, int toIndex) {
+  void _changeCardSequences(List<Sight> sights, int fromIndex, int toIndex) {
     if (toIndex > fromIndex) toIndex--;
     if (toIndex < 0) toIndex = 0;
     sights.insert(
@@ -49,7 +49,7 @@ class VisitingScreenState extends State<VisitingScreen> {
     });
   }
 
-  int? getIndexBySightId(List<Place> sights, String id) {
+  int? getIndexBySightId(List<Sight> sights, String id) {
     for (var i = 0; i < sights.length; i++) if (sights[i].id == id) return i;
 
     return null;

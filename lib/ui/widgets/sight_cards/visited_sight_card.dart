@@ -8,7 +8,7 @@ import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
 class VisitedSightCard extends SightCardDismissible {
   const VisitedSightCard({
-    required Place sight,
+    required Sight sight,
     required this.onClosePressed,
     bool showElevation = false,
     Key? key,

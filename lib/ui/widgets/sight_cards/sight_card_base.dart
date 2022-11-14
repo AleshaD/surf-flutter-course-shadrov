@@ -10,7 +10,7 @@ class SightCardBase extends StatelessWidget {
   final double cardAspectRatio = 3 / 2;
   final double cornerRadius = 12;
   final String dateFormatStr = 'dd MMM yyyy';
-  final Place sight;
+  final Sight sight;
   final Color topIconColor = Colors.white;
   final double topIconSize = 22;
   final Widget topRightIcons = const Text('');

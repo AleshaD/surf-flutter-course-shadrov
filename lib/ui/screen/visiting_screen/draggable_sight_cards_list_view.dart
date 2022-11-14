@@ -15,7 +15,7 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
     required this.onReplaceCard,
   });
 
-  final List<Place> sights;
+  final List<Sight> sights;
   final RemoveCardCallback removeCard;
   final RaplaceCardCallback onReplaceCard;
 
@@ -37,7 +37,7 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
     );
   }
 
-  Widget draggbleChild(Place sight) {
+  Widget draggbleChild(Sight sight) {
     if (T == WantToVisitSightCard)
       return WantToVisitSightCard(
         sight: sight,
@@ -54,7 +54,7 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
       return Container();
   }
 
-  Widget cardChild(Place sight) {
+  Widget cardChild(Sight sight) {
     if (T == WantToVisitSightCard)
       return WantToVisitSightCard(
         key: ValueKey(sight.id),

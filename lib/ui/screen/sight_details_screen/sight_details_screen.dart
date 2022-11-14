@@ -14,14 +14,14 @@ class SightDetailsScreen extends StatelessWidget {
     this.topCornersRadius = 0,
   });
 
-  final Place sight;
+  final Sight sight;
   final ScrollController scrollController;
   final double topCornersRadius;
   final BorderRadius _backBtnRadius = BorderRadius.circular(
     40,
   );
 
-  static void showInBottomSheet(Place sight, BuildContext context) {
+  static void showInBottomSheet(Sight sight, BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double bottomSheetHeight = deviceHeight - 64;
     double topCornerRadius = 12;
