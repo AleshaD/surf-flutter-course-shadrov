@@ -1,23 +1,31 @@
-import 'package:places/data/model/enums/sight_type.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:places/data/model/places/place.dart';
 
-class PlaceDto {
+part 'place_dto.g.dart';
+
+@JsonSerializable()
+class PlaceDto extends Place {
   PlaceDto({
-    required this.id,
-    required this.lat,
-    required this.lng,
     required this.distance,
-    required this.name,
-    required this.placeType,
-    required this.description,
-    required this.urls,
-  });
+    required id,
+    required lat,
+    required lng,
+    required name,
+    required placeType,
+    required description,
+    required urls,
+  }) : super(
+            id: id,
+            lat: lat,
+            lng: lng,
+            name: name,
+            placeType: placeType,
+            description: description,
+            urls: urls);
 
-  final String description;
   final double distance;
-  final String id;
-  final double lat;
-  final double lng;
-  final String name;
-  final SightType placeType;
-  final List<String> urls;
+
+  factory PlaceDto.fromJson(Map<String, dynamic> json) => _$PlaceDtoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PlaceDtoToJson(this);
 }
