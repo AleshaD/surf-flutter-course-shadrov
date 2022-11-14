@@ -79,4 +79,10 @@ class AppStrings {
   static const camera = 'Камера';
   static const photo = 'Фотография';
   static const file = 'Файл';
+
+  static const temple = 'Храм';
+
+  static const monument = 'Памятник';
+
+  static const theater = 'Театр';
 }
