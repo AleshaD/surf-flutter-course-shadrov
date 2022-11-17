@@ -23,6 +23,15 @@ class Place {
     required this.description,
   });
 
+  Map<String, dynamic> get bodyForUpdate => {
+        'lat': this.lat,
+        'lng': this.lng,
+        'name': this.name,
+        'urls': this.urls,
+        'placeType': _$PlaceTypeEnumMap[this.placeType]!,
+        'description': this.description,
+      };
+
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 
   Map<String, dynamic> toJson() => _$PlaceToJson(this);

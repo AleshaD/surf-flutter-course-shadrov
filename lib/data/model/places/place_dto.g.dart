@@ -8,13 +8,13 @@ part of 'place_dto.dart';
 
 PlaceDto _$PlaceDtoFromJson(Map<String, dynamic> json) => PlaceDto(
       distance: (json['distance'] as num).toDouble(),
-      id: json['id'],
-      lat: json['lat'],
-      lng: json['lng'],
-      name: json['name'],
-      placeType: json['placeType'],
-      description: json['description'],
-      urls: json['urls'],
+      id: json['id'] as int,
+      lat: (json['lat'] as num).toDouble(),
+      lng: (json['lng'] as num).toDouble(),
+      name: json['name'] as String,
+      placeType: $enumDecode(_$PlaceTypeEnumMap, json['placeType']),
+      description: json['description'] as String,
+      urls: (json['urls'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$PlaceDtoToJson(PlaceDto instance) => <String, dynamic>{

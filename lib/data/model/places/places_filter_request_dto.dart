@@ -7,15 +7,15 @@ part 'places_filter_request_dto.g.dart';
 class PlacesFilterRequestDto {
   PlacesFilterRequestDto({
     this.lat,
-    this.lon,
+    this.lng,
     this.radius,
     this.typeFilter,
     this.nameFilter,
-  }) : assert((lat != null && lon != null && radius != null) ||
-            (lat == null && lon == null && radius == null));
+  }) : assert((lat != null && lng != null && radius != null) ||
+            (lat == null && lng == null && radius == null));
 
   final double? lat;
-  final double? lon;
+  final double? lng;
   final String? nameFilter;
   final double? radius;
   final List<PlaceType>? typeFilter;
