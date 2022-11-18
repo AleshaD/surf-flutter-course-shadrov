@@ -1,10 +1,10 @@
-import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
+import 'package:places/data/services/location_service.dart';
 
-class SightFilter {
+class SightFilter with LocationService {
   SightFilter({
     required fromDist,
     required toDist,
@@ -59,11 +59,10 @@ class SightFilter {
       isSightInRange(sight, myCoordinate) && isSightInType(sight);
 
   bool isSightInRange(Sight sight, Coordinate myCoordinate) {
-    var ky = 40000 / 360;
-    var kx = Math.cos(Math.pi * myCoordinate.lat / 180.0) * ky;
-    var dx = (myCoordinate.lng - sight.lng).abs() * kx;
-    var dy = (myCoordinate.lat - sight.lat).abs() * ky;
-    var distance = Math.sqrt(dx * dx + dy * dy) * 1000;
+    final distance = getDistanceBeatwenCoordinates(
+      Coordinate(lat: sight.lat, lng: sight.lng),
+      myCoordinate,
+    );
 
     return _fromDist <= distance && _toDist >= distance;
   }
