@@ -6,7 +6,7 @@ import 'data/model/coordinate.dart';
 
 final myCoordinateMock = Coordinate(
   lat: 44.467748,
-  lon: 33.691336,
+  lng: 33.691336,
 );
 
 SightFilter mockSightFilter = SightFilter.dafult();

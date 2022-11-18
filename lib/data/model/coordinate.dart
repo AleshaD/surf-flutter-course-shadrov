@@ -1,6 +1,6 @@
 class Coordinate {
-  Coordinate({required this.lat, required this.lon});
+  Coordinate({required this.lat, required this.lng});
 
   final double lat;
-  final double lon;
+  final double lng;
 }
