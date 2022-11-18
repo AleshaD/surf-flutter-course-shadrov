@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/place_type.dart';
 
 part 'place.g.dart';
@@ -22,6 +23,9 @@ class Place {
     required this.placeType,
     required this.description,
   });
+
+  Coordinate get coordinate => Coordinate(lat: lat, lng: lng);
+  String get typeName => _$PlaceTypeEnumMap[this.placeType]!;
 
   Map<String, dynamic> get bodyForUpdate => {
         'lat': this.lat,
