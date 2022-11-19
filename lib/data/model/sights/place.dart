@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/place_type.dart';
 
-part '../sights/place.g.dart';
+part 'place.g.dart';
 
 @JsonSerializable()
 class Place {

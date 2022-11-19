@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/coordinate.dart';
-import 'package:places/data/model/sight.dart';
+import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/services/location_service.dart';
 

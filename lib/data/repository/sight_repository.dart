@@ -5,7 +5,7 @@ import 'package:places/data/model/sights/sight_dto.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../model/sight.dart';
+import '../model/sights/sight.dart';
 
 part 'sight_repository.g.dart';
 
