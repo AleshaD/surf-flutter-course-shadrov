@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/model/searched_sight.dart';
+import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightCardTile extends StatelessWidget {

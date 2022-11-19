@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/data/model/sight_filter.dart';
+import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';

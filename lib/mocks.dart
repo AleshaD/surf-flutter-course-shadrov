@@ -1,5 +1,5 @@
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/data/model/sight_filter.dart';
+import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 
 import 'data/model/coordinate.dart';
