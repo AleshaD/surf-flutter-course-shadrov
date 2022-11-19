@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/sight_type.dart';
+import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/repository/sight_repository.dart';
@@ -33,6 +34,10 @@ class SightInteractor with LocationService {
   final List<int> _visitedSightsIds = [127, 139, 330, 329];
   final List<Sight> _favoriteSights = [];
   final List<Sight> _visitedSights = [];
+
+  Future<List<Sight>> getSightsFromFilter(SightFilter filter) {
+    return getSights(filter.toDist, filter.activeTypes.toList());
+  }
 
   Future<List<Sight>> getSights(double radius, List<SightType> categorys) async {
     final filter = SightsFilterRequestDto(

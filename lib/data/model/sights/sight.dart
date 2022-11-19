@@ -17,9 +17,9 @@ class Sight {
     required this.urls,
     required this.sightType,
     required this.description,
-    required this.wantToVisit,
-    required this.visited,
-    required this.liked,
+    this.wantToVisit,
+    this.visited,
+    this.liked,
     this.wantToVisitAtDate,
     this.visitedDate,
   });
@@ -56,11 +56,11 @@ class Sight {
   @deprecated
   final DateTime? wantToVisitAtDate;
   @deprecated
-  bool wantToVisit;
+  bool? wantToVisit;
   @deprecated
-  bool visited;
+  bool? visited;
   @deprecated
-  bool liked;
+  bool? liked;
 
   String get typeName => getTypeNameBy(this.sightType);
   IconData get icon => getTypeIconBy(this.sightType);
