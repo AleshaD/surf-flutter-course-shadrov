@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/sight_type.dart';
-import 'package:places/data/model/places/sights_filter_request_dto.dart';
+import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/model/sight.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/services/location_service.dart';
 
-import '../model/places/sight_dto.dart';
+import '../model/sights/sight_dto.dart';
 
 class SightInteractor with LocationService {
   SightInteractor(this._repository) {

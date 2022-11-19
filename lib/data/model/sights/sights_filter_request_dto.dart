@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 
-part 'sights_filter_request_dto.g.dart';
+part '../sights/sights_filter_request_dto.g.dart';
 
 @JsonSerializable()
 class SightsFilterRequestDto {

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../enums/sight_type.dart';
 import '../sight.dart';
 
-part 'sight_dto.g.dart';
+part '../sights/sight_dto.g.dart';
 
 @JsonSerializable()
 class SightDto extends Sight {
