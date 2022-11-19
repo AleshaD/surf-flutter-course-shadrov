@@ -14,7 +14,7 @@ class Sight {
     required this.lng,
     required this.name,
     required this.urls,
-    required this.placeType,
+    required this.sightType,
     required this.description,
     required this.wantToVisit,
     required this.visited,
@@ -29,7 +29,7 @@ class Sight {
     required this.lng,
     required this.urls,
     required this.description,
-    required this.placeType,
+    required this.sightType,
   })  : wantToVisit = false,
         visited = false,
         liked = false,
@@ -46,7 +46,8 @@ class Sight {
   final double lng;
   final String name;
   final List<String> urls;
-  final SightType placeType;
+  @JsonKey(name: 'placeType')
+  final SightType sightType;
   final String description;
 
   @deprecated
@@ -60,14 +61,14 @@ class Sight {
   @deprecated
   bool liked;
 
-  String get typeName => getTypeNameBy(this.placeType);
-  IconData get icon => getTypeIconBy(this.placeType);
+  String get typeName => getTypeNameBy(this.sightType);
+  IconData get icon => getTypeIconBy(this.sightType);
   Map<String, dynamic> get bodyForUpdate => {
         'lat': this.lat,
         'lng': this.lng,
         'name': this.name,
         'urls': this.urls,
-        'placeType': _$SightTypeEnumMap[this.placeType]!,
+        'placeType': _$SightTypeEnumMap[this.sightType]!,
         'description': this.description,
       };
 

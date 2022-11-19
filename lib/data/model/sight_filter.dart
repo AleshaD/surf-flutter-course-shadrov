@@ -68,6 +68,6 @@ class SightFilter with LocationService {
   }
 
   bool isSightInType(Sight sight) {
-    return activeTypes.contains(sight.placeType);
+    return activeTypes.contains(sight.sightType);
   }
 }
