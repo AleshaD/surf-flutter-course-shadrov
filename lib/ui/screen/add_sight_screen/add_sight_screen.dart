@@ -340,17 +340,17 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   isActive: _createBtnIsActive,
                   onPressed: () {
                     _formKey.currentState!.validate();
-                    sightMocks.insert(
-                      0,
-                      Sight.onCreate(
-                        name: nameController.text,
-                        lat: double.parse(latitudeController.text),
-                        lng: double.parse(longitudeController.text),
-                        urls: [],
-                        description: descriptionController.text,
-                        placeType: chosenCategory!,
-                      ),
-                    );
+                    // sightMocks.insert(
+                    //   0,
+                    //   Sight.onCreate(
+                    //     name: nameController.text,
+                    //     lat: double.parse(latitudeController.text),
+                    //     lng: double.parse(longitudeController.text),
+                    //     urls: [],
+                    //     description: descriptionController.text,
+                    //     placeType: chosenCategory!,
+                    //   ),
+                    // );
                     _showOkDialog(AppStrings.placeIsSaved, context);
                     FocusScope.of(context).unfocus();
                   },

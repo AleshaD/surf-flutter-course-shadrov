@@ -1,8 +1,12 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 
+part 'sight.g.dart';
+
+@JsonSerializable()
 class Sight {
   Sight({
     required this.id,
@@ -33,48 +37,45 @@ class Sight {
         visitedDate = null,
         id = _idCreator(lat);
 
-  final String description;
+  factory Sight.fromJson(Map<String, dynamic> json) => _$SightFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SightToJson(this);
+
+  final String id;
   final double lat;
   final double lng;
   final String name;
-  final SightType placeType;
   final List<String> urls;
-  final String id;
+  final SightType placeType;
+  final String description;
+
+  @deprecated
   final DateTime? visitedDate;
+  @deprecated
   final DateTime? wantToVisitAtDate;
+  @deprecated
   bool wantToVisit;
+  @deprecated
   bool visited;
+  @deprecated
   bool liked;
 
   String get typeName => getTypeNameBy(this.placeType);
   IconData get icon => getTypeIconBy(this.placeType);
+  Map<String, dynamic> get bodyForUpdate => {
+        'lat': this.lat,
+        'lng': this.lng,
+        'name': this.name,
+        'urls': this.urls,
+        'placeType': _$SightTypeEnumMap[this.placeType]!,
+        'description': this.description,
+      };
 
   static String _idCreator(double additionalValue) =>
       (DateTime.now().microsecondsSinceEpoch + additionalValue).toString();
 
   static String getTypeNameBy(SightType type) {
-    switch (type) {
-      case SightType.temple:
-        return AppStrings.temple;
-      case SightType.monument:
-        return AppStrings.monument;
-      case SightType.park:
-        return AppStrings.park;
-      case SightType.theater:
-        return AppStrings.theater;
-      case SightType.cafe:
-        return AppStrings.cafe;
-      case SightType.hotel:
-        return AppStrings.hotel;
-      case SightType.museum:
-        return AppStrings.museum;
-      case SightType.restaurant:
-        return AppStrings.restaurant;
-      case SightType.other:
-        return AppStrings.specialPlace;
-      default:
-        return AppStrings.empty;
-    }
+    return _$SightTypeEnumMap[type]!;
   }
 
   static IconData getTypeIconBy(SightType type) {
@@ -93,7 +94,8 @@ class Sight {
         return CustomIcons.museum;
       case SightType.other:
         return CustomIcons.particular_place;
-        default: CustomIcons.particular_place;
+      default:
+        CustomIcons.particular_place;
     }
     return Icons.abc;
   }
