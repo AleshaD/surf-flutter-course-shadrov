@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/interactor/sight_interactor.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
@@ -79,10 +80,10 @@ class VisitingScreenState extends State<VisitingScreen> {
           child: TabBarView(
             children: [
               WantToVisitPage(
-                mockWantToVisitSights,
+                SightInteractor.instance.getFavoriteSights(),
               ),
               VisitedPage(
-                mockVisitedSights,
+                SightInteractor.instance.getVisitedSights(),
               ),
             ],
           ),
