@@ -6,7 +6,7 @@ import 'package:places/ui/widgets/sight_cards/visited_sight_card.dart';
 import 'package:places/ui/widgets/sight_cards/want_to_visit_sight_card.dart';
 
 typedef RaplaceCardCallback = void Function(int fromIndex, int toIndex);
-typedef RemoveCardCallback = void Function(String sigthId);
+typedef RemoveCardCallback = void Function(Sight sigth);
 
 class DraggableSightCardsListView<T extends SightCardDismissible> extends StatelessWidget {
   DraggableSightCardsListView(
@@ -59,13 +59,13 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
       return WantToVisitSightCard(
         key: ValueKey(sight.idStr),
         sight: sight,
-        onClosePressed: () => removeCard(sight.idStr),
+        onClosePressed: () => removeCard(sight),
       );
     else if (T == VisitedSightCard)
       return VisitedSightCard(
         key: ValueKey(sight.idStr),
         sight: sight,
-        onClosePressed: () => removeCard(sight.idStr),
+        onClosePressed: () => removeCard(sight),
       );
     else
       return Container();
