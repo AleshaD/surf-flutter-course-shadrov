@@ -66,8 +66,11 @@ class SightInteractor with LocationService {
   }
 
   bool addToFavorite(Sight sight) {
-    _favoriteSights.add(sight);
-    return true;
+    return _addToCashList(_favoriteSights, sight);
+  }
+
+  bool isSightInFavorite(Sight sight) {
+    return _isSightInCashList(_favoriteSights, sight);
   }
 
   bool removeFromFavorites(Sight sight) {
@@ -79,8 +82,11 @@ class SightInteractor with LocationService {
   }
 
   bool addToVisited(Sight sight) {
-    _visitedSights.add(sight);
-    return true;
+    return _addToCashList(_visitedSights, sight);
+  }
+
+  bool isSightInVisited(Sight sight) {
+    return _isSightInCashList(_visitedSights, sight);
   }
 
   bool removeFromVisited(Sight sight) {
@@ -100,6 +106,18 @@ class SightInteractor with LocationService {
       final sight = await _doRepoRequestWithHandleErrors(_repository.getSight(id));
       if (sight != null) list.add(sight);
     });
+  }
+
+  bool _addToCashList(List<Sight> list, Sight sight) {
+    if (!_isSightInCashList(list, sight)) {
+      list.add(sight);
+      return true;
+    } else
+      return false;
+  }
+
+  bool _isSightInCashList(List<Sight> list, Sight sight) {
+    return list.indexWhere((sightInList) => sightInList.id == sight.id) != -1;
   }
 
   bool _removeFromCashList(List<Sight> list, Sight sight) {
@@ -131,6 +149,6 @@ class SightInteractor with LocationService {
   }
 
   void _handleRepoError(DioError e) {
-    print('Get repo error, send something to interface');
+    print('Get repo error, log and send something to interface');
   }
 }
