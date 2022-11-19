@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/repository/dio_client.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
 import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
@@ -36,8 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    DioClient dioClient = DioClient();
-    dioClient.getUsers();
   }
 
   @override
