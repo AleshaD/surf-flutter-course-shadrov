@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:places/data/model/coordinate.dart';
-import 'package:places/data/model/enums/place_type.dart';
-import 'package:places/data/model/places/places_filter_request_dto.dart';
-import 'package:places/data/repository/place_repository.dart';
+import 'package:places/data/model/enums/sight_type.dart';
+import 'package:places/data/model/places/sights_filter_request_dto.dart';
+import 'package:places/data/model/sight.dart';
+import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/services/location_service.dart';
 
-import '../model/places/place.dart';
-import '../model/places/place_dto.dart';
+import '../model/places/sight_dto.dart';
 
-class PlaceInteractor with LocationService {
-  PlaceInteractor(this._repository) {
-    _initFavoritePlaces();
-    _initVisitedPlaces();
+class SightInteractor with LocationService {
+  SightInteractor(this._repository) {
+    _initFavoriteSights();
+    _initVisitedSights();
   }
 
-  static PlaceInteractor instance = PlaceInteractor(
-    PlaceRepository(
+  static SightInteractor instance = SightInteractor(
+    SightRepository(
       Dio(
         BaseOptions(
           connectTimeout: 10000,
@@ -27,79 +27,79 @@ class PlaceInteractor with LocationService {
     ),
   );
 
-  final PlaceRepository _repository;
+  final SightRepository _repository;
   final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
-  final List<int> _favoritePlacesIds = [127, 139, 330, 329, 352, 390, 129, 132];
-  final List<int> _visitedPlacesIds = [127, 139, 330, 329];
-  final List<Place> _favoritePlaces = [];
-  final List<Place> _visitedPlaces = [];
+  final List<int> _favoriteSightsIds = [127, 139, 330, 329, 352, 390, 129, 132];
+  final List<int> _visitedSightsIds = [127, 139, 330, 329];
+  final List<Sight> _favoriteSights = [];
+  final List<Sight> _visitedSights = [];
 
-  Future<List<Place>> getPlaces(double radius, List<PlaceType> categorys) async {
-    final filter = PlacesFilterRequestDto(
+  Future<List<Sight>> getSights(double radius, List<SightType> categorys) async {
+    final filter = SightsFilterRequestDto(
       lat: _myCoordinate.lat,
       lng: _myCoordinate.lng,
       radius: radius,
       typeFilter: categorys,
     );
 
-    List<PlaceDto> places =
-        await _doRepoRequestWithHandleErrors(_repository.getFilteredPlaces(filter)) ?? [];
+    List<SightDto> sights =
+        await _doRepoRequestWithHandleErrors(_repository.getFilteredSights(filter)) ?? [];
 
-    return _filterPlacesByDistanceFrom(_myCoordinate, places);
+    return _filterSightsByDistanceFrom(_myCoordinate, sights);
   }
 
-  Future<Place?> getPlaceDetails(int id) {
-    return _doRepoRequestWithHandleErrors(_repository.getPlace(id));
+  Future<Sight?> getSightDetails(int id) {
+    return _doRepoRequestWithHandleErrors(_repository.getSight(id));
   }
 
-  Future<Place?> addNewPlace(Place place) {
-    return _doRepoRequestWithHandleErrors(_repository.createPlace(place));
+  Future<Sight?> addNewSight(Sight sight) {
+    return _doRepoRequestWithHandleErrors(_repository.createSight(sight));
   }
 
-  List<Place> getFavoritePlaces() {
-    return _filterPlacesByDistanceFrom(_myCoordinate, _favoritePlaces);
+  List<Sight> getFavoriteSights() {
+    return _filterSightsByDistanceFrom(_myCoordinate, _favoriteSights);
   }
 
-  bool addToFavorite(Place place) {
-    _favoritePlaces.add(place);
+  bool addToFavorite(Sight sight) {
+    _favoriteSights.add(sight);
     return true;
   }
 
-  bool removeFromFavorites(Place place) {
-    return _removeFromCashList(_favoritePlaces, place);
+  bool removeFromFavorites(Sight sight) {
+    return _removeFromCashList(_favoriteSights, sight);
   }
 
-  List<Place> getVisitedPlaces() {
-    return _visitedPlaces;
+  List<Sight> getVisitedSights() {
+    return _visitedSights;
   }
 
-  bool addToVisited(Place place) {
-    _visitedPlaces.add(place);
+  bool addToVisited(Sight sight) {
+    _visitedSights.add(sight);
     return true;
   }
 
-  bool removeFromVisited(Place place) {
-    return _removeFromCashList(_visitedPlaces, place);
+  bool removeFromVisited(Sight sight) {
+    return _removeFromCashList(_visitedSights, sight);
   }
 
-  void _initFavoritePlaces() {
-    _loadPlacesToListByIds(_favoritePlaces, _favoritePlacesIds);
+  void _initFavoriteSights() {
+    _loadSightsToListByIds(_favoriteSights, _favoriteSightsIds);
   }
 
-  void _initVisitedPlaces() {
-    _loadPlacesToListByIds(_visitedPlaces, _visitedPlacesIds);
+  void _initVisitedSights() {
+    _loadSightsToListByIds(_visitedSights, _visitedSightsIds);
   }
 
-  void _loadPlacesToListByIds(List<Place> list, List<int> ids) {
+  void _loadSightsToListByIds(List<Sight> list, List<int> ids) {
     ids.forEach((id) async {
-      final place = await _doRepoRequestWithHandleErrors(_repository.getPlace(id));
-      if (place != null) list.add(place);
+      final sight = await _doRepoRequestWithHandleErrors(_repository.getSight(id));
+      if (sight != null) list.add(sight);
     });
   }
 
-  bool _removeFromCashList(List<Place> list, Place place) {
+  bool _removeFromCashList(List<Sight> list, Sight sight) {
     final lengthBeforeRemove = list.length;
-    list.removeWhere((searchedPlace) => searchedPlace.id == place.id);
+    list.removeWhere((searchedSight) => searchedSight.id == sight.id);
     return lengthBeforeRemove != list.length;
   }
 
@@ -115,14 +115,14 @@ class PlaceInteractor with LocationService {
     return null;
   }
 
-  List<Place> _filterPlacesByDistanceFrom(Coordinate center, List<Place> places) {
-    places.sort((a, b) {
+  List<Sight> _filterSightsByDistanceFrom(Coordinate center, List<Sight> sights) {
+    sights.sort((a, b) {
       return getDistanceBeatwenCoordinates(a.coordinate, center) <
               getDistanceBeatwenCoordinates(b.coordinate, center)
           ? 0
           : 1;
     });
-    return places;
+    return sights;
   }
 
   void _handleRepoError(DioError e) {

@@ -50,7 +50,7 @@ class VisitingScreenState extends State<VisitingScreen> {
   }
 
   int? getIndexBySightId(List<Sight> sights, String id) {
-    for (var i = 0; i < sights.length; i++) if (sights[i].id == id) return i;
+    for (var i = 0; i < sights.length; i++) if (sights[i].idStr == id) return i;
 
     return null;
   }

@@ -1,42 +1,42 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'places_filter_request_dto.dart';
+part of 'sights_filter_request_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PlacesFilterRequestDto _$PlacesFilterRequestDtoFromJson(
+SightsFilterRequestDto _$SightsFilterRequestDtoFromJson(
         Map<String, dynamic> json) =>
-    PlacesFilterRequestDto(
+    SightsFilterRequestDto(
       lat: (json['lat'] as num?)?.toDouble(),
       lng: (json['lng'] as num?)?.toDouble(),
       radius: (json['radius'] as num?)?.toDouble(),
       typeFilter: (json['typeFilter'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$PlaceTypeEnumMap, e))
+          ?.map((e) => $enumDecode(_$SightTypeEnumMap, e))
           .toList(),
       nameFilter: json['nameFilter'] as String?,
     );
 
-Map<String, dynamic> _$PlacesFilterRequestDtoToJson(
-        PlacesFilterRequestDto instance) =>
+Map<String, dynamic> _$SightsFilterRequestDtoToJson(
+        SightsFilterRequestDto instance) =>
     <String, dynamic>{
       'lat': instance.lat,
       'lng': instance.lng,
       'nameFilter': instance.nameFilter,
       'radius': instance.radius,
       'typeFilter':
-          instance.typeFilter?.map((e) => _$PlaceTypeEnumMap[e]!).toList(),
+          instance.typeFilter?.map((e) => _$SightTypeEnumMap[e]!).toList(),
     };
 
-const _$PlaceTypeEnumMap = {
-  PlaceType.temple: 'temple',
-  PlaceType.monument: 'monument',
-  PlaceType.park: 'park',
-  PlaceType.theatre: 'theatre',
-  PlaceType.museum: 'museum',
-  PlaceType.hotel: 'hotel',
-  PlaceType.restaurant: 'restaurant',
-  PlaceType.cafe: 'cafe',
-  PlaceType.other: 'other',
+const _$SightTypeEnumMap = {
+  SightType.temple: 'temple',
+  SightType.monument: 'monument',
+  SightType.park: 'park',
+  SightType.theater: 'theater',
+  SightType.museum: 'museum',
+  SightType.hotel: 'hotel',
+  SightType.restaurant: 'restaurant',
+  SightType.cafe: 'cafe',
+  SightType.other: 'other',
 };

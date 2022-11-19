@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:places/data/model/enums/place_type.dart';
+import 'package:places/data/model/enums/sight_type.dart';
 
-part 'places_filter_request_dto.g.dart';
+part 'sights_filter_request_dto.g.dart';
 
 @JsonSerializable()
-class PlacesFilterRequestDto {
-  PlacesFilterRequestDto({
+class SightsFilterRequestDto {
+  SightsFilterRequestDto({
     this.lat,
     this.lng,
     this.radius,
@@ -18,10 +18,10 @@ class PlacesFilterRequestDto {
   final double? lng;
   final String? nameFilter;
   final double? radius;
-  final List<PlaceType>? typeFilter;
+  final List<SightType>? typeFilter;
 
-  factory PlacesFilterRequestDto.fromJson(Map<String, dynamic> json) =>
-      _$PlacesFilterRequestDtoFromJson(json);
+  factory SightsFilterRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$SightsFilterRequestDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PlacesFilterRequestDtoToJson(this);
+  Map<String, dynamic> toJson() => _$SightsFilterRequestDtoToJson(this);
 }

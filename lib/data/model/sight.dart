@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
 
@@ -35,13 +36,13 @@ class Sight {
         liked = false,
         wantToVisitAtDate = null,
         visitedDate = null,
-        id = _idCreator(lat);
+        id = _idCreator(1);
 
   factory Sight.fromJson(Map<String, dynamic> json) => _$SightFromJson(json);
 
   Map<String, dynamic> toJson() => _$SightToJson(this);
 
-  final String id;
+  final int id;
   final double lat;
   final double lng;
   final String name;
@@ -63,6 +64,8 @@ class Sight {
 
   String get typeName => getTypeNameBy(this.sightType);
   IconData get icon => getTypeIconBy(this.sightType);
+  Coordinate get coordinate => Coordinate(lat: lat, lng: lng);
+  String get idStr => id.toString();
   Map<String, dynamic> get bodyForUpdate => {
         'lat': this.lat,
         'lng': this.lng,
@@ -72,8 +75,8 @@ class Sight {
         'description': this.description,
       };
 
-  static String _idCreator(double additionalValue) =>
-      (DateTime.now().microsecondsSinceEpoch + additionalValue).toString();
+  static int _idCreator(int additionalValue) =>
+      DateTime.now().microsecondsSinceEpoch + additionalValue;
 
   static String getTypeNameBy(SightType type) {
     return _$SightTypeEnumMap[type]!;

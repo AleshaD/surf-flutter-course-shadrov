@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'place_repository.dart';
+part of 'sight_repository.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'place_repository.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _PlaceRepository implements PlaceRepository {
-  _PlaceRepository(
+class _SightRepository implements SightRepository {
+  _SightRepository(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,14 +21,14 @@ class _PlaceRepository implements PlaceRepository {
   String? baseUrl;
 
   @override
-  Future<List<PlaceDto>> getFilteredPlaces(filter) async {
+  Future<List<SightDto>> getFilteredSights(filter) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(filter.toJson());
     final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<PlaceDto>>(Options(
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<SightDto>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -41,20 +41,20 @@ class _PlaceRepository implements PlaceRepository {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => PlaceDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => SightDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<Place> createPlace(place) async {
+  Future<Sight> createSight(sight) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(place.toJson());
+    _data.addAll(sight.toJson());
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Place>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Sight>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -66,19 +66,19 @@ class _PlaceRepository implements PlaceRepository {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = Place.fromJson(_result.data!);
+    final value = Sight.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<List<Place>> getPlaces(queryParametrs) async {
+  Future<List<Sight>> getSights(queryParametrs) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(queryParametrs);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Place>>(Options(
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Sight>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -91,19 +91,19 @@ class _PlaceRepository implements PlaceRepository {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => Place.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => Sight.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<Place> getPlace(id) async {
+  Future<Sight> getSight(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Place>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Sight>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -115,12 +115,12 @@ class _PlaceRepository implements PlaceRepository {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = Place.fromJson(_result.data!);
+    final value = Sight.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<void> deletePlace(id) async {
+  Future<void> deleteSight(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -141,7 +141,7 @@ class _PlaceRepository implements PlaceRepository {
   }
 
   @override
-  Future<Place> updatePlace(
+  Future<Sight> updateSight(
     id,
     updateData,
   ) async {
@@ -151,7 +151,7 @@ class _PlaceRepository implements PlaceRepository {
     final _data = <String, dynamic>{};
     _data.addAll(updateData);
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Place>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Sight>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
@@ -163,7 +163,7 @@ class _PlaceRepository implements PlaceRepository {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = Place.fromJson(_result.data!);
+    final value = Sight.fromJson(_result.data!);
     return value;
   }
 

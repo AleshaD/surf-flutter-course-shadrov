@@ -57,15 +57,15 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
   Widget cardChild(Sight sight) {
     if (T == WantToVisitSightCard)
       return WantToVisitSightCard(
-        key: ValueKey(sight.id),
+        key: ValueKey(sight.idStr),
         sight: sight,
-        onClosePressed: () => removeCard(sight.id),
+        onClosePressed: () => removeCard(sight.idStr),
       );
     else if (T == VisitedSightCard)
       return VisitedSightCard(
-        key: ValueKey(sight.id),
+        key: ValueKey(sight.idStr),
         sight: sight,
-        onClosePressed: () => removeCard(sight.id),
+        onClosePressed: () => removeCard(sight.idStr),
       );
     else
       return Container();

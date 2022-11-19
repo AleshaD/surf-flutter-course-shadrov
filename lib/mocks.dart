@@ -18,7 +18,7 @@ List<Sight> mockVisitedSights = sightMocks.where((sight) => sight.visited).toLis
 
 List<Sight> sightMocks = [
   Sight(
-    id: '1',
+    id: 1,
     name: 'Орли',
     lat: 44.435251,
     lng: 33.780875,
@@ -31,7 +31,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '2',
+    id: 2,
     name: 'Источник Варналы',
     lat: 44.465456,
     lng: 33.696824,
@@ -51,7 +51,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '13',
+    id: 13,
     name: 'Балаклавский подземный музейный комплекс',
     lat: 44.500751,
     lng: 33.598167,
@@ -67,7 +67,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '14',
+    id: 14,
     name: 'Крепость Чембало',
     lat: 44.494673,
     lng: 33.599951,
@@ -85,7 +85,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '15',
+    id: 15,
     name: 'Мемориальный комплекс Сапун-гора',
     lat: 44.554698,
     lng: 33.586735,
@@ -100,7 +100,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '16',
+    id: 16,
     name: 'Музей-заповедник Херсонес Таврический',
     lat: 44.568491,
     lng: 33.55713,
@@ -115,7 +115,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '17',
+    id: 17,
     name: 'Винодельня 78',
     lat: 44.533711,
     lng: 33.617736,
@@ -130,7 +130,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '18',
+    id: 18,
     name: 'Старик Хинкалыч',
     lat: 44.552229,
     lng: 33.530981,
@@ -144,7 +144,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '19',
+    id: 19,
     name: 'Мангуп',
     lat: 44.592976159,
     lng: 33.801300943,
@@ -162,7 +162,7 @@ List<Sight> sightMocks = [
     liked: true,
   ),
   Sight(
-    id: '111',
+    id: 111,
     name: 'Воронежский областной краеведческий музей',
     lat: 1.0,
     lng: 1.0,
@@ -177,7 +177,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '112',
+    id: 112,
     name: 'Бочка смерти',
     lat: 44.49245,
     lng: 33.6194,
@@ -193,7 +193,7 @@ List<Sight> sightMocks = [
     liked: false,
   ),
   Sight(
-    id: '113',
+    id: 113,
     name: 'Пряности и радости',
     lat: 1.0,
     lng: 2.2,

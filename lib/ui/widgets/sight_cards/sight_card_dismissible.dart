@@ -69,7 +69,7 @@ class SightCardDismissible extends SightCardBase {
           ),
         ),
         Dismissible(
-          key: ValueKey(sight.id),
+          key: ValueKey(sight.idStr),
           direction: DismissDirection.endToStart,
           onDismissed: (direction) => onDismissed(),
           child: super.build(context),

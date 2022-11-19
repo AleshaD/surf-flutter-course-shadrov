@@ -1,31 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sight.dart';
+part of 'sight_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Sight _$SightFromJson(Map<String, dynamic> json) => Sight(
+SightDto _$SightDtoFromJson(Map<String, dynamic> json) => SightDto(
+      distance: (json['distance'] as num).toDouble(),
       id: json['id'] as int,
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
       name: json['name'] as String,
-      urls: (json['urls'] as List<dynamic>).map((e) => e as String).toList(),
       sightType: $enumDecode(_$SightTypeEnumMap, json['placeType']),
       description: json['description'] as String,
-      wantToVisit: json['wantToVisit'] as bool,
-      visited: json['visited'] as bool,
-      liked: json['liked'] as bool,
-      wantToVisitAtDate: json['wantToVisitAtDate'] == null
-          ? null
-          : DateTime.parse(json['wantToVisitAtDate'] as String),
-      visitedDate: json['visitedDate'] == null
-          ? null
-          : DateTime.parse(json['visitedDate'] as String),
-    );
+      urls: (json['urls'] as List<dynamic>).map((e) => e as String).toList(),
+    )
+      ..wantToVisit = json['wantToVisit'] as bool
+      ..visited = json['visited'] as bool
+      ..liked = json['liked'] as bool;
 
-Map<String, dynamic> _$SightToJson(Sight instance) => <String, dynamic>{
+Map<String, dynamic> _$SightDtoToJson(SightDto instance) => <String, dynamic>{
       'id': instance.id,
       'lat': instance.lat,
       'lng': instance.lng,
@@ -33,11 +28,10 @@ Map<String, dynamic> _$SightToJson(Sight instance) => <String, dynamic>{
       'urls': instance.urls,
       'placeType': _$SightTypeEnumMap[instance.sightType]!,
       'description': instance.description,
-      'visitedDate': instance.visitedDate?.toIso8601String(),
-      'wantToVisitAtDate': instance.wantToVisitAtDate?.toIso8601String(),
       'wantToVisit': instance.wantToVisit,
       'visited': instance.visited,
       'liked': instance.liked,
+      'distance': instance.distance,
     };
 
 const _$SightTypeEnumMap = {
