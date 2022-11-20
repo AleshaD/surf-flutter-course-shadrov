@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/sight_interactor.dart';
-import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_landscape_orientation.dart';
@@ -14,7 +12,12 @@ import 'package:places/ui/widgets/search_bar.dart';
 import '../../../data/model/sights/sight.dart';
 
 class SightListScreen extends StatefulWidget {
-  const SightListScreen({Key? key}) : super(key: key);
+  SightListScreen({
+    Key? key,
+    required this.sights,
+  }) : super(key: key);
+
+  final List<Sight> sights;
 
   @override
   SightListScreenState createState() => SightListScreenState();
@@ -62,19 +65,9 @@ class SightListScreenState extends State<SightListScreen> {
                     ),
                   ),
                 ),
-                FutureBuilder(
-                  future: SightInteractor.instance.getSightsFromFilter(SightFilter.dafult()),
-                  initialData: <Sight>[],
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final sights = snapshot.data as List<Sight>;
-                      return MediaQuery.of(context).orientation == Orientation.portrait
-                          ? SightListPortrateOrientation(sights)
-                          : SightListLandscapeOrientation(sights);
-                    } else
-                      return CircularProgressIndicator();
-                  },
-                ),
+                MediaQuery.of(context).orientation == Orientation.portrait
+                    ? SightListPortrateOrientation(widget.sights)
+                    : SightListLandscapeOrientation(widget.sights)
               ],
             ),
             Align(

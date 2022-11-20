@@ -5,6 +5,17 @@ import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
 import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
 
+import '../../../data/interactor/sight_interactor.dart';
+import '../../../data/model/sights/sight.dart';
+import '../../../data/model/sights/sight_filter.dart';
+
+enum HomeScreenTypes {
+  mainSightList,
+  sightsMap,
+  visited,
+  settings,
+}
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -17,33 +28,57 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentScreen = 0;
+  HomeScreenTypes currentScreenType = HomeScreenTypes.mainSightList;
+  List<Sight> loadedSights = <Sight>[];
 
-  final List<Widget> _homeScreens = [
-    const SightListScreen(),
-    const SightsMapScreen(),
-    const VisitingScreen(),
-    const SettingsScreen(),
-  ];
-
-  void changeCurrentPageTo(int index) {
+  void changeCurrentPageTo(HomeScreenTypes type) {
     setState(() {
-      currentScreen = index;
+      currentScreenType = type;
     });
   }
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadSights();
+  }
+
+  Future<void> _loadSights() async {
+    final sights = await SightInteractor.instance.getSightsFromFilter(SightFilter.dafult());
+    if (currentScreenType == HomeScreenTypes.mainSightList)
+      setState(() {
+        loadedSights = sights;
+      });
+    else
+      loadedSights = sights;
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget currentScreen = SizedBox.shrink();
+    switch (currentScreenType) {
+      case HomeScreenTypes.mainSightList:
+        currentScreen = SightListScreen(
+          sights: loadedSights,
+        );
+        break;
+      case HomeScreenTypes.sightsMap:
+        currentScreen = SightsMapScreen();
+        break;
+      case HomeScreenTypes.visited:
+        currentScreen = VisitingScreen();
+        break;
+      case HomeScreenTypes.settings:
+        currentScreen = SettingsScreen();
+        break;
+      default:
+    }
+
     return Scaffold(
       bottomNavigationBar: AppBottomNavigationBar(
-        currentPage: currentScreen,
+        currentPage: currentScreenType,
       ),
-      body: _homeScreens[currentScreen],
+      body: currentScreen,
     );
   }
 }
