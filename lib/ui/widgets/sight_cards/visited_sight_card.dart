@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/model/sights/sight.dart';
+import 'package:places/data/model/sights/sight_want_to_visit.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
 class VisitedSightCard extends SightCardDismissible {
   const VisitedSightCard({
-    required Sight sight,
+    required this.sightWantToVisit,
     required this.onClosePressed,
     bool showElevation = false,
     Key? key,
-  }) : super(sight, onDismissed: onClosePressed, showElevation: showElevation, key: key);
+  }) : super(sightWantToVisit, onDismissed: onClosePressed, showElevation: showElevation, key: key);
 
   final VoidCallback onClosePressed;
+  final SightWantToVisit sightWantToVisit;
 
   @override
   Widget aboutVisitInfo(BuildContext context) => Text(
-        sight.visitedDate != null
-            ? '${AppStrings.goalIsAchieved} ${DateFormat(dateFormatStr, 'ru').format(sight.visitedDate!)}'
+        sightWantToVisit.visitedTime != null
+            ? '${AppStrings.goalIsAchieved} ${DateFormat(dateFormatStr, 'ru').format(sightWantToVisit.visitedTime!)}'
             : '',
         style: Theme.of(context).textTheme.subtitle2,
       );

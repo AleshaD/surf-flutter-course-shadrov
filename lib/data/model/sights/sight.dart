@@ -17,11 +17,6 @@ class Sight {
     required this.urls,
     required this.sightType,
     required this.description,
-    this.wantToVisit,
-    this.visited,
-    this.liked,
-    this.wantToVisitAtDate,
-    this.visitedDate,
   });
 
   Sight.onCreate({
@@ -31,12 +26,7 @@ class Sight {
     required this.urls,
     required this.description,
     required this.sightType,
-  })  : wantToVisit = false,
-        visited = false,
-        liked = false,
-        wantToVisitAtDate = null,
-        visitedDate = null,
-        id = _idCreator(1);
+  }) : id = _idCreator();
 
   factory Sight.fromJson(Map<String, dynamic> json) => _$SightFromJson(json);
 
@@ -51,17 +41,6 @@ class Sight {
   final SightType sightType;
   final String description;
 
-  @deprecated
-  final DateTime? visitedDate;
-  @deprecated
-  final DateTime? wantToVisitAtDate;
-  @deprecated
-  bool? wantToVisit;
-  @deprecated
-  bool? visited;
-  @deprecated
-  bool? liked;
-
   String get typeName => getTypeNameBy(this.sightType);
   IconData get icon => getTypeIconBy(this.sightType);
   Coordinate get coordinate => Coordinate(lat: lat, lng: lng);
@@ -75,8 +54,8 @@ class Sight {
         'description': this.description,
       };
 
-  static int _idCreator(int additionalValue) =>
-      DateTime.now().microsecondsSinceEpoch + additionalValue;
+  static int _idCreator() =>
+      DateTime.now().microsecondsSinceEpoch;
 
   static String getTypeNameBy(SightType type) {
     return _$SightTypeEnumMap[type]!;

@@ -15,10 +15,7 @@ SightDto _$SightDtoFromJson(Map<String, dynamic> json) => SightDto(
       sightType: $enumDecode(_$SightTypeEnumMap, json['placeType']),
       description: json['description'] as String,
       urls: (json['urls'] as List<dynamic>).map((e) => e as String).toList(),
-    )
-      ..wantToVisit = json['wantToVisit'] as bool?
-      ..visited = json['visited'] as bool?
-      ..liked = json['liked'] as bool?;
+    );
 
 Map<String, dynamic> _$SightDtoToJson(SightDto instance) => <String, dynamic>{
       'id': instance.id,
@@ -28,9 +25,6 @@ Map<String, dynamic> _$SightDtoToJson(SightDto instance) => <String, dynamic>{
       'urls': instance.urls,
       'placeType': _$SightTypeEnumMap[instance.sightType]!,
       'description': instance.description,
-      'wantToVisit': instance.wantToVisit,
-      'visited': instance.visited,
-      'liked': instance.liked,
       'distance': instance.distance,
     };
 

@@ -24,9 +24,6 @@ class SightDto extends Sight {
           sightType: sightType,
           description: description,
           urls: urls,
-          wantToVisit: false,
-          visited: false,
-          liked: false,
         );
 
   final double distance;

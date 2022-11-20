@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
+import 'package:places/data/model/sights/sight_want_to_visit.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/repository/sight_repository.dart';
@@ -61,8 +62,9 @@ class SightInteractor with LocationService {
     return _doRepoRequestWithHandleErrors(_repository.createSight(sight));
   }
 
-  List<Sight> getFavoriteSights() {
-    return _filterSightsByDistanceFrom(_myCoordinate, _favoriteSights);
+  List<SightWantToVisit> getFavoriteSights() {
+    final sights = _filterSightsByDistanceFrom(_myCoordinate, _favoriteSights);
+    return sights.map((s) => SightWantToVisit.fromSight(sight: s)).toList();
   }
 
   bool addToFavorite(Sight sight) {
@@ -77,8 +79,13 @@ class SightInteractor with LocationService {
     return _removeFromCashList(_favoriteSights, sight);
   }
 
-  List<Sight> getVisitedSights() {
-    return _visitedSights;
+  List<SightWantToVisit> getVisitedSights() {
+    final sights = _visitedSights;
+    return sights
+        .map(
+          (s) => SightWantToVisit.fromSight(sight: s, visitedTime: DateTime.now()),
+        )
+        .toList();
   }
 
   bool addToVisited(Sight sight) {

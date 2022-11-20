@@ -14,15 +14,6 @@ Sight _$SightFromJson(Map<String, dynamic> json) => Sight(
       urls: (json['urls'] as List<dynamic>).map((e) => e as String).toList(),
       sightType: $enumDecode(_$SightTypeEnumMap, json['placeType']),
       description: json['description'] as String,
-      wantToVisit: json['wantToVisit'] as bool?,
-      visited: json['visited'] as bool?,
-      liked: json['liked'] as bool?,
-      wantToVisitAtDate: json['wantToVisitAtDate'] == null
-          ? null
-          : DateTime.parse(json['wantToVisitAtDate'] as String),
-      visitedDate: json['visitedDate'] == null
-          ? null
-          : DateTime.parse(json['visitedDate'] as String),
     );
 
 Map<String, dynamic> _$SightToJson(Sight instance) => <String, dynamic>{
@@ -33,11 +24,6 @@ Map<String, dynamic> _$SightToJson(Sight instance) => <String, dynamic>{
       'urls': instance.urls,
       'placeType': _$SightTypeEnumMap[instance.sightType]!,
       'description': instance.description,
-      'visitedDate': instance.visitedDate?.toIso8601String(),
-      'wantToVisitAtDate': instance.wantToVisitAtDate?.toIso8601String(),
-      'wantToVisit': instance.wantToVisit,
-      'visited': instance.visited,
-      'liked': instance.liked,
     };
 
 const _$SightTypeEnumMap = {
