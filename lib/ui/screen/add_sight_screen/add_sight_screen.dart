@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/interactor/sight_interactor.dart';
 import 'package:places/data/model/enums/coordinate_type.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
@@ -89,7 +90,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
     }
   }
 
-  void _showOkDialog(String title, BuildContext context) {
+  void _showDialog(String title, BuildContext context) {
     Text okTxt = Text(AppStrings.ok);
     Platform.isAndroid
         ? showDialog(
@@ -126,8 +127,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
       context: context,
       builder: (context) {
         return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: AddPhotoPickSourcePage());
+            onTap: () => Navigator.of(context).pop(), child: AddPhotoPickSourcePage());
       },
     );
     if (fromSource != null) print('pick from $fromSource');
@@ -338,20 +338,24 @@ class _AddSightScreenState extends State<AddSightScreen> {
                 alignment: Alignment.bottomCenter,
                 child: LargeAppButton(
                   isActive: _createBtnIsActive,
-                  onPressed: () {
+                  onPressed: () async {
                     _formKey.currentState!.validate();
-                    // sightMocks.insert(
-                    //   0,
-                    //   Sight.onCreate(
-                    //     name: nameController.text,
-                    //     lat: double.parse(latitudeController.text),
-                    //     lng: double.parse(longitudeController.text),
-                    //     urls: [],
-                    //     description: descriptionController.text,
-                    //     placeType: chosenCategory!,
-                    //   ),
-                    // );
-                    _showOkDialog(AppStrings.placeIsSaved, context);
+                    final addedSight = await SightInteractor.instance.addNewSight(
+                      Sight(
+                        id: 1013,
+                        name: nameController.text,
+                        lat: double.parse(latitudeController.text),
+                        lng: double.parse(longitudeController.text),
+                        urls: [],
+                        description: descriptionController.text,
+                        sightType: chosenCategory!,
+                      ),
+                    );
+                    var dialogTitle = '';
+                    addedSight != null
+                        ? dialogTitle = AppStrings.placeIsSaved
+                        : dialogTitle = AppStrings.placeDoesNotSave;
+                    _showDialog(dialogTitle, context);
                     FocusScope.of(context).unfocus();
                   },
                   titleWidgets: [

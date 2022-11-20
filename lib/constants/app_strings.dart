@@ -26,6 +26,7 @@ class AppStrings {
   static const description = 'Описание';
   static const enterTheText = 'Введите текст';
   static const placeIsSaved = 'Место сохранено';
+  static const placeDoesNotSave = 'Ошибка при сохранении';
   static const create = 'Создать';
 
   static const longitude = 'Долгота';
