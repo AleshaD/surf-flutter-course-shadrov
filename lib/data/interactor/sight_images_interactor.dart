@@ -31,10 +31,10 @@ class SightImagesInteractor {
   }
 
   Future<Image> _noImageAssetFile({BoxFit fit = BoxFit.cover}) async {
-    final assetPath = 'assets/images/image_not_found.jpeg';
+    final assetPath = 'assets/images/image_not_found.png';
     return Image.asset(
       assetPath,
-      fit: fit,
+      fit: BoxFit.contain,
     );
   }
 }
