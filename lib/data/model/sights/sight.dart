@@ -54,8 +54,7 @@ class Sight {
         'description': this.description,
       };
 
-  static int _idCreator() =>
-      DateTime.now().microsecondsSinceEpoch;
+  static int _idCreator() => DateTime.now().microsecondsSinceEpoch;
 
   static String getTypeNameBy(SightType type) {
     return _$SightTypeEnumMap[type]!;
@@ -80,6 +79,7 @@ class Sight {
       default:
         CustomIcons.particular_place;
     }
+
     return Icons.abc;
   }
 }

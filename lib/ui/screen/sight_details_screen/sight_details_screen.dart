@@ -41,7 +41,7 @@ class SightDetailsScreen extends StatelessWidget {
             ),
             child: DraggableScrollableSheet(
               initialChildSize: 1.0,
-              minChildSize: .8,
+              minChildSize: 0.8,
               snap: true,
               builder: (_, scrollController) {
                 return SightDetailsScreen(

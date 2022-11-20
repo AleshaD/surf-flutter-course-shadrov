@@ -52,6 +52,7 @@ class FiltersScreenState extends State<FiltersScreen> {
 
   String _sightsNumInRange() {
     final int inRange = filteredSights.length;
+
     return '$inRange';
   }
 

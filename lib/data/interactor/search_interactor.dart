@@ -28,6 +28,7 @@ class SearchInteractor {
     try {
       final sights = await _repository.getFilteredSights(requestFilter);
       _searchHystory.add(name);
+
       return sights.map((s) => SearchedSight(s, name)).toList();
     } catch (e) {
       rethrow;
@@ -54,6 +55,7 @@ class SearchInteractor {
 
   Set<String> cleanHystory() {
     _searchHystory.clear();
+
     return _searchHystory;
   }
 }

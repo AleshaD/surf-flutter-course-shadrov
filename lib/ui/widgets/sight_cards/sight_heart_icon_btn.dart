@@ -25,6 +25,7 @@ class _SightHeartIconBtnState extends State<SightHeartIconBtn> {
   @override
   Widget build(BuildContext context) {
     bool alreadyInFavorite = SightInteractor.instance.isSightInFavorite(widget.sight);
+
     return SightCardIconButton(
       icon: alreadyInFavorite ? CustomIcons.menu_heart_full : CustomIcons.menu_heart,
       iconSize: widget.iconSize,

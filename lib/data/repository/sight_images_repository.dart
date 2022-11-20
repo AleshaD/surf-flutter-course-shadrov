@@ -21,16 +21,15 @@ class SightImagesRepository {
 
   Future<File?> getImage(String url) async {
     try {
-      final file = await _getImageFromTempDir(url);
-      return file;
+      return await _getImageFromTempDir(url);
     } catch (e) {
-      final File? downloadedFile = await _downloadImage(url);
-      return downloadedFile;
+      return await _downloadImage(url);
     }
   }
 
   File? getImageSync(String url) {
     final name = _getImageName(url);
+
     return _repositoryFileCach[name];
   }
 
@@ -41,6 +40,7 @@ class SightImagesRepository {
       if (await File(tempPath).exists()) {
         final name = _getImageName(url);
         _addFileToRepoCashes(file, name);
+
         return File.fromUri(Uri.parse(tempPath));
       } else
         throw (Exception('file not exist'));
@@ -54,6 +54,7 @@ class SightImagesRepository {
     try {
       await _dio.download(url, tempPath);
       final file = File.fromUri(Uri.parse(tempPath));
+
       return file;
     } catch (e) {
       return null;
@@ -63,6 +64,7 @@ class SightImagesRepository {
   Future<String> _getDeviceTemproraryPathFor({required String fileFrom}) async {
     final Directory tempDir = await getTemporaryDirectory();
     final imgName = _getImageName(fileFrom);
+
     return '${tempDir.path}/$imgName';
   }
 

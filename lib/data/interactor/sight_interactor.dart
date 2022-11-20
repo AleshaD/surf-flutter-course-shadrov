@@ -38,6 +38,7 @@ class SightInteractor with LocationService {
 
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
     final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
+
     return searchedSights.where((s) => filter.sightInFilter(s, _myCoordinate)).toList();
   }
 
@@ -65,6 +66,7 @@ class SightInteractor with LocationService {
 
   List<SightWantToVisit> getFavoriteSights() {
     final sights = _filterSightsByDistanceFrom(_myCoordinate, _favoriteSights);
+
     return sights.map((s) => SightWantToVisit.fromSight(sight: s)).toList();
   }
 
@@ -82,6 +84,7 @@ class SightInteractor with LocationService {
 
   List<SightWantToVisit> getVisitedSights() {
     final sights = _visitedSights;
+
     return sights
         .map(
           (s) => SightWantToVisit.fromSight(sight: s, visitedTime: DateTime.now()),
@@ -119,6 +122,7 @@ class SightInteractor with LocationService {
   bool _addToCashList(List<Sight> list, Sight sight) {
     if (!_isSightInCashList(list, sight)) {
       list.add(sight);
+
       return true;
     } else
       return false;
@@ -131,18 +135,21 @@ class SightInteractor with LocationService {
   bool _removeFromCashList(List<Sight> list, Sight sight) {
     final lengthBeforeRemove = list.length;
     list.removeWhere((searchedSight) => searchedSight.id == sight.id);
+
     return lengthBeforeRemove != list.length;
   }
 
   Future<T?> _doRepoRequestWithHandleErrors<T>(Future<T> request) async {
     try {
       T? result = await request;
+
       return result;
     } on DioError catch (e) {
       _handleRepoError(e);
     } catch (e) {
       rethrow;
     }
+
     return null;
   }
 
@@ -153,10 +160,11 @@ class SightInteractor with LocationService {
           ? 0
           : 1;
     });
+
     return sights;
   }
 
   void _handleRepoError(DioError e) {
-    print('Get repo error, log and send something to interface');
+    print('Get repo error, log and send something to interface. \n error: $e');
   }
 }

@@ -16,6 +16,7 @@ class SightImagesInteractor {
     BoxFit fit = BoxFit.cover,
   }) async {
     final File? repoFile = await repository.getImage(url);
+
     return repoFile != null ? Image.file(repoFile, fit: fit) : noImage();
   }
 
@@ -24,14 +25,13 @@ class SightImagesInteractor {
     BoxFit fit = BoxFit.cover,
   }) {
     File? file = SightImagesRepository.instance.getImageSync(url);
-    if (file != null) {
-      return Image.file(file, fit: fit);
-    } else
-      return null;
+
+    return file != null ? Image.file(file, fit: fit) : null;
   }
 
   Image noImage() {
     final assetPath = 'assets/images/image_not_found.png';
+
     return Image.asset(
       assetPath,
       fit: BoxFit.contain,
