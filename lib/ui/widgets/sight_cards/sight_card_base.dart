@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
@@ -44,9 +45,7 @@ class SightCardBase extends StatelessWidget {
                       ),
                       child: sight.urls.isNotEmpty
                           ? NetworkImageWithProgress(sight.urls[0])
-                          : Container(
-                              color: Colors.amber,
-                            ),
+                          : SightImagesInteractor.instance.noImage(),
                     ),
                   ),
                   Align(

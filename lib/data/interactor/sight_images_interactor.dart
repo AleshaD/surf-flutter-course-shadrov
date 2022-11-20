@@ -16,7 +16,7 @@ class SightImagesInteractor {
     BoxFit fit = BoxFit.cover,
   }) async {
     final File? repoFile = await repository.getImage(url);
-    return repoFile != null ? Image.file(repoFile, fit: fit) : await _noImageAssetFile(fit: fit);
+    return repoFile != null ? Image.file(repoFile, fit: fit) : noImage();
   }
 
   Image? getImageSync({
@@ -30,7 +30,7 @@ class SightImagesInteractor {
       return null;
   }
 
-  Future<Image> _noImageAssetFile({BoxFit fit = BoxFit.cover}) async {
+  Image noImage() {
     final assetPath = 'assets/images/image_not_found.png';
     return Image.asset(
       assetPath,
