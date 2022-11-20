@@ -19,6 +19,17 @@ class SightImagesInteractor {
     return repoFile != null ? Image.file(repoFile, fit: fit) : await _noImageAssetFile(fit: fit);
   }
 
+  Image? getImageSync({
+    required String url,
+    BoxFit fit = BoxFit.cover,
+  }) {
+    File? file = SightImagesRepository.instance.getImageSync(url);
+    if (file != null) {
+      return Image.file(file, fit: fit);
+    } else
+      return null;
+  }
+
   Future<Image> _noImageAssetFile({BoxFit fit = BoxFit.cover}) async {
     final assetPath = 'assets/images/image_not_found.jpeg';
     return Image.asset(

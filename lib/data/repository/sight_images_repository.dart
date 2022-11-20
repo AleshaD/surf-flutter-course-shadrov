@@ -17,6 +17,7 @@ class SightImagesRepository {
   );
 
   final Dio _dio;
+  final Map<String, File> _repositoryFileCach = {};
 
   Future<File?> getImage(String url) async {
     try {
@@ -28,10 +29,18 @@ class SightImagesRepository {
     }
   }
 
+  File? getImageSync(String url) {
+    final name = _getImageName(url);
+    return _repositoryFileCach[name];
+  }
+
   Future<File> _getImageFromTempDir(String url) async {
     final tempPath = await _getDeviceTemproraryPathFor(fileFrom: url);
     try {
+      final File file = File(tempPath);
       if (await File(tempPath).exists()) {
+        final name = _getImageName(url);
+        _addFileToRepoCashes(file, name);
         return File.fromUri(Uri.parse(tempPath));
       } else
         throw (Exception('file not exist'));
@@ -60,4 +69,7 @@ class SightImagesRepository {
   String _getImageName(String url) {
     return url.split('/').last;
   }
+
+  void _addFileToRepoCashes(File file, String name) =>
+      _repositoryFileCach.putIfAbsent(name, () => file);
 }

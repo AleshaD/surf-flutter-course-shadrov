@@ -15,10 +15,10 @@ class NetworkImageWithProgress extends StatefulWidget {
 }
 
 class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
-  Widget? imageWidget;
 
   @override
   Widget build(BuildContext context) {
+    final Image? imageWidget = SightImagesInteractor.instance.getImageSync(url: widget.url);
     return imageWidget ??
         FutureBuilder(
           future: SightImagesInteractor.instance.getImageFrom(url: widget.url),
@@ -29,8 +29,7 @@ class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
               );
             } else if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
-                imageWidget = snapshot.data as Image;
-                return imageWidget!;
+                return snapshot.data as Image;
               } else {
                 return SizedBox.shrink();
               }
