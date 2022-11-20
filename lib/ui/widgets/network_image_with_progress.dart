@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
-import '../../data/repository/sight_images_repository.dart';
+import 'package:places/data/interactor/sight_images_interactor.dart';
 
 class NetworkImageWithProgress extends StatefulWidget {
   ///Create Image.network and show CircularProgressIndicator while loading
@@ -16,33 +15,27 @@ class NetworkImageWithProgress extends StatefulWidget {
 }
 
 class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
-  final String noImageAsset = 'assets/images/image_not_found.jpeg';
   Widget? imageWidget;
 
   @override
   Widget build(BuildContext context) {
     return imageWidget ??
         FutureBuilder(
-          future: SightImagesRepository.instance.getImage(widget.url),
+          future: SightImagesInteractor.instance.getImageFrom(url: widget.url),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
-                final File? file = snapshot.data as File?;
-                if (file != null) {
-                  imageWidget = Image.file(file, fit: widget.fit);
-                  return imageWidget!;
-                } else {
-                  imageWidget = Image.asset(noImageAsset, fit: widget.fit);
-                  return imageWidget!;
-                }
-              } else {
-                imageWidget = Image.asset(noImageAsset, fit: widget.fit);
-                return imageWidget!;
-              }
-            } else {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                imageWidget = snapshot.data as Image;
+                return imageWidget!;
+              } else {
+                return SizedBox.shrink();
+              }
+            } else {
+              return SizedBox.shrink();
             }
           },
         );
