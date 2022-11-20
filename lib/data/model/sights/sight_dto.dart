@@ -26,7 +26,7 @@ class SightDto extends Sight {
           urls: urls,
         );
 
-  final double distance;
+  final double? distance;
 
   factory SightDto.fromJson(Map<String, dynamic> json) => _$SightDtoFromJson(json);
 

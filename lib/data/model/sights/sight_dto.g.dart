@@ -7,7 +7,7 @@ part of 'sight_dto.dart';
 // **************************************************************************
 
 SightDto _$SightDtoFromJson(Map<String, dynamic> json) => SightDto(
-      distance: (json['distance'] as num).toDouble(),
+      distance: (json['distance'] as num?)?.toDouble(),
       id: json['id'] as int,
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
@@ -37,5 +37,6 @@ const _$SightTypeEnumMap = {
   SightType.hotel: 'hotel',
   SightType.restaurant: 'restaurant',
   SightType.cafe: 'cafe',
+  SightType.theatre: 'theatre',
   SightType.other: 'other',
 };
