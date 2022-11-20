@@ -4,6 +4,7 @@
 .pub/
 *.lock
 .idea
+.flutter-plugins-dependencies
 build/
 **/android/**/GeneratedPluginRegistrant.java
 ios/.generated/
