@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/main.dart';
+import 'package:places/res/app_theme_config.dart';
 import 'package:places/styles/custom_icons.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -11,7 +12,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool darkTheme = false;
+  AppThemeConfig currentTheme = AppThemeConfig.light();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    currentTheme = context.findAncestorStateOfType<AppState>()!.currentThemeConfig;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +36,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               trailing: Switch.adaptive(
-                value: darkTheme,
-                onChanged: (bool newVal) => setState(
+                value: currentTheme.isDark,
+                onChanged: (bool isDark) => setState(
                   () {
-                    darkTheme = newVal;
-                    // на данном этапе сделал смену через контекст, вдидится это временное решение попроще
-                    context.findAncestorStateOfType<AppState>()!.changeTheme(darkTheme);
+                    context.findAncestorStateOfType<AppState>()!.changeTheme(isDark);
                   },
                 ),
               ),

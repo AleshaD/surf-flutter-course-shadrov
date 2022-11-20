@@ -28,7 +28,7 @@ class AppState extends State<App> {
     });
   }
 
-  AppThemeConfig get appThemeConfig => _appThemeConfig;
+  AppThemeConfig get currentThemeConfig => _appThemeConfig;
 
   @override
   Widget build(BuildContext context) {

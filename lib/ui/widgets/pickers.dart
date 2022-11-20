@@ -99,7 +99,7 @@ class Pickers {
       lastDate: _maximumDate(),
       builder: (context, child) {
         return Theme(
-          data: context.findAncestorStateOfType<AppState>()!.appThemeConfig.datePickerTheme,
+          data: context.findAncestorStateOfType<AppState>()!.currentThemeConfig.datePickerTheme,
           child: child!,
         );
       },
@@ -112,7 +112,7 @@ class Pickers {
       initialTime: TimeOfDay(hour: 10, minute: 0),
       builder: (context, child) {
         return Theme(
-          data: context.findAncestorStateOfType<AppState>()!.appThemeConfig.datePickerTheme,
+          data: context.findAncestorStateOfType<AppState>()!.currentThemeConfig.datePickerTheme,
           child: child!,
         );
       },
