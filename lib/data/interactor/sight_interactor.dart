@@ -36,8 +36,9 @@ class SightInteractor with LocationService {
   final List<Sight> _favoriteSights = [];
   final List<Sight> _visitedSights = [];
 
-  Future<List<Sight>> getSightsFromFilter(SightFilter filter) {
-    return getSights(filter.toDist, filter.activeTypes.toList());
+  Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
+    final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
+    return searchedSights.where((s) => filter.sightInFilter(s, _myCoordinate)).toList();
   }
 
   Future<List<Sight>> getSights(double radius, List<SightType> categorys) async {

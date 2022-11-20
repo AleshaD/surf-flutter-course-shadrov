@@ -17,7 +17,7 @@ class FilterCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var parentScreen = context.findAncestorStateOfType<FiltersScreenState>()!;
+    final parentScreen = context.findAncestorStateOfType<FiltersScreenState>()!;
     final bool isActiveCategory = parentScreen.isActiveCategory(type);
     final double horizontalMargin = MediaQuery.of(context).size.width < 350 ? 12 : 22;
 
