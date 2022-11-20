@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 
