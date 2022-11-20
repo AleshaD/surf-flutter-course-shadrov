@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
-import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
@@ -28,13 +27,11 @@ class SightSearchScreen extends StatefulWidget {
 class _SightSearchScreenState extends State<SightSearchScreen> {
   int enterDelayMs = 1000;
   _SearchScreenType pageState = _SearchScreenType.searchHystory;
-  // Set<String> searchHystory = {};
-  String searchedString = '';
   SightFilter sightFilter = mockSightFilter;
   Timer timerToSearch = Timer(Duration.zero, () {});
   TextEditingController txtController = TextEditingController();
   bool searchInProgres = false;
-  List<SearchedSight> findedSights = [];
+  List<SearchedSight> _findedSights = [];
 
   @override
   void dispose() {
@@ -78,32 +75,20 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     setState(() {
       setSearchedPgState();
       searchInProgres = true;
-      findedSights.clear();
     });
 
-    Future.delayed(
-      // имитация загрузки
-      Duration(milliseconds: 1000),
-      () => setState(
-        () {
-          try {
-            for (var i = 0; i < sightMocks.length; i++) {
-              Sight sight = sightMocks[i];
-              if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
-                  checkFraseInName(sight.name, query)) {
-                findedSights.add(SearchedSight(sight, query));
-              }
-            }
-            searchInProgres = false;
-            if (findedSights.isEmpty) setNoResultPgState();
-            if (query == 'ошибка ') throw ('Error');
-          } catch (e) {
-            searchInProgres = false;
-            setErrorPgState();
-          }
-        },
-      ),
-    );
+    try {
+      _findedSights = await widget.searchInteractor.getSightsBy(name: query);
+      setState(() {
+        if (_findedSights.isEmpty) setNoResultPgState();
+        searchInProgres = false;
+      });
+    } catch (e) {
+      setState(() {
+        searchInProgres = false;
+        setErrorPgState();
+      });
+    }
   }
 
   void onCompleteSearchEnter() {
@@ -151,7 +136,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 name: searchHystory.elementAt(i),
                 showDevider: i != searchHystory.length - 1,
                 tileTaped: () {
-                  String searchTxt = searchHystory.elementAt(i) + ' ';
+                  String searchTxt = searchHystory.elementAt(i);
                   txtController.value = TextEditingValue(
                     text: searchTxt,
                     selection: TextSelection(
@@ -175,7 +160,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         );
       case _SearchScreenType.searchedSights:
         return SearchedSightsListView(
-          findedSights,
+          _findedSights,
         );
       case _SearchScreenType.emptyPage:
         return EmptyListPage(
