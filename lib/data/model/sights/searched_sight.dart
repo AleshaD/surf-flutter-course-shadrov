@@ -1,4 +1,4 @@
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/sights/sight.dart';
 
 class SearchedSight {
   SearchedSight(this.sight, this.query);

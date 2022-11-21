@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/mocks.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_landscape_orientation.dart';
@@ -10,8 +10,15 @@ import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 
+import '../../../data/model/sights/sight.dart';
+
 class SightListScreen extends StatefulWidget {
-  const SightListScreen({Key? key}) : super(key: key);
+  SightListScreen({
+    Key? key,
+    required this.sights,
+  }) : super(key: key);
+
+  final List<Sight> sights;
 
   @override
   SightListScreenState createState() => SightListScreenState();
@@ -53,15 +60,17 @@ class SightListScreenState extends State<SightListScreen> {
                       showFilterBtn: true,
                       onFieldTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => SightSearchScreen(),
+                          builder: (context) => SightSearchScreen(
+                            searchInteractor: SearchInteractor.instance,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
                 MediaQuery.of(context).orientation == Orientation.portrait
-                    ? SightListPortrateOrientation(sightMocks)
-                    : SightListLandscapeOrientation(sightMocks)
+                    ? SightListPortrateOrientation(widget.sights)
+                    : SightListLandscapeOrientation(widget.sights)
               ],
             ),
             Align(

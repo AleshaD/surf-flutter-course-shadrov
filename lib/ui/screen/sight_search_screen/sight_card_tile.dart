@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/searched_sight.dart';
+import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 
 class SightCardTile extends StatelessWidget {
@@ -126,8 +126,8 @@ class SightCardTile extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(12),
               ),
-              child: searched.sight.photoUrls.isNotEmpty
-                  ? NetworkImageWithProgress(searched.sight.photoUrls.first)
+              child: searched.sight.urls.isNotEmpty
+                  ? NetworkImageWithProgress(searched.sight.urls.first)
                   : Container(
                       color: Colors.amber,
                     ),

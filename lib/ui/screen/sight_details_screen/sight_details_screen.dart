@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/interactor/sight_images_interactor.dart';
+import 'package:places/data/model/sights/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_header_delegate.dart';
 import 'package:places/ui/widgets/icon_text_button.dart';
@@ -40,7 +41,7 @@ class SightDetailsScreen extends StatelessWidget {
             ),
             child: DraggableScrollableSheet(
               initialChildSize: 1.0,
-              minChildSize: .8,
+              minChildSize: 0.8,
               snap: true,
               builder: (_, scrollController) {
                 return SightDetailsScreen(
@@ -74,11 +75,13 @@ class SightDetailsScreen extends StatelessWidget {
             delegate: SightDetailsHeaderDelegate(
               child: Stack(
                 children: [
-                  PhotoPageView(
-                    photoUrls: sight.photoUrls,
-                    height: SightDetailsHeaderDelegate.maxHeight,
-                    topCornerRadius: topCornersRadius,
-                  ),
+                  sight.urls.isNotEmpty
+                      ? PhotoPageView(
+                          photoUrls: sight.urls,
+                          height: SightDetailsHeaderDelegate.maxHeight,
+                          topCornerRadius: topCornersRadius,
+                        )
+                      : Center(child: SightImagesInteractor.instance.noImage()),
                   Align(
                     alignment: Alignment.topRight,
                     child: Container(
@@ -153,7 +156,7 @@ class SightDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: childMargin),
                       Text(
-                        sight.details,
+                        sight.description,
                         style: Theme.of(context).primaryTextTheme.subtitle2,
                       ),
                       SizedBox(height: childMargin),

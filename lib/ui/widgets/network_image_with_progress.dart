@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/sight_images_interactor.dart';
 
-class NetworkImageWithProgress extends StatelessWidget {
+class NetworkImageWithProgress extends StatefulWidget {
   ///Create Image.network and show CircularProgressIndicator while loading
   const NetworkImageWithProgress(this.url, {this.fit = BoxFit.cover});
 
@@ -8,23 +9,28 @@ class NetworkImageWithProgress extends StatelessWidget {
   final String url;
 
   @override
-  Widget build(BuildContext context) {
-    return Image.network(
-      url,
-      fit: fit,
-      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-        if (loadingProgress == null) {
-          return child;
-        }
+  State<NetworkImageWithProgress> createState() => _NetworkImageWithProgressState();
+}
 
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                : null,
-          ),
+class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
+  @override
+  Widget build(BuildContext context) {
+    final Image? imageWidget = SightImagesInteractor.instance.getImageSync(url: widget.url);
+
+    return imageWidget ??
+        FutureBuilder(
+          future: SightImagesInteractor.instance.getImageFrom(url: widget.url),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              return snapshot.hasData ? snapshot.data as Image : SizedBox.shrink();
+            } else {
+              return SizedBox.shrink();
+            }
+          },
         );
-      },
-    );
   }
 }

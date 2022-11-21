@@ -4,7 +4,9 @@
 .pub/
 *.lock
 .idea
+.flutter-plugins-dependencies
 build/
+metrics/
 **/android/**/GeneratedPluginRegistrant.java
 ios/.generated/
 ios/Flutter/Generated.xcconfig

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/res/app_theme_config.dart';
-import 'package:places/ui/screen/splash_screen/splash_screen.dart';
+import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 
 void main() {
   runApp(const App());
@@ -28,7 +28,7 @@ class AppState extends State<App> {
     });
   }
 
-  AppThemeConfig get appThemeConfig => _appThemeConfig;
+  AppThemeConfig get currentThemeConfig => _appThemeConfig;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class AppState extends State<App> {
       supportedLocales: [const Locale('en'), const Locale('ru')],
       title: AppStrings.appTitle,
       theme: _appThemeConfig.data,
-      home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }

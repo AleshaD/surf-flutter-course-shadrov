@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/pickers.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 
+import '../../../data/model/sights/sight_want_to_visit.dart';
+
 class WantToVisitSightCard extends SightCardDismissible {
   const WantToVisitSightCard({
-    required Sight sight,
+    required this.sightWantToVisit,
     required this.onClosePressed,
     bool showElevation = false,
     Key? key,
-  }) : super(sight, onDismissed: onClosePressed, showElevation: showElevation, key: key);
+  }) : super(sightWantToVisit, onDismissed: onClosePressed, showElevation: showElevation, key: key);
 
   final VoidCallback onClosePressed;
+  final SightWantToVisit sightWantToVisit;
 
   void pickVisitDate(BuildContext context) async {
     DateTime? dateTime = await Pickers.pickDateAndTime(context);
@@ -26,8 +28,8 @@ class WantToVisitSightCard extends SightCardDismissible {
 
   @override
   Widget aboutVisitInfo(BuildContext context) => Text(
-        sight.wantToVisitAtDate != null
-            ? '${AppStrings.planToVisit} ${DateFormat(dateFormatStr, 'ru').format(sight.wantToVisitAtDate!)}'
+        sightWantToVisit.wantToVisitTime != null
+            ? '${AppStrings.planToVisit} ${DateFormat(dateFormatStr, 'ru').format(sightWantToVisit.wantToVisitTime!)}'
             : '',
         style: Theme.of(context)
             .textTheme

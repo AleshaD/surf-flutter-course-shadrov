@@ -3,9 +3,9 @@ import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
-  const AppBottomNavigationBar({this.currentPage = 0});
+  const AppBottomNavigationBar({this.currentPage = HomeScreenTypes.mainSightList});
 
-  final int currentPage;
+  final HomeScreenTypes currentPage;
 
   @override
   State<AppBottomNavigationBar> createState() => _AppBottomNavigationBarState();
@@ -14,6 +14,11 @@ class AppBottomNavigationBar extends StatefulWidget {
 class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   final double iconSize = 18;
 
+  /** Для изменения радиуса inkWell эффекта, нужно в коде flutter
+   * в файле bottom_navigation_bar.dart
+   * добавить в виджет result = InkResponse на строке 517 в классе _BottomNavigationTile
+   * свойство radius: iconSize,
+  */
   BottomNavigationBarItem _navigationBarItem({
     required IconData icon,
     required IconData activeIcon,
@@ -35,9 +40,10 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       onTap: (newPageIndex) {
-        HomeScreen.of(context)!.changeCurrentPageTo(newPageIndex);
+        final type = HomeScreenTypes.values[newPageIndex];
+        HomeScreen.of(context)!.changeCurrentPageTo(type);
       },
-      currentIndex: widget.currentPage,
+      currentIndex: widget.currentPage.index,
       items: [
         _navigationBarItem(
           icon: CustomIcons.menu_list,

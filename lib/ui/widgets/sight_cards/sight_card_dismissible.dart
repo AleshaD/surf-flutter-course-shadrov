@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/sights/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_base.dart';
 
@@ -69,7 +69,7 @@ class SightCardDismissible extends SightCardBase {
           ),
         ),
         Dismissible(
-          key: ValueKey(sight.id),
+          key: ValueKey(sight.idStr),
           direction: DismissDirection.endToStart,
           onDismissed: (direction) => onDismissed(),
           child: super.build(context),

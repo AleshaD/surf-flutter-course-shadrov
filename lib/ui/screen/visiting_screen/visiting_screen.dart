@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
+import 'package:places/data/interactor/sight_interactor.dart';
+import 'package:places/data/model/sights/sight.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
 import 'package:places/ui/screen/visiting_screen/visited_page.dart';
 import 'package:places/ui/screen/visiting_screen/want_to_visit_page.dart';
@@ -14,22 +14,21 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class VisitingScreenState extends State<VisitingScreen> {
-  void removeFromWantToVisitList(String sightId) {
+  void removeFromWantToVisitList(Sight sight) {
     setState(() {
-      int? index = getIndexBySightId(mockWantToVisitSights, sightId);
-      if (index != null) mockWantToVisitSights.removeAt(index);
+      SightInteractor.instance.removeFromFavorites(sight);
     });
   }
 
   void changeWantToVisitCardsSequences(int fromIndex, int toIndex) {
     setState(() {
-      _changeCardSequences(mockWantToVisitSights, fromIndex, toIndex);
+      _changeCardSequences(SightInteractor.instance.getFavoriteSights(), fromIndex, toIndex);
     });
   }
 
   void changeVisitedCardsSequences(int fromIndex, int toIndex) {
     setState(() {
-      _changeCardSequences(mockVisitedSights, fromIndex, toIndex);
+      _changeCardSequences(SightInteractor.instance.getVisitedSights(), fromIndex, toIndex);
     });
   }
 
@@ -42,15 +41,14 @@ class VisitingScreenState extends State<VisitingScreen> {
     );
   }
 
-  void removeFromVisitedList(String sightId) {
+  void removeFromVisitedList(Sight sight) {
     setState(() {
-      int? index = getIndexBySightId(mockVisitedSights, sightId);
-      if (index != null) mockVisitedSights.removeAt(index);
+      SightInteractor.instance.removeFromVisited(sight);
     });
   }
 
   int? getIndexBySightId(List<Sight> sights, String id) {
-    for (var i = 0; i < sights.length; i++) if (sights[i].id == id) return i;
+    for (var i = 0; i < sights.length; i++) if (sights[i].idStr == id) return i;
 
     return null;
   }
@@ -79,10 +77,10 @@ class VisitingScreenState extends State<VisitingScreen> {
           child: TabBarView(
             children: [
               WantToVisitPage(
-                mockWantToVisitSights,
+                SightInteractor.instance.getFavoriteSights(),
               ),
               VisitedPage(
-                mockVisitedSights,
+                SightInteractor.instance.getVisitedSights(),
               ),
             ],
           ),

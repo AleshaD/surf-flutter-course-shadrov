@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/sight.dart';
+import '../../../data/model/sights/sight.dart';
 import '../../widgets/sight_cards/sight_card.dart';
 
 class SightListPortrateOrientation extends StatelessWidget {

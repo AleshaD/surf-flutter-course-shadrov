@@ -16,14 +16,12 @@ class Pickers {
   static DateTime _maximumDate() => DateTime.now().add(Duration(days: 365));
 
   static Future<DateTime?> pickDateAndTime(BuildContext context) {
-    if (Platform.isIOS)
-      return _iosPickDateAndTime(context);
-    else
-      return _androidPickDateAndAfterTime(context);
+    return Platform.isIOS ? _iosPickDateAndTime(context) : _androidPickDateAndAfterTime(context);
   }
 
   static Future<DateTime?> _iosPickDateAndTime(BuildContext context) {
     DateTime? pickedDate;
+
     return showModalBottomSheet<DateTime?>(
       context: context,
       isDismissible: true,
@@ -99,7 +97,7 @@ class Pickers {
       lastDate: _maximumDate(),
       builder: (context, child) {
         return Theme(
-          data: context.findAncestorStateOfType<AppState>()!.appThemeConfig.datePickerTheme,
+          data: context.findAncestorStateOfType<AppState>()!.currentThemeConfig.datePickerTheme,
           child: child!,
         );
       },
@@ -112,7 +110,7 @@ class Pickers {
       initialTime: TimeOfDay(hour: 10, minute: 0),
       builder: (context, child) {
         return Theme(
-          data: context.findAncestorStateOfType<AppState>()!.appThemeConfig.datePickerTheme,
+          data: context.findAncestorStateOfType<AppState>()!.currentThemeConfig.datePickerTheme,
           child: child!,
         );
       },

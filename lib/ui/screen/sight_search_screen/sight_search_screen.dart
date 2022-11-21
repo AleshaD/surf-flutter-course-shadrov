@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/enums/search_screen_state_type.dart';
-import 'package:places/domain/searched_sight.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_filter.dart';
+import 'package:places/data/interactor/search_interactor.dart';
+import 'package:places/data/model/sights/searched_sight.dart';
+import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';
@@ -14,8 +13,12 @@ import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 
+enum _SearchScreenType { error, searchHystory, searchedSights, noResults, emptyPage }
+
 class SightSearchScreen extends StatefulWidget {
-  const SightSearchScreen({Key? key}) : super(key: key);
+  const SightSearchScreen({Key? key, required this.searchInteractor}) : super(key: key);
+
+  final SearchInteractor searchInteractor;
 
   @override
   _SightSearchScreenState createState() => _SightSearchScreenState();
@@ -23,14 +26,12 @@ class SightSearchScreen extends StatefulWidget {
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
   int enterDelayMs = 1000;
-  SearchScreenType pageState = SearchScreenType.searchHystory;
-  Set<String> searchHystory = {'Музей балаклав', 'орли', '78 вино', 'Варна', 'ошибка'};
-  String searchedString = '';
+  _SearchScreenType pageState = _SearchScreenType.searchHystory;
   SightFilter sightFilter = mockSightFilter;
   Timer timerToSearch = Timer(Duration.zero, () {});
   TextEditingController txtController = TextEditingController();
   bool searchInProgres = false;
-  List<SearchedSight> findedSights = [];
+  List<SearchedSight> _findedSights = [];
 
   @override
   void dispose() {
@@ -41,18 +42,18 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   @override
   void initState() {
     super.initState();
-    searchHystory.isNotEmpty
-        ? pageState = SearchScreenType.searchHystory
-        : pageState = SearchScreenType.emptyPage;
+    widget.searchInteractor.getSearchHystory().isNotEmpty
+        ? pageState = _SearchScreenType.searchHystory
+        : pageState = _SearchScreenType.emptyPage;
   }
 
-  bool pgStateIs(SearchScreenType type) => pageState == type;
+  bool pgStateIs(_SearchScreenType type) => pageState == type;
 
-  void setEmptyPgState() => pageState = SearchScreenType.emptyPage;
-  void setSearchedPgState() => pageState = SearchScreenType.searchedSights;
-  void setHystoryPgState() => pageState = SearchScreenType.searchHystory;
-  void setNoResultPgState() => pageState = SearchScreenType.noResults;
-  void setErrorPgState() => pageState = SearchScreenType.error;
+  void setEmptyPgState() => pageState = _SearchScreenType.emptyPage;
+  void setSearchedPgState() => pageState = _SearchScreenType.searchedSights;
+  void setHystoryPgState() => pageState = _SearchScreenType.searchHystory;
+  void setNoResultPgState() => pageState = _SearchScreenType.noResults;
+  void setErrorPgState() => pageState = _SearchScreenType.error;
 
   void onSearchBarChanged(String val) {
     timerToSearch.cancel();
@@ -74,32 +75,20 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     setState(() {
       setSearchedPgState();
       searchInProgres = true;
-      findedSights.clear();
     });
 
-    Future.delayed(
-      // имитация загрузки
-      Duration(milliseconds: 1000),
-      () => setState(
-        () {
-          try {
-            for (var i = 0; i < sightMocks.length; i++) {
-              Sight sight = sightMocks[i];
-              if (sightFilter.sightInFilter(sight, myCoordinateMock) &&
-                  checkFraseInName(sight.name, query)) {
-                findedSights.add(SearchedSight(sight, query));
-              }
-            }
-            searchInProgres = false;
-            if (findedSights.isEmpty) setNoResultPgState();
-            if (query == 'ошибка ') throw ('Error');
-          } catch (e) {
-            searchInProgres = false;
-            setErrorPgState();
-          }
-        },
-      ),
-    );
+    try {
+      _findedSights = await widget.searchInteractor.getSightsBy(name: query);
+      setState(() {
+        if (_findedSights.isEmpty) setNoResultPgState();
+        searchInProgres = false;
+      });
+    } catch (e) {
+      setState(() {
+        searchInProgres = false;
+        setErrorPgState();
+      });
+    }
   }
 
   void onCompleteSearchEnter() {
@@ -110,16 +99,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void saveSearchedStr() {
     String searchedStr = txtController.text.trim();
-    if (searchedStr.isNotEmpty) {
-      // добавить в начало списка
-      var list = searchHystory.toList();
-      list.insert(0, txtController.text.trim());
-      searchHystory = list.toSet();
-    }
+    widget.searchInteractor.saveToHystory(searchedStr);
   }
 
   void showEmptyOrHystoryPg() => setState(() {
-        searchHystory.isNotEmpty ? setHystoryPgState() : setEmptyPgState();
+        widget.searchInteractor.getSearchHystory().isNotEmpty
+            ? setHystoryPgState()
+            : setEmptyPgState();
       });
 
   bool checkFraseInName(String name, String frase) {
@@ -133,8 +119,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   Widget getBodyByState() {
+    final Set<String> searchHystory = widget.searchInteractor.getSearchHystory();
     switch (pageState) {
-      case SearchScreenType.searchHystory:
+      case _SearchScreenType.searchHystory:
         return ListView(
           children: [
             SizedBox(
@@ -149,7 +136,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 name: searchHystory.elementAt(i),
                 showDevider: i != searchHystory.length - 1,
                 tileTaped: () {
-                  String searchTxt = searchHystory.elementAt(i) + ' ';
+                  String searchTxt = searchHystory.elementAt(i);
                   txtController.value = TextEditingValue(
                     text: searchTxt,
                     selection: TextSelection(
@@ -159,41 +146,35 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   );
                   doSearch(searchTxt);
                 },
-                onDelBtnPressed: () => setState(
-                  () {
-                    searchHystory.remove(searchHystory.elementAt(i));
-                    if (searchHystory.isEmpty) setEmptyPgState();
-                  },
+                onDelBtnPressed: () => _onDeleteHystoryValueTaped(
+                  searchHystory.elementAt(i),
                 ),
               ),
             TextButton(
-              onPressed: () => setState(() {
-                searchHystory.clear();
-                setEmptyPgState();
-              }),
+              onPressed: _onClearHystoryTaped,
               child: Text(
                 AppStrings.cleanHystory,
               ),
             ),
           ],
         );
-      case SearchScreenType.searchedSights:
+      case _SearchScreenType.searchedSights:
         return SearchedSightsListView(
-          findedSights,
+          _findedSights,
         );
-      case SearchScreenType.emptyPage:
+      case _SearchScreenType.emptyPage:
         return EmptyListPage(
           icon: CustomIcons.search,
           titleMessage: '',
           bodyMessage: '',
         );
-      case SearchScreenType.noResults:
+      case _SearchScreenType.noResults:
         return EmptyListPage(
           icon: CustomIcons.search,
           titleMessage: AppStrings.noFindResult,
           bodyMessage: AppStrings.tryChangeSearchParams,
         );
-      case SearchScreenType.error:
+      case _SearchScreenType.error:
         return EmptyListPage(
           icon: CustomIcons.info,
           titleMessage: AppStrings.erorr,
@@ -202,6 +183,22 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       default:
         return Container();
     }
+  }
+
+  void _onDeleteHystoryValueTaped(String name) {
+    setState(
+      () {
+        widget.searchInteractor.removeFromHystory(name);
+        if (widget.searchInteractor.getSearchHystory().isEmpty) setEmptyPgState();
+      },
+    );
+  }
+
+  void _onClearHystoryTaped() {
+    setState(() {
+      widget.searchInteractor.cleanHystory();
+      setEmptyPgState();
+    });
   }
 
   @override

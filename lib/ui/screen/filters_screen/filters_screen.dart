@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/domain/coordinate.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_filter.dart';
-import 'package:places/domain/sight_type.dart';
+import 'package:places/data/interactor/sight_interactor.dart';
+import 'package:places/data/model/sights/sight.dart';
+import 'package:places/data/model/sights/sight_filter.dart';
+import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
@@ -12,9 +12,6 @@ import 'package:places/ui/widgets/buttons/large_app_button.dart';
 class FiltersScreen extends StatefulWidget {
   FiltersScreen();
 
-  final Coordinate myCoordinate = myCoordinateMock;
-  final List<Sight> sights = sightMocks;
-
   @override
   FiltersScreenState createState() => FiltersScreenState();
 }
@@ -22,18 +19,24 @@ class FiltersScreen extends StatefulWidget {
 class FiltersScreenState extends State<FiltersScreen> {
   final double _maxSliderRange = SightFilter.maxUntilDist;
   final double _minSliderRange = SightFilter.minFromDist;
+  bool _loading = false;
+  List<Sight> filteredSights = [];
 
-  /// пока не прошли сохранение данных изменяем глобальный мок объект
   SightFilter sightFilter = mockSightFilter;
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadSights();
+  }
+
   void changeActiveCategory(SightType type) {
-    setState(() {
-      if (sightFilter.activeTypes.contains(type)) {
-        sightFilter.activeTypes.remove(type);
-      } else {
-        sightFilter.activeTypes.add(type);
-      }
-    });
+    if (sightFilter.activeTypes.contains(type)) {
+      sightFilter.activeTypes.remove(type);
+    } else {
+      sightFilter.activeTypes.add(type);
+    }
+    _loadSights();
   }
 
   String _readableDistanceVal(double val) {
@@ -47,13 +50,24 @@ class FiltersScreenState extends State<FiltersScreen> {
     }
   }
 
-  String sightsNumInRange() {
-    int inRange = 0;
-    widget.sights.forEach((sight) {
-      if (sightFilter.sightInFilter(sight, widget.myCoordinate)) inRange++;
-    });
+  String _sightsNumInRange() {
+    final int inRange = filteredSights.length;
 
     return '$inRange';
+  }
+
+  Future<void> _loadSights() async {
+    setState(() {
+      _loading = true;
+    });
+    try {
+      filteredSights = await SightInteractor.instance.getSightsFromFilter(sightFilter);
+    } catch (e) {
+      filteredSights = [];
+    }
+    setState(() {
+      _loading = false;
+    });
   }
 
   bool isActiveCategory(SightType type) => sightFilter.activeTypes.contains(type);
@@ -104,7 +118,7 @@ class FiltersScreenState extends State<FiltersScreen> {
                 children: [
                   FilterCategory(type: SightType.hotel),
                   FilterCategory(type: SightType.restaurant),
-                  FilterCategory(type: SightType.specialPlace),
+                  FilterCategory(type: SightType.other),
                 ],
               ),
               SizedBox(
@@ -153,15 +167,20 @@ class FiltersScreenState extends State<FiltersScreen> {
                           ? sightFilter.setByRange(RangeValues(vals.start, 100))
                           : sightFilter.setByRange(vals);
                     }),
+                    onChangeEnd: (value) {
+                      _loadSights();
+                    },
                   ),
                 ],
               ),
               Spacer(),
               LargeAppButton(
-                onPressed: () => print('Показать taped'),
+                onPressed: () {
+                  _loading ? print('Loading') : print('Показать taped: $filteredSights');
+                },
                 titleWidgets: [
                   Text(
-                    '${AppStrings.show.toUpperCase()} (${sightsNumInRange()})',
+                    '${AppStrings.show.toUpperCase()} (${_sightsNumInRange()})',
                   ),
                 ],
               ),

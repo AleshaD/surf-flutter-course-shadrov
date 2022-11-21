@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/sights/sight.dart';
+import 'package:places/data/model/sights/sight_want_to_visit.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_imitation.dart';
 import 'package:places/ui/widgets/sight_cards/visited_sight_card.dart';
 import 'package:places/ui/widgets/sight_cards/want_to_visit_sight_card.dart';
 
 typedef RaplaceCardCallback = void Function(int fromIndex, int toIndex);
-typedef RemoveCardCallback = void Function(String sigthId);
+typedef RemoveCardCallback = void Function(Sight sigth);
 
 class DraggableSightCardsListView<T extends SightCardDismissible> extends StatelessWidget {
   DraggableSightCardsListView(
@@ -15,7 +16,7 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
     required this.onReplaceCard,
   });
 
-  final List<Sight> sights;
+  final List<SightWantToVisit> sights;
   final RemoveCardCallback removeCard;
   final RaplaceCardCallback onReplaceCard;
 
@@ -37,16 +38,16 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
     );
   }
 
-  Widget draggbleChild(Sight sight) {
+  Widget draggbleChild(SightWantToVisit sight) {
     if (T == WantToVisitSightCard)
       return WantToVisitSightCard(
-        sight: sight,
+        sightWantToVisit: sight,
         showElevation: true,
         onClosePressed: () {},
       );
     else if (T == VisitedSightCard)
       return VisitedSightCard(
-        sight: sight,
+        sightWantToVisit: sight,
         showElevation: true,
         onClosePressed: () {},
       );
@@ -54,18 +55,18 @@ class DraggableSightCardsListView<T extends SightCardDismissible> extends Statel
       return Container();
   }
 
-  Widget cardChild(Sight sight) {
+  Widget cardChild(SightWantToVisit sight) {
     if (T == WantToVisitSightCard)
       return WantToVisitSightCard(
-        key: ValueKey(sight.id),
-        sight: sight,
-        onClosePressed: () => removeCard(sight.id),
+        key: ValueKey(sight.idStr),
+        sightWantToVisit: sight,
+        onClosePressed: () => removeCard(sight),
       );
     else if (T == VisitedSightCard)
       return VisitedSightCard(
-        key: ValueKey(sight.id),
-        sight: sight,
-        onClosePressed: () => removeCard(sight.id),
+        key: ValueKey(sight.idStr),
+        sightWantToVisit: sight,
+        onClosePressed: () => removeCard(sight),
       );
     else
       return Container();
