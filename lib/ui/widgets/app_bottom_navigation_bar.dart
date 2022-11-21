@@ -14,6 +14,11 @@ class AppBottomNavigationBar extends StatefulWidget {
 class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   final double iconSize = 18;
 
+  /** Для изменения радиуса inkWell эффекта, нужно в коде flutter
+   * в файле bottom_navigation_bar.dart
+   * добавить в виджет result = InkResponse на строке 517 в классе _BottomNavigationTile
+   * свойство radius: iconSize,
+  */
   BottomNavigationBarItem _navigationBarItem({
     required IconData icon,
     required IconData activeIcon,
