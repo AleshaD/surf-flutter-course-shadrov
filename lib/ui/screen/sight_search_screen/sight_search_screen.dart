@@ -5,7 +5,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';
+import 'package:places/ui/screen/sight_search_screen/search_hystory_list_view.dart';
 import 'package:places/ui/screen/sight_search_screen/searched_sights_list_view.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
@@ -121,41 +121,20 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     final Set<String> searchHystory = widget.searchInteractor.getSearchHystory();
     switch (pageState) {
       case _SearchScreenType.searchHystory:
-        return ListView(
-          children: [
-            SizedBox(
-              height: 32,
-            ),
-            Text(
-              AppStrings.youSearched.toUpperCase(),
-              style: Theme.of(context).textTheme.caption,
-            ),
-            for (var i = 0; i < searchHystory.length; i++)
-              SearchHystoryTile(
-                name: searchHystory.elementAt(i),
-                showDevider: i != searchHystory.length - 1,
-                tileTaped: () {
-                  String searchTxt = searchHystory.elementAt(i);
-                  _txtController.value = TextEditingValue(
-                    text: searchTxt,
-                    selection: TextSelection(
-                      baseOffset: searchTxt.length,
-                      extentOffset: searchTxt.length,
-                    ),
-                  );
-                  doSearch(searchTxt);
-                },
-                onDelBtnPressed: () => _onDeleteHystoryValueTaped(
-                  searchHystory.elementAt(i),
-                ),
+        return SearchHystoryListView(
+          hystory: searchHystory,
+          tileTaped: (searchTxt) {
+            _txtController.value = TextEditingValue(
+              text: searchTxt,
+              selection: TextSelection(
+                baseOffset: searchTxt.length,
+                extentOffset: searchTxt.length,
               ),
-            TextButton(
-              onPressed: _onClearHystoryTaped,
-              child: Text(
-                AppStrings.cleanHystory,
-              ),
-            ),
-          ],
+            );
+            doSearch(searchTxt);
+          },
+          clearHystoryTaped: _onClearHystoryTaped,
+          delHystoryQuery: _onDeleteHystoryValueTaped,
         );
       case _SearchScreenType.searchedSights:
         return SearchedSightsListView(
