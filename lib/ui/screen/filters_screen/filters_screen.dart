@@ -20,7 +20,6 @@ class FiltersScreen extends StatefulWidget {
 class FiltersScreenState extends State<FiltersScreen> {
   final double _maxSliderRange = SightFilter.maxUntilDist;
   final double _minSliderRange = SightFilter.minFromDist;
-  bool _loading = false;
   List<Sight> filteredSights = [];
 
   SightFilter sightFilter = mockSightFilter;
