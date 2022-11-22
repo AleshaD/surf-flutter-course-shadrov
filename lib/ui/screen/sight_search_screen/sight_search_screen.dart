@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
-import 'package:places/data/model/sights/sight_filter.dart';
-import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';
 import 'package:places/ui/screen/sight_search_screen/searched_sights_list_view.dart';
@@ -27,16 +25,17 @@ class SightSearchScreen extends StatefulWidget {
 class _SightSearchScreenState extends State<SightSearchScreen> {
   int enterDelayMs = 1000;
   _SearchScreenType pageState = _SearchScreenType.searchHystory;
-  SightFilter sightFilter = mockSightFilter;
   Timer timerToSearch = Timer(Duration.zero, () {});
-  TextEditingController txtController = TextEditingController();
-  bool searchInProgres = false;
+  TextEditingController _txtController = TextEditingController();
   List<SearchedSight> _findedSights = [];
+
+  final _loadingStreamCtrl = StreamController<bool>();
 
   @override
   void dispose() {
     super.dispose();
-    txtController.dispose();
+    _txtController.dispose();
+    _loadingStreamCtrl.close();
   }
 
   @override
@@ -70,22 +69,22 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void doSearch(String query) async {
-    if (query.trim().isEmpty || searchInProgres) return;
+    if (query.trim().isEmpty) return;
 
+    _loadingStreamCtrl.sink.add(true);
     setState(() {
       setSearchedPgState();
-      searchInProgres = true;
     });
 
     try {
       _findedSights = await widget.searchInteractor.getSightsBy(name: query);
+      _loadingStreamCtrl.sink.add(false);
       setState(() {
         if (_findedSights.isEmpty) setNoResultPgState();
-        searchInProgres = false;
       });
     } catch (e) {
+      _loadingStreamCtrl.sink.add(false);
       setState(() {
-        searchInProgres = false;
         setErrorPgState();
       });
     }
@@ -94,11 +93,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void onCompleteSearchEnter() {
     timerToSearch.cancel();
     saveSearchedStr();
-    doSearch(txtController.text);
+    doSearch(_txtController.text);
   }
 
   void saveSearchedStr() {
-    String searchedStr = txtController.text.trim();
+    String searchedStr = _txtController.text.trim();
     widget.searchInteractor.saveToHystory(searchedStr);
   }
 
@@ -137,7 +136,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 showDevider: i != searchHystory.length - 1,
                 tileTaped: () {
                   String searchTxt = searchHystory.elementAt(i);
-                  txtController.value = TextEditingValue(
+                  _txtController.value = TextEditingValue(
                     text: searchTxt,
                     selection: TextSelection(
                       baseOffset: searchTxt.length,
@@ -211,7 +210,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           ),
           bottom: SearchBar(
             autoFocus: true,
-            controller: txtController,
+            controller: _txtController,
             onChanged: onSearchBarChanged,
             onEditingComplete: onCompleteSearchEnter,
             onFocusDismiss: saveSearchedStr,
@@ -223,11 +222,17 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: searchInProgres
-                    ? LinearProgressIndicator(
-                        color: Theme.of(context).colorScheme.secondary,
-                      )
-                    : Container(),
+                child: StreamBuilder<bool>(
+                    stream: _loadingStreamCtrl.stream,
+                    initialData: false,
+                    builder: (context, snapshot) {
+                      final isLoading = snapshot.data!;
+                      return isLoading
+                          ? LinearProgressIndicator(
+                              color: Theme.of(context).colorScheme.secondary,
+                            )
+                          : Container();
+                    }),
               ),
               getBodyByState(),
             ],
