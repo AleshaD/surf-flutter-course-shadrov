@@ -36,13 +36,16 @@ class EmptyListPage extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-          Text(
-            bodyMessage,
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2!
-                .apply(color: Theme.of(context).colorScheme.onSurface),
+          Container(
+            width: 250,
+            child: Text(
+              bodyMessage,
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle2!
+                  .apply(color: Theme.of(context).colorScheme.onSurface),
+            ),
           ),
           SizedBox(
             height: 32,

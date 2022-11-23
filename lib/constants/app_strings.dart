@@ -91,4 +91,6 @@ class AppStrings {
   static const msgForUserReceive = 'Данные с сервера не получны, попробуйте позже';
   static const msgForUserCancelRequest = 'Ошибка на сервере, исправляем';
   static const msgForUserTotalError = 'Сервис временно недоступен';
+
+  static const reload = 'Перезагрузить';
 }
