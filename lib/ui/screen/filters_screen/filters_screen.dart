@@ -6,6 +6,7 @@ import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/filters_screen/filter_category.dart';
+import 'package:places/ui/screen/searched_sights_screen/searched_sights_screen.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
@@ -19,7 +20,6 @@ class FiltersScreen extends StatefulWidget {
 class FiltersScreenState extends State<FiltersScreen> {
   final double _maxSliderRange = SightFilter.maxUntilDist;
   final double _minSliderRange = SightFilter.minFromDist;
-  bool _loading = false;
   List<Sight> filteredSights = [];
 
   SightFilter sightFilter = mockSightFilter;
@@ -57,16 +57,14 @@ class FiltersScreenState extends State<FiltersScreen> {
   }
 
   Future<void> _loadSights() async {
-    setState(() {
-      _loading = true;
-    });
-    try {
-      filteredSights = await SightInteractor.instance.getSightsFromFilter(sightFilter);
-    } catch (e) {
-      filteredSights = [];
-    }
-    setState(() {
-      _loading = false;
+    SightInteractor.instance.getSightsFromFilter(sightFilter).then((sights) {
+      setState(() {
+        filteredSights = sights;
+      });
+    }).onError((error, stackTrace) {
+      setState(() {
+        filteredSights = [];
+      });
     });
   }
 
@@ -81,9 +79,10 @@ class FiltersScreenState extends State<FiltersScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: TextButton(
-              onPressed: () => setState(() {
+              onPressed: () {
                 sightFilter.activeTypes.clear();
-              }),
+                _loadSights();
+              },
               child: Text(
                 AppStrings.cleare,
                 style: TextStyle(
@@ -175,8 +174,15 @@ class FiltersScreenState extends State<FiltersScreen> {
               ),
               Spacer(),
               LargeAppButton(
+                isActive: filteredSights.isNotEmpty,
                 onPressed: () {
-                  _loading ? print('Loading') : print('Показать taped: $filteredSights');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SearchedSightsScreen(
+                        sights: filteredSights,
+                      ),
+                    ),
+                  );
                 },
                 titleWidgets: [
                   Text(

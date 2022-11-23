@@ -13,7 +13,7 @@ class SearchedSightsListView extends StatelessWidget {
       itemCount: searshedSights.length,
       itemBuilder: (context, index) {
         final isFirstItem = index == 0;
-        final double topPadding = isFirstItem ? 30 : 0;
+        final double topPadding = isFirstItem ? 8 : 0;
 
         return Padding(
           padding: EdgeInsets.only(top: topPadding),

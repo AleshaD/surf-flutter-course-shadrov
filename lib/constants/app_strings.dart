@@ -82,8 +82,7 @@ class AppStrings {
   static const file = 'Файл';
 
   static const temple = 'Храм';
-
   static const monument = 'Памятник';
-
   static const theater = 'Театр';
+  static const searchedSights = 'Найденные места';
 }

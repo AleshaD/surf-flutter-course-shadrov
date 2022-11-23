@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
-import 'package:places/data/model/sights/sight_filter.dart';
-import 'package:places/mocks.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';
+import 'package:places/ui/screen/sight_search_screen/search_hystory_list_view.dart';
 import 'package:places/ui/screen/sight_search_screen/searched_sights_list_view.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
@@ -27,33 +25,38 @@ class SightSearchScreen extends StatefulWidget {
 class _SightSearchScreenState extends State<SightSearchScreen> {
   int enterDelayMs = 1000;
   _SearchScreenType pageState = _SearchScreenType.searchHystory;
-  SightFilter sightFilter = mockSightFilter;
   Timer timerToSearch = Timer(Duration.zero, () {});
-  TextEditingController txtController = TextEditingController();
-  bool searchInProgres = false;
+  TextEditingController _txtController = TextEditingController();
   List<SearchedSight> _findedSights = [];
+
+  bool _searchInProgress = false;
+  final _loadingStreamCtrl = StreamController<bool>.broadcast();
+  final _screenStateStreamCtrl = StreamController<_SearchScreenType>();
 
   @override
   void dispose() {
     super.dispose();
-    txtController.dispose();
+    _txtController.dispose();
+    _loadingStreamCtrl.close();
+    _screenStateStreamCtrl.close();
   }
 
   @override
   void initState() {
     super.initState();
-    widget.searchInteractor.getSearchHystory().isNotEmpty
-        ? pageState = _SearchScreenType.searchHystory
-        : pageState = _SearchScreenType.emptyPage;
+    showEmptyOrHystoryPg();
+    _loadingStreamCtrl.stream.listen((isLoading) {
+      _searchInProgress = isLoading;
+    });
   }
 
   bool pgStateIs(_SearchScreenType type) => pageState == type;
 
-  void setEmptyPgState() => pageState = _SearchScreenType.emptyPage;
-  void setSearchedPgState() => pageState = _SearchScreenType.searchedSights;
-  void setHystoryPgState() => pageState = _SearchScreenType.searchHystory;
-  void setNoResultPgState() => pageState = _SearchScreenType.noResults;
-  void setErrorPgState() => pageState = _SearchScreenType.error;
+  void setEmptyPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.emptyPage);
+  void setSearchedPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.searchedSights);
+  void setHystoryPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.searchHystory);
+  void setNoResultPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.noResults);
+  void setErrorPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.error);
 
   void onSearchBarChanged(String val) {
     timerToSearch.cancel();
@@ -70,93 +73,71 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void doSearch(String query) async {
-    if (query.trim().isEmpty || searchInProgres) return;
+    if (query.trim().isEmpty && !_searchInProgress) return;
 
-    setState(() {
-      setSearchedPgState();
-      searchInProgres = true;
-    });
+    _loadingStreamCtrl.sink.add(true);
 
     try {
       _findedSights = await widget.searchInteractor.getSightsBy(name: query);
-      setState(() {
-        if (_findedSights.isEmpty) setNoResultPgState();
-        searchInProgres = false;
-      });
+      _loadingStreamCtrl.sink.add(false);
+      if (_findedSights.isNotEmpty)
+        setSearchedPgState();
+      else
+        setNoResultPgState();
     } catch (e) {
-      setState(() {
-        searchInProgres = false;
-        setErrorPgState();
-      });
+      _loadingStreamCtrl.sink.add(false);
+      setErrorPgState();
     }
   }
 
   void onCompleteSearchEnter() {
+    if (_txtController.text.trim().isEmpty) return;
     timerToSearch.cancel();
     saveSearchedStr();
-    doSearch(txtController.text);
+    doSearch(_txtController.text);
   }
 
   void saveSearchedStr() {
-    String searchedStr = txtController.text.trim();
+    String searchedStr = _txtController.text.trim();
     widget.searchInteractor.saveToHystory(searchedStr);
   }
 
-  void showEmptyOrHystoryPg() => setState(() {
-        widget.searchInteractor.getSearchHystory().isNotEmpty
-            ? setHystoryPgState()
-            : setEmptyPgState();
-      });
-
-  bool checkFraseInName(String name, String frase) {
-    List<String> words = frase.split(' ');
-    for (var i = 0; i < words.length; i++) {
-      String word = words[i].trim().toLowerCase();
-      if (!name.toLowerCase().contains(word)) return false;
-    }
-
-    return true;
+  void showEmptyOrHystoryPg() {
+    widget.searchInteractor.getSearchHystory().isNotEmpty ? setHystoryPgState() : setEmptyPgState();
   }
 
-  Widget getBodyByState() {
+  void _onDeleteHystoryValueTaped(String name) {
+    setState(
+      () {
+        widget.searchInteractor.removeFromHystory(name);
+        if (widget.searchInteractor.getSearchHystory().isEmpty) setEmptyPgState();
+      },
+    );
+  }
+
+  void _onClearHystoryTaped() {
+    widget.searchInteractor.cleanHystory();
+    setEmptyPgState();
+  }
+
+  Widget _getBodyByState(_SearchScreenType state) {
     final Set<String> searchHystory = widget.searchInteractor.getSearchHystory();
-    switch (pageState) {
+    switch (state) {
       case _SearchScreenType.searchHystory:
-        return ListView(
-          children: [
-            SizedBox(
-              height: 32,
-            ),
-            Text(
-              AppStrings.youSearched.toUpperCase(),
-              style: Theme.of(context).textTheme.caption,
-            ),
-            for (var i = 0; i < searchHystory.length; i++)
-              SearchHystoryTile(
-                name: searchHystory.elementAt(i),
-                showDevider: i != searchHystory.length - 1,
-                tileTaped: () {
-                  String searchTxt = searchHystory.elementAt(i);
-                  txtController.value = TextEditingValue(
-                    text: searchTxt,
-                    selection: TextSelection(
-                      baseOffset: searchTxt.length,
-                      extentOffset: searchTxt.length,
-                    ),
-                  );
-                  doSearch(searchTxt);
-                },
-                onDelBtnPressed: () => _onDeleteHystoryValueTaped(
-                  searchHystory.elementAt(i),
-                ),
+        return SearchHystoryListView(
+          hystory: searchHystory,
+          tileTaped: (searchTxt) {
+            _txtController.value = TextEditingValue(
+              text: searchTxt,
+              selection: TextSelection(
+                baseOffset: searchTxt.length,
+                extentOffset: searchTxt.length,
               ),
-            TextButton(
-              onPressed: _onClearHystoryTaped,
-              child: Text(
-                AppStrings.cleanHystory,
-              ),
-            ),
-          ],
+            );
+            doSearch(searchTxt);
+          },
+          clearHystoryTaped: _onClearHystoryTaped,
+          delHystoryQuery: _onDeleteHystoryValueTaped,
         );
       case _SearchScreenType.searchedSights:
         return SearchedSightsListView(
@@ -185,53 +166,58 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     }
   }
 
-  void _onDeleteHystoryValueTaped(String name) {
-    setState(
-      () {
-        widget.searchInteractor.removeFromHystory(name);
-        if (widget.searchInteractor.getSearchHystory().isEmpty) setEmptyPgState();
-      },
-    );
-  }
-
-  void _onClearHystoryTaped() {
-    setState(() {
-      widget.searchInteractor.cleanHystory();
-      setEmptyPgState();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: AppBarBackButton(),
-          title: Text(
-            AppStrings.sightListScrAppBar,
-          ),
-          bottom: SearchBar(
-            autoFocus: true,
-            controller: txtController,
-            onChanged: onSearchBarChanged,
-            onEditingComplete: onCompleteSearchEnter,
-            onFocusDismiss: saveSearchedStr,
-          ),
+      appBar: AppBar(
+        leading: AppBarBackButton(),
+        title: Text(
+          AppStrings.sightListScrAppBar,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: searchInProgres
-                    ? LinearProgressIndicator(
-                        color: Theme.of(context).colorScheme.secondary,
-                      )
-                    : Container(),
+        bottom: SearchBar(
+          autoFocus: true,
+          controller: _txtController,
+          onChanged: onSearchBarChanged,
+          onEditingComplete: onCompleteSearchEnter,
+          onFocusDismiss: saveSearchedStr,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: StreamBuilder<bool>(
+                stream: _loadingStreamCtrl.stream,
+                initialData: false,
+                builder: (context, snapshot) {
+                  final isLoading = snapshot.data!;
+                  return isLoading
+                      ? LinearProgressIndicator(
+                          color: Theme.of(context).colorScheme.secondary,
+                        )
+                      : Container();
+                },
               ),
-              getBodyByState(),
-            ],
-          ),
-        ));
+            ),
+            StreamBuilder<_SearchScreenType>(
+              stream: _screenStateStreamCtrl.stream,
+              builder: (BuildContext context, AsyncSnapshot<_SearchScreenType> snapshot) {
+                if (snapshot.hasData) {
+                  final state = snapshot.data!;
+                  return _getBodyByState(state);
+                } else if (snapshot.hasError) {
+                  _screenStateStreamCtrl.sink.add(
+                    _SearchScreenType.error,
+                  );
+                }
+                return SizedBox.shrink();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
