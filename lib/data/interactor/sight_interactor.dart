@@ -189,11 +189,9 @@ class SightInteractor with LocationService {
       default:
     }
 
-    NetworkExceptions exception = NetworkExceptions(
-      requestPath: dioError.requestOptions.path,
-      statusCode: dioError.response?.statusCode ?? 0,
-      exceptionName: dioError.message,
-      msgForUser: msgForUser,
+    NetworkExceptions exception = NetworkExceptions.fromDioError(
+      dioError,
+      msgForUser,
     );
 
     print(exception.toString());
