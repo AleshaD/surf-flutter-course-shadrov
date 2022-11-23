@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class NetworkExceptions implements Exception {
   NetworkExceptions({
     required this.requestPath,
@@ -5,6 +7,12 @@ class NetworkExceptions implements Exception {
     required this.msgForUser,
     required this.exceptionName,
   });
+
+  NetworkExceptions.fromDioError(DioError dioError, msgForUser)
+      : requestPath = dioError.requestOptions.path,
+        statusCode = dioError.response?.statusCode ?? 0,
+        exceptionName = dioError.message,
+        msgForUser = msgForUser;
 
   final String msgForUser;
   final String requestPath;
