@@ -30,13 +30,16 @@ class NetworkErrorPage extends EmptyListPage {
         ),
         TextButton(
           onPressed: onReloadPressed,
-          child: Text(
-            AppStrings.reload,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.onSurface,
-              decoration: TextDecoration.underline,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              AppStrings.reload,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSurface,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ),
         ),
