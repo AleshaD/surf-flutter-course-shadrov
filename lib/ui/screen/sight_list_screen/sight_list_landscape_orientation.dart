@@ -14,6 +14,7 @@ class SightListLandscapeOrientation extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           double bottomPadding = 0;
+
           return Padding(
             padding: EdgeInsets.only(
               left: 16,

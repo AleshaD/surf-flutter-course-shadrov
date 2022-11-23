@@ -65,6 +65,7 @@ class SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     final isLoading = widget.sights.isEmpty;
     final showNewPlaceBtn = widget.sights.isNotEmpty;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

@@ -198,6 +198,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 initialData: false,
                 builder: (context, snapshot) {
                   final isLoading = snapshot.data!;
+
                   return isLoading
                       ? LinearProgressIndicator(
                           color: Theme.of(context).colorScheme.secondary,
@@ -211,12 +212,14 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               builder: (BuildContext context, AsyncSnapshot<_SearchScreenType> snapshot) {
                 if (snapshot.hasData) {
                   final state = snapshot.data!;
+
                   return _getBodyByState(state);
                 } else if (snapshot.hasError) {
                   _screenStateStreamCtrl.sink.add(
                     _SearchScreenType.error,
                   );
                 }
+
                 return SizedBox.shrink();
               },
             ),
