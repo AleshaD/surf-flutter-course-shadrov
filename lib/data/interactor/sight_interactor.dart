@@ -196,6 +196,8 @@ class SightInteractor with LocationService {
       msgForUser: msgForUser,
     );
 
+    print(exception.toString());
+
     exceptionStream.sink.add(exception);
   }
 }
