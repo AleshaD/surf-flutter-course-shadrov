@@ -33,11 +33,19 @@ class SightListScreenState extends State<SightListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = widget.sights.isEmpty;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Stack(
           children: [
+            if (isLoading)
+              Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+              ),
             CustomScrollView(
               slivers: [
                 SliverAppBar(
@@ -73,37 +81,38 @@ class SightListScreenState extends State<SightListScreen> {
                     : SightListLandscapeOrientation(widget.sights)
               ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: RoundedGradientButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(
-                          MaterialPageRoute(
-                            builder: (context) => AddSightScreen(),
-                          ),
-                        )
-                        .then((value) => setState(() {}));
-                  },
-                  titleWidgets: [
-                    Icon(
-                      CustomIcons.plus,
-                      size: 16,
-                      color: Theme.of(context).textTheme.button!.color,
-                    ),
-                    SizedBox(
-                      width: 14,
-                    ),
-                    Text(
-                      AppStrings.newPlace.toUpperCase(),
-                      style: Theme.of(context).textTheme.button,
-                    ),
-                  ],
+            if (!isLoading)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: RoundedGradientButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(
+                            MaterialPageRoute(
+                              builder: (context) => AddSightScreen(),
+                            ),
+                          )
+                          .then((value) => setState(() {}));
+                    },
+                    titleWidgets: [
+                      Icon(
+                        CustomIcons.plus,
+                        size: 16,
+                        color: Theme.of(context).textTheme.button!.color,
+                      ),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      Text(
+                        AppStrings.newPlace.toUpperCase(),
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
