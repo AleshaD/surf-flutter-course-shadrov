@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/sight_interactor.dart';
@@ -9,6 +11,9 @@ import 'package:places/ui/screen/filters_screen/filter_category.dart';
 import 'package:places/ui/screen/searched_sights_screen/searched_sights_screen.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
+import 'package:places/ui/widgets/error_pages/network_error_page.dart';
+
+import '../../../data/model/exceptions/network_exceptions.dart';
 
 class FiltersScreen extends StatefulWidget {
   FiltersScreen();
@@ -24,10 +29,28 @@ class FiltersScreenState extends State<FiltersScreen> {
 
   SightFilter sightFilter = mockSightFilter;
 
+  late final StreamSubscription<NetworkExceptions> _networkErrorSubscription;
+  String msgErrorForUser = '';
+  bool get hasNetworkError => msgErrorForUser.isNotEmpty;
+
+  @override
+  void initState() {
+    super.initState();
+    _networkErrorSubscription = SightInteractor.instance.exceptionStream.stream.listen(
+      _handleNetworkException,
+    );
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _loadSights();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _networkErrorSubscription.cancel();
   }
 
   void changeActiveCategory(SightType type) {
@@ -37,6 +60,12 @@ class FiltersScreenState extends State<FiltersScreen> {
       sightFilter.activeTypes.add(type);
     }
     _loadSights();
+  }
+
+  void _handleNetworkException(NetworkExceptions exc) {
+    setState(() {
+      msgErrorForUser = exc.msgForUser;
+    });
   }
 
   String _readableDistanceVal(double val) {
@@ -57,6 +86,7 @@ class FiltersScreenState extends State<FiltersScreen> {
   }
 
   Future<void> _loadSights() async {
+    msgErrorForUser = '';
     SightInteractor.instance.getSightsFromFilter(sightFilter).then((sights) {
       setState(() {
         filteredSights = sights;
@@ -96,106 +126,111 @@ class FiltersScreenState extends State<FiltersScreen> {
         ],
       ),
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 24,
-              ),
-              Text(
-                AppStrings.categoryes.toUpperCase(),
-                style: Theme.of(context).textTheme.caption,
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FilterCategory(type: SightType.hotel),
-                  FilterCategory(type: SightType.restaurant),
-                  FilterCategory(type: SightType.other),
-                ],
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FilterCategory(type: SightType.park),
-                  FilterCategory(type: SightType.museum),
-                  FilterCategory(type: SightType.cafe),
-                ],
-              ),
-              SizedBox(
-                height: 60,
-              ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppStrings.distance,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontWeight: FontWeight.w400),
-                      ),
-                      Text(
-                        '${AppStrings.from.toLowerCase()} ${_readableDistanceVal(sightFilter.fromDist)} ${AppStrings.to.toLowerCase()} ${_readableDistanceVal(sightFilter.toDist)}',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                              fontSize: 16,
-                            ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  RangeSlider(
-                    min: _minSliderRange,
-                    max: _maxSliderRange,
-                    values: sightFilter.getRange,
-                    onChanged: (RangeValues vals) => setState(() {
-                      vals.end < 100
-                          ? sightFilter.setByRange(RangeValues(vals.start, 100))
-                          : sightFilter.setByRange(vals);
-                    }),
-                    onChangeEnd: (value) {
-                      _loadSights();
-                    },
-                  ),
-                ],
-              ),
-              Spacer(),
-              LargeAppButton(
-                isActive: filteredSights.isNotEmpty,
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SearchedSightsScreen(
-                        sights: filteredSights,
-                      ),
+        child: hasNetworkError
+            ? NetworkErrorPage(
+                onReloadPressed: () => _loadSights(),
+                msgForUser: msgErrorForUser,
+              )
+            : Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 24,
                     ),
-                  );
-                },
-                titleWidgets: [
-                  Text(
-                    '${AppStrings.show.toUpperCase()} (${_sightsNumInRange()})',
-                  ),
-                ],
+                    Text(
+                      AppStrings.categoryes.toUpperCase(),
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FilterCategory(type: SightType.hotel),
+                        FilterCategory(type: SightType.restaurant),
+                        FilterCategory(type: SightType.other),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FilterCategory(type: SightType.park),
+                        FilterCategory(type: SightType.museum),
+                        FilterCategory(type: SightType.cafe),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 60,
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              AppStrings.distance,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              '${AppStrings.from.toLowerCase()} ${_readableDistanceVal(sightFilter.fromDist)} ${AppStrings.to.toLowerCase()} ${_readableDistanceVal(sightFilter.toDist)}',
+                              style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                                    fontSize: 16,
+                                  ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        RangeSlider(
+                          min: _minSliderRange,
+                          max: _maxSliderRange,
+                          values: sightFilter.getRange,
+                          onChanged: (RangeValues vals) => setState(() {
+                            vals.end < 100
+                                ? sightFilter.setByRange(RangeValues(vals.start, 100))
+                                : sightFilter.setByRange(vals);
+                          }),
+                          onChangeEnd: (value) {
+                            _loadSights();
+                          },
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    LargeAppButton(
+                      isActive: filteredSights.isNotEmpty,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SearchedSightsScreen(
+                              sights: filteredSights,
+                            ),
+                          ),
+                        );
+                      },
+                      titleWidgets: [
+                        Text(
+                          '${AppStrings.show.toUpperCase()} (${_sightsNumInRange()})',
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
-                height: 8,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
