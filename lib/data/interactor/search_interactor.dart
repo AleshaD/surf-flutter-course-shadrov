@@ -8,20 +8,6 @@ import 'package:places/data/repository/sight_repository.dart';
 class SearchInteractor {
   SearchInteractor(this._repository);
 
-  static final instance = SearchInteractor(
-    SightRepository(
-      Dio(
-        BaseOptions(
-          connectTimeout: _timeout,
-          sendTimeout: _timeout,
-          receiveTimeout: _timeout,
-          responseType: ResponseType.json,
-        ),
-      ),
-    ),
-  );
-
-  static const int _timeout = 3000;
   static final Set<String> _searchHystory = {};
   final SightRepository _repository;
 

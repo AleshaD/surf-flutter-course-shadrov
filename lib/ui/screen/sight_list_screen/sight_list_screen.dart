@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
@@ -110,9 +109,7 @@ class SightListScreenState extends State<SightListScreen> {
                             showFilterBtn: true,
                             onFieldTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => SightSearchScreen(
-                                  searchInteractor: SearchInteractor.instance,
-                                ),
+                                builder: (context) => SightSearchScreen(),
                               ),
                             ),
                           ),

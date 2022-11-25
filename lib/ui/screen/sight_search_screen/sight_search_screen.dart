@@ -12,13 +12,12 @@ import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
+import 'package:provider/provider.dart';
 
 enum _SearchScreenType { error, searchHystory, searchedSights, noResults, emptyPage }
 
 class SightSearchScreen extends StatefulWidget {
-  const SightSearchScreen({Key? key, required this.searchInteractor}) : super(key: key);
-
-  final SearchInteractor searchInteractor;
+  const SightSearchScreen({Key? key}) : super(key: key);
 
   @override
   _SightSearchScreenState createState() => _SightSearchScreenState();
@@ -81,7 +80,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     _loadingStreamCtrl.sink.add(true);
 
     try {
-      _findedSights = await widget.searchInteractor.getSightsBy(name: query);
+      _findedSights = await context.read<SearchInteractor>().getSightsBy(name: query);
       _loadingStreamCtrl.sink.add(false);
       if (_findedSights.isNotEmpty)
         setSearchedPgState();
@@ -105,29 +104,29 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void saveSearchedStr() {
     String searchedStr = _txtController.text.trim();
-    widget.searchInteractor.saveToHystory(searchedStr);
+    context.read<SearchInteractor>().saveToHystory(searchedStr);
   }
 
   void showEmptyOrHystoryPg() {
-    widget.searchInteractor.getSearchHystory().isNotEmpty ? setHystoryPgState() : setEmptyPgState();
+    context.read<SearchInteractor>().getSearchHystory().isNotEmpty ? setHystoryPgState() : setEmptyPgState();
   }
 
   void _onDeleteHystoryValueTaped(String name) {
     setState(
       () {
-        widget.searchInteractor.removeFromHystory(name);
-        if (widget.searchInteractor.getSearchHystory().isEmpty) setEmptyPgState();
+        context.read<SearchInteractor>().removeFromHystory(name);
+        if (context.read<SearchInteractor>().getSearchHystory().isEmpty) setEmptyPgState();
       },
     );
   }
 
   void _onClearHystoryTaped() {
-    widget.searchInteractor.cleanHystory();
+    context.read<SearchInteractor>().cleanHystory();
     setEmptyPgState();
   }
 
   Widget _getBodyByState(_SearchScreenType state) {
-    final Set<String> searchHystory = widget.searchInteractor.getSearchHystory();
+    final Set<String> searchHystory = context.read<SearchInteractor>().getSearchHystory();
     switch (state) {
       case _SearchScreenType.searchHystory:
         return SearchHystoryListView(
