@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/sight_type.dart';
+import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/sights/sight_want_to_visit.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
@@ -35,6 +39,7 @@ class SightInteractor with LocationService {
   final List<int> _visitedSightsIds = [127, 139, 330, 329];
   final List<Sight> _favoriteSights = [];
   final List<Sight> _visitedSights = [];
+  final exceptionStream = StreamController<NetworkExceptions>.broadcast();
 
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
     final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
@@ -164,7 +169,33 @@ class SightInteractor with LocationService {
     return sights;
   }
 
-  void _handleRepoError(DioError e) {
-    print('Get repo error, log and send something to interface. \n error: $e');
+  void _handleRepoError(DioError dioError) {
+    String msgForUser = '';
+    switch (dioError.type) {
+      case DioErrorType.connectTimeout:
+      case DioErrorType.receiveTimeout:
+      case DioErrorType.connectTimeout:
+        msgForUser = AppStrings.msgForUserTimeouts;
+        break;
+      case DioErrorType.response:
+        msgForUser = AppStrings.msgForUserReceive;
+        break;
+      case DioErrorType.cancel:
+        msgForUser = AppStrings.msgForUserCancelRequest;
+        break;
+      case DioErrorType.other:
+        msgForUser = AppStrings.msgForUserTotalError;
+        break;
+      default:
+    }
+
+    NetworkExceptions exception = NetworkExceptions.fromDioError(
+      dioError,
+      msgForUser,
+    );
+
+    print(exception.toString());
+
+    exceptionStream.sink.add(exception);
   }
 }

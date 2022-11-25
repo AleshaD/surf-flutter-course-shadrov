@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:places/constants/app_strings.dart';
+import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/repository/sight_repository.dart';
@@ -30,6 +32,8 @@ class SearchInteractor {
       _searchHystory.add(name);
 
       return sights.map((s) => SearchedSight(s, name)).toList();
+    } on DioError catch (e) {
+      throw (NetworkExceptions.fromDioError(e, AppStrings.tryAganinLater));
     } catch (e) {
       rethrow;
     }

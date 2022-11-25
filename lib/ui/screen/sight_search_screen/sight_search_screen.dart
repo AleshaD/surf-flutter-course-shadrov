@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
+import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/search_hystory_list_view.dart';
 import 'package:places/ui/screen/sight_search_screen/searched_sights_list_view.dart';
 import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
+import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 
 enum _SearchScreenType { error, searchHystory, searchedSights, noResults, emptyPage }
@@ -28,6 +30,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   Timer timerToSearch = Timer(Duration.zero, () {});
   TextEditingController _txtController = TextEditingController();
   List<SearchedSight> _findedSights = [];
+  String _networkErrorMsg = '';
 
   bool _searchInProgress = false;
   final _loadingStreamCtrl = StreamController<bool>.broadcast();
@@ -84,9 +87,12 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         setSearchedPgState();
       else
         setNoResultPgState();
-    } catch (e) {
+    } on NetworkExceptions catch (e) {
       _loadingStreamCtrl.sink.add(false);
+      _networkErrorMsg = e.msgForUser;
       setErrorPgState();
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -156,10 +162,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           bodyMessage: AppStrings.tryChangeSearchParams,
         );
       case _SearchScreenType.error:
-        return EmptyListPage(
-          icon: CustomIcons.info,
-          titleMessage: AppStrings.erorr,
-          bodyMessage: AppStrings.tryAganinLater,
+        return NetworkErrorPage(
+          onReloadPressed: () => showEmptyOrHystoryPg(),
+          msgForUser: _networkErrorMsg,
         );
       default:
         return Container();
@@ -193,6 +198,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 initialData: false,
                 builder: (context, snapshot) {
                   final isLoading = snapshot.data!;
+
                   return isLoading
                       ? LinearProgressIndicator(
                           color: Theme.of(context).colorScheme.secondary,
@@ -206,12 +212,14 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               builder: (BuildContext context, AsyncSnapshot<_SearchScreenType> snapshot) {
                 if (snapshot.hasData) {
                   final state = snapshot.data!;
+
                   return _getBodyByState(state);
                 } else if (snapshot.hasError) {
                   _screenStateStreamCtrl.sink.add(
                     _SearchScreenType.error,
                   );
                 }
+
                 return SizedBox.shrink();
               },
             ),

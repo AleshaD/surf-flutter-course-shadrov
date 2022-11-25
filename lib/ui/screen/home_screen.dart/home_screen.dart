@@ -29,13 +29,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeScreenTypes currentScreenType = HomeScreenTypes.mainSightList;
-  List<Sight> loadedSights = <Sight>[];
+  List<Sight> _loadedSights = <Sight>[];
 
   void changeCurrentPageTo(HomeScreenTypes type) {
     setState(() {
       currentScreenType = type;
     });
   }
+
+  void reloadSights() => _loadSights();
 
   @override
   void didChangeDependencies() {
@@ -47,10 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final sights = await SightInteractor.instance.getSightsFromFilter(SightFilter.dafult());
     if (currentScreenType == HomeScreenTypes.mainSightList)
       setState(() {
-        loadedSights = sights;
+        _loadedSights = sights;
       });
     else
-      loadedSights = sights;
+      _loadedSights = sights;
   }
 
   @override
@@ -59,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (currentScreenType) {
       case HomeScreenTypes.mainSightList:
         currentScreen = SightListScreen(
-          sights: loadedSights,
+          sights: _loadedSights,
         );
         break;
       case HomeScreenTypes.sightsMap:

@@ -85,4 +85,12 @@ class AppStrings {
   static const monument = 'Памятник';
   static const theater = 'Театр';
   static const searchedSights = 'Найденные места';
+
+  static const msgForUserTimeouts =
+      'Нет связи с сервером, проверьте подключение к интернету и попробуйте снова';
+  static const msgForUserReceive = 'Данные с сервера не получны, попробуйте позже';
+  static const msgForUserCancelRequest = 'Ошибка на сервере, исправляем';
+  static const msgForUserTotalError = 'Сервис временно недоступен';
+
+  static const reload = 'Перезагрузить';
 }
