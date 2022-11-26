@@ -20,19 +20,6 @@ class SightInteractor with LocationService {
     _initVisitedSights();
   }
 
-  static SightInteractor instance = SightInteractor(
-    SightRepository(
-      Dio(
-        BaseOptions(
-          connectTimeout: 10000,
-          sendTimeout: 10000,
-          receiveTimeout: 10000,
-          responseType: ResponseType.json,
-        ),
-      ),
-    ),
-  );
-
   final SightRepository _repository;
   final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
   final List<int> _favoriteSightsIds = [127, 139, 330, 329, 352, 390, 129, 132];

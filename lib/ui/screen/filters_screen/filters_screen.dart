@@ -12,6 +12,7 @@ import 'package:places/ui/screen/searched_sights_screen/searched_sights_screen.d
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/model/exceptions/network_exceptions.dart';
 
@@ -36,9 +37,9 @@ class FiltersScreenState extends State<FiltersScreen> {
   @override
   void initState() {
     super.initState();
-    _networkErrorSubscription = SightInteractor.instance.exceptionStream.stream.listen(
-      _handleNetworkException,
-    );
+    _networkErrorSubscription = context.read<SightInteractor>().exceptionStream.stream.listen(
+          _handleNetworkException,
+        );
   }
 
   @override
@@ -87,7 +88,7 @@ class FiltersScreenState extends State<FiltersScreen> {
 
   Future<void> _loadSights() async {
     msgErrorForUser = '';
-    SightInteractor.instance.getSightsFromFilter(sightFilter).then((sights) {
+    context.read<SightInteractor>().getSightsFromFilter(sightFilter).then((sights) {
       setState(() {
         filteredSights = sights;
       });

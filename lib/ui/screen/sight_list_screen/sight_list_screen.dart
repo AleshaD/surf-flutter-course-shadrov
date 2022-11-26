@@ -12,6 +12,7 @@ import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/interactor/sight_interactor.dart';
 import '../../../data/model/exceptions/network_exceptions.dart';
@@ -43,7 +44,7 @@ class SightListScreenState extends State<SightListScreen> {
   @override
   void initState() {
     super.initState();
-    _networkErrorSubscription = SightInteractor.instance.exceptionStream.stream.listen(
+    _networkErrorSubscription = context.read<SightInteractor>().exceptionStream.stream.listen(
       _handleNetworkException,
     );
   }
