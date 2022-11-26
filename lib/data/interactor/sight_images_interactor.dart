@@ -5,10 +5,6 @@ import 'package:places/data/repository/sight_images_repository.dart';
 class SightImagesInteractor {
   SightImagesInteractor(this.repository);
 
-  static SightImagesInteractor instance = SightImagesInteractor(
-    SightImagesRepository.instance,
-  );
-
   final SightImagesRepository repository;
 
   Future<Image> getImageFrom({

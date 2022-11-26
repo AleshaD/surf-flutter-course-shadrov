@@ -4,6 +4,7 @@ import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
+import 'package:provider/provider.dart';
 
 class SightCardBase extends StatelessWidget {
   const SightCardBase(this.sight, {Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class SightCardBase extends StatelessWidget {
                       ),
                       child: sight.urls.isNotEmpty
                           ? NetworkImageWithProgress(sight.urls.first)
-                          : SightImagesInteractor.instance.noImage(),
+                          : Provider.of<SightImagesInteractor>(context, listen: false).noImage(),
                     ),
                   ),
                   Align(
