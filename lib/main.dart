@@ -53,6 +53,7 @@ class AppState extends State<App> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<SightRepository>(create: (context) => _sightRepo),
         Provider<SightInteractor>(create: (_) => SightInteractor(_sightRepo)),
         Provider<SearchInteractor>(create: (_) => SearchInteractor(_sightRepo)),
         Provider<SightImagesInteractor>(
