@@ -4,11 +4,6 @@ import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
 import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
 import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
-import 'package:provider/provider.dart';
-
-import '../../../data/interactor/sight_interactor.dart';
-import '../../../data/model/sights/sight.dart';
-import '../../../data/model/sights/sight_filter.dart';
 
 enum HomeScreenTypes {
   mainSightList,
