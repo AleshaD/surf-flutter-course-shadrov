@@ -61,7 +61,7 @@ mixin _$SightListScreenStore on SightListScreenStoreBase, Store {
       AsyncAction('SightListScreenStoreBase.loadSights', context: context);
 
   @override
-  Future loadSights() {
+  Future<void> loadSights() {
     return _$loadSightsAsyncAction.run(() => super.loadSights());
   }
 

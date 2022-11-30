@@ -29,7 +29,7 @@ abstract class SightListScreenStoreBase with Store {
   NetworkExceptions? networkError;
 
   @action
-  void loadSights() async {
+  Future<void> loadSights() async {
     isLoading = true;
     networkError = null;
     try {
