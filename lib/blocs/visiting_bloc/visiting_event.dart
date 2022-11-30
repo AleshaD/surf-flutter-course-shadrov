@@ -21,6 +21,6 @@ class VisitingEvent with _$VisitingEvent {
       {required int fromIndex, required int toIndex}) = _ChangeWantToVisitCardsSequences;
 
   /// Добавить/изменить время к тому месту которое хочешь посетить
-  const factory VisitingEvent.addWantToVisitTime({required int sightId, required DateTime date}) =
+  const factory VisitingEvent.addWantToVisitTime({required Sight sight, required DateTime date}) =
       _AddWantToVisitTime;
 }

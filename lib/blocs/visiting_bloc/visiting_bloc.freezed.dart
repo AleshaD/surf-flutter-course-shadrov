@@ -25,7 +25,7 @@ mixin _$VisitingEvent {
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
-    required TResult Function(int sightId, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,7 +36,7 @@ mixin _$VisitingEvent {
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult? Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,7 +47,7 @@ mixin _$VisitingEvent {
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -182,7 +182,7 @@ class _$_LoadSights implements _LoadSights {
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
-    required TResult Function(int sightId, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
     return loadSights(hideLoading);
   }
@@ -196,7 +196,7 @@ class _$_LoadSights implements _LoadSights {
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult? Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
     return loadSights?.call(hideLoading);
   }
@@ -210,7 +210,7 @@ class _$_LoadSights implements _LoadSights {
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     required TResult orElse(),
   }) {
     if (loadSights != null) {
@@ -351,7 +351,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
-    required TResult Function(int sightId, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
     return deleteFromVisited(sightId);
   }
@@ -365,7 +365,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult? Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
     return deleteFromVisited?.call(sightId);
   }
@@ -379,7 +379,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     required TResult orElse(),
   }) {
     if (deleteFromVisited != null) {
@@ -521,7 +521,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
-    required TResult Function(int sightId, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
     return deleteFromWantToVisit(sightId);
   }
@@ -535,7 +535,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult? Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
     return deleteFromWantToVisit?.call(sightId);
   }
@@ -549,7 +549,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     required TResult orElse(),
   }) {
     if (deleteFromWantToVisit != null) {
@@ -703,7 +703,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
-    required TResult Function(int sightId, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
     return changeVisitedCardsSequences(fromIndex, toIndex);
   }
@@ -717,7 +717,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult? Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
     return changeVisitedCardsSequences?.call(fromIndex, toIndex);
   }
@@ -731,7 +731,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     required TResult orElse(),
   }) {
     if (changeVisitedCardsSequences != null) {
@@ -890,7 +890,7 @@ class _$_ChangeWantToVisitCardsSequences
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
-    required TResult Function(int sightId, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
     return changeWantToVisitCardsSequences(fromIndex, toIndex);
   }
@@ -904,7 +904,7 @@ class _$_ChangeWantToVisitCardsSequences
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult? Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
     return changeWantToVisitCardsSequences?.call(fromIndex, toIndex);
   }
@@ -918,7 +918,7 @@ class _$_ChangeWantToVisitCardsSequences
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     required TResult orElse(),
   }) {
     if (changeWantToVisitCardsSequences != null) {
@@ -997,7 +997,7 @@ abstract class _$$_AddWantToVisitTimeCopyWith<$Res> {
           $Res Function(_$_AddWantToVisitTime) then) =
       __$$_AddWantToVisitTimeCopyWithImpl<$Res>;
   @useResult
-  $Res call({int sightId, DateTime date});
+  $Res call({Sight sight, DateTime date});
 }
 
 /// @nodoc
@@ -1011,14 +1011,14 @@ class __$$_AddWantToVisitTimeCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sightId = null,
+    Object? sight = null,
     Object? date = null,
   }) {
     return _then(_$_AddWantToVisitTime(
-      sightId: null == sightId
-          ? _value.sightId
-          : sightId // ignore: cast_nullable_to_non_nullable
-              as int,
+      sight: null == sight
+          ? _value.sight
+          : sight // ignore: cast_nullable_to_non_nullable
+              as Sight,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -1030,16 +1030,16 @@ class __$$_AddWantToVisitTimeCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AddWantToVisitTime implements _AddWantToVisitTime {
-  const _$_AddWantToVisitTime({required this.sightId, required this.date});
+  const _$_AddWantToVisitTime({required this.sight, required this.date});
 
   @override
-  final int sightId;
+  final Sight sight;
   @override
   final DateTime date;
 
   @override
   String toString() {
-    return 'VisitingEvent.addWantToVisitTime(sightId: $sightId, date: $date)';
+    return 'VisitingEvent.addWantToVisitTime(sight: $sight, date: $date)';
   }
 
   @override
@@ -1047,12 +1047,12 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddWantToVisitTime &&
-            (identical(other.sightId, sightId) || other.sightId == sightId) &&
+            (identical(other.sight, sight) || other.sight == sight) &&
             (identical(other.date, date) || other.date == date));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sightId, date);
+  int get hashCode => Object.hash(runtimeType, sight, date);
 
   @JsonKey(ignore: true)
   @override
@@ -1071,9 +1071,9 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
-    required TResult Function(int sightId, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
-    return addWantToVisitTime(sightId, date);
+    return addWantToVisitTime(sight, date);
   }
 
   @override
@@ -1085,9 +1085,9 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult? Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
-    return addWantToVisitTime?.call(sightId, date);
+    return addWantToVisitTime?.call(sight, date);
   }
 
   @override
@@ -1099,11 +1099,11 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
-    TResult Function(int sightId, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     required TResult orElse(),
   }) {
     if (addWantToVisitTime != null) {
-      return addWantToVisitTime(sightId, date);
+      return addWantToVisitTime(sight, date);
     }
     return orElse();
   }
@@ -1161,10 +1161,10 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
 
 abstract class _AddWantToVisitTime implements VisitingEvent {
   const factory _AddWantToVisitTime(
-      {required final int sightId,
+      {required final Sight sight,
       required final DateTime date}) = _$_AddWantToVisitTime;
 
-  int get sightId;
+  Sight get sight;
   DateTime get date;
   @JsonKey(ignore: true)
   _$$_AddWantToVisitTimeCopyWith<_$_AddWantToVisitTime> get copyWith =>
@@ -1176,11 +1176,11 @@ mixin _$VisitingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadingState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsReadyState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsUpdatesState,
     required TResult Function(Exception? error, String message) errorState,
   }) =>
@@ -1188,9 +1188,11 @@ mixin _$VisitingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadingState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult? Function(Exception? error, String message)? errorState,
   }) =>
@@ -1198,9 +1200,11 @@ mixin _$VisitingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadingState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult Function(Exception? error, String message)? errorState,
     required TResult orElse(),
@@ -1290,11 +1294,11 @@ class _$_LoadingState extends _LoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadingState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsReadyState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsUpdatesState,
     required TResult Function(Exception? error, String message) errorState,
   }) {
@@ -1305,9 +1309,11 @@ class _$_LoadingState extends _LoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadingState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult? Function(Exception? error, String message)? errorState,
   }) {
@@ -1318,9 +1324,11 @@ class _$_LoadingState extends _LoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadingState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult Function(Exception? error, String message)? errorState,
     required TResult orElse(),
@@ -1380,7 +1388,9 @@ abstract class _$$_SightsReadyStateCopyWith<$Res> {
           _$_SightsReadyState value, $Res Function(_$_SightsReadyState) then) =
       __$$_SightsReadyStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Sight> wantToVisitSights, List<Sight> visitedSights});
+  $Res call(
+      {List<SightWantToVisit> wantToVisitSights,
+      List<SightWantToVisit> visitedSights});
 }
 
 /// @nodoc
@@ -1401,11 +1411,11 @@ class __$$_SightsReadyStateCopyWithImpl<$Res>
       wantToVisitSights: null == wantToVisitSights
           ? _value._wantToVisitSights
           : wantToVisitSights // ignore: cast_nullable_to_non_nullable
-              as List<Sight>,
+              as List<SightWantToVisit>,
       visitedSights: null == visitedSights
           ? _value._visitedSights
           : visitedSights // ignore: cast_nullable_to_non_nullable
-              as List<Sight>,
+              as List<SightWantToVisit>,
     ));
   }
 }
@@ -1414,24 +1424,24 @@ class __$$_SightsReadyStateCopyWithImpl<$Res>
 
 class _$_SightsReadyState extends _SightsReadyState {
   const _$_SightsReadyState(
-      {required final List<Sight> wantToVisitSights,
-      required final List<Sight> visitedSights})
+      {required final List<SightWantToVisit> wantToVisitSights,
+      required final List<SightWantToVisit> visitedSights})
       : _wantToVisitSights = wantToVisitSights,
         _visitedSights = visitedSights,
         super._();
 
-  final List<Sight> _wantToVisitSights;
+  final List<SightWantToVisit> _wantToVisitSights;
   @override
-  List<Sight> get wantToVisitSights {
+  List<SightWantToVisit> get wantToVisitSights {
     if (_wantToVisitSights is EqualUnmodifiableListView)
       return _wantToVisitSights;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_wantToVisitSights);
   }
 
-  final List<Sight> _visitedSights;
+  final List<SightWantToVisit> _visitedSights;
   @override
-  List<Sight> get visitedSights {
+  List<SightWantToVisit> get visitedSights {
     if (_visitedSights is EqualUnmodifiableListView) return _visitedSights;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_visitedSights);
@@ -1469,11 +1479,11 @@ class _$_SightsReadyState extends _SightsReadyState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadingState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsReadyState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsUpdatesState,
     required TResult Function(Exception? error, String message) errorState,
   }) {
@@ -1484,9 +1494,11 @@ class _$_SightsReadyState extends _SightsReadyState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadingState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult? Function(Exception? error, String message)? errorState,
   }) {
@@ -1497,9 +1509,11 @@ class _$_SightsReadyState extends _SightsReadyState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadingState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult Function(Exception? error, String message)? errorState,
     required TResult orElse(),
@@ -1550,12 +1564,13 @@ class _$_SightsReadyState extends _SightsReadyState {
 
 abstract class _SightsReadyState extends VisitingState {
   const factory _SightsReadyState(
-      {required final List<Sight> wantToVisitSights,
-      required final List<Sight> visitedSights}) = _$_SightsReadyState;
+          {required final List<SightWantToVisit> wantToVisitSights,
+          required final List<SightWantToVisit> visitedSights}) =
+      _$_SightsReadyState;
   const _SightsReadyState._() : super._();
 
-  List<Sight> get wantToVisitSights;
-  List<Sight> get visitedSights;
+  List<SightWantToVisit> get wantToVisitSights;
+  List<SightWantToVisit> get visitedSights;
   @JsonKey(ignore: true)
   _$$_SightsReadyStateCopyWith<_$_SightsReadyState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1567,7 +1582,9 @@ abstract class _$$_LoadinStateCopyWith<$Res> {
           _$_LoadinState value, $Res Function(_$_LoadinState) then) =
       __$$_LoadinStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Sight> wantToVisitSights, List<Sight> visitedSights});
+  $Res call(
+      {List<SightWantToVisit> wantToVisitSights,
+      List<SightWantToVisit> visitedSights});
 }
 
 /// @nodoc
@@ -1588,11 +1605,11 @@ class __$$_LoadinStateCopyWithImpl<$Res>
       wantToVisitSights: null == wantToVisitSights
           ? _value._wantToVisitSights
           : wantToVisitSights // ignore: cast_nullable_to_non_nullable
-              as List<Sight>,
+              as List<SightWantToVisit>,
       visitedSights: null == visitedSights
           ? _value._visitedSights
           : visitedSights // ignore: cast_nullable_to_non_nullable
-              as List<Sight>,
+              as List<SightWantToVisit>,
     ));
   }
 }
@@ -1601,24 +1618,24 @@ class __$$_LoadinStateCopyWithImpl<$Res>
 
 class _$_LoadinState extends _LoadinState {
   const _$_LoadinState(
-      {required final List<Sight> wantToVisitSights,
-      required final List<Sight> visitedSights})
+      {required final List<SightWantToVisit> wantToVisitSights,
+      required final List<SightWantToVisit> visitedSights})
       : _wantToVisitSights = wantToVisitSights,
         _visitedSights = visitedSights,
         super._();
 
-  final List<Sight> _wantToVisitSights;
+  final List<SightWantToVisit> _wantToVisitSights;
   @override
-  List<Sight> get wantToVisitSights {
+  List<SightWantToVisit> get wantToVisitSights {
     if (_wantToVisitSights is EqualUnmodifiableListView)
       return _wantToVisitSights;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_wantToVisitSights);
   }
 
-  final List<Sight> _visitedSights;
+  final List<SightWantToVisit> _visitedSights;
   @override
-  List<Sight> get visitedSights {
+  List<SightWantToVisit> get visitedSights {
     if (_visitedSights is EqualUnmodifiableListView) return _visitedSights;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_visitedSights);
@@ -1656,11 +1673,11 @@ class _$_LoadinState extends _LoadinState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadingState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsReadyState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsUpdatesState,
     required TResult Function(Exception? error, String message) errorState,
   }) {
@@ -1671,9 +1688,11 @@ class _$_LoadinState extends _LoadinState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadingState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult? Function(Exception? error, String message)? errorState,
   }) {
@@ -1684,9 +1703,11 @@ class _$_LoadinState extends _LoadinState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadingState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult Function(Exception? error, String message)? errorState,
     required TResult orElse(),
@@ -1737,12 +1758,12 @@ class _$_LoadinState extends _LoadinState {
 
 abstract class _LoadinState extends VisitingState {
   const factory _LoadinState(
-      {required final List<Sight> wantToVisitSights,
-      required final List<Sight> visitedSights}) = _$_LoadinState;
+      {required final List<SightWantToVisit> wantToVisitSights,
+      required final List<SightWantToVisit> visitedSights}) = _$_LoadinState;
   const _LoadinState._() : super._();
 
-  List<Sight> get wantToVisitSights;
-  List<Sight> get visitedSights;
+  List<SightWantToVisit> get wantToVisitSights;
+  List<SightWantToVisit> get visitedSights;
   @JsonKey(ignore: true)
   _$$_LoadinStateCopyWith<_$_LoadinState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1824,11 +1845,11 @@ class _$_ErrorState extends _ErrorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadingState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsReadyState,
-    required TResult Function(
-            List<Sight> wantToVisitSights, List<Sight> visitedSights)
+    required TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)
         sightsUpdatesState,
     required TResult Function(Exception? error, String message) errorState,
   }) {
@@ -1839,9 +1860,11 @@ class _$_ErrorState extends _ErrorState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadingState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult? Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult? Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult? Function(Exception? error, String message)? errorState,
   }) {
@@ -1852,9 +1875,11 @@ class _$_ErrorState extends _ErrorState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadingState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsReadyState,
-    TResult Function(List<Sight> wantToVisitSights, List<Sight> visitedSights)?
+    TResult Function(List<SightWantToVisit> wantToVisitSights,
+            List<SightWantToVisit> visitedSights)?
         sightsUpdatesState,
     TResult Function(Exception? error, String message)? errorState,
     required TResult orElse(),

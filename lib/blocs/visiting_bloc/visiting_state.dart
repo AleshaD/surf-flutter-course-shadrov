@@ -11,18 +11,23 @@ class VisitingState with _$VisitingState {
         errorState: (_, __) => false,
       );
 
-  List<Sight> get visitedSights => when<List<Sight>>(
+  List<SightWantToVisit> get visitedSights => when<List<SightWantToVisit>>(
         loadingState: () => [],
         sightsReadyState: (_, sights) => sights,
         sightsUpdatesState: (_, sights) => sights,
         errorState: (_, __) => [],
       );
 
-  List<Sight> get wantToVisitSights => when<List<Sight>>(
+  List<SightWantToVisit> get wantToVisitSights => when<List<SightWantToVisit>>(
         loadingState: () => [],
         sightsReadyState: (sights, _) => sights,
         sightsUpdatesState: (sights, _) => sights,
         errorState: (_, __) => [],
+      );
+
+  bool get isSmallUpdateInProgress => maybeWhen<bool>(
+        sightsUpdatesState: (_, __) => true,
+        orElse: () => false,
       );
 
   /// Загрузка мест
@@ -30,14 +35,14 @@ class VisitingState with _$VisitingState {
 
   /// Места загружены и готовы к показу
   const factory VisitingState.sightsReadyState({
-    required List<Sight> wantToVisitSights,
-    required List<Sight> visitedSights,
+    required List<SightWantToVisit> wantToVisitSights,
+    required List<SightWantToVisit> visitedSights,
   }) = _SightsReadyState;
 
   /// Идёт обновление мест
   const factory VisitingState.sightsUpdatesState({
-    required List<Sight> wantToVisitSights,
-    required List<Sight> visitedSights,
+    required List<SightWantToVisit> wantToVisitSights,
+    required List<SightWantToVisit> visitedSights,
   }) = _LoadinState;
 
   /// Ошибка
