@@ -57,18 +57,12 @@ mixin _$SightListScreenStore on SightListScreenStoreBase, Store {
     });
   }
 
-  late final _$SightListScreenStoreBaseActionController =
-      ActionController(name: 'SightListScreenStoreBase', context: context);
+  late final _$loadSightsAsyncAction =
+      AsyncAction('SightListScreenStoreBase.loadSights', context: context);
 
   @override
-  void loadSights() {
-    final _$actionInfo = _$SightListScreenStoreBaseActionController.startAction(
-        name: 'SightListScreenStoreBase.loadSights');
-    try {
-      return super.loadSights();
-    } finally {
-      _$SightListScreenStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future loadSights() {
+    return _$loadSightsAsyncAction.run(() => super.loadSights());
   }
 
   @override
