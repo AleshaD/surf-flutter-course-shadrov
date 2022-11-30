@@ -126,10 +126,10 @@ class SightInteractor with LocationService {
     _loadSightsToListByIds(_visitedSights, _visitedSightsIds);
   }
 
-  void _loadSightsToListByIds(List<Sight> list, List<int> ids) {
+  void _loadSightsToListByIds(List<SightWantToVisit> list, List<int> ids) {
     ids.forEach((id) async {
       final sight = await _doRepoRequestWithHandleErrors(_repository.getSight(id));
-      if (sight != null) list.add(sight);
+      if (sight != null) list.add(SightWantToVisit.fromSight(sight: sight));
     });
   }
 
