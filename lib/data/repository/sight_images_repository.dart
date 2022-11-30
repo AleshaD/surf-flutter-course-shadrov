@@ -6,17 +6,27 @@ import 'package:path_provider/path_provider.dart';
 class SightImagesRepository {
   SightImagesRepository(this._dio);
 
+  SightImagesRepository.withDefaultDio()
+      : this._dio = Dio(
+          BaseOptions(
+            connectTimeout: _dioTimeout,
+            receiveTimeout: _dioTimeout,
+            sendTimeout: _dioTimeout,
+          ),
+        );
+
   static SightImagesRepository instance = SightImagesRepository(
     Dio(
       BaseOptions(
-        connectTimeout: 3000,
-        receiveTimeout: 3000,
-        sendTimeout: 3000,
+        connectTimeout: _dioTimeout,
+        receiveTimeout: _dioTimeout,
+        sendTimeout: _dioTimeout,
       ),
     ),
   );
 
   final Dio _dio;
+  static final _dioTimeout = 3000;
   final Map<String, File> _repositoryFileCach = {};
 
   Future<File?> getImage(String url) async {

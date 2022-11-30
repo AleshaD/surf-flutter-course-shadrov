@@ -16,6 +16,7 @@ import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
 import 'package:places/ui/screen/add_sight_screen/choose_category_screen.dart';
 import 'package:places/ui/screen/add_sight_screen/coordinate_text_field.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
+import 'package:provider/provider.dart';
 
 class AddSightScreen extends StatefulWidget {
   const AddSightScreen({Key? key}) : super(key: key);
@@ -340,17 +341,17 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   isActive: _createBtnIsActive,
                   onPressed: () async {
                     _formKey.currentState!.validate();
-                    final addedSight = await SightInteractor.instance.addNewSight(
-                      Sight(
-                        id: 1013,
-                        name: nameController.text,
-                        lat: double.parse(latitudeController.text),
-                        lng: double.parse(longitudeController.text),
-                        urls: [],
-                        description: descriptionController.text,
-                        sightType: chosenCategory!,
-                      ),
-                    );
+                    final addedSight = await context.read<SightInteractor>().addNewSight(
+                          Sight(
+                            id: 1013,
+                            name: nameController.text,
+                            lat: double.parse(latitudeController.text),
+                            lng: double.parse(longitudeController.text),
+                            urls: [],
+                            description: descriptionController.text,
+                            sightType: chosenCategory!,
+                          ),
+                        );
                     var dialogTitle = '';
                     addedSight != null
                         ? dialogTitle = AppStrings.placeIsSaved

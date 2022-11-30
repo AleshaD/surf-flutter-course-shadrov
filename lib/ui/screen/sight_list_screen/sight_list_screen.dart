@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
@@ -13,6 +12,7 @@ import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/interactor/sight_interactor.dart';
 import '../../../data/model/exceptions/network_exceptions.dart';
@@ -44,7 +44,7 @@ class SightListScreenState extends State<SightListScreen> {
   @override
   void initState() {
     super.initState();
-    _networkErrorSubscription = SightInteractor.instance.exceptionStream.stream.listen(
+    _networkErrorSubscription = context.read<SightInteractor>().exceptionStream.stream.listen(
       _handleNetworkException,
     );
   }
@@ -110,9 +110,7 @@ class SightListScreenState extends State<SightListScreen> {
                             showFilterBtn: true,
                             onFieldTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => SightSearchScreen(
-                                  searchInteractor: SearchInteractor.instance,
-                                ),
+                                builder: (context) => SightSearchScreen(),
                               ),
                             ),
                           ),

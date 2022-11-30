@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
+import 'package:provider/provider.dart';
 
 class NetworkImageWithProgress extends StatefulWidget {
   ///Create Image.network and show CircularProgressIndicator while loading
@@ -15,11 +16,12 @@ class NetworkImageWithProgress extends StatefulWidget {
 class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
   @override
   Widget build(BuildContext context) {
-    final Image? imageWidget = SightImagesInteractor.instance.getImageSync(url: widget.url);
+    final Image? imageWidget =
+        context.read<SightImagesInteractor>().getImageSync(url: widget.url);
 
     return imageWidget ??
         FutureBuilder(
-          future: SightImagesInteractor.instance.getImageFrom(url: widget.url),
+          future: context.read<SightImagesInteractor>().getImageFrom(url: widget.url),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(

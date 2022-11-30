@@ -5,6 +5,7 @@ import 'package:places/data/model/sights/sight.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
 import 'package:places/ui/screen/visiting_screen/visited_page.dart';
 import 'package:places/ui/screen/visiting_screen/want_to_visit_page.dart';
+import 'package:provider/provider.dart';
 
 class VisitingScreen extends StatefulWidget {
   const VisitingScreen();
@@ -16,19 +17,19 @@ class VisitingScreen extends StatefulWidget {
 class VisitingScreenState extends State<VisitingScreen> {
   void removeFromWantToVisitList(Sight sight) {
     setState(() {
-      SightInteractor.instance.removeFromFavorites(sight);
+      context.read<SightInteractor>().removeFromFavorites(sight);
     });
   }
 
   void changeWantToVisitCardsSequences(int fromIndex, int toIndex) {
     setState(() {
-      _changeCardSequences(SightInteractor.instance.getFavoriteSights(), fromIndex, toIndex);
+      _changeCardSequences(context.read<SightInteractor>().getFavoriteSights(), fromIndex, toIndex);
     });
   }
 
   void changeVisitedCardsSequences(int fromIndex, int toIndex) {
     setState(() {
-      _changeCardSequences(SightInteractor.instance.getVisitedSights(), fromIndex, toIndex);
+      _changeCardSequences(context.read<SightInteractor>().getVisitedSights(), fromIndex, toIndex);
     });
   }
 
@@ -43,7 +44,7 @@ class VisitingScreenState extends State<VisitingScreen> {
 
   void removeFromVisitedList(Sight sight) {
     setState(() {
-      SightInteractor.instance.removeFromVisited(sight);
+      context.read<SightInteractor>().removeFromVisited(sight);
     });
   }
 
@@ -77,10 +78,10 @@ class VisitingScreenState extends State<VisitingScreen> {
           child: TabBarView(
             children: [
               WantToVisitPage(
-                SightInteractor.instance.getFavoriteSights(),
+                context.read<SightInteractor>().getFavoriteSights(),
               ),
               VisitedPage(
-                SightInteractor.instance.getVisitedSights(),
+                context.read<SightInteractor>().getVisitedSights(),
               ),
             ],
           ),

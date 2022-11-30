@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/interactor/sight_interactor.dart';
 import '../../../data/model/sights/sight.dart';
@@ -24,7 +25,7 @@ class SightHeartIconBtn extends StatefulWidget {
 class _SightHeartIconBtnState extends State<SightHeartIconBtn> {
   @override
   Widget build(BuildContext context) {
-    bool alreadyInFavorite = SightInteractor.instance.isSightInFavorite(widget.sight);
+    bool alreadyInFavorite = context.read<SightInteractor>().isSightInFavorite(widget.sight);
 
     return SightCardIconButton(
       icon: alreadyInFavorite ? CustomIcons.menu_heart_full : CustomIcons.menu_heart,
@@ -33,9 +34,9 @@ class _SightHeartIconBtnState extends State<SightHeartIconBtn> {
       onPressed: (context) {
         setState(() {
           if (!alreadyInFavorite)
-            SightInteractor.instance.addToFavorite(widget.sight);
+            context.read<SightInteractor>().addToFavorite(widget.sight);
           else
-            SightInteractor.instance.removeFromFavorites(widget.sight);
+            context.read<SightInteractor>().removeFromFavorites(widget.sight);
         });
       },
     );

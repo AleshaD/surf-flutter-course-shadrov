@@ -7,6 +7,7 @@ import 'package:places/ui/screen/sight_details_screen/sight_details_header_deleg
 import 'package:places/ui/widgets/icon_text_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/photo_page_view/photo_page_view.dart';
+import 'package:provider/provider.dart';
 
 class SightDetailsScreen extends StatelessWidget {
   SightDetailsScreen(
@@ -81,7 +82,10 @@ class SightDetailsScreen extends StatelessWidget {
                           height: SightDetailsHeaderDelegate.maxHeight,
                           topCornerRadius: topCornersRadius,
                         )
-                      : Center(child: SightImagesInteractor.instance.noImage()),
+                      : Center(
+                          child:
+                              Provider.of<SightImagesInteractor>(context, listen: false).noImage(),
+                        ),
                   Align(
                     alignment: Alignment.topRight,
                     child: Container(

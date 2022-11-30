@@ -4,6 +4,7 @@ import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
 import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
 import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/interactor/sight_interactor.dart';
 import '../../../data/model/sights/sight.dart';
@@ -46,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadSights() async {
-    final sights = await SightInteractor.instance.getSightsFromFilter(SightFilter.dafult());
+    final sights = await context.read<SightInteractor>().getSightsFromFilter(SightFilter.dafult());
     if (currentScreenType == HomeScreenTypes.mainSightList)
       setState(() {
         _loadedSights = sights;
