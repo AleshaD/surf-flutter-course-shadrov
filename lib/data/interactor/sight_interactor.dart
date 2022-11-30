@@ -24,8 +24,8 @@ class SightInteractor with LocationService {
   final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
   final List<int> _favoriteSightsIds = [127, 139, 330, 329, 352, 390, 129, 132];
   final List<int> _visitedSightsIds = [127, 139, 330, 329];
-  final List<Sight> _favoriteSights = [];
-  final List<Sight> _visitedSights = [];
+  final List<SightWantToVisit> _favoriteSights = [];
+  final List<SightWantToVisit> _visitedSights = [];
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
 
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
@@ -62,12 +62,34 @@ class SightInteractor with LocationService {
     return sights.map((s) => SightWantToVisit.fromSight(sight: s)).toList();
   }
 
-  bool addToFavorite(Sight sight) {
-    return _addToCashList(_favoriteSights, sight);
+  bool addToFavorite(Sight sight, [DateTime? date]) {
+    return _addToCashList(
+      _favoriteSights,
+      SightWantToVisit.fromSight(
+        sight: sight,
+        wantToVisitTime: date,
+      ),
+    );
   }
 
   bool isSightInFavorite(Sight sight) {
     return _isSightInCashList(_favoriteSights, sight);
+  }
+
+  List<SightWantToVisit> addWantToVisitSightWithDate(Sight sight, DateTime date) {
+    if (isSightInFavorite(sight)) {
+      return _favoriteSights
+          .map((s) => s.id == sight.id
+              ? SightWantToVisit.fromSight(
+                  sight: sight,
+                  wantToVisitTime: date,
+                )
+              : s)
+          .toList();
+    } else {
+      addToFavorite(sight, date);
+      return _favoriteSights;
+    }
   }
 
   bool removeFromFavorites(Sight sight) {
