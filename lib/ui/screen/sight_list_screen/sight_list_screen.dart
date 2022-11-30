@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
-import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_landscape_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_portrate_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_search_bar_delegate.dart';
@@ -17,14 +18,12 @@ import 'package:provider/provider.dart';
 import '../../../data/interactor/sight_interactor.dart';
 import '../../../data/model/exceptions/network_exceptions.dart';
 import '../../../data/model/sights/sight.dart';
+import '../../../store/sight_list/sight_list_screen_store.dart';
 
 class SightListScreen extends StatefulWidget {
   SightListScreen({
     Key? key,
-    required this.sights,
   }) : super(key: key);
-
-  final List<Sight> sights;
 
   @override
   SightListScreenState createState() => SightListScreenState();
@@ -41,12 +40,17 @@ class SightListScreenState extends State<SightListScreen> {
   String msgErrorForUser = '';
   bool get hasNetworkError => msgErrorForUser.isNotEmpty;
 
+  late final SightListScreenStore _store;
+
   @override
   void initState() {
     super.initState();
     _networkErrorSubscription = context.read<SightInteractor>().exceptionStream.stream.listen(
-      _handleNetworkException,
-    );
+          _handleNetworkException,
+        );
+    final sightRepo = context.read<SightRepository>();
+    _store = SightListScreenStore(sightRepo);
+    _store.loadSights();
   }
 
   @override
@@ -63,98 +67,100 @@ class SightListScreenState extends State<SightListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = widget.sights.isEmpty;
-    final showNewPlaceBtn = widget.sights.isNotEmpty;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: hasNetworkError
-            ? NetworkErrorPage(
-                onReloadPressed: () {
-                  HomeScreen.of(context)!.reloadSights();
-                  setState(() {
-                    msgErrorForUser = '';
-                  });
-                },
-                msgForUser: msgErrorForUser,
-              )
-            : Stack(
-                children: [
-                  if (isLoading)
-                    Align(
-                      alignment: Alignment.center,
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).colorScheme.onBackground,
-                      ),
-                    ),
-                  CustomScrollView(
-                    slivers: [
-                      SliverAppBar(
-                        expandedHeight: 134,
-                        collapsedHeight: 56,
-                        centerTitle: true,
-                        pinned: true,
-                        flexibleSpace: FlexibleSpaceBar(
-                          title: Text(
-                            AppStrings.sightListScrAppBar,
-                            style: Theme.of(context).textTheme.headline5,
+      body: Observer(
+        builder: (context) {
+          final NetworkExceptions? error = _store.networkError;
+          final bool isLoading = _store.isLoading;
+          final List<Sight> sights = _store.sights;
+          final bool showNewPlaceBtn = sights.isNotEmpty;
+          return SafeArea(
+            child: error != null
+                ? NetworkErrorPage(
+                    onReloadPressed: () {
+                      _store.loadSights();
+                    },
+                    msgForUser: error.msgForUser,
+                  )
+                : Stack(
+                    children: [
+                      if (isLoading)
+                        Align(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
-                          titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         ),
-                      ),
-                      SliverPersistentHeader(
-                        delegate: SightListSearchBarDelegate(
-                          child: SearchBar(
-                            readOnly: true,
-                            showFilterBtn: true,
-                            onFieldTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => SightSearchScreen(),
+                      CustomScrollView(
+                        slivers: [
+                          SliverAppBar(
+                            expandedHeight: 134,
+                            collapsedHeight: 56,
+                            centerTitle: true,
+                            pinned: true,
+                            flexibleSpace: FlexibleSpaceBar(
+                              title: Text(
+                                AppStrings.sightListScrAppBar,
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                              titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            ),
+                          ),
+                          SliverPersistentHeader(
+                            delegate: SightListSearchBarDelegate(
+                              child: SearchBar(
+                                readOnly: true,
+                                showFilterBtn: true,
+                                onFieldTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => SightSearchScreen(),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          MediaQuery.of(context).orientation == Orientation.portrait
+                              ? SightListPortrateOrientation(sights)
+                              : SightListLandscapeOrientation(sights)
+                        ],
                       ),
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? SightListPortrateOrientation(widget.sights)
-                          : SightListLandscapeOrientation(widget.sights)
+                      if (showNewPlaceBtn)
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: RoundedGradientButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .push(
+                                      MaterialPageRoute(
+                                        builder: (context) => AddSightScreen(),
+                                      ),
+                                    )
+                                    .then((value) => setState(() {}));
+                              },
+                              titleWidgets: [
+                                Icon(
+                                  CustomIcons.plus,
+                                  size: 16,
+                                  color: Theme.of(context).textTheme.button!.color,
+                                ),
+                                SizedBox(
+                                  width: 14,
+                                ),
+                                Text(
+                                  AppStrings.newPlace.toUpperCase(),
+                                  style: Theme.of(context).textTheme.button,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                     ],
                   ),
-                  if (showNewPlaceBtn)
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: RoundedGradientButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .push(
-                                  MaterialPageRoute(
-                                    builder: (context) => AddSightScreen(),
-                                  ),
-                                )
-                                .then((value) => setState(() {}));
-                          },
-                          titleWidgets: [
-                            Icon(
-                              CustomIcons.plus,
-                              size: 16,
-                              color: Theme.of(context).textTheme.button!.color,
-                            ),
-                            SizedBox(
-                              width: 14,
-                            ),
-                            Text(
-                              AppStrings.newPlace.toUpperCase(),
-                              style: Theme.of(context).textTheme.button,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+          );
+        },
       ),
     );
   }
