@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
 import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
 import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
+
+import '../../../data/interactor/sight_interactor.dart';
 
 enum HomeScreenTypes {
   mainSightList,
@@ -56,11 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
       default:
     }
 
-    return Scaffold(
-      bottomNavigationBar: AppBottomNavigationBar(
-        currentPage: currentScreenType,
+    return BlocProvider(
+      lazy: false,
+      create: (context) => VisitingBloc(
+        sightRepository: context.read<SightInteractor>(),
+      )..add(VisitingEvent.loadSights()),
+      child: Scaffold(
+        bottomNavigationBar: AppBottomNavigationBar(
+          currentPage: currentScreenType,
+        ),
+        body: currentScreen,
       ),
-      body: currentScreen,
     );
   }
 }
