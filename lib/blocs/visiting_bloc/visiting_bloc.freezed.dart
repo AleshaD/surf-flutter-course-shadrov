@@ -1214,7 +1214,7 @@ mixin _$VisitingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_SightsReadyState value) sightsReadyState,
-    required TResult Function(_LoadinState value) sightsUpdatesState,
+    required TResult Function(_SightsUpdatesState value) sightsUpdatesState,
     required TResult Function(_ErrorState value) errorState,
   }) =>
       throw _privateConstructorUsedError;
@@ -1222,7 +1222,7 @@ mixin _$VisitingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_SightsReadyState value)? sightsReadyState,
-    TResult? Function(_LoadinState value)? sightsUpdatesState,
+    TResult? Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult? Function(_ErrorState value)? errorState,
   }) =>
       throw _privateConstructorUsedError;
@@ -1230,7 +1230,7 @@ mixin _$VisitingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_SightsReadyState value)? sightsReadyState,
-    TResult Function(_LoadinState value)? sightsUpdatesState,
+    TResult Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
   }) =>
@@ -1344,7 +1344,7 @@ class _$_LoadingState extends _LoadingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_SightsReadyState value) sightsReadyState,
-    required TResult Function(_LoadinState value) sightsUpdatesState,
+    required TResult Function(_SightsUpdatesState value) sightsUpdatesState,
     required TResult Function(_ErrorState value) errorState,
   }) {
     return loadingState(this);
@@ -1355,7 +1355,7 @@ class _$_LoadingState extends _LoadingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_SightsReadyState value)? sightsReadyState,
-    TResult? Function(_LoadinState value)? sightsUpdatesState,
+    TResult? Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
     return loadingState?.call(this);
@@ -1366,7 +1366,7 @@ class _$_LoadingState extends _LoadingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_SightsReadyState value)? sightsReadyState,
-    TResult Function(_LoadinState value)? sightsUpdatesState,
+    TResult Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
   }) {
@@ -1529,7 +1529,7 @@ class _$_SightsReadyState extends _SightsReadyState {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_SightsReadyState value) sightsReadyState,
-    required TResult Function(_LoadinState value) sightsUpdatesState,
+    required TResult Function(_SightsUpdatesState value) sightsUpdatesState,
     required TResult Function(_ErrorState value) errorState,
   }) {
     return sightsReadyState(this);
@@ -1540,7 +1540,7 @@ class _$_SightsReadyState extends _SightsReadyState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_SightsReadyState value)? sightsReadyState,
-    TResult? Function(_LoadinState value)? sightsUpdatesState,
+    TResult? Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
     return sightsReadyState?.call(this);
@@ -1551,7 +1551,7 @@ class _$_SightsReadyState extends _SightsReadyState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_SightsReadyState value)? sightsReadyState,
-    TResult Function(_LoadinState value)? sightsUpdatesState,
+    TResult Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
   }) {
@@ -1577,10 +1577,10 @@ abstract class _SightsReadyState extends VisitingState {
 }
 
 /// @nodoc
-abstract class _$$_LoadinStateCopyWith<$Res> {
-  factory _$$_LoadinStateCopyWith(
-          _$_LoadinState value, $Res Function(_$_LoadinState) then) =
-      __$$_LoadinStateCopyWithImpl<$Res>;
+abstract class _$$_SightsUpdatesStateCopyWith<$Res> {
+  factory _$$_SightsUpdatesStateCopyWith(_$_SightsUpdatesState value,
+          $Res Function(_$_SightsUpdatesState) then) =
+      __$$_SightsUpdatesStateCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {List<SightWantToVisit> wantToVisitSights,
@@ -1588,11 +1588,11 @@ abstract class _$$_LoadinStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadinStateCopyWithImpl<$Res>
-    extends _$VisitingStateCopyWithImpl<$Res, _$_LoadinState>
-    implements _$$_LoadinStateCopyWith<$Res> {
-  __$$_LoadinStateCopyWithImpl(
-      _$_LoadinState _value, $Res Function(_$_LoadinState) _then)
+class __$$_SightsUpdatesStateCopyWithImpl<$Res>
+    extends _$VisitingStateCopyWithImpl<$Res, _$_SightsUpdatesState>
+    implements _$$_SightsUpdatesStateCopyWith<$Res> {
+  __$$_SightsUpdatesStateCopyWithImpl(
+      _$_SightsUpdatesState _value, $Res Function(_$_SightsUpdatesState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1601,7 +1601,7 @@ class __$$_LoadinStateCopyWithImpl<$Res>
     Object? wantToVisitSights = null,
     Object? visitedSights = null,
   }) {
-    return _then(_$_LoadinState(
+    return _then(_$_SightsUpdatesState(
       wantToVisitSights: null == wantToVisitSights
           ? _value._wantToVisitSights
           : wantToVisitSights // ignore: cast_nullable_to_non_nullable
@@ -1616,8 +1616,8 @@ class __$$_LoadinStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadinState extends _LoadinState {
-  const _$_LoadinState(
+class _$_SightsUpdatesState extends _SightsUpdatesState {
+  const _$_SightsUpdatesState(
       {required final List<SightWantToVisit> wantToVisitSights,
       required final List<SightWantToVisit> visitedSights})
       : _wantToVisitSights = wantToVisitSights,
@@ -1650,7 +1650,7 @@ class _$_LoadinState extends _LoadinState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoadinState &&
+            other is _$_SightsUpdatesState &&
             const DeepCollectionEquality()
                 .equals(other._wantToVisitSights, _wantToVisitSights) &&
             const DeepCollectionEquality()
@@ -1666,8 +1666,9 @@ class _$_LoadinState extends _LoadinState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadinStateCopyWith<_$_LoadinState> get copyWith =>
-      __$$_LoadinStateCopyWithImpl<_$_LoadinState>(this, _$identity);
+  _$$_SightsUpdatesStateCopyWith<_$_SightsUpdatesState> get copyWith =>
+      __$$_SightsUpdatesStateCopyWithImpl<_$_SightsUpdatesState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1723,7 +1724,7 @@ class _$_LoadinState extends _LoadinState {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_SightsReadyState value) sightsReadyState,
-    required TResult Function(_LoadinState value) sightsUpdatesState,
+    required TResult Function(_SightsUpdatesState value) sightsUpdatesState,
     required TResult Function(_ErrorState value) errorState,
   }) {
     return sightsUpdatesState(this);
@@ -1734,7 +1735,7 @@ class _$_LoadinState extends _LoadinState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_SightsReadyState value)? sightsReadyState,
-    TResult? Function(_LoadinState value)? sightsUpdatesState,
+    TResult? Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
     return sightsUpdatesState?.call(this);
@@ -1745,7 +1746,7 @@ class _$_LoadinState extends _LoadinState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_SightsReadyState value)? sightsReadyState,
-    TResult Function(_LoadinState value)? sightsUpdatesState,
+    TResult Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
   }) {
@@ -1756,16 +1757,17 @@ class _$_LoadinState extends _LoadinState {
   }
 }
 
-abstract class _LoadinState extends VisitingState {
-  const factory _LoadinState(
-      {required final List<SightWantToVisit> wantToVisitSights,
-      required final List<SightWantToVisit> visitedSights}) = _$_LoadinState;
-  const _LoadinState._() : super._();
+abstract class _SightsUpdatesState extends VisitingState {
+  const factory _SightsUpdatesState(
+          {required final List<SightWantToVisit> wantToVisitSights,
+          required final List<SightWantToVisit> visitedSights}) =
+      _$_SightsUpdatesState;
+  const _SightsUpdatesState._() : super._();
 
   List<SightWantToVisit> get wantToVisitSights;
   List<SightWantToVisit> get visitedSights;
   @JsonKey(ignore: true)
-  _$$_LoadinStateCopyWith<_$_LoadinState> get copyWith =>
+  _$$_SightsUpdatesStateCopyWith<_$_SightsUpdatesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1895,7 +1897,7 @@ class _$_ErrorState extends _ErrorState {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_SightsReadyState value) sightsReadyState,
-    required TResult Function(_LoadinState value) sightsUpdatesState,
+    required TResult Function(_SightsUpdatesState value) sightsUpdatesState,
     required TResult Function(_ErrorState value) errorState,
   }) {
     return errorState(this);
@@ -1906,7 +1908,7 @@ class _$_ErrorState extends _ErrorState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_SightsReadyState value)? sightsReadyState,
-    TResult? Function(_LoadinState value)? sightsUpdatesState,
+    TResult? Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
     return errorState?.call(this);
@@ -1917,7 +1919,7 @@ class _$_ErrorState extends _ErrorState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_SightsReadyState value)? sightsReadyState,
-    TResult Function(_LoadinState value)? sightsUpdatesState,
+    TResult Function(_SightsUpdatesState value)? sightsUpdatesState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
   }) {

@@ -30,6 +30,18 @@ class VisitingState with _$VisitingState {
         orElse: () => false,
       );
 
+  bool get loadingInProgress => maybeWhen<bool>(
+        loadingState: () => true,
+        orElse: () => false,
+      );
+
+  String get errorMessage => maybeWhen<String>(
+        errorState: (error, message) => message,
+        orElse: () => '',
+      );
+
+  bool get hasError => errorMessage.isNotEmpty;
+
   /// Загрузка мест
   const factory VisitingState.loadingState() = _LoadingState;
 
@@ -43,7 +55,7 @@ class VisitingState with _$VisitingState {
   const factory VisitingState.sightsUpdatesState({
     required List<SightWantToVisit> wantToVisitSights,
     required List<SightWantToVisit> visitedSights,
-  }) = _LoadinState;
+  }) = _SightsUpdatesState;
 
   /// Ошибка
   const factory VisitingState.errorState({
