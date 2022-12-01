@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/sight_interactor.dart';
-import 'package:places/data/model/sights/sight.dart';
 import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
 import 'package:places/ui/screen/visiting_screen/visited_page.dart';
 import 'package:places/ui/screen/visiting_screen/want_to_visit_page.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
-import 'package:provider/provider.dart';
 
 import '../../../blocs/visiting_bloc/visiting_bloc.dart';
 
@@ -25,33 +22,6 @@ class VisitingScreenState extends State<VisitingScreen> {
     context.read<VisitingBloc>().add(
           VisitingEvent.loadSights(hideLoading: true),
         );
-  }
-
-  void changeWantToVisitCardsSequences(int fromIndex, int toIndex) {
-    setState(() {
-      _changeCardSequences(context.read<SightInteractor>().getFavoriteSights(), fromIndex, toIndex);
-    });
-  }
-
-  void changeVisitedCardsSequences(int fromIndex, int toIndex) {
-    setState(() {
-      _changeCardSequences(context.read<SightInteractor>().getVisitedSights(), fromIndex, toIndex);
-    });
-  }
-
-  void _changeCardSequences(List<Sight> sights, int fromIndex, int toIndex) {
-    if (toIndex > fromIndex) toIndex--;
-    if (toIndex < 0) toIndex = 0;
-    sights.insert(
-      toIndex,
-      sights.removeAt(fromIndex),
-    );
-  }
-
-  int? getIndexBySightId(List<Sight> sights, String id) {
-    for (var i = 0; i < sights.length; i++) if (sights[i].idStr == id) return i;
-
-    return null;
   }
 
   @override

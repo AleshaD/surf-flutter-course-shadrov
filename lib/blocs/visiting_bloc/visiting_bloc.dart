@@ -26,7 +26,7 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
     );
   }
 
-  // Назвал репозиторием, поскоьлку мой интерактор по факту выполняет эту функцию
+  // Назвал репозиторием, поскольку мой интерактор по факту выполняет эту функцию
   // а то что сейчас называется репозиторием это просто api сервера.
   // в конце этого раздела по архитектуре планирую сделать рефакторинг, чтобы лучше разделить
   // слой данных, управления данными, слой бизнесс логики и интерфейса
@@ -57,11 +57,29 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
     );
   }
 
-  _changeVisitedCardsSequences(
-      _ChangeVisitedCardsSequences event, Emitter<VisitingState> emitter) {}
+  Future<void> _changeVisitedCardsSequences(
+      _ChangeVisitedCardsSequences event, Emitter<VisitingState> emitter) async {
+    final visitedSights =
+        _sightRepository.changeVisitedCardsSequences(event.fromIndex, event.toIndex);
+    emitter(
+      VisitingState.sightsReadyState(
+        wantToVisitSights: state.wantToVisitSights,
+        visitedSights: [...visitedSights],
+      ),
+    );
+  }
 
-  _changeWantToVisitCardsSequences(
-      _ChangeWantToVisitCardsSequences event, Emitter<VisitingState> emitter) {}
+  Future<void> _changeWantToVisitCardsSequences(
+      _ChangeWantToVisitCardsSequences event, Emitter<VisitingState> emitter) async {
+    final wantToVisitSights =
+        _sightRepository.changeWantToVisitCardsSequences(event.fromIndex, event.toIndex);
+    emitter(
+      VisitingState.sightsReadyState(
+        wantToVisitSights: [...wantToVisitSights],
+        visitedSights: state.visitedSights,
+      ),
+    );
+  }
 
   Future<void> _deleteFromVisited(_DeleteFromVisited event, Emitter<VisitingState> emitter) async {
     _sightRepository.removeFromVisited(event.sight);

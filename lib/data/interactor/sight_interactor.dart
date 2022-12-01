@@ -57,9 +57,7 @@ class SightInteractor with LocationService {
   }
 
   List<SightWantToVisit> getFavoriteSights() {
-    final sights = _filterSightsByDistanceFrom(_myCoordinate, _favoriteSights);
-
-    return sights;
+    return _favoriteSights;
   }
 
   bool addToFavorite(Sight sight, [DateTime? date]) {
@@ -100,13 +98,7 @@ class SightInteractor with LocationService {
   }
 
   List<SightWantToVisit> getVisitedSights() {
-    final sights = _visitedSights;
-
-    return sights
-        .map(
-          (s) => SightWantToVisit.fromSight(sight: s, visitedTime: DateTime.now()),
-        )
-        .toList();
+    return _visitedSights;
   }
 
   bool addToVisited(Sight sight) {
@@ -119,6 +111,16 @@ class SightInteractor with LocationService {
 
   bool removeFromVisited(Sight sight) {
     return _removeFromCashList(_visitedSights, sight);
+  }
+
+  List<SightWantToVisit> changeVisitedCardsSequences(int fromIndex, int toIndex) {
+    _changeCardSequences(_visitedSights, fromIndex, toIndex);
+    return _visitedSights;
+  }
+
+  List<SightWantToVisit> changeWantToVisitCardsSequences(int fromIndex, int toIndex) {
+    _changeCardSequences(_favoriteSights, fromIndex, toIndex);
+    return _favoriteSights;
   }
 
   void _initFavoriteSights() {
@@ -154,6 +156,16 @@ class SightInteractor with LocationService {
     list.removeWhere((searchedSight) => searchedSight.id == sight.id);
 
     return lengthBeforeRemove != list.length;
+  }
+
+  List<SightWantToVisit> _changeCardSequences(List<SightWantToVisit> sights, int fromIndex, int toIndex) {
+    if (toIndex > fromIndex) toIndex--;
+    if (toIndex < 0) toIndex = 0;
+    sights.insert(
+      toIndex,
+      sights.removeAt(fromIndex),
+    );
+    return sights;
   }
 
   Future<T?> _doRepoRequestWithHandleErrors<T>(Future<T> request) async {
