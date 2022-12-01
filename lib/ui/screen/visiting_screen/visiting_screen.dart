@@ -27,12 +27,6 @@ class VisitingScreenState extends State<VisitingScreen> {
         );
   }
 
-  void removeFromWantToVisitList(Sight sight) {
-    setState(() {
-      context.read<SightInteractor>().removeFromFavorites(sight);
-    });
-  }
-
   void changeWantToVisitCardsSequences(int fromIndex, int toIndex) {
     setState(() {
       _changeCardSequences(context.read<SightInteractor>().getFavoriteSights(), fromIndex, toIndex);
@@ -52,12 +46,6 @@ class VisitingScreenState extends State<VisitingScreen> {
       toIndex,
       sights.removeAt(fromIndex),
     );
-  }
-
-  void removeFromVisitedList(Sight sight) {
-    setState(() {
-      context.read<SightInteractor>().removeFromVisited(sight);
-    });
   }
 
   int? getIndexBySightId(List<Sight> sights, String id) {

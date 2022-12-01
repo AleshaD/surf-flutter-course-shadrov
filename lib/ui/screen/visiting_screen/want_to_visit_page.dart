@@ -21,8 +21,6 @@ class WantToVisitPage extends StatelessWidget {
           )
         : DraggableSightCardsListView<WantToVisitSightCard>(
             sights,
-            removeCard:
-                context.findAncestorStateOfType<VisitingScreenState>()!.removeFromWantToVisitList,
             onReplaceCard: context
                 .findAncestorStateOfType<VisitingScreenState>()!
                 .changeWantToVisitCardsSequences,

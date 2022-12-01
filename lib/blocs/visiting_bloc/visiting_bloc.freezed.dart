@@ -19,8 +19,8 @@ mixin _$VisitingEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool hideLoading) loadSights,
-    required TResult Function(int sightId) deleteFromVisited,
-    required TResult Function(int sightId) deleteFromWantToVisit,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
     required TResult Function(int fromIndex, int toIndex)
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
@@ -31,8 +31,8 @@ mixin _$VisitingEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool hideLoading)? loadSights,
-    TResult? Function(int sightId)? deleteFromVisited,
-    TResult? Function(int sightId)? deleteFromWantToVisit,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -42,8 +42,8 @@ mixin _$VisitingEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool hideLoading)? loadSights,
-    TResult Function(int sightId)? deleteFromVisited,
-    TResult Function(int sightId)? deleteFromWantToVisit,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -176,8 +176,8 @@ class _$_LoadSights implements _LoadSights {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool hideLoading) loadSights,
-    required TResult Function(int sightId) deleteFromVisited,
-    required TResult Function(int sightId) deleteFromWantToVisit,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
     required TResult Function(int fromIndex, int toIndex)
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
@@ -191,8 +191,8 @@ class _$_LoadSights implements _LoadSights {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool hideLoading)? loadSights,
-    TResult? Function(int sightId)? deleteFromVisited,
-    TResult? Function(int sightId)? deleteFromWantToVisit,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -205,8 +205,8 @@ class _$_LoadSights implements _LoadSights {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool hideLoading)? loadSights,
-    TResult Function(int sightId)? deleteFromVisited,
-    TResult Function(int sightId)? deleteFromWantToVisit,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -285,7 +285,7 @@ abstract class _$$_DeleteFromVisitedCopyWith<$Res> {
           $Res Function(_$_DeleteFromVisited) then) =
       __$$_DeleteFromVisitedCopyWithImpl<$Res>;
   @useResult
-  $Res call({int sightId});
+  $Res call({Sight sight});
 }
 
 /// @nodoc
@@ -299,13 +299,13 @@ class __$$_DeleteFromVisitedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sightId = null,
+    Object? sight = null,
   }) {
     return _then(_$_DeleteFromVisited(
-      sightId: null == sightId
-          ? _value.sightId
-          : sightId // ignore: cast_nullable_to_non_nullable
-              as int,
+      sight: null == sight
+          ? _value.sight
+          : sight // ignore: cast_nullable_to_non_nullable
+              as Sight,
     ));
   }
 }
@@ -313,14 +313,14 @@ class __$$_DeleteFromVisitedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DeleteFromVisited implements _DeleteFromVisited {
-  const _$_DeleteFromVisited({required this.sightId});
+  const _$_DeleteFromVisited({required this.sight});
 
   @override
-  final int sightId;
+  final Sight sight;
 
   @override
   String toString() {
-    return 'VisitingEvent.deleteFromVisited(sightId: $sightId)';
+    return 'VisitingEvent.deleteFromVisited(sight: $sight)';
   }
 
   @override
@@ -328,11 +328,11 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DeleteFromVisited &&
-            (identical(other.sightId, sightId) || other.sightId == sightId));
+            (identical(other.sight, sight) || other.sight == sight));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sightId);
+  int get hashCode => Object.hash(runtimeType, sight);
 
   @JsonKey(ignore: true)
   @override
@@ -345,37 +345,37 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool hideLoading) loadSights,
-    required TResult Function(int sightId) deleteFromVisited,
-    required TResult Function(int sightId) deleteFromWantToVisit,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
     required TResult Function(int fromIndex, int toIndex)
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
-    return deleteFromVisited(sightId);
+    return deleteFromVisited(sight);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool hideLoading)? loadSights,
-    TResult? Function(int sightId)? deleteFromVisited,
-    TResult? Function(int sightId)? deleteFromWantToVisit,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
-    return deleteFromVisited?.call(sightId);
+    return deleteFromVisited?.call(sight);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool hideLoading)? loadSights,
-    TResult Function(int sightId)? deleteFromVisited,
-    TResult Function(int sightId)? deleteFromWantToVisit,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -383,7 +383,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
     required TResult orElse(),
   }) {
     if (deleteFromVisited != null) {
-      return deleteFromVisited(sightId);
+      return deleteFromVisited(sight);
     }
     return orElse();
   }
@@ -440,10 +440,10 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
 }
 
 abstract class _DeleteFromVisited implements VisitingEvent {
-  const factory _DeleteFromVisited({required final int sightId}) =
+  const factory _DeleteFromVisited({required final Sight sight}) =
       _$_DeleteFromVisited;
 
-  int get sightId;
+  Sight get sight;
   @JsonKey(ignore: true)
   _$$_DeleteFromVisitedCopyWith<_$_DeleteFromVisited> get copyWith =>
       throw _privateConstructorUsedError;
@@ -455,7 +455,7 @@ abstract class _$$_DeleteFromWantToVisitCopyWith<$Res> {
           $Res Function(_$_DeleteFromWantToVisit) then) =
       __$$_DeleteFromWantToVisitCopyWithImpl<$Res>;
   @useResult
-  $Res call({int sightId});
+  $Res call({Sight sight});
 }
 
 /// @nodoc
@@ -469,13 +469,13 @@ class __$$_DeleteFromWantToVisitCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sightId = null,
+    Object? sight = null,
   }) {
     return _then(_$_DeleteFromWantToVisit(
-      sightId: null == sightId
-          ? _value.sightId
-          : sightId // ignore: cast_nullable_to_non_nullable
-              as int,
+      sight: null == sight
+          ? _value.sight
+          : sight // ignore: cast_nullable_to_non_nullable
+              as Sight,
     ));
   }
 }
@@ -483,14 +483,14 @@ class __$$_DeleteFromWantToVisitCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
-  const _$_DeleteFromWantToVisit({required this.sightId});
+  const _$_DeleteFromWantToVisit({required this.sight});
 
   @override
-  final int sightId;
+  final Sight sight;
 
   @override
   String toString() {
-    return 'VisitingEvent.deleteFromWantToVisit(sightId: $sightId)';
+    return 'VisitingEvent.deleteFromWantToVisit(sight: $sight)';
   }
 
   @override
@@ -498,11 +498,11 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DeleteFromWantToVisit &&
-            (identical(other.sightId, sightId) || other.sightId == sightId));
+            (identical(other.sight, sight) || other.sight == sight));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sightId);
+  int get hashCode => Object.hash(runtimeType, sight);
 
   @JsonKey(ignore: true)
   @override
@@ -515,37 +515,37 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool hideLoading) loadSights,
-    required TResult Function(int sightId) deleteFromVisited,
-    required TResult Function(int sightId) deleteFromWantToVisit,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
     required TResult Function(int fromIndex, int toIndex)
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
   }) {
-    return deleteFromWantToVisit(sightId);
+    return deleteFromWantToVisit(sight);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool hideLoading)? loadSights,
-    TResult? Function(int sightId)? deleteFromVisited,
-    TResult? Function(int sightId)? deleteFromWantToVisit,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
   }) {
-    return deleteFromWantToVisit?.call(sightId);
+    return deleteFromWantToVisit?.call(sight);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool hideLoading)? loadSights,
-    TResult Function(int sightId)? deleteFromVisited,
-    TResult Function(int sightId)? deleteFromWantToVisit,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -553,7 +553,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
     required TResult orElse(),
   }) {
     if (deleteFromWantToVisit != null) {
-      return deleteFromWantToVisit(sightId);
+      return deleteFromWantToVisit(sight);
     }
     return orElse();
   }
@@ -610,10 +610,10 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
 }
 
 abstract class _DeleteFromWantToVisit implements VisitingEvent {
-  const factory _DeleteFromWantToVisit({required final int sightId}) =
+  const factory _DeleteFromWantToVisit({required final Sight sight}) =
       _$_DeleteFromWantToVisit;
 
-  int get sightId;
+  Sight get sight;
   @JsonKey(ignore: true)
   _$$_DeleteFromWantToVisitCopyWith<_$_DeleteFromWantToVisit> get copyWith =>
       throw _privateConstructorUsedError;
@@ -697,8 +697,8 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool hideLoading) loadSights,
-    required TResult Function(int sightId) deleteFromVisited,
-    required TResult Function(int sightId) deleteFromWantToVisit,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
     required TResult Function(int fromIndex, int toIndex)
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
@@ -712,8 +712,8 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool hideLoading)? loadSights,
-    TResult? Function(int sightId)? deleteFromVisited,
-    TResult? Function(int sightId)? deleteFromWantToVisit,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -726,8 +726,8 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool hideLoading)? loadSights,
-    TResult Function(int sightId)? deleteFromVisited,
-    TResult Function(int sightId)? deleteFromWantToVisit,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -884,8 +884,8 @@ class _$_ChangeWantToVisitCardsSequences
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool hideLoading) loadSights,
-    required TResult Function(int sightId) deleteFromVisited,
-    required TResult Function(int sightId) deleteFromWantToVisit,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
     required TResult Function(int fromIndex, int toIndex)
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
@@ -899,8 +899,8 @@ class _$_ChangeWantToVisitCardsSequences
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool hideLoading)? loadSights,
-    TResult? Function(int sightId)? deleteFromVisited,
-    TResult? Function(int sightId)? deleteFromWantToVisit,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -913,8 +913,8 @@ class _$_ChangeWantToVisitCardsSequences
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool hideLoading)? loadSights,
-    TResult Function(int sightId)? deleteFromVisited,
-    TResult Function(int sightId)? deleteFromWantToVisit,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -1065,8 +1065,8 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool hideLoading) loadSights,
-    required TResult Function(int sightId) deleteFromVisited,
-    required TResult Function(int sightId) deleteFromWantToVisit,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
     required TResult Function(int fromIndex, int toIndex)
         changeVisitedCardsSequences,
     required TResult Function(int fromIndex, int toIndex)
@@ -1080,8 +1080,8 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool hideLoading)? loadSights,
-    TResult? Function(int sightId)? deleteFromVisited,
-    TResult? Function(int sightId)? deleteFromWantToVisit,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
     TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult? Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,
@@ -1094,8 +1094,8 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool hideLoading)? loadSights,
-    TResult Function(int sightId)? deleteFromVisited,
-    TResult Function(int sightId)? deleteFromWantToVisit,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
     TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
     TResult Function(int fromIndex, int toIndex)?
         changeWantToVisitCardsSequences,

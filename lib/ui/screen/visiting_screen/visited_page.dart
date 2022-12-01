@@ -21,11 +21,8 @@ class VisitedPage extends StatelessWidget {
           )
         : DraggableSightCardsListView<VisitedSightCard>(
             sights,
-            removeCard:
-                context.findAncestorStateOfType<VisitingScreenState>()!.removeFromVisitedList,
-            onReplaceCard: context
-                .findAncestorStateOfType<VisitingScreenState>()!
-                .changeVisitedCardsSequences,
+            onReplaceCard:
+                context.findAncestorStateOfType<VisitingScreenState>()!.changeVisitedCardsSequences,
           );
   }
 }

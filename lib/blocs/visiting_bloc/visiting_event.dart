@@ -6,10 +6,10 @@ class VisitingEvent with _$VisitingEvent {
   const factory VisitingEvent.loadSights({@Default(false) bool hideLoading}) = _LoadSights;
 
   /// Удалить из посещённых
-  const factory VisitingEvent.deleteFromVisited({required int sightId}) = _DeleteFromVisited;
+  const factory VisitingEvent.deleteFromVisited({required Sight sight}) = _DeleteFromVisited;
 
   /// Удалить из тех что хочется посетить
-  const factory VisitingEvent.deleteFromWantToVisit({required int sightId}) =
+  const factory VisitingEvent.deleteFromWantToVisit({required Sight sight}) =
       _DeleteFromWantToVisit;
 
   /// Изменить порядок кароточек мест которые псетил
