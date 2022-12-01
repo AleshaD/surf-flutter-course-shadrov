@@ -16,8 +16,7 @@ import '../model/sights/sight_dto.dart';
 
 class SightInteractor with LocationService {
   SightInteractor(this._repository) {
-    _initFavoriteSights();
-    _initVisitedSights();
+    _initFavoriteAndVisitedSights();
   }
 
   final SightRepository _repository;
@@ -27,6 +26,9 @@ class SightInteractor with LocationService {
   final List<SightWantToVisit> _favoriteSights = [];
   final List<SightWantToVisit> _visitedSights = [];
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
+  final Completer<bool> _favoriteSightsAndVisitedCompleter = new Completer();
+  late final Future<bool> initedFavotireAndVisitedSights =
+      _favoriteSightsAndVisitedCompleter.future;
 
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
     final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
@@ -123,19 +125,18 @@ class SightInteractor with LocationService {
     return _favoriteSights;
   }
 
-  void _initFavoriteSights() {
-    _loadSightsToListByIds(_favoriteSights, _favoriteSightsIds);
+  void _initFavoriteAndVisitedSights() async {
+    await _loadSightsToListByIds(_favoriteSights, _favoriteSightsIds);
+    await _loadSightsToListByIds(_visitedSights, _visitedSightsIds);
+    _favoriteSightsAndVisitedCompleter.complete(true);
   }
 
-  void _initVisitedSights() {
-    _loadSightsToListByIds(_visitedSights, _visitedSightsIds);
-  }
-
-  void _loadSightsToListByIds(List<SightWantToVisit> list, List<int> ids) {
-    ids.forEach((id) async {
+  Future<void> _loadSightsToListByIds(List<SightWantToVisit> list, List<int> ids) async {
+    for (var i = 0; i < ids.length; i++) {
+      final id = ids.elementAt(i);
       final sight = await _doRepoRequestWithHandleErrors(_repository.getSight(id));
       if (sight != null) list.add(SightWantToVisit.fromSight(sight: sight));
-    });
+    }
   }
 
   bool _addToCashList(List<Sight> list, Sight sight) {
@@ -158,7 +159,11 @@ class SightInteractor with LocationService {
     return lengthBeforeRemove != list.length;
   }
 
-  List<SightWantToVisit> _changeCardSequences(List<SightWantToVisit> sights, int fromIndex, int toIndex) {
+  List<SightWantToVisit> _changeCardSequences(
+    List<SightWantToVisit> sights,
+    int fromIndex,
+    int toIndex,
+  ) {
     if (toIndex > fromIndex) toIndex--;
     if (toIndex < 0) toIndex = 0;
     sights.insert(

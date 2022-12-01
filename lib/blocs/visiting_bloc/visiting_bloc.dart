@@ -24,6 +24,9 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
           addWantToVisitTime: (event) => _addWantToVisitTime(event, emitter),
           addToWantToVisit: (event) => _addToWantToVisit(event, emitter)),
     );
+    _sightRepository.initedFavotireAndVisitedSights.then((isSuccess) {
+      if (isSuccess) this.add(VisitingEvent.loadSights());
+    });
   }
 
   // Назвал репозиторием, поскольку мой интерактор по факту выполняет эту функцию
