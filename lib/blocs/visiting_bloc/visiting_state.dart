@@ -42,6 +42,15 @@ class VisitingState with _$VisitingState {
 
   bool get hasError => errorMessage.isNotEmpty;
 
+  bool isSightInWantToVisitList(Sight sight) {
+    try {
+      wantToVisitSights.firstWhere((s) => s.id == sight.id);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   /// Загрузка мест
   const factory VisitingState.loadingState() = _LoadingState;
 
