@@ -15,14 +15,14 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
         super(const VisitingState.loadingState()) {
     on<VisitingEvent>(
       (event, emitter) => event.map<Future<void>>(
-        loadSights: (event) => _loadSights(event, emitter),
-        deleteFromVisited: (event) => _deleteFromVisited(event, emitter),
-        deleteFromWantToVisit: (event) => _deleteFromWantToVisit(event, emitter),
-        changeVisitedCardsSequences: (event) => _changeVisitedCardsSequences(event, emitter),
-        changeWantToVisitCardsSequences: (event) =>
-            _changeWantToVisitCardsSequences(event, emitter),
-        addWantToVisitTime: (event) => _addWantToVisitTime(event, emitter),
-      ),
+          loadSights: (event) => _loadSights(event, emitter),
+          deleteFromVisited: (event) => _deleteFromVisited(event, emitter),
+          deleteFromWantToVisit: (event) => _deleteFromWantToVisit(event, emitter),
+          changeVisitedCardsSequences: (event) => _changeVisitedCardsSequences(event, emitter),
+          changeWantToVisitCardsSequences: (event) =>
+              _changeWantToVisitCardsSequences(event, emitter),
+          addWantToVisitTime: (event) => _addWantToVisitTime(event, emitter),
+          addToWantToVisit: (event) => _addToWantToVisit(event, emitter)),
     );
   }
 
@@ -97,6 +97,17 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
     Emitter<VisitingState> emitter,
   ) async {
     _sightRepository.removeFromFavorites(event.sight);
+    final wantToVisitSights = _sightRepository.getFavoriteSights();
+    emitter(
+      VisitingState.sightsReadyState(
+        wantToVisitSights: [...wantToVisitSights],
+        visitedSights: state.visitedSights,
+      ),
+    );
+  }
+
+  Future<void> _addToWantToVisit(_AddToWantToVisit event, Emitter<VisitingState> emitter) async {
+    _sightRepository.addToFavorite(event.sight);
     final wantToVisitSights = _sightRepository.getFavoriteSights();
     emitter(
       VisitingState.sightsReadyState(

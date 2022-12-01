@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/model/sights/sight.dart';
@@ -200,19 +201,44 @@ class SightDetailsScreen extends StatelessWidget {
                               DateTime? dateTime = await Pickers.pickDateAndTime(context);
                               if (dateTime != null) {
                                 visitingBloc.add(
-                                      VisitingEvent.addWantToVisitTime(
-                                        sight: sight,
-                                        date: dateTime,
-                                      ),
-                                    );
+                                  VisitingEvent.addWantToVisitTime(
+                                    sight: sight,
+                                    date: dateTime,
+                                  ),
+                                );
                               }
                             },
                           ),
-                          IconTextButton(
-                            icon: CustomIcons.menu_heart,
-                            name: AppStrings.toFavorite,
-                            isActive: true,
-                            onPressed: () => print('В избранное'),
+                          BlocBuilder<VisitingBloc, VisitingState>(
+                            builder: (context, state) {
+                              bool isInWantToVisit = false;
+                              if (state.withSights) {
+                                try {
+                                  state.wantToVisitSights.firstWhere((s) => s.id == sight.id);
+                                  isInWantToVisit = true;
+                                } catch (e) {
+                                  // нет элемента в списке, это номально
+                                }
+                              }
+                              return IconTextButton(
+                                icon: isInWantToVisit
+                                    ? CustomIcons.menu_heart_full
+                                    : CustomIcons.menu_heart,
+                                name: isInWantToVisit
+                                    ? AppStrings.deleteFromFavorite
+                                    : AppStrings.toFavorite,
+                                isActive: true,
+                                onPressed: () {
+                                  isInWantToVisit
+                                      ? context
+                                          .read<VisitingBloc>()
+                                          .add(VisitingEvent.deleteFromWantToVisit(sight: sight))
+                                      : context
+                                          .read<VisitingBloc>()
+                                          .add(VisitingEvent.addToWantToVisit(sight: sight));
+                                },
+                              );
+                            },
                           ),
                         ],
                       ),

@@ -50,6 +50,7 @@ class AppStrings {
   static const createRout = 'Построить маршрут';
   static const plan = 'Запланировать';
   static const toFavorite = 'В Избранное';
+  static const deleteFromFavorite = 'В Избранном';
 
   static const searh = 'Поиск';
   static const noFindResult = 'Ничего не найдено.';

@@ -23,4 +23,8 @@ class VisitingEvent with _$VisitingEvent {
   /// Добавить/изменить время к тому месту которое хочешь посетить
   const factory VisitingEvent.addWantToVisitTime({required Sight sight, required DateTime date}) =
       _AddWantToVisitTime;
+
+  /// Добавить/изменить время к тому месту которое хочешь посетить
+  const factory VisitingEvent.addToWantToVisit({required Sight sight}) =
+      _AddToWantToVisit;
 }
