@@ -39,17 +39,21 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
     final List<SightWantToVisit> wantToVisitSights = _sightRepository.getFavoriteSights();
 
     emitter(VisitingState.sightsReadyState(
-        wantToVisitSights: wantToVisitSights, visitedSights: visitedSights));
+        wantToVisitSights: [...wantToVisitSights], visitedSights: [...visitedSights]));
   }
 
-  _addWantToVisitTime(_AddWantToVisitTime event, Emitter<VisitingState> emitter) {
+  Future<void> _addWantToVisitTime(
+      _AddWantToVisitTime event, Emitter<VisitingState> emitter) async {
     final wantToVisitSights = _sightRepository.addWantToVisitSightWithDate(
       event.sight,
       event.date,
     );
+
     emitter(
       VisitingState.sightsReadyState(
-          wantToVisitSights: wantToVisitSights, visitedSights: state.visitedSights),
+        wantToVisitSights: [...wantToVisitSights],
+        visitedSights: state.visitedSights,
+      ),
     );
   }
 
@@ -62,7 +66,6 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
   _deleteFromVisited(_DeleteFromVisited event, Emitter<VisitingState> emitter) {}
 
   _deleteFromWantToVisit(_DeleteFromWantToVisit event, Emitter<VisitingState> emitter) {}
-
 
   // Отлов ошибок когда будет ассинхронный приём отмеченных мест из репозитория
   Future<List<SightWantToVisit>?> _tryGetSights(

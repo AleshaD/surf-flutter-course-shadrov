@@ -59,7 +59,7 @@ class SightInteractor with LocationService {
   List<SightWantToVisit> getFavoriteSights() {
     final sights = _filterSightsByDistanceFrom(_myCoordinate, _favoriteSights);
 
-    return sights.map((s) => SightWantToVisit.fromSight(sight: s)).toList();
+    return sights;
   }
 
   bool addToFavorite(Sight sight, [DateTime? date]) {
@@ -78,14 +78,17 @@ class SightInteractor with LocationService {
 
   List<SightWantToVisit> addWantToVisitSightWithDate(Sight sight, DateTime date) {
     if (isSightInFavorite(sight)) {
-      return _favoriteSights
-          .map((s) => s.id == sight.id
-              ? SightWantToVisit.fromSight(
-                  sight: sight,
-                  wantToVisitTime: date,
-                )
-              : s)
-          .toList();
+      final sIndex = _favoriteSights.indexWhere((s) => s.id == sight.id);
+      _favoriteSights
+        ..removeAt(sIndex)
+        ..insert(
+          sIndex,
+          SightWantToVisit.fromSight(
+            sight: sight,
+            wantToVisitTime: date,
+          ),
+        );
+      return _favoriteSights;
     } else {
       addToFavorite(sight, date);
       return _favoriteSights;
@@ -167,8 +170,8 @@ class SightInteractor with LocationService {
     return null;
   }
 
-  List<Sight> _filterSightsByDistanceFrom(Coordinate center, List<Sight> sights) {
-    sights.sort((a, b) {
+  List<T> _filterSightsByDistanceFrom<T>(Coordinate center, List<T> sights) {
+    (sights as List<Sight>).sort((a, b) {
       return getDistanceBeatwenCoordinates(a.coordinate, center) <
               getDistanceBeatwenCoordinates(b.coordinate, center)
           ? 0
