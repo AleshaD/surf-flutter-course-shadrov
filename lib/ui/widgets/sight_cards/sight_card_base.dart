@@ -6,6 +6,8 @@ import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart'
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 import 'package:provider/provider.dart';
 
+import '../../../blocs/visiting_bloc/visiting_bloc.dart';
+
 class SightCardBase extends StatelessWidget {
   const SightCardBase(this.sight, {Key? key}) : super(key: key);
 
@@ -113,7 +115,11 @@ class SightCardBase extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(cornerRadius),
               ),
-              onTap: () => SightDetailsScreen.showInBottomSheet(sight, context),
+              onTap: () => SightDetailsScreen.showInBottomSheet(
+                sight,
+                context.read<VisitingBloc>(),
+                context,
+              ),
             ),
           ),
         ),
