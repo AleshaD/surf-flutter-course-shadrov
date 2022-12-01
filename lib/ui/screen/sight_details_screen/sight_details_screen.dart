@@ -211,15 +211,7 @@ class SightDetailsScreen extends StatelessWidget {
                           ),
                           BlocBuilder<VisitingBloc, VisitingState>(
                             builder: (context, state) {
-                              bool isInWantToVisit = false;
-                              if (state.withSights) {
-                                try {
-                                  state.wantToVisitSights.firstWhere((s) => s.id == sight.id);
-                                  isInWantToVisit = true;
-                                } catch (e) {
-                                  // нет элемента в списке, это номально
-                                }
-                              }
+                              bool isInWantToVisit = state.isSightInWantToVisitList(sight);
                               return IconTextButton(
                                 icon: isInWantToVisit
                                     ? CustomIcons.menu_heart_full
