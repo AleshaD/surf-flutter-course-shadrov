@@ -76,6 +76,16 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     _dispatchToStore(DeleteHistorySearchAction());
   }
 
+  void _setValueToTxtCtrl(String value) {
+    _txtController.value = TextEditingValue(
+      text: value,
+      selection: TextSelection(
+        baseOffset: value.length,
+        extentOffset: value.length,
+      ),
+    );
+  }
+
   void _dispatchToStore(SearchAction action) {
     StoreProvider.of<ReduxAppState>(context).dispatch(action);
   }
@@ -91,13 +101,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         return SearchHystoryListView(
           hystory: searchHystory,
           tileTaped: (searchTxt) {
-            _txtController.value = TextEditingValue(
-              text: searchTxt,
-              selection: TextSelection(
-                baseOffset: searchTxt.length,
-                extentOffset: searchTxt.length,
-              ),
-            );
+            _setValueToTxtCtrl(searchTxt);
             _doSearch(searchTxt);
           },
           clearHystoryTaped: _onClearHystoryTaped,
@@ -165,6 +169,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           if (vm.hasError) screenTypeBasedOnVm = _SearchScreenType.error;
 
           if (!_searchInProgress) _currentScreenType = screenTypeBasedOnVm;
+
+          if (_txtController.text.isEmpty && vm.hasQuery) _setValueToTxtCtrl(vm.query);
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
