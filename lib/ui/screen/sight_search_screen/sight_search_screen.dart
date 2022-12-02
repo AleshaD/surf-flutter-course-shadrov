@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
+import 'package:places/redux/action/search_action.dart';
+import 'package:places/redux/state/app_state.dart';
+import 'package:places/redux/state/search_state.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/search_hystory_list_view.dart';
 import 'package:places/ui/screen/sight_search_screen/searched_sights_list_view.dart';
@@ -108,7 +112,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void showEmptyOrHystoryPg() {
-    context.read<SearchInteractor>().getSearchHystory().isNotEmpty ? setHystoryPgState() : setEmptyPgState();
+    context.read<SearchInteractor>().getSearchHystory().isNotEmpty
+        ? setHystoryPgState()
+        : setEmptyPgState();
   }
 
   void _onDeleteHystoryValueTaped(String name) {
@@ -125,8 +131,12 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     setEmptyPgState();
   }
 
-  Widget _getBodyByState(_SearchScreenType state) {
-    final Set<String> searchHystory = context.read<SearchInteractor>().getSearchHystory();
+  Widget _getBodyByState({
+    required _SearchScreenType state,
+    required Set<String> searchHystory,
+    required List<SearchedSight> sights,
+    required String errorMsg,
+  }) {
     switch (state) {
       case _SearchScreenType.searchHystory:
         return SearchHystoryListView(
@@ -146,7 +156,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         );
       case _SearchScreenType.searchedSights:
         return SearchedSightsListView(
-          _findedSights,
+          sights,
         );
       case _SearchScreenType.emptyPage:
         return EmptyListPage(
@@ -163,7 +173,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       case _SearchScreenType.error:
         return NetworkErrorPage(
           onReloadPressed: () => showEmptyOrHystoryPg(),
-          msgForUser: _networkErrorMsg,
+          msgForUser: errorMsg,
         );
       default:
         return Container();
@@ -186,44 +196,44 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           onFocusDismiss: saveSearchedStr,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: StreamBuilder<bool>(
-                stream: _loadingStreamCtrl.stream,
-                initialData: false,
-                builder: (context, snapshot) {
-                  final isLoading = snapshot.data!;
-
-                  return isLoading
+      body: StoreConnector<ReduxAppState, SearchState>(
+        onInit: (store) => store.dispatch(
+          SearchAction.getSearchHistory(),
+        ),
+        converter: (store) => store.state.searchState,
+        builder: (context, vm) {
+          bool isLoading = vm.inProgress;
+          late _SearchScreenType currenScreenType;
+          if (vm.hasError) currenScreenType = _SearchScreenType.error;
+          if (vm.sigths.isNotEmpty) currenScreenType = _SearchScreenType.searchedSights;
+          if (vm.sigths.isEmpty && vm.history.isNotEmpty)
+            currenScreenType = _SearchScreenType.searchHystory;
+          if (vm.sigths.isEmpty && vm.history.isEmpty)
+            currenScreenType = _SearchScreenType.emptyPage;
+          if (vm.sigths.isEmpty && _txtController.text.isNotEmpty)
+            currenScreenType = _SearchScreenType.noResults;
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: isLoading
                       ? LinearProgressIndicator(
                           color: Theme.of(context).colorScheme.secondary,
                         )
-                      : Container();
-                },
-              ),
+                      : Container(),
+                ),
+                _getBodyByState(
+                  state: currenScreenType,
+                  searchHystory: vm.history,
+                  sights: vm.sigths,
+                  errorMsg: vm.errorMsg,
+                ),
+              ],
             ),
-            StreamBuilder<_SearchScreenType>(
-              stream: _screenStateStreamCtrl.stream,
-              builder: (BuildContext context, AsyncSnapshot<_SearchScreenType> snapshot) {
-                if (snapshot.hasData) {
-                  final state = snapshot.data!;
-
-                  return _getBodyByState(state);
-                } else if (snapshot.hasError) {
-                  _screenStateStreamCtrl.sink.add(
-                    _SearchScreenType.error,
-                  );
-                }
-
-                return SizedBox.shrink();
-              },
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
