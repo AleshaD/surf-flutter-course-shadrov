@@ -88,9 +88,11 @@ class SightInteractor with LocationService {
             wantToVisitTime: date,
           ),
         );
+
       return _favoriteSights;
     } else {
       addToFavorite(sight, date);
+
       return _favoriteSights;
     }
   }
@@ -117,6 +119,7 @@ class SightInteractor with LocationService {
 
   List<SightWantToVisit> changeVisitedCardsSequences(int fromIndex, int toIndex) {
     _changeCardSequences(_visitedSights, fromIndex, toIndex);
+
     return _visitedSights;
   }
 
@@ -170,6 +173,7 @@ class SightInteractor with LocationService {
       toIndex,
       sights.removeAt(fromIndex),
     );
+
     return sights;
   }
 

@@ -1,6 +1,6 @@
 import 'package:places/redux/action/search_action.dart';
 
-import '../state/app_state.dart';
+import '../state/redux_app_state.dart';
 import '../state/search_state.dart';
 
 ReduxAppState getSightsSearchAction(ReduxAppState state, GetSightsSearchAction action) {

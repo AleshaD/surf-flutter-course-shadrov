@@ -45,6 +45,7 @@ class VisitingState with _$VisitingState {
   bool isSightInWantToVisitList(Sight sight) {
     try {
       wantToVisitSights.firstWhere((s) => s.id == sight.id);
+
       return true;
     } catch (e) {
       return false;

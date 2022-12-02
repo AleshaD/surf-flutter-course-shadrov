@@ -11,7 +11,7 @@ import 'package:places/data/repository/sight_images_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/redux/middleware/search_middleware.dart';
 import 'package:places/redux/reducer/reducer.dart';
-import 'package:places/redux/state/app_state.dart';
+import 'package:places/redux/state/redux_app_state.dart';
 import 'package:places/res/app_theme_config.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:provider/provider.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/redux/action/search_action.dart';
-import 'package:places/redux/state/app_state.dart';
+import 'package:places/redux/state/redux_app_state.dart';
 import 'package:places/redux/state/search_state.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_search_screen/search_hystory_list_view.dart';
@@ -41,6 +41,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     _timerToSearch.cancel();
     if (val.trim().isEmpty) {
       _dispatchToStore(UserSearchIsEndSearchAction());
+
       return;
     }
 

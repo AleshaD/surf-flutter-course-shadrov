@@ -2,7 +2,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/redux/action/search_action.dart';
-import 'package:places/redux/state/app_state.dart';
+import 'package:places/redux/state/redux_app_state.dart';
 import 'package:redux/redux.dart';
 
 class SearchMiddleware implements MiddlewareClass<ReduxAppState> {

@@ -212,6 +212,7 @@ class SightDetailsScreen extends StatelessWidget {
                           BlocBuilder<VisitingBloc, VisitingState>(
                             builder: (context, state) {
                               bool isInWantToVisit = state.isSightInWantToVisitList(sight);
+
                               return IconTextButton(
                                 icon: isInWantToVisit
                                     ? CustomIcons.menu_heart_full
