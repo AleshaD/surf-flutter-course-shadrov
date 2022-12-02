@@ -14,8 +14,8 @@ class SearchInteractor {
   Future<List<SearchedSight>> getSightsBy({required String name}) async {
     final requestFilter = SightsFilterRequestDto(nameFilter: name);
     try {
-      saveQueryNameToHystory(name);
       final sights = await _repository.getFilteredSights(requestFilter);
+      saveQueryNameToHystory(name);
 
       return sights.map((s) => SearchedSight(s, name)).toList();
     } on DioError catch (e) {
