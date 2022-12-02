@@ -25,8 +25,8 @@ class SightSearchScreen extends StatefulWidget {
 }
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
-  int enterDelayMs = 1000;
-  Timer timerToSearch = Timer(Duration.zero, () {});
+  int _enterDelayMs = 1000;
+  Timer _timerToSearch = Timer(Duration.zero, () {});
   TextEditingController _txtController = TextEditingController();
 
   bool _searchInProgress = false;
@@ -37,33 +37,33 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     _txtController.dispose();
   }
 
-  void onSearchBarChanged(String val) {
-    timerToSearch.cancel();
+  void _onSearchBarChanged(String val) {
+    _timerToSearch.cancel();
     if (val.trim().isEmpty) {
       _dispatchToStore(UserSearchIsEndSearchAction());
       return;
     }
 
     // поиск если ввели слово
-    if (val.endsWith(' ')) return doSearch(val);
+    if (val.endsWith(' ')) return _doSearch(val);
 
     // если не вводили символ в течении enterDelay
-    timerToSearch = Timer(
-      Duration(milliseconds: enterDelayMs),
-      () => doSearch(val),
+    _timerToSearch = Timer(
+      Duration(milliseconds: _enterDelayMs),
+      () => _doSearch(val),
     );
   }
 
-  void doSearch(String query) async {
+  void _doSearch(String query) async {
     if (query.trim().isEmpty && !_searchInProgress) return;
 
     _dispatchToStore(GetSightsSearchAction(query: query));
   }
 
-  void onCompleteSearchEnter() {
+  void _onCompleteSearchEnter() {
     if (_txtController.text.trim().isEmpty) return;
-    timerToSearch.cancel();
-    doSearch(_txtController.text);
+    _timerToSearch.cancel();
+    _doSearch(_txtController.text);
   }
 
   void _onDeleteHystoryValueTaped(String query) => _dispatchToStore(
@@ -98,7 +98,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 extentOffset: searchTxt.length,
               ),
             );
-            doSearch(searchTxt);
+            _doSearch(searchTxt);
           },
           clearHystoryTaped: _onClearHystoryTaped,
           delHystoryQuery: _onDeleteHystoryValueTaped,
@@ -133,6 +133,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     }
   }
 
+  _SearchScreenType _currentScreenType = _SearchScreenType.emptyPage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,8 +145,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         bottom: SearchBar(
           autoFocus: true,
           controller: _txtController,
-          onChanged: onSearchBarChanged,
-          onEditingComplete: onCompleteSearchEnter,
+          onChanged: _onSearchBarChanged,
+          onEditingComplete: _onCompleteSearchEnter,
         ),
       ),
       body: StoreConnector<ReduxAppState, SearchState>(
@@ -155,13 +156,15 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         converter: (store) => store.state.searchState,
         builder: (context, vm) {
           _searchInProgress = vm.inProgress;
-          _SearchScreenType currenScreenType = _SearchScreenType.emptyPage;
-          if (vm.hasError) currenScreenType = _SearchScreenType.error;
-          if (vm.sigths.isNotEmpty) currenScreenType = _SearchScreenType.searchedSights;
+          _SearchScreenType screenTypeBasedOnVm = _SearchScreenType.emptyPage;
+          if (vm.sigths.isNotEmpty) screenTypeBasedOnVm = _SearchScreenType.searchedSights;
           if (vm.sigths.isEmpty && vm.history.isNotEmpty)
-            currenScreenType = _SearchScreenType.searchHystory;
+            screenTypeBasedOnVm = _SearchScreenType.searchHystory;
           if (vm.sigths.isEmpty && _txtController.text.isNotEmpty)
-            currenScreenType = _SearchScreenType.noResults;
+            screenTypeBasedOnVm = _SearchScreenType.noResults;
+          if (vm.hasError) screenTypeBasedOnVm = _SearchScreenType.error;
+
+          if (!_searchInProgress) _currentScreenType = screenTypeBasedOnVm;
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -176,7 +179,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                       : Container(),
                 ),
                 _getBodyByState(
-                  state: currenScreenType,
+                  state: _currentScreenType,
                   searchHystory: vm.history,
                   sights: vm.sigths,
                   errorMsg: vm.errorMsg,
