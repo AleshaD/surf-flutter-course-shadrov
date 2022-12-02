@@ -19,6 +19,13 @@ class SearchState with _$SearchState {
         orElse: () => false,
       );
 
+  String get query => maybeWhen(
+        result: (_, __, query) => query,
+        orElse: () => '',
+      );
+
+  bool get hasQuery => query.isNotEmpty;
+
   /// Начальное состояние
   const factory SearchState.init({
     @Default([]) List<SearchedSight> sigths,
@@ -42,5 +49,6 @@ class SearchState with _$SearchState {
   const factory SearchState.result({
     @Default([]) List<SearchedSight> sigths,
     @Default({}) Set<String> history,
+    @Default('') String query,
   }) = _Result;
 }

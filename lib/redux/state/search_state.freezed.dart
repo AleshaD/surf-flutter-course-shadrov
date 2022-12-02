@@ -27,7 +27,8 @@ mixin _$SearchState {
     required TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)
         erorr,
-    required TResult Function(List<SearchedSight> sigths, Set<String> history)
+    required TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)
         result,
   }) =>
       throw _privateConstructorUsedError;
@@ -39,7 +40,9 @@ mixin _$SearchState {
     TResult? Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult? Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult? Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,7 +53,9 @@ mixin _$SearchState {
     TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -222,7 +227,8 @@ class _$_Init extends _Init {
     required TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)
         erorr,
-    required TResult Function(List<SearchedSight> sigths, Set<String> history)
+    required TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)
         result,
   }) {
     return init(sigths, history);
@@ -237,7 +243,9 @@ class _$_Init extends _Init {
     TResult? Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult? Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult? Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
   }) {
     return init?.call(sigths, history);
   }
@@ -251,7 +259,9 @@ class _$_Init extends _Init {
     TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -414,7 +424,8 @@ class _$_InProgress extends _InProgress {
     required TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)
         erorr,
-    required TResult Function(List<SearchedSight> sigths, Set<String> history)
+    required TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)
         result,
   }) {
     return inProgress(sigths, history);
@@ -429,7 +440,9 @@ class _$_InProgress extends _InProgress {
     TResult? Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult? Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult? Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
   }) {
     return inProgress?.call(sigths, history);
   }
@@ -443,7 +456,9 @@ class _$_InProgress extends _InProgress {
     TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -619,7 +634,8 @@ class _$_Erorr extends _Erorr {
     required TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)
         erorr,
-    required TResult Function(List<SearchedSight> sigths, Set<String> history)
+    required TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)
         result,
   }) {
     return erorr(sigths, history, errorMessage);
@@ -634,7 +650,9 @@ class _$_Erorr extends _Erorr {
     TResult? Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult? Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult? Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
   }) {
     return erorr?.call(sigths, history, errorMessage);
   }
@@ -648,7 +666,9 @@ class _$_Erorr extends _Erorr {
     TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
     required TResult orElse(),
   }) {
     if (erorr != null) {
@@ -719,7 +739,7 @@ abstract class _$$_ResultCopyWith<$Res> implements $SearchStateCopyWith<$Res> {
       __$$_ResultCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<SearchedSight> sigths, Set<String> history});
+  $Res call({List<SearchedSight> sigths, Set<String> history, String query});
 }
 
 /// @nodoc
@@ -734,6 +754,7 @@ class __$$_ResultCopyWithImpl<$Res>
   $Res call({
     Object? sigths = null,
     Object? history = null,
+    Object? query = null,
   }) {
     return _then(_$_Result(
       sigths: null == sigths
@@ -744,6 +765,10 @@ class __$$_ResultCopyWithImpl<$Res>
           ? _value._history
           : history // ignore: cast_nullable_to_non_nullable
               as Set<String>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -753,7 +778,8 @@ class __$$_ResultCopyWithImpl<$Res>
 class _$_Result extends _Result {
   const _$_Result(
       {final List<SearchedSight> sigths = const [],
-      final Set<String> history = const {}})
+      final Set<String> history = const {},
+      this.query = ''})
       : _sigths = sigths,
         _history = history,
         super._();
@@ -777,8 +803,12 @@ class _$_Result extends _Result {
   }
 
   @override
+  @JsonKey()
+  final String query;
+
+  @override
   String toString() {
-    return 'SearchState.result(sigths: $sigths, history: $history)';
+    return 'SearchState.result(sigths: $sigths, history: $history, query: $query)';
   }
 
   @override
@@ -787,14 +817,16 @@ class _$_Result extends _Result {
         (other.runtimeType == runtimeType &&
             other is _$_Result &&
             const DeepCollectionEquality().equals(other._sigths, _sigths) &&
-            const DeepCollectionEquality().equals(other._history, _history));
+            const DeepCollectionEquality().equals(other._history, _history) &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_sigths),
-      const DeepCollectionEquality().hash(_history));
+      const DeepCollectionEquality().hash(_history),
+      query);
 
   @JsonKey(ignore: true)
   @override
@@ -812,10 +844,11 @@ class _$_Result extends _Result {
     required TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)
         erorr,
-    required TResult Function(List<SearchedSight> sigths, Set<String> history)
+    required TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)
         result,
   }) {
-    return result(sigths, history);
+    return result(sigths, history, query);
   }
 
   @override
@@ -827,9 +860,11 @@ class _$_Result extends _Result {
     TResult? Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult? Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult? Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
   }) {
-    return result?.call(sigths, history);
+    return result?.call(sigths, history, query);
   }
 
   @override
@@ -841,11 +876,13 @@ class _$_Result extends _Result {
     TResult Function(List<SearchedSight> sigths, Set<String> history,
             String errorMessage)?
         erorr,
-    TResult Function(List<SearchedSight> sigths, Set<String> history)? result,
+    TResult Function(
+            List<SearchedSight> sigths, Set<String> history, String query)?
+        result,
     required TResult orElse(),
   }) {
     if (result != null) {
-      return result(sigths, history);
+      return result(sigths, history, query);
     }
     return orElse();
   }
@@ -891,13 +928,15 @@ class _$_Result extends _Result {
 abstract class _Result extends SearchState {
   const factory _Result(
       {final List<SearchedSight> sigths,
-      final Set<String> history}) = _$_Result;
+      final Set<String> history,
+      final String query}) = _$_Result;
   const _Result._() : super._();
 
   @override
   List<SearchedSight> get sigths;
   @override
   Set<String> get history;
+  String get query;
   @override
   @JsonKey(ignore: true)
   _$$_ResultCopyWith<_$_Result> get copyWith =>

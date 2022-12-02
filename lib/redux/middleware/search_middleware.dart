@@ -19,6 +19,7 @@ class SearchMiddleware implements MiddlewareClass<ReduxAppState> {
             ResultSearchAction(
               sights: sights,
               history: _searchRepository.getSearchHystory(),
+              query: action.query,
             ),
           );
         },

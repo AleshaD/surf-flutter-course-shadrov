@@ -13,10 +13,12 @@ class ResultSearchAction extends SearchAction {
   ResultSearchAction({
     required this.sights,
     required this.history,
+    required this.query,
   });
 
   final List<SearchedSight> sights;
   final Set<String> history;
+  final String query;
 }
 
 /// Пользователь окончил поиск
