@@ -104,7 +104,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void saveSearchedStr() {
     String searchedStr = _txtController.text.trim();
-    context.read<SearchInteractor>().saveToHystory(searchedStr);
+    context.read<SearchInteractor>().saveQueryNameToHystory(searchedStr);
   }
 
   void showEmptyOrHystoryPg() {
