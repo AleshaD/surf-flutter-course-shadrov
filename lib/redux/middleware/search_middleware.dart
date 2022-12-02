@@ -1,3 +1,4 @@
+import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/redux/action/search_action.dart';
@@ -23,7 +24,7 @@ class SearchMiddleware implements MiddlewareClass<ReduxAppState> {
         },
       ).catchError(
         (erorr) {
-          String msg = 'Непредвиденная ошибка';
+          String msg = AppStrings.unknownError;
           if (erorr is NetworkExceptions) msg = erorr.msgForUser;
           store.dispatch(
             AnErrorHasOccurredSearchAction(errorMsg: msg),
