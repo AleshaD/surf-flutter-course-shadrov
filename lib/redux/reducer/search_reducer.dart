@@ -32,18 +32,6 @@ ReduxAppState userSearchIsEndSearchAction(ReduxAppState state, UserSearchIsEndSe
   );
 }
 
-ReduxAppState getSearchHistory(ReduxAppState state, GetSearchHistorySearchAction action) {
-  return state;
-}
-
-ReduxAppState deleteQuerySearchAction(ReduxAppState state, DeleteQuerySearchAction action) {
-  return state;
-}
-
-ReduxAppState deleteHistorySearchAction(ReduxAppState state, DeleteHistorySearchAction action) {
-  return state;
-}
-
 ReduxAppState anErrorHasoccurredSearchAction(
     ReduxAppState state, AnErrorHasOccurredSearchAction action) {
   return state.cloneWith(

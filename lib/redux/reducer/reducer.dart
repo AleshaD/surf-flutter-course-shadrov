@@ -7,9 +7,6 @@ final Reducer<ReduxAppState> reducer = combineReducers<ReduxAppState>([
   TypedReducer<ReduxAppState, GetSightsSearchAction>(getSightsSearchAction),
   TypedReducer<ReduxAppState, ResultSearchAction>(resultSearchAction),
   TypedReducer<ReduxAppState, UserSearchIsEndSearchAction>(userSearchIsEndSearchAction),
-  TypedReducer<ReduxAppState, GetSearchHistorySearchAction>(getSearchHistory),
-  TypedReducer<ReduxAppState, DeleteQuerySearchAction>(deleteQuerySearchAction),
-  TypedReducer<ReduxAppState, DeleteHistorySearchAction>(deleteHistorySearchAction),
   TypedReducer<ReduxAppState, AnErrorHasOccurredSearchAction>(anErrorHasoccurredSearchAction),
   TypedReducer<ReduxAppState, HistoryChangeSearchAction>(historyChangeSearchAction),
 ]);
