@@ -21,6 +21,15 @@ ReduxAppState resultSearchAction(ReduxAppState state, ResultSearchAction action)
   );
 }
 
+ReduxAppState userSearchIsEndSearchAction(ReduxAppState state, UserSearchIsEndSearchAction action) {
+  return state.cloneWith(
+    searchState: SearchState.result(
+      sigths: [],
+      history: state.searchState.history,
+    ),
+  );
+}
+
 ReduxAppState getSearchHistory(ReduxAppState state, GetSearchHistorySearchAction action) {
   return state;
 }
@@ -33,7 +42,7 @@ ReduxAppState deleteHistorySearchAction(ReduxAppState state, DeleteHistorySearch
   return state;
 }
 
-ReduxAppState anErrorHasoccurredSearchAction(ReduxAppState state, AnErrorHasoccurredSearchAction action) {
+ReduxAppState anErrorHasoccurredSearchAction(ReduxAppState state, AnErrorHasOccurredSearchAction action) {
   return state.cloneWith(
     searchState: SearchState.erorr(
       sigths: state.searchState.sigths,

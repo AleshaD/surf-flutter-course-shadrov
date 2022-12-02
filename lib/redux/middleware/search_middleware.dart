@@ -15,7 +15,7 @@ class SearchMiddleware implements MiddlewareClass<ReduxAppState> {
       _searchRepository.getSightsBy(name: action.query).then(
         (sights) {
           store.dispatch(
-            SearchAction.resultSearchAction(
+            ResultSearchAction(
               sights: sights,
               history: _searchRepository.getSearchHystory(),
             ),
@@ -26,7 +26,7 @@ class SearchMiddleware implements MiddlewareClass<ReduxAppState> {
           String msg = 'Непредвиденная ошибка';
           if (erorr is NetworkExceptions) msg = erorr.msgForUser;
           store.dispatch(
-            SearchAction.anErrorHasoccurred(errorMsg: msg),
+            AnErrorHasOccurredSearchAction(errorMsg: msg),
           );
         },
       );
@@ -41,15 +41,17 @@ class SearchMiddleware implements MiddlewareClass<ReduxAppState> {
       _dispatchSearchHystory(store);
     }
 
-    if (action is DeleteQuerySearchAction) {
+    if (action is DeleteHistorySearchAction) {
       _searchRepository.cleanHystory();
       _dispatchSearchHystory(store);
     }
+
+    next(action);
   }
 
   void _dispatchSearchHystory(Store<ReduxAppState> store) {
     store.dispatch(
-      SearchAction.historyChange(
+      HistoryChangeSearchAction(
         history: _searchRepository.getSearchHystory(),
       ),
     );

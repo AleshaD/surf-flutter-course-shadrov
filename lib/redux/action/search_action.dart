@@ -1,36 +1,47 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 
-part 'search_action.freezed.dart';
+abstract class SearchAction {}
 
-@freezed
-class SearchAction with _$SearchAction {
-  /// Выполнить поиск по местам
-  const factory SearchAction.getSightsSearchAction({required String query}) = GetSightsSearchAction;
+/// Выполнить поиск по местам
+class GetSightsSearchAction extends SearchAction {
+  GetSightsSearchAction({required this.query});
+  final String query;
+}
 
-  /// Результат поиска мест
-  const factory SearchAction.resultSearchAction({
-    required List<SearchedSight> sights,
-    required Set<String> history,
-  }) = ResultSearchAction;
+/// Результат поиска мест
+class ResultSearchAction extends SearchAction {
+  ResultSearchAction({
+    required this.sights,
+    required this.history,
+  });
 
-  /// Удалить запрос из истории
-  const factory SearchAction.deleteQuerySearchAction({required String query}) =
-      DeleteQuerySearchAction;
+  final List<SearchedSight> sights;
+  final Set<String> history;
+}
 
-  /// Удалить историю
-  const factory SearchAction.deleteHistorySearchAction() = DeleteHistorySearchAction;
+/// Пользователь окончил поиск
+class UserSearchIsEndSearchAction extends SearchAction {}
 
-  /// Произошла ошибка при загрузке мест
-  const factory SearchAction.anErrorHasoccurred({required String errorMsg}) =
-      AnErrorHasoccurredSearchAction;
+/// Удалить запрос из истории
+class DeleteQuerySearchAction extends SearchAction {
+  DeleteQuerySearchAction({required this.query});
+  final String query;
+}
 
-  /// Запросить историю поиска
-  const factory SearchAction.getSearchHistory() =
-      GetSearchHistorySearchAction;
+/// Удалить историю
+class DeleteHistorySearchAction extends SearchAction {}
 
-  /// История поиска изменилась
-  const factory SearchAction.historyChange({required Set<String> history}) =
-      HistoryChangeSearchAction;
+/// Произошла ошибка при загрузке мест
+class AnErrorHasOccurredSearchAction extends SearchAction {
+  AnErrorHasOccurredSearchAction({required this.errorMsg});
+  final String errorMsg;
+}
 
+/// Запросить историю поиска
+class GetSearchHistorySearchAction extends SearchAction {}
+
+/// История поиска изменилась
+class HistoryChangeSearchAction extends SearchAction {
+  HistoryChangeSearchAction({required this.history});
+  final Set<String> history;
 }

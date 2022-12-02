@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/search_interactor.dart';
-import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/redux/action/search_action.dart';
 import 'package:places/redux/state/app_state.dart';
@@ -16,7 +14,6 @@ import 'package:places/ui/screen/visiting_screen/empty_list_page.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
-import 'package:provider/provider.dart';
 
 enum _SearchScreenType { error, searchHystory, searchedSights, noResults, emptyPage }
 
@@ -29,44 +26,23 @@ class SightSearchScreen extends StatefulWidget {
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
   int enterDelayMs = 1000;
-  _SearchScreenType pageState = _SearchScreenType.searchHystory;
   Timer timerToSearch = Timer(Duration.zero, () {});
   TextEditingController _txtController = TextEditingController();
-  List<SearchedSight> _findedSights = [];
-  String _networkErrorMsg = '';
 
   bool _searchInProgress = false;
-  final _loadingStreamCtrl = StreamController<bool>.broadcast();
-  final _screenStateStreamCtrl = StreamController<_SearchScreenType>();
 
   @override
   void dispose() {
     super.dispose();
     _txtController.dispose();
-    _loadingStreamCtrl.close();
-    _screenStateStreamCtrl.close();
   }
-
-  @override
-  void initState() {
-    super.initState();
-    showEmptyOrHystoryPg();
-    _loadingStreamCtrl.stream.listen((isLoading) {
-      _searchInProgress = isLoading;
-    });
-  }
-
-  bool pgStateIs(_SearchScreenType type) => pageState == type;
-
-  void setEmptyPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.emptyPage);
-  void setSearchedPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.searchedSights);
-  void setHystoryPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.searchHystory);
-  void setNoResultPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.noResults);
-  void setErrorPgState() => _screenStateStreamCtrl.sink.add(_SearchScreenType.error);
 
   void onSearchBarChanged(String val) {
     timerToSearch.cancel();
-    if (val.trim().isEmpty) return showEmptyOrHystoryPg();
+    if (val.trim().isEmpty) {
+      _dispatchToStore(UserSearchIsEndSearchAction());
+      return;
+    }
 
     // поиск если ввели слово
     if (val.endsWith(' ')) return doSearch(val);
@@ -81,54 +57,27 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void doSearch(String query) async {
     if (query.trim().isEmpty && !_searchInProgress) return;
 
-    _loadingStreamCtrl.sink.add(true);
-
-    try {
-      _findedSights = await context.read<SearchInteractor>().getSightsBy(name: query);
-      _loadingStreamCtrl.sink.add(false);
-      if (_findedSights.isNotEmpty)
-        setSearchedPgState();
-      else
-        setNoResultPgState();
-    } on NetworkExceptions catch (e) {
-      _loadingStreamCtrl.sink.add(false);
-      _networkErrorMsg = e.msgForUser;
-      setErrorPgState();
-    } catch (e) {
-      rethrow;
-    }
+    _dispatchToStore(GetSightsSearchAction(query: query));
   }
 
   void onCompleteSearchEnter() {
     if (_txtController.text.trim().isEmpty) return;
     timerToSearch.cancel();
-    saveSearchedStr();
     doSearch(_txtController.text);
   }
 
-  void saveSearchedStr() {
-    String searchedStr = _txtController.text.trim();
-    context.read<SearchInteractor>().saveQueryNameToHystory(searchedStr);
-  }
-
-  void showEmptyOrHystoryPg() {
-    context.read<SearchInteractor>().getSearchHystory().isNotEmpty
-        ? setHystoryPgState()
-        : setEmptyPgState();
-  }
-
-  void _onDeleteHystoryValueTaped(String name) {
-    setState(
-      () {
-        context.read<SearchInteractor>().removeFromHystory(name);
-        if (context.read<SearchInteractor>().getSearchHystory().isEmpty) setEmptyPgState();
-      },
-    );
-  }
+  void _onDeleteHystoryValueTaped(String query) => _dispatchToStore(
+        DeleteQuerySearchAction(
+          query: query,
+        ),
+      );
 
   void _onClearHystoryTaped() {
-    context.read<SearchInteractor>().cleanHystory();
-    setEmptyPgState();
+    _dispatchToStore(DeleteHistorySearchAction());
+  }
+
+  void _dispatchToStore(SearchAction action) {
+    StoreProvider.of<ReduxAppState>(context).dispatch(action);
   }
 
   Widget _getBodyByState({
@@ -172,7 +121,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         );
       case _SearchScreenType.error:
         return NetworkErrorPage(
-          onReloadPressed: () => showEmptyOrHystoryPg(),
+          onReloadPressed: () => {
+            StoreProvider.of<ReduxAppState>(context).dispatch(
+              GetSearchHistorySearchAction(),
+            )
+          },
           msgForUser: errorMsg,
         );
       default:
@@ -193,32 +146,30 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           controller: _txtController,
           onChanged: onSearchBarChanged,
           onEditingComplete: onCompleteSearchEnter,
-          onFocusDismiss: saveSearchedStr,
         ),
       ),
       body: StoreConnector<ReduxAppState, SearchState>(
         onInit: (store) => store.dispatch(
-          SearchAction.getSearchHistory(),
+          GetSearchHistorySearchAction(),
         ),
         converter: (store) => store.state.searchState,
         builder: (context, vm) {
-          bool isLoading = vm.inProgress;
-          late _SearchScreenType currenScreenType;
+          _searchInProgress = vm.inProgress;
+          _SearchScreenType currenScreenType = _SearchScreenType.emptyPage;
           if (vm.hasError) currenScreenType = _SearchScreenType.error;
           if (vm.sigths.isNotEmpty) currenScreenType = _SearchScreenType.searchedSights;
           if (vm.sigths.isEmpty && vm.history.isNotEmpty)
             currenScreenType = _SearchScreenType.searchHystory;
-          if (vm.sigths.isEmpty && vm.history.isEmpty)
-            currenScreenType = _SearchScreenType.emptyPage;
           if (vm.sigths.isEmpty && _txtController.text.isNotEmpty)
             currenScreenType = _SearchScreenType.noResults;
+
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Stack(
               children: [
                 Align(
                   alignment: Alignment.topCenter,
-                  child: isLoading
+                  child: _searchInProgress
                       ? LinearProgressIndicator(
                           color: Theme.of(context).colorScheme.secondary,
                         )
