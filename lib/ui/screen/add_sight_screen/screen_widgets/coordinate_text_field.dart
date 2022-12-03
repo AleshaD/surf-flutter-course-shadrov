@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/coordinate_type.dart';
-import 'package:places/ui/screen/add_sight_screen/app_text_form_field.dart';
+import 'package:places/ui/screen/add_sight_screen/screen_widgets/app_text_form_field.dart';
 
 class CoordinateTextField extends AppTextFormField {
   const CoordinateTextField({
