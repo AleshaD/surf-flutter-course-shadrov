@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/pickers.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_dismissible.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/model/sights/sight_want_to_visit.dart';
 
@@ -22,7 +24,12 @@ class WantToVisitSightCard extends SightCardDismissible {
   void pickVisitDate(BuildContext context) async {
     DateTime? dateTime = await Pickers.pickDateAndTime(context);
     if (dateTime != null) {
-      print('pickedDate: $dateTime');
+      context.read<VisitingBloc>().add(
+            VisitingEvent.addWantToVisitTime(
+              sight: sight,
+              date: dateTime,
+            ),
+          );
     }
   }
 

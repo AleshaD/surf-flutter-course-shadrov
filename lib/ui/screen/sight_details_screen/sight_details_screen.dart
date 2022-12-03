@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/model/sights/sight.dart';
@@ -9,21 +10,26 @@ import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/photo_page_view/photo_page_view.dart';
 import 'package:provider/provider.dart';
 
+import '../../../blocs/visiting_bloc/visiting_bloc.dart';
+import '../../widgets/pickers.dart';
+
 class SightDetailsScreen extends StatelessWidget {
   SightDetailsScreen(
     this.sight,
     this.scrollController, {
     this.topCornersRadius = 0,
+    required this.visitingBloc,
   });
 
   final Sight sight;
   final ScrollController scrollController;
   final double topCornersRadius;
+  final VisitingBloc visitingBloc;
   final BorderRadius _backBtnRadius = BorderRadius.circular(
     40,
   );
 
-  static void showInBottomSheet(Sight sight, BuildContext context) {
+  static void showInBottomSheet(Sight sight, VisitingBloc visitingBloc, BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double bottomSheetHeight = deviceHeight - 64;
     double topCornerRadius = 12;
@@ -49,6 +55,7 @@ class SightDetailsScreen extends StatelessWidget {
                   sight,
                   scrollController,
                   topCornersRadius: topCornerRadius,
+                  visitingBloc: visitingBloc,
                 );
               },
             ),
@@ -189,14 +196,41 @@ class SightDetailsScreen extends StatelessWidget {
                           IconTextButton(
                             icon: CustomIcons.calendar,
                             name: AppStrings.plan,
-                            isActive: false,
-                            onPressed: () => print('Запланировать'),
-                          ),
-                          IconTextButton(
-                            icon: CustomIcons.menu_heart,
-                            name: AppStrings.toFavorite,
                             isActive: true,
-                            onPressed: () => print('В избранное'),
+                            onPressed: () async {
+                              DateTime? dateTime = await Pickers.pickDateAndTime(context);
+                              if (dateTime != null) {
+                                visitingBloc.add(
+                                  VisitingEvent.addWantToVisitTime(
+                                    sight: sight,
+                                    date: dateTime,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                          BlocBuilder<VisitingBloc, VisitingState>(
+                            builder: (context, state) {
+                              bool isInWantToVisit = state.isSightInWantToVisitList(sight);
+                              return IconTextButton(
+                                icon: isInWantToVisit
+                                    ? CustomIcons.menu_heart_full
+                                    : CustomIcons.menu_heart,
+                                name: isInWantToVisit
+                                    ? AppStrings.deleteFromFavorite
+                                    : AppStrings.toFavorite,
+                                isActive: true,
+                                onPressed: () {
+                                  isInWantToVisit
+                                      ? context
+                                          .read<VisitingBloc>()
+                                          .add(VisitingEvent.deleteFromWantToVisit(sight: sight))
+                                      : context
+                                          .read<VisitingBloc>()
+                                          .add(VisitingEvent.addToWantToVisit(sight: sight));
+                                },
+                              );
+                            },
                           ),
                         ],
                       ),

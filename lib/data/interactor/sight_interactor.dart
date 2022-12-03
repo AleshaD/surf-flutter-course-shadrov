@@ -16,17 +16,19 @@ import '../model/sights/sight_dto.dart';
 
 class SightInteractor with LocationService {
   SightInteractor(this._repository) {
-    _initFavoriteSights();
-    _initVisitedSights();
+    _initFavoriteAndVisitedSights();
   }
 
   final SightRepository _repository;
   final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
   final List<int> _favoriteSightsIds = [127, 139, 330, 329, 352, 390, 129, 132];
   final List<int> _visitedSightsIds = [127, 139, 330, 329];
-  final List<Sight> _favoriteSights = [];
-  final List<Sight> _visitedSights = [];
+  final List<SightWantToVisit> _favoriteSights = [];
+  final List<SightWantToVisit> _visitedSights = [];
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
+  final Completer<bool> _favoriteSightsAndVisitedCompleter = new Completer();
+  late final Future<bool> initedFavotireAndVisitedSights =
+      _favoriteSightsAndVisitedCompleter.future;
 
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
     final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
@@ -57,17 +59,40 @@ class SightInteractor with LocationService {
   }
 
   List<SightWantToVisit> getFavoriteSights() {
-    final sights = _filterSightsByDistanceFrom(_myCoordinate, _favoriteSights);
-
-    return sights.map((s) => SightWantToVisit.fromSight(sight: s)).toList();
+    return _favoriteSights;
   }
 
-  bool addToFavorite(Sight sight) {
-    return _addToCashList(_favoriteSights, sight);
+  bool addToFavorite(Sight sight, [DateTime? date]) {
+    return _addToCashList(
+      _favoriteSights,
+      SightWantToVisit.fromSight(
+        sight: sight,
+        wantToVisitTime: date,
+      ),
+    );
   }
 
   bool isSightInFavorite(Sight sight) {
     return _isSightInCashList(_favoriteSights, sight);
+  }
+
+  List<SightWantToVisit> addWantToVisitSightWithDate(Sight sight, DateTime date) {
+    if (isSightInFavorite(sight)) {
+      final sIndex = _favoriteSights.indexWhere((s) => s.id == sight.id);
+      _favoriteSights
+        ..removeAt(sIndex)
+        ..insert(
+          sIndex,
+          SightWantToVisit.fromSight(
+            sight: sight,
+            wantToVisitTime: date,
+          ),
+        );
+      return _favoriteSights;
+    } else {
+      addToFavorite(sight, date);
+      return _favoriteSights;
+    }
   }
 
   bool removeFromFavorites(Sight sight) {
@@ -75,13 +100,7 @@ class SightInteractor with LocationService {
   }
 
   List<SightWantToVisit> getVisitedSights() {
-    final sights = _visitedSights;
-
-    return sights
-        .map(
-          (s) => SightWantToVisit.fromSight(sight: s, visitedTime: DateTime.now()),
-        )
-        .toList();
+    return _visitedSights;
   }
 
   bool addToVisited(Sight sight) {
@@ -96,19 +115,28 @@ class SightInteractor with LocationService {
     return _removeFromCashList(_visitedSights, sight);
   }
 
-  void _initFavoriteSights() {
-    _loadSightsToListByIds(_favoriteSights, _favoriteSightsIds);
+  List<SightWantToVisit> changeVisitedCardsSequences(int fromIndex, int toIndex) {
+    _changeCardSequences(_visitedSights, fromIndex, toIndex);
+    return _visitedSights;
   }
 
-  void _initVisitedSights() {
-    _loadSightsToListByIds(_visitedSights, _visitedSightsIds);
+  List<SightWantToVisit> changeWantToVisitCardsSequences(int fromIndex, int toIndex) {
+    _changeCardSequences(_favoriteSights, fromIndex, toIndex);
+    return _favoriteSights;
   }
 
-  void _loadSightsToListByIds(List<Sight> list, List<int> ids) {
-    ids.forEach((id) async {
+  void _initFavoriteAndVisitedSights() async {
+    await _loadSightsToListByIds(_favoriteSights, _favoriteSightsIds);
+    await _loadSightsToListByIds(_visitedSights, _visitedSightsIds);
+    _favoriteSightsAndVisitedCompleter.complete(true);
+  }
+
+  Future<void> _loadSightsToListByIds(List<SightWantToVisit> list, List<int> ids) async {
+    for (var i = 0; i < ids.length; i++) {
+      final id = ids.elementAt(i);
       final sight = await _doRepoRequestWithHandleErrors(_repository.getSight(id));
-      if (sight != null) list.add(sight);
-    });
+      if (sight != null) list.add(SightWantToVisit.fromSight(sight: sight));
+    }
   }
 
   bool _addToCashList(List<Sight> list, Sight sight) {
@@ -131,6 +159,20 @@ class SightInteractor with LocationService {
     return lengthBeforeRemove != list.length;
   }
 
+  List<SightWantToVisit> _changeCardSequences(
+    List<SightWantToVisit> sights,
+    int fromIndex,
+    int toIndex,
+  ) {
+    if (toIndex > fromIndex) toIndex--;
+    if (toIndex < 0) toIndex = 0;
+    sights.insert(
+      toIndex,
+      sights.removeAt(fromIndex),
+    );
+    return sights;
+  }
+
   Future<T?> _doRepoRequestWithHandleErrors<T>(Future<T> request) async {
     try {
       T? result = await request;
@@ -145,8 +187,8 @@ class SightInteractor with LocationService {
     return null;
   }
 
-  List<Sight> _filterSightsByDistanceFrom(Coordinate center, List<Sight> sights) {
-    sights.sort((a, b) {
+  List<T> _filterSightsByDistanceFrom<T>(Coordinate center, List<T> sights) {
+    (sights as List<Sight>).sort((a, b) {
       return getDistanceBeatwenCoordinates(a.coordinate, center) <
               getDistanceBeatwenCoordinates(b.coordinate, center)
           ? 0
