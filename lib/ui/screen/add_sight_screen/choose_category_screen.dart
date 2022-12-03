@@ -48,6 +48,10 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                             dense: true,
                             onTap: () => setState(() {
                               choosen = type;
+                              Future.delayed(
+                                Duration(milliseconds: 200),
+                                () => Navigator.pop(context, choosen),
+                              );
                             }),
                             leading: Text(
                               Sight.getTypeNameBy(type),
