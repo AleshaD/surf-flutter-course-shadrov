@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
-import 'package:places/ui/screen/onboarding_screen/onboard_page_pagination.dart';
-import 'package:places/ui/screen/onboarding_screen/onboarding_page.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/onboard_page_pagination.dart';
+import 'package:places/ui/screen/onboarding_screen/widgets/onboarding_page.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
