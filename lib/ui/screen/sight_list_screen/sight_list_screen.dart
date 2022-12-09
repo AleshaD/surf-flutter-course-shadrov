@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/repository/sights_api.dart';
+import 'package:places/data/providers/sights_api.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_landscape_orientation.dart';
@@ -15,7 +15,7 @@ import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/interactor/sight_interactor.dart';
+import '../../../data/repository/sight_repository.dart';
 import '../../../data/model/exceptions/network_exceptions.dart';
 import '../../../data/model/sights/sight.dart';
 import '../../../store/sight_list/sight_list_screen_store.dart';
@@ -45,7 +45,7 @@ class SightListScreenState extends State<SightListScreen> {
   @override
   void initState() {
     super.initState();
-    _networkErrorSubscription = context.read<SightInteractor>().exceptionStream.stream.listen(
+    _networkErrorSubscription = context.read<SightRepository>().exceptionStream.stream.listen(
           _handleNetworkException,
         );
     final sightRepo = context.read<SightsApi>();

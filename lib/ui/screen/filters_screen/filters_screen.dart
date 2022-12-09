@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/sight_interactor.dart';
+import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/enums/sight_type.dart';
@@ -37,7 +37,7 @@ class FiltersScreenState extends State<FiltersScreen> {
   @override
   void initState() {
     super.initState();
-    _networkErrorSubscription = context.read<SightInteractor>().exceptionStream.stream.listen(
+    _networkErrorSubscription = context.read<SightRepository>().exceptionStream.stream.listen(
           _handleNetworkException,
         );
   }
@@ -88,7 +88,7 @@ class FiltersScreenState extends State<FiltersScreen> {
 
   Future<void> _loadSights() async {
     msgErrorForUser = '';
-    context.read<SightInteractor>().getSightsFromFilter(sightFilter).then((sights) {
+    context.read<SightRepository>().getSightsFromFilter(sightFilter).then((sights) {
       setState(() {
         filteredSights = sights;
       });

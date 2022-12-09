@@ -1,12 +1,12 @@
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/search_interactor.dart';
+import 'package:places/data/repository/search_repository.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/redux/action/search_action.dart';
 import 'package:places/redux/state/redux_app_state.dart';
 import 'package:redux/redux.dart';
 
 class SearchMiddleware implements MiddlewareClass<ReduxAppState> {
-  final SearchInteractor _searchRepository;
+  final SearchRepository _searchRepository;
 
   SearchMiddleware(this._searchRepository);
 

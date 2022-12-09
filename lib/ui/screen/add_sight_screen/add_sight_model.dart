@@ -1,20 +1,20 @@
 import 'package:elementary/elementary.dart';
-import 'package:places/data/interactor/sight_interactor.dart';
+import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 
 
 class AddSightModel extends ElementaryModel {
-  AddSightModel({required SightInteractor sightInteractor})
-      : this._sightInteractor = sightInteractor,
+  AddSightModel({required SightRepository sightRepository})
+      : this._sightRepository = sightRepository,
         super();
-  final SightInteractor _sightInteractor;
+  final SightRepository _sightRepository;
   final _maxReCreateAttempts = 3;
   int _reCreateAttempts = 0;
 
   Future<Sight> addNewSight(Sight sight) async {
     try {
-      final createdSight = await _sightInteractor.addNewSight(
+      final createdSight = await _sightRepository.addNewSight(
         sight,
       );
       _reCreateAttempts = 0;

@@ -4,7 +4,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
-import 'package:places/data/repository/sights_api.dart';
+import 'package:places/data/providers/sights_api.dart';
 
 import '../../data/model/coordinate.dart';
 import '../../data/model/sights/sight.dart';

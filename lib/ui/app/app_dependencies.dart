@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
-import 'package:places/data/interactor/search_interactor.dart';
+import 'package:places/data/repository/search_repository.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
-import 'package:places/data/interactor/sight_interactor.dart';
+import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/repository/sight_images_repository.dart';
-import 'package:places/data/repository/sights_api.dart';
+import 'package:places/data/providers/sights_api.dart';
 import 'package:places/redux/middleware/search_middleware.dart';
 import 'package:places/redux/reducer/reducer.dart';
 import 'package:places/redux/state/redux_app_state.dart';
@@ -24,7 +24,7 @@ class AppDependencies extends StatefulWidget {
 }
 
 class _AppDependenciesState extends State<AppDependencies> {
-  late final SightsApi _sightRepo;
+  late final SightsApi _sightApi;
   late final Store<ReduxAppState> _store;
 
   @override
@@ -32,7 +32,7 @@ class _AppDependenciesState extends State<AppDependencies> {
     super.initState();
 
     final _dioTimeout = 10000;
-    _sightRepo = SightsApi(
+    _sightApi = SightsApi(
       Dio(
         BaseOptions(
           connectTimeout: _dioTimeout,
@@ -48,7 +48,7 @@ class _AppDependenciesState extends State<AppDependencies> {
       initialState: ReduxAppState(),
       middleware: [
         SearchMiddleware(
-          SearchInteractor(_sightRepo),
+          SearchRepository(_sightApi),
         ),
       ],
     );
@@ -58,9 +58,9 @@ class _AppDependenciesState extends State<AppDependencies> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<SightsApi>(create: (context) => _sightRepo),
-        Provider<SightInteractor>(create: (_) => SightInteractor(_sightRepo)),
-        Provider<SearchInteractor>(create: (_) => SearchInteractor(_sightRepo)),
+        Provider<SightsApi>(create: (context) => _sightApi),
+        Provider<SightRepository>(create: (_) => SightRepository(_sightApi)),
+        Provider<SearchRepository>(create: (_) => SearchRepository(_sightApi)),
         Provider<SightImagesInteractor>(
           create: (_) => SightImagesInteractor(
             SightImagesRepository.withDefaultDio(),
@@ -70,7 +70,7 @@ class _AppDependenciesState extends State<AppDependencies> {
       child: BlocProvider(
         lazy: false,
         create: (context) => VisitingBloc(
-          sightRepository: context.read<SightInteractor>(),
+          sightRepository: context.read<SightRepository>(),
         )..add(VisitingEvent.loadSights()),
         child: StoreProvider<ReduxAppState>(
           store: _store,

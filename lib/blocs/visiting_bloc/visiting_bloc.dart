@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:places/data/interactor/sight_interactor.dart';
+import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/sights/sight_want_to_visit.dart';
@@ -10,7 +10,7 @@ part 'visiting_state.dart';
 part 'visiting_bloc.freezed.dart';
 
 class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
-  VisitingBloc({required SightInteractor sightRepository})
+  VisitingBloc({required SightRepository sightRepository})
       : _sightRepository = sightRepository,
         super(const VisitingState.loadingState()) {
     on<VisitingEvent>(
@@ -33,7 +33,7 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
   // а то что сейчас называется репозиторием это просто api сервера.
   // в конце этого раздела по архитектуре планирую сделать рефакторинг, чтобы лучше разделить
   // слой данных, управления данными, слой бизнесс логики и интерфейса
-  final SightInteractor _sightRepository;
+  final SightRepository _sightRepository;
 
   _loadSights(_LoadSights event, Emitter<VisitingState> emitter) async {
     if (!event.hideLoading) emitter(VisitingState.loadingState());
