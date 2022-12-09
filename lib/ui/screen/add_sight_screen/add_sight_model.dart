@@ -1,8 +1,8 @@
 import 'package:elementary/elementary.dart';
 import 'package:places/data/interactor/sight_interactor.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
+import 'package:places/data/model/sights/sight.dart';
 
-import '../../../data/model/sights/sight.dart';
 
 class AddSightModel extends ElementaryModel {
   AddSightModel({required SightInteractor sightInteractor})

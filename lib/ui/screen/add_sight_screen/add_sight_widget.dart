@@ -1,9 +1,9 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/app_strings.dart';
-import '../../../data/model/enums/coordinate_type.dart';
-import '../../../styles/custom_icons.dart';
-import '../../widgets/buttons/large_app_button.dart';
+import 'package:places/constants/app_strings.dart';
+import 'package:places/data/model/enums/coordinate_type.dart';
+import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'add_sight_wm.dart';
 import 'screen_widgets/add_sight_photo_list.dart';
 import 'screen_widgets/app_text_form_field.dart';
@@ -109,13 +109,7 @@ class AddSightWidget extends ElementaryWidget<IAddSightWidgetModel> {
                             name: AppStrings.title,
                             textController: wm.nameController,
                             focusNode: wm.nameNode,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return AppStrings.enterTheTitle;
-                              }
-
-                              return null;
-                            },
+                            validator: wm.nameValidator,
                             onChange: wm.checkIsCreateBtnActive,
                             onEditingComplete: () => wm.requestFocusTo(wm.latitudeNode),
                           ),
@@ -168,13 +162,7 @@ class AddSightWidget extends ElementaryWidget<IAddSightWidgetModel> {
                             hint: AppStrings.enterTheText.toLowerCase(),
                             textController: wm.descriptionController,
                             focusNode: wm.descriptionNode,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return AppStrings.enterTheDescription;
-                              }
-
-                              return null;
-                            },
+                            validator: wm.descriptionValidator,
                             onChange: wm.checkIsCreateBtnActive,
                             textInputType: TextInputType.multiline,
                             showClearTxtBtn: false,
