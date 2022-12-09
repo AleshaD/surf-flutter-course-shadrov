@@ -3,13 +3,13 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
-import 'package:places/data/repository/sight_repository.dart';
+import 'package:places/data/repository/sights_api.dart';
 
 class SearchInteractor {
   SearchInteractor(this._repository);
 
   static final Set<String> _searchHystory = {};
-  final SightRepository _repository;
+  final SightsApi _repository;
 
   Future<List<SearchedSight>> getSightsBy({required String name}) async {
     final requestFilter = SightsFilterRequestDto(nameFilter: name);

@@ -7,11 +7,11 @@ import 'package:retrofit/retrofit.dart';
 
 import '../model/sights/sight.dart';
 
-part 'sight_repository.g.dart';
+part 'sights_api.g.dart';
 
 @RestApi(baseUrl: 'https://test-backend-flutter.surfstudio.ru')
-abstract class SightRepository {
-  factory SightRepository(Dio dio, {String baseUrl}) = _SightRepository;
+abstract class SightsApi {
+  factory SightsApi(Dio dio, {String baseUrl}) = _SightsApi;
 
   @POST('/filtered_places')
   Future<List<SightDto>> getFilteredSights(@Body() SightsFilterRequestDto filter);

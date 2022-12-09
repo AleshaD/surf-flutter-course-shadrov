@@ -9,7 +9,7 @@ import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/sights/sight_want_to_visit.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/data/repository/sight_repository.dart';
+import 'package:places/data/repository/sights_api.dart';
 import 'package:places/data/services/location_service.dart';
 
 import '../model/sights/sight_dto.dart';
@@ -19,7 +19,7 @@ class SightInteractor with LocationService {
     _initFavoriteAndVisitedSights();
   }
 
-  final SightRepository _repository;
+  final SightsApi _repository;
   final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
   final List<int> _favoriteSightsIds = [127, 139, 330, 329, 352, 390, 129, 132];
   final List<int> _visitedSightsIds = [127, 139, 330, 329];

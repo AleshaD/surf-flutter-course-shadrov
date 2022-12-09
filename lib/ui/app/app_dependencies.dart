@@ -7,7 +7,7 @@ import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/interactor/sight_interactor.dart';
 import 'package:places/data/repository/sight_images_repository.dart';
-import 'package:places/data/repository/sight_repository.dart';
+import 'package:places/data/repository/sights_api.dart';
 import 'package:places/redux/middleware/search_middleware.dart';
 import 'package:places/redux/reducer/reducer.dart';
 import 'package:places/redux/state/redux_app_state.dart';
@@ -24,7 +24,7 @@ class AppDependencies extends StatefulWidget {
 }
 
 class _AppDependenciesState extends State<AppDependencies> {
-  late final SightRepository _sightRepo;
+  late final SightsApi _sightRepo;
   late final Store<ReduxAppState> _store;
 
   @override
@@ -32,7 +32,7 @@ class _AppDependenciesState extends State<AppDependencies> {
     super.initState();
 
     final _dioTimeout = 10000;
-    _sightRepo = SightRepository(
+    _sightRepo = SightsApi(
       Dio(
         BaseOptions(
           connectTimeout: _dioTimeout,
@@ -58,7 +58,7 @@ class _AppDependenciesState extends State<AppDependencies> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<SightRepository>(create: (context) => _sightRepo),
+        Provider<SightsApi>(create: (context) => _sightRepo),
         Provider<SightInteractor>(create: (_) => SightInteractor(_sightRepo)),
         Provider<SearchInteractor>(create: (_) => SearchInteractor(_sightRepo)),
         Provider<SightImagesInteractor>(

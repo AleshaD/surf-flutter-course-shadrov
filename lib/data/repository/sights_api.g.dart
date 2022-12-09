@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sight_repository.dart';
+part of 'sights_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'sight_repository.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _SightRepository implements SightRepository {
-  _SightRepository(
+class _SightsApi implements SightsApi {
+  _SightsApi(
     this._dio, {
     this.baseUrl,
   }) {

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/repository/sight_repository.dart';
+import 'package:places/data/repository/sights_api.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_landscape_orientation.dart';
@@ -48,7 +48,7 @@ class SightListScreenState extends State<SightListScreen> {
     _networkErrorSubscription = context.read<SightInteractor>().exceptionStream.stream.listen(
           _handleNetworkException,
         );
-    final sightRepo = context.read<SightRepository>();
+    final sightRepo = context.read<SightsApi>();
     _store = SightListScreenStore(sightRepo);
     _store.loadSights();
   }

@@ -4,7 +4,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
-import 'package:places/data/repository/sight_repository.dart';
+import 'package:places/data/repository/sights_api.dart';
 
 import '../../data/model/coordinate.dart';
 import '../../data/model/sights/sight.dart';
@@ -16,7 +16,7 @@ class SightListScreenStore = SightListScreenStoreBase with _$SightListScreenStor
 abstract class SightListScreenStoreBase with Store {
   SightListScreenStoreBase(this._sightRepository);
 
-  final SightRepository _sightRepository;
+  final SightsApi _sightRepository;
   final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
 
   @observable
