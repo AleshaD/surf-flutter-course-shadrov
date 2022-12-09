@@ -127,6 +127,7 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
   ) async {
     try {
       final List<SightWantToVisit>? sights = await getSights;
+
       return sights;
     } on NetworkExceptions catch (e) {
       emitter(
@@ -141,6 +142,7 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
       );
       rethrow;
     }
+
     return null;
   }
 }

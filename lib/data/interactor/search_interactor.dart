@@ -15,7 +15,7 @@ class SearchInteractor {
     final requestFilter = SightsFilterRequestDto(nameFilter: name);
     try {
       final sights = await _repository.getFilteredSights(requestFilter);
-      _searchHystory.add(name);
+      saveQueryNameToHystory(name);
 
       return sights.map((s) => SearchedSight(s, name)).toList();
     } on DioError catch (e) {
@@ -27,7 +27,7 @@ class SearchInteractor {
 
   Set<String> getSearchHystory() => _searchHystory;
 
-  void saveToHystory(String name) {
+  void saveQueryNameToHystory(String name) {
     if (name.isNotEmpty) {
       // добавить в начало списка
       var list = _searchHystory.toList();

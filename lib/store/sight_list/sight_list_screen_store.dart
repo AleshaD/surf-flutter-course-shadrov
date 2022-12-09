@@ -48,6 +48,7 @@ abstract class SightListScreenStoreBase with Store {
       typeFilter: filter.activeTypes.toList(),
     );
     final searchedSights = await _sightRepository.getFilteredSights(requestFilter);
+
     return searchedSights.where((s) => filter.sightInFilter(s, _myCoordinate)).toList();
   }
 }

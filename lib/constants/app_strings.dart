@@ -56,6 +56,7 @@ class AppStrings {
   static const noFindResult = 'Ничего не найдено.';
   static const tryChangeSearchParams = 'Попробуйте изменить параметры поиска';
   static const erorr = 'Ошибка';
+  static const unknownError = 'Непредвиденная ошибка';
   static const tryAganinLater = 'Попробуйте позже';
   static const youSearched = 'Вы искали';
   static const cleanHystory = 'Очистить историю';

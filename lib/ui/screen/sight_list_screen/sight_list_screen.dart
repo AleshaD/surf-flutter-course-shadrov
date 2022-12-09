@@ -75,6 +75,7 @@ class SightListScreenState extends State<SightListScreen> {
           final bool isLoading = _store.isLoading;
           final List<Sight> sights = _store.sights;
           final bool showNewPlaceBtn = sights.isNotEmpty;
+
           return SafeArea(
             child: error != null
                 ? NetworkErrorPage(

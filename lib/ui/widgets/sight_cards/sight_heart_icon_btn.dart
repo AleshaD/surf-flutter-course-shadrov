@@ -32,6 +32,7 @@ class _SightHeartIconBtnState extends State<SightHeartIconBtn> {
       },
       builder: (context, state) {
         isInWantToVisit = state.isSightInWantToVisitList(widget.sight);
+
         return SightCardIconButton(
           icon: isInWantToVisit ? CustomIcons.menu_heart_full : CustomIcons.menu_heart,
           iconSize: widget.iconSize,
