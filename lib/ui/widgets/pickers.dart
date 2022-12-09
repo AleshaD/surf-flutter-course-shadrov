@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/main.dart';
+import 'package:places/ui/app/app.dart';
 import 'package:places/ui/widgets/buttons/cupertino_simple_app_button.dart';
 
 class Pickers {
