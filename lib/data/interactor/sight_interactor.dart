@@ -138,7 +138,7 @@ class SightInteractor with LocationService {
     for (var i = 0; i < ids.length; i++) {
       final id = ids.elementAt(i);
       final sight = await _doRepoRequestWithHandleErrors(_repository.getSight(id));
-      if (sight != null) list.add(SightWantToVisit.fromSight(sight: sight));
+      list.add(SightWantToVisit.fromSight(sight: sight));
     }
   }
 
