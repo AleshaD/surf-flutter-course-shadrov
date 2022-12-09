@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/sight_interactor.dart';
 import 'package:places/data/model/enums/sight_type.dart';
+import 'package:places/data/model/sights/sight.dart';
+import 'package:places/mocks.dart';
 import 'package:places/ui/screen/add_sight_screen/screen_widgets/choose_category_screen.dart';
 import 'package:provider/provider.dart';
-import '../../../constants/app_strings.dart';
-import '../../../data/model/sights/sight.dart';
-import '../../../mocks.dart';
 import 'add_sight_model.dart';
 import 'add_sight_widget.dart';
 import 'screen_widgets/add_photo_pick_source_page.dart';
@@ -23,6 +23,8 @@ abstract class IAddSightWidgetModel extends IWidgetModel {
   FocusNode get latitudeNode;
   FocusNode get longitudeNode;
   FocusNode get nameNode;
+  FormFieldValidator<String>? get descriptionValidator;
+  FormFieldValidator<String>? get nameValidator;
   ScrollController get scrollController;
   GlobalKey<FormState> get formKey;
   ThemeData get theme;
@@ -76,6 +78,22 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   final FocusNode nameNode = FocusNode();
   final ScrollController scrollController = ScrollController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final descriptionValidator = (value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.enterTheDescription;
+    }
+
+    return null;
+  };
+
+  final nameValidator = (value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.enterTheTitle;
+    }
+
+    return null;
+  };
 
   final _pathsToSightPhotosState = EntityStateNotifier<List<String>>(
     EntityState(
