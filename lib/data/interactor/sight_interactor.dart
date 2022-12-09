@@ -54,7 +54,7 @@ class SightInteractor with LocationService {
     return _doRepoRequestWithHandleErrors(_repository.getSight(id));
   }
 
-  Future<Sight?> addNewSight(Sight sight) {
+  Future<Sight> addNewSight(Sight sight) {
     return _doRepoRequestWithHandleErrors(_repository.createSight(sight));
   }
 
@@ -177,18 +177,17 @@ class SightInteractor with LocationService {
     return sights;
   }
 
-  Future<T?> _doRepoRequestWithHandleErrors<T>(Future<T> request) async {
+  Future<T> _doRepoRequestWithHandleErrors<T>(Future<T> request) async {
     try {
-      T? result = await request;
+      T result = await request;
 
       return result;
     } on DioError catch (e) {
       _handleRepoError(e);
+      rethrow;
     } catch (e) {
       rethrow;
     }
-
-    return null;
   }
 
   List<T> _filterSightsByDistanceFrom<T>(Coordinate center, List<T> sights) {

@@ -43,18 +43,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   @override
   void initState() {
     super.initState();
-    widget.focusNode.addListener(() {
-      setState(() {
-        //перестроить виджет на случай нужно ли показывать
-        //кнопку удаления
-      });
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.focusNode.dispose();
   }
 
   @override

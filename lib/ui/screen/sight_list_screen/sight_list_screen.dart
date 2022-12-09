@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
+import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_landscape_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_portrate_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_search_bar_delegate.dart';
@@ -136,7 +136,7 @@ class SightListScreenState extends State<SightListScreen> {
                                 Navigator.of(context)
                                     .push(
                                       MaterialPageRoute(
-                                        builder: (context) => AddSightScreen(),
+                                        builder: (context) => AddSightWidget(),
                                       ),
                                     )
                                     .then((value) => setState(() {}));

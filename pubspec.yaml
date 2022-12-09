@@ -11,6 +11,7 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
+  elementary: ^1.5.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1

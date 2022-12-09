@@ -54,7 +54,7 @@ class Sight {
         'description': this.description,
       };
 
-  static int _idCreator() => DateTime.now().microsecondsSinceEpoch;
+  static int _idCreator() => DateTime.now().millisecond * 10;
 
   static String getTypeNameBy(SightType type) {
     return _$SightTypeEnumMap[type]!;

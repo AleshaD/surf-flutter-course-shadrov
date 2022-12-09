@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/add_sight_screen/add_photo_button.dart';
-import 'package:places/ui/screen/add_sight_screen/added_photo.dart';
+import 'package:places/ui/screen/add_sight_screen/screen_widgets/add_photo_button.dart';
+import 'package:places/ui/screen/add_sight_screen/screen_widgets/added_photo.dart';
 
 class AddSightPhotoList extends StatelessWidget {
   AddSightPhotoList({
