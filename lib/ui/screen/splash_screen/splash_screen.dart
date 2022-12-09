@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/onboarding_screen/onboarding_screen.dart';
+import 'package:places/ui/screen/onboarding_screen/onboarding_screen_widget.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => OnboardingScreen(),
+          builder: (context) => OnboardingScreenWidget(),
         ),
       );
     });
