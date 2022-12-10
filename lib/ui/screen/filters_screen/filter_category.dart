@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/filters_screen/filters_screen.dart';
 
 class FilterCategory extends StatelessWidget {
   const FilterCategory({
     required this.type,
+    required this.isActive,
+    required this.onTap,
   });
 
   final SightType type;
+  final bool isActive;
+  final ValueChanged<SightType> onTap;
 
   final double _mainContainerSize = 64;
   final double _activeContainerSize = 16;
@@ -17,8 +20,6 @@ class FilterCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final parentScreen = context.findAncestorStateOfType<FiltersScreenState>()!;
-    final bool isActiveCategory = parentScreen.isActiveCategory(type);
     final double horizontalMargin = MediaQuery.of(context).size.width < 350 ? 12 : 22;
 
     return Column(
@@ -27,7 +28,7 @@ class FilterCategory extends StatelessWidget {
         InkWell(
           customBorder: CircleBorder(),
           onTap: () {
-            parentScreen.changeActiveCategory(type);
+            onTap(this.type);
           },
           child: Container(
             height: _mainContainerSize,
@@ -46,7 +47,7 @@ class FilterCategory extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                isActiveCategory
+                isActive
                     ? Align(
                         alignment: Alignment.bottomRight,
                         child: Container(
