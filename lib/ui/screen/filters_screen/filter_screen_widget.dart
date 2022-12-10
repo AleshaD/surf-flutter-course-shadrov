@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
-import 'package:places/ui/screen/filters_screen/filter_category.dart';
+import 'package:places/ui/screen/filters_screen/widgets/filter_category.dart';
 import 'package:places/ui/widgets/buttons/app_bar_back_button.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
