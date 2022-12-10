@@ -11,6 +11,7 @@ import 'package:places/data/providers/sights_api.dart';
 import 'package:places/redux/middleware/search_middleware.dart';
 import 'package:places/redux/reducer/reducer.dart';
 import 'package:places/redux/state/redux_app_state.dart';
+import 'package:places/util/default_error_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 
@@ -66,6 +67,7 @@ class _AppDependenciesState extends State<AppDependencies> {
             SightImagesRepository.withDefaultDio(),
           ),
         ),
+        Provider<DefaultErrorHandler>(create: (_) => DefaultErrorHandler()),
       ],
       child: BlocProvider(
         lazy: false,
