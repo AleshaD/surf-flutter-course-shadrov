@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/model/sights/sight.dart';
-import '../../widgets/sight_cards/sight_card.dart';
+import '../../../../data/model/sights/sight.dart';
+import '../../../widgets/sight_cards/sight_card.dart';
 
-class SightListPortrateOrientation extends StatelessWidget {
-  const SightListPortrateOrientation(this.sights);
+class SightListLandscapeOrientation extends StatelessWidget {
+  const SightListLandscapeOrientation(this.sights);
 
   final List<Sight> sights;
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
+    return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           double bottomPadding = 0;
-          bool isLastElement = index == sights.length - 1;
-          if (isLastElement) bottomPadding = 80;
 
           return Padding(
             padding: EdgeInsets.only(
@@ -30,6 +28,10 @@ class SightListPortrateOrientation extends StatelessWidget {
           );
         },
         childCount: sights.length,
+      ),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1.6,
       ),
     );
   }
