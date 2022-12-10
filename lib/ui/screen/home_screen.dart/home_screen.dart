@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/settings_screen.dart';
-import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
+import 'package:places/ui/screen/sight_list_screen/sight_list_screen_widget.dart';
 import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
 import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Widget currentScreen = SizedBox.shrink();
     switch (currentScreenType) {
       case HomeScreenTypes.mainSightList:
-        currentScreen = SightListScreen();
+        currentScreen = SightListScreenWidget();
         break;
       case HomeScreenTypes.sightsMap:
         currentScreen = SightsMapScreen();
