@@ -30,6 +30,9 @@ class SightRepository with LocationService {
   late final Future<bool> initedFavotireAndVisitedSights =
       _favoriteSightsAndVisitedCompleter.future;
 
+  //В будущем созранять в каком-нить локальном хранилище
+  SightFilter userFilter = SightFilter.dafult();
+
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
     final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
 
