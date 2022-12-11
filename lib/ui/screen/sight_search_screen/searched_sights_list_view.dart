@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
-import 'package:places/ui/screen/sight_details_screen/sight_details_screen.dart';
+import 'package:places/ui/screen/sight_details_screen/sight_details_screen_widget.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_card_tile.dart';
-import 'package:provider/provider.dart';
-
-import '../../../blocs/visiting_bloc/visiting_bloc.dart';
 
 class SearchedSightsListView extends StatelessWidget {
   const SearchedSightsListView(this.searshedSights);
@@ -31,9 +28,8 @@ class SearchedSightsListView extends StatelessWidget {
                 ),
             showDevider: index != searshedSights.length - 1,
             onTap: () {
-              SightDetailsScreen.showInBottomSheet(
+              SightDetailsScreenWidget.showInBottomSheet(
                 searshedSights[index].sight,
-                context.read<VisitingBloc>(),
                 context,
               );
             },
