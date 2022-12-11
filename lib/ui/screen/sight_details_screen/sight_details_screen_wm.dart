@@ -72,7 +72,7 @@ class SightDetailsScreenWidgetModel
 
   @override
   void onHeartBtnPressed() {
-    isInWantToVisit.value!
+    _isInWantToVisitList.value!
         ? model.deleteFromVisitingList(widget.sight)
         : model.addToWantToVisitingList(widget.sight);
 
@@ -86,7 +86,9 @@ class SightDetailsScreenWidgetModel
   }
 
   void _checkAndSetIsSightInWantToVisitList() {
-    final isInVisitList = model.isSightInWantToVisitList(widget.sight);
-    isInWantToVisit.accept(isInVisitList);
+    Future.delayed(Duration.zero, () {
+      final isInVisitList = model.isSightInWantToVisitList(widget.sight);
+      _isInWantToVisitList.accept(isInVisitList);
+    });
   }
 }
