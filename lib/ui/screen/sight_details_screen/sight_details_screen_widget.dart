@@ -26,6 +26,41 @@ class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidge
     40,
   );
 
+  static void showInBottomSheet(Sight sight, BuildContext context) {
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double bottomSheetHeight = deviceHeight - 64;
+    double topCornerRadius = 12;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return ConstrainedBox(
+          constraints: BoxConstraints.tight(
+            Size(bottomSheetHeight, bottomSheetHeight),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(topCornerRadius),
+            ),
+            child: DraggableScrollableSheet(
+              initialChildSize: 1.0,
+              minChildSize: 0.8,
+              snap: true,
+              builder: (_, scrollController) {
+                return SightDetailsScreenWidget(
+                  sight: sight,
+                  scrollController: scrollController,
+                  topCornersRadius: topCornerRadius,
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(ISightDetailsScreenWidgetModel wm) {
     double childMargin = 24;
