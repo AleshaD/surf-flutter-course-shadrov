@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
-import 'package:places/ui/screen/sight_search_screen/searched_sights_list_view.dart';
+import 'package:places/ui/screen/sight_search_screen/widgets/searched_sights_list_view.dart';
 
 import '../../../data/model/sights/sight.dart';
 

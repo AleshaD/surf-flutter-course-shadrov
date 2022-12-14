@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/sight_search_screen/search_hystory_tile.dart';
+import 'package:places/ui/screen/sight_search_screen/widgets/search_hystory_tile.dart';
 
-import '../../../constants/app_strings.dart';
+import '../../../../constants/app_strings.dart';
 
 class SearchHystoryListView extends StatelessWidget {
   const SearchHystoryListView({
