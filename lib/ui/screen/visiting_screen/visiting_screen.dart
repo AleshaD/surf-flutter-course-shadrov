@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/ui/screen/visiting_screen/visit_screen_tab_bar.dart';
-import 'package:places/ui/screen/visiting_screen/visited_page.dart';
-import 'package:places/ui/screen/visiting_screen/want_to_visit_page.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/visit_screen_tab_bar.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/visited_page.dart';
+import 'package:places/ui/screen/visiting_screen/widgets/want_to_visit_page.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 
 import '../../../blocs/visiting_bloc/visiting_bloc.dart';
