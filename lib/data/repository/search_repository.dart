@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
@@ -10,6 +12,8 @@ class SearchRepository {
 
   static final Set<String> _searchHystory = {};
   final SightsApi _sightApi;
+
+  final searchHistoryStreamCtrl = StreamController<Set<String>>.broadcast();
 
   Future<List<SearchedSight>> getSightsBy({required String name}) async {
     final requestFilter = SightsFilterRequestDto(nameFilter: name);
@@ -37,15 +41,18 @@ class SearchRepository {
         _searchHystory.add(str);
       });
     }
+    searchHistoryStreamCtrl.add(_searchHystory);
   }
 
   bool removeFromHystory(String name) {
-    return _searchHystory.remove(name);
+    final isSuccess = _searchHystory.remove(name);
+    searchHistoryStreamCtrl.add(_searchHystory);
+    return isSuccess;
   }
 
   Set<String> cleanHystory() {
     _searchHystory.clear();
-
+    searchHistoryStreamCtrl.add(_searchHystory);
     return _searchHystory;
   }
 }
