@@ -149,6 +149,7 @@ class FilterScreenWidgetModel extends WidgetModel<FilterScreenWidget, FilterScre
 
   String _sliderDiaposon() {
     final filter = _sightFilter.value!;
+
     return '${AppStrings.from.toLowerCase()} ${_readableDistanceVal(filter.fromDist)} ${AppStrings.to.toLowerCase()} ${_readableDistanceVal(filter.toDist)}';
   }
 

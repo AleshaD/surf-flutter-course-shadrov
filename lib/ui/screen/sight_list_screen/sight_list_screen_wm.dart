@@ -88,10 +88,7 @@ class SightListScreenWidgetModel extends WidgetModel<SightListScreenWidget, Sigh
   @override
   void onErrorHandle(Object error) {
     super.onErrorHandle(error);
-    if (error is NetworkExceptions)
-      _errorMessage = error.msgForUser;
-    else
-      _errorMessage = AppStrings.unknownError;
+    error is NetworkExceptions ? _errorMessage = error.msgForUser : _errorMessage = AppStrings.unknownError;
     _sightsEntityState.error(error as Exception, []);
   }
 

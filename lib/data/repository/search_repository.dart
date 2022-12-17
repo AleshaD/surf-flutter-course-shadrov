@@ -47,12 +47,14 @@ class SearchRepository {
   bool removeFromHystory(String name) {
     final isSuccess = _searchHystory.remove(name);
     searchHistoryStreamCtrl.add(_searchHystory);
+
     return isSuccess;
   }
 
   Set<String> cleanHystory() {
     _searchHystory.clear();
     searchHistoryStreamCtrl.add(_searchHystory);
+
     return _searchHystory;
   }
 }

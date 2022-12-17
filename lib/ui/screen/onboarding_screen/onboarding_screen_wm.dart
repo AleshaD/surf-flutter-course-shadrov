@@ -20,7 +20,7 @@ abstract class IOnboardingScreenWidgetModel extends IWidgetModel {
   void onPageChanged(int value);
 }
 
-OnboardingScreenWidgetModel onboardingScreenWidgetModelFactory(BuildContext context) {
+OnboardingScreenWidgetModel onboardingScreenWidgetModelFactory(BuildContext _) {
   return OnboardingScreenWidgetModel(OnboardingScreenModel());
 }
 

@@ -52,6 +52,7 @@ AddSightWidgetModel defaultAddSightWidgetModelFactory(BuildContext context) {
   final model = AddSightModel(
     sightRepository: context.read<SightRepository>(),
   );
+
   return AddSightWidgetModel(
     model,
   );

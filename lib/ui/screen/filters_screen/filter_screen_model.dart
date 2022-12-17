@@ -24,6 +24,7 @@ class FilterScreenModel extends ElementaryModel {
 
   Future<List<Sight>> getSightFromFilter(SightFilter filter) async {
     final sights = await _sightRepository.getSightsFromFilter(filter);
+
     return sights;
   }
 

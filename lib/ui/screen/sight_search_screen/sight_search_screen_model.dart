@@ -10,15 +10,16 @@ class SightSearchScreenModel extends ElementaryModel {
         super(errorHandler: errorHandler);
 
   final SearchRepository _searchRepository;
-  Stream<Set<String>> get historyOfQueryStream =>
-      _searchRepository.searchHistoryStreamCtrl.stream;
+  Stream<Set<String>> get historyOfQueryStream => _searchRepository.searchHistoryStreamCtrl.stream;
 
   Future<List<SearchedSight>> getSightsBy({required String query}) async {
     try {
       final sights = await _searchRepository.getSightsBy(name: query);
+
       return sights;
     } catch (e) {
       super.handleError(e);
+
       return [];
     }
   }

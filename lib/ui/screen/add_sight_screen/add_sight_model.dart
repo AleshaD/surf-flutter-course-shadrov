@@ -3,7 +3,6 @@ import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 
-
 class AddSightModel extends ElementaryModel {
   AddSightModel({required SightRepository sightRepository})
       : this._sightRepository = sightRepository,
@@ -18,11 +17,13 @@ class AddSightModel extends ElementaryModel {
         sight,
       );
       _reCreateAttempts = 0;
+
       return createdSight;
     } on NetworkExceptions catch (e) {
       // 409 -> место уже существует, пробуем пересоздать с другим id
       if (e.statusCode == 409 && _reCreateAttempts < _maxReCreateAttempts) {
         _reCreateAttempts++;
+
         return addNewSight(
           _sightWithNewId(sight),
         );
