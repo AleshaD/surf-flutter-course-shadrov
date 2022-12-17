@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/settings_screen.dart';
+import 'package:places/ui/screen/settings_screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_list_screen/sight_list_screen_widget.dart';
 import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
 import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
 import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
-
 
 enum HomeScreenTypes {
   mainSightList,
