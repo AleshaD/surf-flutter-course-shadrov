@@ -5,7 +5,7 @@ import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
-import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:provider/provider.dart';
 import 'sight_list_screen_model.dart';
@@ -58,7 +58,7 @@ class SightListScreenWidgetModel extends WidgetModel<SightListScreenWidget, Sigh
   void onSearchBarTaped() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => SightSearchScreen(),
+        builder: (context) => SightSearchScreenWidget(),
       ),
     );
   }
@@ -88,8 +88,10 @@ class SightListScreenWidgetModel extends WidgetModel<SightListScreenWidget, Sigh
   @override
   void onErrorHandle(Object error) {
     super.onErrorHandle(error);
-    if (error is NetworkExceptions) _errorMessage = error.msgForUser;
-    else _errorMessage = AppStrings.unknownError;
+    if (error is NetworkExceptions)
+      _errorMessage = error.msgForUser;
+    else
+      _errorMessage = AppStrings.unknownError;
     _sightsEntityState.error(error as Exception, []);
   }
 
