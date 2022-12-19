@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/styles/custom_icons.dart';
-import 'package:places/ui/screen/filters_screen/filters_screen.dart';
+import 'package:places/ui/screen/filters_screen/filter_screen_widget.dart';
 import 'package:places/ui/widgets/buttons/suffix_button.dart';
 
 class SearchBar extends StatefulWidget implements PreferredSizeWidget {
@@ -102,7 +102,7 @@ class _SearchBarState extends State<SearchBar> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => FiltersScreen(),
+                          builder: (context) => FilterScreenWidget(),
                         ),
                       );
                     },

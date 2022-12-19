@@ -28,6 +28,7 @@ class _SightHeartIconBtnState extends State<SightHeartIconBtn> {
     return BlocBuilder<VisitingBloc, VisitingState>(
       buildWhen: (previous, current) {
         final isSightInCurrentList = current.isSightInWantToVisitList(widget.sight);
+
         return isInWantToVisit != isSightInCurrentList;
       },
       builder: (context, state) {

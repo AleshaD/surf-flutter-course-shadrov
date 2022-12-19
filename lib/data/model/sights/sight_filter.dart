@@ -29,8 +29,17 @@ class SightFilter with LocationService {
   static double maxUntilDist = 10000;
   static double minFromDist = 0;
 
+  /// максимально возможное расстояние для фильтра
+  double get maxDist => maxUntilDist;
+
+  /// минимально возможное расстояние для фильтра
+  double get minDist => minFromDist;
+
   /// типы мест которые входят в поиск
   final Set<SightType> activeTypes;
+
+  /// есть ли этот тип места в фильтре
+  bool isActiveTypes(SightType type) => activeTypes.contains(type);
 
   /// расстояние от которого искать место, в метрах
   double _fromDist;
@@ -70,4 +79,7 @@ class SightFilter with LocationService {
   bool isSightInType(Sight sight) {
     return activeTypes.contains(sight.sightType);
   }
+
+  @override
+  bool operator ==(Object other) => false;
 }
