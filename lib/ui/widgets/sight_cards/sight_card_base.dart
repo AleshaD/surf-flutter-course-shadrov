@@ -53,6 +53,10 @@ class SightCardBase extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Hero(
+                    tag: '${sight.idStr}_backbtn',
+                    child: Container(),
+                  ),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
@@ -123,8 +127,6 @@ class SightCardBase extends StatelessWidget {
                     builder: (context) {
                       return SightDetailsScreenWidget(
                         sight: sight,
-                        topCornersRadius: 0,
-                        scrollController: ScrollController(),
                       );
                     },
                   ),
