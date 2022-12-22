@@ -80,13 +80,19 @@ class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidge
               child: Stack(
                 children: [
                   sight.urls.isNotEmpty
-                      ? PhotoPageView(
-                          photoUrls: sight.urls,
-                          height: SightDetailsHeaderDelegate.maxHeight,
-                          topCornerRadius: topCornersRadius,
+                      ? Hero(
+                          tag: sight.id,
+                          child: PhotoPageView(
+                            photoUrls: sight.urls,
+                            height: SightDetailsHeaderDelegate.maxHeight,
+                            topCornerRadius: topCornersRadius,
+                          ),
                         )
-                      : Center(
-                          child: wm.noImage,
+                      : Hero(
+                          tag: sight.id,
+                          child: Center(
+                            child: wm.noImage,
+                          ),
                         ),
                   Align(
                     alignment: Alignment.topRight,
