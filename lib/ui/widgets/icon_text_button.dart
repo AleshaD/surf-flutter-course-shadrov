@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class IconTextButton extends StatelessWidget {
   const IconTextButton({
+    Key? key,
     required this.icon,
     required this.name,
     required this.isActive,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   final IconData icon;
   final bool isActive;
