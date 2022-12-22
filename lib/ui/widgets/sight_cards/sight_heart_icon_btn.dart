@@ -33,21 +33,24 @@ class _SightHeartIconBtnState extends State<SightHeartIconBtn> {
       },
       builder: (context, state) {
         isInWantToVisit = state.isSightInWantToVisitList(widget.sight);
-
-        return SightCardIconButton(
-          icon: isInWantToVisit ? CustomIcons.menu_heart_full : CustomIcons.menu_heart,
-          iconSize: widget.iconSize,
-          iconColor: widget.iconColor,
-          onPressed: (context) {
-            if (!isInWantToVisit)
-              context.read<VisitingBloc>().add(
-                    VisitingEvent.addToWantToVisit(sight: widget.sight),
-                  );
-            else
-              context.read<VisitingBloc>().add(
-                    VisitingEvent.deleteFromWantToVisit(sight: widget.sight),
-                  );
-          },
+        return AnimatedSwitcher(
+          duration: Duration(milliseconds: 200),
+          child: SightCardIconButton(
+            key: UniqueKey(),
+            icon: isInWantToVisit ? CustomIcons.menu_heart_full : CustomIcons.menu_heart,
+            iconSize: widget.iconSize,
+            iconColor: widget.iconColor,
+            onPressed: (context) {
+              if (!isInWantToVisit)
+                context.read<VisitingBloc>().add(
+                      VisitingEvent.addToWantToVisit(sight: widget.sight),
+                    );
+              else
+                context.read<VisitingBloc>().add(
+                      VisitingEvent.deleteFromWantToVisit(sight: widget.sight),
+                    );
+            },
+          ),
         );
       },
     );
