@@ -30,6 +30,8 @@ class SightImagesRepository {
   final Map<String, File> _repositoryFileCach = {};
 
   Future<File?> getImage(String url) async {
+    if (!_isImageUrl(url)) return null;
+
     try {
       return await _getImageFromTempDir(url);
     } catch (e) {
@@ -80,6 +82,10 @@ class SightImagesRepository {
 
   String _getImageName(String url) {
     return url.split('/').last;
+  }
+
+  bool _isImageUrl(String url) {
+    return url.endsWith('.jpg') || url.endsWith('.jepg') || url.endsWith('.png');
   }
 
   void _addFileToRepoCashes(File file, String name) =>
