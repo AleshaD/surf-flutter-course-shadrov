@@ -32,7 +32,7 @@ class AppState extends State<App> {
       supportedLocales: [const Locale('en'), const Locale('ru')],
       title: AppStrings.appTitle,
       theme: _appThemeConfig.data,
-      home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }
