@@ -37,7 +37,9 @@ class SightCardBase extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  Container(
+                  Hero(
+                    tag: sight.id,
+                    child: Container(
                     width: double.infinity,
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(
@@ -46,7 +48,9 @@ class SightCardBase extends StatelessWidget {
                       ),
                       child: sight.urls.isNotEmpty
                           ? NetworkImageWithProgress(sight.urls.first)
-                          : Provider.of<SightImagesInteractor>(context, listen: false).noImage(),
+                            : Provider.of<SightImagesInteractor>(context, listen: false)
+                                .noImage(),
+                      ),
                     ),
                   ),
                   Align(
