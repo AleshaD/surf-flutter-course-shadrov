@@ -39,7 +39,7 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
   _loadSights(_LoadSights event, Emitter<VisitingState> emitter) async {
     if (!event.hideLoading) {
       emitter(VisitingState.loadingState());
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 3));
     }
 
     final List<SightWantToVisit> visitedSights = _sightRepository.getVisitedSights();
