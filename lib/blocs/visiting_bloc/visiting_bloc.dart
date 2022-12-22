@@ -18,7 +18,8 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
           loadSights: (event) => _loadSights(event, emitter),
           deleteFromVisited: (event) => _deleteFromVisited(event, emitter),
           deleteFromWantToVisit: (event) => _deleteFromWantToVisit(event, emitter),
-          changeVisitedCardsSequences: (event) => _changeVisitedCardsSequences(event, emitter),
+          changeVisitedCardsSequences: (event) =>
+              _changeVisitedCardsSequences(event, emitter),
           changeWantToVisitCardsSequences: (event) =>
               _changeWantToVisitCardsSequences(event, emitter),
           addWantToVisitTime: (event) => _addWantToVisitTime(event, emitter),
@@ -36,7 +37,10 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
   final SightRepository _sightRepository;
 
   _loadSights(_LoadSights event, Emitter<VisitingState> emitter) async {
-    if (!event.hideLoading) emitter(VisitingState.loadingState());
+    if (!event.hideLoading) {
+      emitter(VisitingState.loadingState());
+      await Future.delayed(Duration(seconds: 5));
+    }
 
     final List<SightWantToVisit> visitedSights = _sightRepository.getVisitedSights();
     final List<SightWantToVisit> wantToVisitSights = _sightRepository.getFavoriteSights();
@@ -84,7 +88,8 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
     );
   }
 
-  Future<void> _deleteFromVisited(_DeleteFromVisited event, Emitter<VisitingState> emitter) async {
+  Future<void> _deleteFromVisited(
+      _DeleteFromVisited event, Emitter<VisitingState> emitter) async {
     _sightRepository.removeFromVisited(event.sight);
     final visitedSights = _sightRepository.getVisitedSights();
     emitter(
@@ -109,7 +114,8 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
     );
   }
 
-  Future<void> _addToWantToVisit(_AddToWantToVisit event, Emitter<VisitingState> emitter) async {
+  Future<void> _addToWantToVisit(
+      _AddToWantToVisit event, Emitter<VisitingState> emitter) async {
     _sightRepository.addToFavorite(event.sight);
     final wantToVisitSights = _sightRepository.getFavoriteSights();
     emitter(
