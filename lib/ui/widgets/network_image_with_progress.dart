@@ -37,9 +37,10 @@ class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
     imageWidget = await context.read<SightImagesInteractor>().getImageFrom(
           url: widget.url,
         );
-    setState(() {
-      animatedState = imageState;
-    });
+    if (mounted)
+      setState(() {
+        animatedState = imageState;
+      });
   }
 
   @override
