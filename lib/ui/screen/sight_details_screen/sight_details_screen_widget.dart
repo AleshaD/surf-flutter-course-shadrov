@@ -12,15 +12,17 @@ import 'sight_details_screen_wm.dart';
 class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidgetModel> {
   SightDetailsScreenWidget({
     required this.sight,
-    required this.scrollController,
-    required this.topCornersRadius,
+    this.topCornersRadius = 0,
+    this.showBottomSheetNav = false,
+    this.scrollController,
     Key? key,
     WidgetModelFactory wmFactory = defaultSightDetailsScreenWidgetModelFactory,
   }) : super(wmFactory, key: key);
 
   final Sight sight;
-  final ScrollController scrollController;
   final double topCornersRadius;
+  final bool showBottomSheetNav;
+  final ScrollController? scrollController;
 
   final BorderRadius _backBtnRadius = BorderRadius.circular(
     40,
@@ -52,6 +54,7 @@ class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidge
                   sight: sight,
                   scrollController: scrollController,
                   topCornersRadius: topCornerRadius,
+                  showBottomSheetNav: true,
                 );
               },
             ),
@@ -80,50 +83,84 @@ class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidge
               child: Stack(
                 children: [
                   sight.urls.isNotEmpty
-                      ? PhotoPageView(
-                          photoUrls: sight.urls,
-                          height: SightDetailsHeaderDelegate.maxHeight,
-                          topCornerRadius: topCornersRadius,
+                      ? Hero(
+                          tag: sight.id,
+                          child: PhotoPageView(
+                            photoUrls: sight.urls,
+                            height: SightDetailsHeaderDelegate.maxHeight,
+                            topCornerRadius: topCornersRadius,
+                          ),
                         )
-                      : Center(
-                          child: wm.noImage,
+                      : Hero(
+                          tag: sight.id,
+                          child: Center(
+                            child: wm.noImage,
+                          ),
                         ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      margin: EdgeInsets.only(top: 16, right: 16),
-                      child: Center(
-                        child: Material(
-                          borderRadius: _backBtnRadius,
-                          child: IconButton(
-                            splashRadius: 20,
-                            onPressed: wm.backBtnPressed,
-                            icon: Icon(
-                              CustomIcons.close,
-                              size: 25,
-                              color: wm.theme.colorScheme.onPrimary,
+                  if (showBottomSheetNav)
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        margin: EdgeInsets.only(top: 16, right: 16),
+                        child: Center(
+                          child: Material(
+                            borderRadius: _backBtnRadius,
+                            child: IconButton(
+                              splashRadius: 20,
+                              onPressed: wm.backBtnPressed,
+                              icon: Icon(
+                                CustomIcons.close,
+                                size: 25,
+                                color: wm.theme.colorScheme.onPrimary,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      height: 4,
-                      width: 40,
-                      margin: EdgeInsets.only(top: 12),
-                      decoration: BoxDecoration(
-                        color: wm.theme.colorScheme.primary,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
+                  if (showBottomSheetNav)
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        height: 4,
+                        width: 40,
+                        margin: EdgeInsets.only(top: 12),
+                        decoration: BoxDecoration(
+                          color: wm.theme.colorScheme.primary,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  if (!showBottomSheetNav)
+                    Hero(
+                      tag: '${sight.idStr}_backbtn',
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          margin: EdgeInsets.only(top: 56, left: 16),
+                          child: Center(
+                            child: Material(
+                              borderRadius: _backBtnRadius,
+                              child: IconButton(
+                                splashRadius: 20,
+                                onPressed: wm.backBtnPressed,
+                                icon: Icon(
+                                  CustomIcons.arrow_back,
+                                  size: 16,
+                                  color: wm.theme.colorScheme.onPrimary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

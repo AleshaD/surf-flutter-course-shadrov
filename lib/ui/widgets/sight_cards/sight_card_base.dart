@@ -37,17 +37,25 @@ class SightCardBase extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(cornerRadius),
-                        topRight: Radius.circular(cornerRadius),
+                  Hero(
+                    tag: sight.id,
+                    child: Container(
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(cornerRadius),
+                          topRight: Radius.circular(cornerRadius),
+                        ),
+                        child: sight.urls.isNotEmpty
+                            ? NetworkImageWithProgress(sight.urls.first)
+                            : Provider.of<SightImagesInteractor>(context, listen: false)
+                                .noImage(),
                       ),
-                      child: sight.urls.isNotEmpty
-                          ? NetworkImageWithProgress(sight.urls.first)
-                          : Provider.of<SightImagesInteractor>(context, listen: false).noImage(),
                     ),
+                  ),
+                  Hero(
+                    tag: '${sight.idStr}_backbtn',
+                    child: Container(),
                   ),
                   Align(
                     alignment: Alignment.topLeft,
@@ -113,10 +121,17 @@ class SightCardBase extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(cornerRadius),
               ),
-              onTap: () => SightDetailsScreenWidget.showInBottomSheet(
-                sight,
-                context,
-              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SightDetailsScreenWidget(
+                        sight: sight,
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ),
         ),
