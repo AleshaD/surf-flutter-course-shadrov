@@ -25,7 +25,8 @@ VisitingScreenWidgetModel visitingScreenWidgetModelFactory(BuildContext context)
   );
 }
 
-class VisitingScreenWidgetModel extends WidgetModel<VisitingScreenWidget, VisitingScreenModel>
+class VisitingScreenWidgetModel
+    extends WidgetModel<VisitingScreenWidget, VisitingScreenModel>
     implements IVisitingScreenWidgetModel {
   VisitingScreenWidgetModel(VisitingScreenModel model) : super(model);
 
@@ -55,7 +56,7 @@ class VisitingScreenWidgetModel extends WidgetModel<VisitingScreenWidget, Visiti
       setVistingState(state);
     });
     setVistingState(model.currentVisitingState);
-    model.loadSights(hideLoading: true);
+    model.loadSights(hideLoading: false);
   }
 
   @override

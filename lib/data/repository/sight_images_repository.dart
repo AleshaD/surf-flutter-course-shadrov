@@ -15,32 +15,32 @@ class SightImagesRepository {
           ),
         );
 
-  static SightImagesRepository instance = SightImagesRepository(
-    Dio(
-      BaseOptions(
-        connectTimeout: _dioTimeout,
-        receiveTimeout: _dioTimeout,
-        sendTimeout: _dioTimeout,
-      ),
-    ),
-  );
-
   final Dio _dio;
   static final _dioTimeout = 3000;
   final Map<String, File> _repositoryFileCach = {};
 
   Future<File?> getImage(String url) async {
+    if (!_isImageUrl(url)) return null;
+
+    File? file;
     try {
-      return await _getImageFromTempDir(url);
+      file = await _getImageFromTempDir(url);
     } catch (e) {
-      return await _downloadImage(url);
+      file = await _downloadImage(url);
     }
+
+    if (file != null) {
+      _addFileToRepoCashes(file, _getImageName(url));
+    }
+
+    return file;
   }
 
   File? getImageSync(String url) {
     final name = _getImageName(url);
+    final file = _repositoryFileCach[name];
 
-    return _repositoryFileCach[name];
+    return file;
   }
 
   Future<File> _getImageFromTempDir(String url) async {
@@ -80,6 +80,10 @@ class SightImagesRepository {
 
   String _getImageName(String url) {
     return url.split('/').last;
+  }
+
+  bool _isImageUrl(String url) {
+    return url.endsWith('.jpg') || url.endsWith('.jepg') || url.endsWith('.png');
   }
 
   void _addFileToRepoCashes(File file, String name) =>

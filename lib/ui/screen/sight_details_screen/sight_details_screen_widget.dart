@@ -197,15 +197,19 @@ class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidge
                           StateNotifierBuilder<bool>(
                             listenableState: wm.isInWantToVisit,
                             builder: ((_, isInWantToVisitList) {
-                              return IconTextButton(
-                                icon: isInWantToVisitList!
-                                    ? CustomIcons.menu_heart_full
-                                    : CustomIcons.menu_heart,
-                                name: isInWantToVisitList
-                                    ? AppStrings.deleteFromFavorite
-                                    : AppStrings.toFavorite,
-                                isActive: true,
-                                onPressed: wm.onHeartBtnPressed,
+                              return AnimatedSwitcher(
+                                duration: Duration(milliseconds: 200),
+                                child: IconTextButton(
+                                  key: UniqueKey(),
+                                  icon: isInWantToVisitList!
+                                      ? CustomIcons.menu_heart_full
+                                      : CustomIcons.menu_heart,
+                                  name: isInWantToVisitList
+                                      ? AppStrings.deleteFromFavorite
+                                      : AppStrings.toFavorite,
+                                  isActive: true,
+                                  onPressed: wm.onHeartBtnPressed,
+                                ),
                               );
                             }),
                           ),

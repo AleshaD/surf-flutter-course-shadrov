@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class SightCardIconButton extends StatelessWidget {
   const SightCardIconButton({
+    Key? key,
     required this.icon,
     required this.iconSize,
     required this.iconColor,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   final IconData icon;
   final Color iconColor;

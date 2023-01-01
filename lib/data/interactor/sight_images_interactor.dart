@@ -20,7 +20,7 @@ class SightImagesInteractor {
     required String url,
     BoxFit fit = BoxFit.cover,
   }) {
-    File? file = SightImagesRepository.instance.getImageSync(url);
+    File? file = repository.getImageSync(url);
 
     return file != null ? Image.file(file, fit: fit) : null;
   }
