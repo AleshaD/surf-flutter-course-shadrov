@@ -6,11 +6,7 @@ class LocalStorage {
   final String _sightFilterKey = 'sight_filter';
   final String _isWatchedOnboardingKey = 'watched_onboarding';
 
-  LocalStorage() {
-    _init();
-  }
-
-  Future<void> _init() async {
+  Future<void> init() async {
     pref = await SharedPreferences.getInstance();
   }
 
