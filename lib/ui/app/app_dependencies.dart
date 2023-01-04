@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
+import 'package:places/data/providers/local_storage.dart';
 import 'package:places/data/repository/search_repository.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
+import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/repository/sight_images_repository.dart';
 import 'package:places/data/providers/sights_api.dart';
@@ -46,6 +48,7 @@ class _AppDependenciesState extends State<AppDependencies> {
         Provider<SightsApi>(create: (context) => _sightApi),
         Provider<SightRepository>(create: (_) => SightRepository(_sightApi)),
         Provider<SearchRepository>(create: (_) => SearchRepository(_sightApi)),
+        Provider<SettingsRepository>(create: (_) => SettingsRepository(LocalStorage())),
         Provider<SightImagesInteractor>(
           create: (_) => SightImagesInteractor(
             SightImagesRepository.withDefaultDio(),
