@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/services/location_service.dart';
 
+part 'sight_filter.g.dart';
+
+@JsonSerializable()
 class SightFilter with LocationService {
   SightFilter({
     required fromDist,
@@ -79,6 +83,9 @@ class SightFilter with LocationService {
   bool isSightInType(Sight sight) {
     return activeTypes.contains(sight.sightType);
   }
+
+  factory SightFilter.fromJson(Map<String, dynamic> json) => _$SightFilterFromJson(json);
+  Map<String, dynamic> toJson() => _$SightFilterToJson(this);
 
   @override
   bool operator ==(Object other) => false;
