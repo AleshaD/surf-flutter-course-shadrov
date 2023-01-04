@@ -2,7 +2,9 @@ import 'dart:math' as Math;
 
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:places/constants/app_colors.dart';
 import 'package:places/data/repository/settings_repository.dart';
+import 'package:places/ui/app/app_dependencies_notifier.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/onboarding_screen_widget.dart';
 import 'package:places/util/default_error_handler.dart';
@@ -15,6 +17,7 @@ abstract class ISplashScreenWidgetModel extends IWidgetModel {
   ThemeData get theme;
   AnimationController get logoAnimationCtrl;
   Animation<double> get rotateAnimation;
+  List<Color> get pageGradient;
 
   double degreeToRadian(double degree);
 }
@@ -48,6 +51,12 @@ class SplashScreenWidgetModel extends WidgetModel<SplashScreenWidget, SplashScre
   ThemeData get theme => Theme.of(context);
 
   @override
+  List<Color> get pageGradient => [
+        lmYellowColor,
+        lmGreenColor,
+      ];
+
+  @override
   double degreeToRadian(double degree) => degree * Math.pi / 180;
 
   @override
@@ -68,7 +77,15 @@ class SplashScreenWidgetModel extends WidgetModel<SplashScreenWidget, SplashScre
         curve: Curves.easeInOut,
       ),
     );
-    _goToAppAfterDelay();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final appInited = AppDependenciesNotifier.of(context).dependencyesInited;
+    if (appInited) {
+      _goToAppAfterDelay();
+    }
   }
 
   @override
@@ -78,7 +95,7 @@ class SplashScreenWidgetModel extends WidgetModel<SplashScreenWidget, SplashScre
   }
 
   void _goToAppAfterDelay() {
-    Future.delayed(Duration(milliseconds: rotateInMs * 1 + 500), () {
+    Future.delayed(Duration(milliseconds: rotateInMs), () {
       final destination =
           model.isWatchedOnboarding() ? HomeScreen() : OnboardingScreenWidget();
       Navigator.of(context).pushReplacement(
