@@ -16,10 +16,7 @@ class SplashScreenWidget extends ElementaryWidget<ISplashScreenWidgetModel> {
         gradient: LinearGradient(
           begin: Alignment(-2.28, -1),
           end: Alignment.topRight,
-          colors: [
-            wm.theme.colorScheme.secondaryContainer,
-            wm.theme.colorScheme.secondary
-          ],
+          colors: wm.pageGradient,
         ),
       ),
       child: Center(
