@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/res/app_theme_config.dart';
-import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
-import 'package:places/ui/screen/splash_screen/splash_screen.dart';
+import 'package:places/ui/screen/splash_screen/splash_screen_widget.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -18,7 +17,9 @@ class AppState extends State<App> {
 
   void changeTheme(bool toDarkTheme) {
     setState(() {
-      toDarkTheme ? _appThemeConfig = AppThemeConfig.dark() : _appThemeConfig = AppThemeConfig.light();
+      toDarkTheme
+          ? _appThemeConfig = AppThemeConfig.dark()
+          : _appThemeConfig = AppThemeConfig.light();
     });
   }
 
@@ -32,7 +33,7 @@ class AppState extends State<App> {
       supportedLocales: [const Locale('en'), const Locale('ru')],
       title: AppStrings.appTitle,
       theme: _appThemeConfig.data,
-      home: HomeScreen(),
+      home: SplashScreenWidget(),
     );
   }
 }
