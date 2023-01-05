@@ -133,7 +133,7 @@ class SightSearchScreenWidgetModel
       }
     });
 
-    final hystory = model.getSearchHistory();
+    final hystory = model.getPreloadHystory();
     _queryHistory.accept({...hystory});
     _showEmptyPageOrHystory();
   }
