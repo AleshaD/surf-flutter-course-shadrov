@@ -10,7 +10,7 @@ class SightSearchScreenModel extends ElementaryModel {
         super(errorHandler: errorHandler);
 
   final SearchRepository _searchRepository;
-  Stream<Set<String>> get historyOfQueryStream => _searchRepository.searchHistoryStreamCtrl.stream;
+  Stream<Set<String>> get historyOfQueryStream => _searchRepository.searchHistoryStream;
 
   Future<List<SearchedSight>> getSightsBy({required String query}) async {
     try {
@@ -24,8 +24,15 @@ class SightSearchScreenModel extends ElementaryModel {
     }
   }
 
-  Set<String> getSearchHistory() {
-    return _searchRepository.getSearchHystory();
+  Set<String> getPreloadHystory() => _searchRepository.getPreloadHystory();
+
+  Future<Set<String>> getSearchHistory() async {
+    try {
+      return await _searchRepository.getSearchHystory();
+    } catch (e, stackTrace) {
+      super.handleError(e, stackTrace: stackTrace);
+      return {};
+    }
   }
 
   void removeFromHistory(String query) {
