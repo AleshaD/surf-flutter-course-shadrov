@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
+import 'package:places/data/database/app_db.dart';
 import 'package:places/data/repository/search_repository.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/repository/sight_repository.dart';
@@ -21,6 +22,7 @@ class AppDependencies extends StatefulWidget {
 
 class _AppDependenciesState extends State<AppDependencies> {
   late final SightsApi _sightApi;
+  final AppDb _appDb = AppDb();
 
   @override
   void initState() {
@@ -45,7 +47,10 @@ class _AppDependenciesState extends State<AppDependencies> {
       providers: [
         Provider<SightsApi>(create: (context) => _sightApi),
         Provider<SightRepository>(create: (_) => SightRepository(_sightApi)),
-        Provider<SearchRepository>(create: (_) => SearchRepository(_sightApi)),
+        Provider<SearchRepository>(
+          create: (_) => SearchRepository(_sightApi, _appDb),
+          lazy: false,
+        ),
         Provider<SightImagesInteractor>(
           create: (_) => SightImagesInteractor(
             SightImagesRepository.withDefaultDio(),

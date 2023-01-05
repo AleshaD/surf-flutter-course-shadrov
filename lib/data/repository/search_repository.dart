@@ -2,18 +2,26 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/database/app_db.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/providers/sights_api.dart';
 
 class SearchRepository {
-  SearchRepository(this._sightApi);
+  SearchRepository(
+    this._sightApi,
+    this._appDb,
+  ) {
+    _doPreloadAndSaveHystory();
+  }
 
-  static final Set<String> _searchHystory = {};
   final SightsApi _sightApi;
+  final AppDb _appDb;
 
-  final searchHistoryStreamCtrl = StreamController<Set<String>>.broadcast();
+  late final Stream<Set<String>> searchHistoryStream = _appDb.watchAllSearchQuerys;
+
+  Set<String> _preLoadHystory = {};
 
   Future<List<SearchedSight>> getSightsBy({required String name}) async {
     final requestFilter = SightsFilterRequestDto(nameFilter: name);
@@ -29,32 +37,36 @@ class SearchRepository {
     }
   }
 
-  Set<String> getSearchHystory() => _searchHystory;
+  Future<Set<String>> getSearchHystory() async {
+    try {
+      final searches = await _appDb.getAllSearchQuerys();
+      return searches.toSet();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Set<String> getPreloadHystory() => _preLoadHystory;
 
   void saveQueryNameToHystory(String name) {
     if (name.isNotEmpty) {
-      // добавить в начало списка
-      var list = _searchHystory.toList();
-      list.insert(0, name.trim());
-      cleanHystory();
-      list.forEach((str) {
-        _searchHystory.add(str);
-      });
+      _appDb.addSearchQuery(name);
     }
-    searchHistoryStreamCtrl.add(_searchHystory);
   }
 
-  bool removeFromHystory(String name) {
-    final isSuccess = _searchHystory.remove(name);
-    searchHistoryStreamCtrl.add(_searchHystory);
+  Future<bool> removeFromHystory(String name) async {
+    final deletedRaws = await _appDb.deleteSearchQuery(name);
+    final isSuccess = deletedRaws > 0;
 
     return isSuccess;
   }
 
-  Set<String> cleanHystory() {
-    _searchHystory.clear();
-    searchHistoryStreamCtrl.add(_searchHystory);
+  void cleanHystory() {
+    _appDb.deleteAllSearchQuerys();
+  }
 
-    return _searchHystory;
+  Future<void> _doPreloadAndSaveHystory() async {
+    final hyst = await getSearchHystory();
+    _preLoadHystory = hyst;
   }
 }
