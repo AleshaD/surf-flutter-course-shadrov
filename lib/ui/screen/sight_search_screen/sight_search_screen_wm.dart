@@ -154,7 +154,8 @@ class SightSearchScreenWidgetModel
   }
 
   void _doSearch(String query) async {
-    if (query.trim().isEmpty && !_inProgres.value!) return;
+    query = query.trim();
+    if (query.isEmpty && !_inProgres.value!) return;
 
     _showProgresBar(true);
     _sights = await model.getSightsBy(query: query);
