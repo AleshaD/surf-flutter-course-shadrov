@@ -17,22 +17,23 @@ class AppDb extends _$AppDb {
   int get schemaVersion => 1;
 
   Future<Set<String>> getAllSearchQuerys() async {
-    final query = select(searchQuerys)..orderBy([(tbl) => OrderingTerm.desc(tbl.id)]);
+    final query = select(searchQuerys)..orderBy([(tbl) => OrderingTerm.desc(tbl.ts)]);
 
     final list = await query.map((sq) => sq.query).get();
     return list.toSet();
   }
 
   Stream<Set<String>> get watchAllSearchQuerys =>
-      (select(searchQuerys)..orderBy([(tbl) => OrderingTerm.desc(tbl.id)]))
+      (select(searchQuerys)..orderBy([(tbl) => OrderingTerm.desc(tbl.ts)]))
           .map((sq) => sq.query)
           .watch()
           .map((event) => event.toSet());
 
   Future<int> addSearchQuery(String query) {
     return into(searchQuerys).insert(
-      SearchQuerysCompanion(
-        query: Value(query),
+      SearchQuerysCompanion.insert(
+        query: query,
+        ts: DateTime.now(),
       ),
       mode: InsertMode.insertOrReplace,
     );

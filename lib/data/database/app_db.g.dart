@@ -9,22 +9,18 @@ class $SearchQuerysTable extends SearchQuerys
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $SearchQuerysTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _tsMeta = const VerificationMeta('ts');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  late final GeneratedColumn<DateTime> ts = GeneratedColumn<DateTime>(
+      'ts', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   static const VerificationMeta _queryMeta = const VerificationMeta('query');
   @override
   late final GeneratedColumn<String> query = GeneratedColumn<String>(
       'query', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, query];
+  List<GeneratedColumn> get $columns => [ts, query];
   @override
   String get aliasedName => _alias ?? 'search_querys';
   @override
@@ -34,8 +30,10 @@ class $SearchQuerysTable extends SearchQuerys
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('ts')) {
+      context.handle(_tsMeta, ts.isAcceptableOrUnknown(data['ts']!, _tsMeta));
+    } else if (isInserting) {
+      context.missing(_tsMeta);
     }
     if (data.containsKey('query')) {
       context.handle(
@@ -47,13 +45,13 @@ class $SearchQuerysTable extends SearchQuerys
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {query};
   @override
   SearchQuery map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SearchQuery(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      ts: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}ts'])!,
       query: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}query'])!,
     );
@@ -66,20 +64,20 @@ class $SearchQuerysTable extends SearchQuerys
 }
 
 class SearchQuery extends DataClass implements Insertable<SearchQuery> {
-  final int id;
+  final DateTime ts;
   final String query;
-  const SearchQuery({required this.id, required this.query});
+  const SearchQuery({required this.ts, required this.query});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['ts'] = Variable<DateTime>(ts);
     map['query'] = Variable<String>(query);
     return map;
   }
 
   SearchQuerysCompanion toCompanion(bool nullToAbsent) {
     return SearchQuerysCompanion(
-      id: Value(id),
+      ts: Value(ts),
       query: Value(query),
     );
   }
@@ -88,7 +86,7 @@ class SearchQuery extends DataClass implements Insertable<SearchQuery> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return SearchQuery(
-      id: serializer.fromJson<int>(json['id']),
+      ts: serializer.fromJson<DateTime>(json['ts']),
       query: serializer.fromJson<String>(json['query']),
     );
   }
@@ -96,58 +94,59 @@ class SearchQuery extends DataClass implements Insertable<SearchQuery> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'ts': serializer.toJson<DateTime>(ts),
       'query': serializer.toJson<String>(query),
     };
   }
 
-  SearchQuery copyWith({int? id, String? query}) => SearchQuery(
-        id: id ?? this.id,
+  SearchQuery copyWith({DateTime? ts, String? query}) => SearchQuery(
+        ts: ts ?? this.ts,
         query: query ?? this.query,
       );
   @override
   String toString() {
     return (StringBuffer('SearchQuery(')
-          ..write('id: $id, ')
+          ..write('ts: $ts, ')
           ..write('query: $query')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, query);
+  int get hashCode => Object.hash(ts, query);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SearchQuery &&
-          other.id == this.id &&
+          other.ts == this.ts &&
           other.query == this.query);
 }
 
 class SearchQuerysCompanion extends UpdateCompanion<SearchQuery> {
-  final Value<int> id;
+  final Value<DateTime> ts;
   final Value<String> query;
   const SearchQuerysCompanion({
-    this.id = const Value.absent(),
+    this.ts = const Value.absent(),
     this.query = const Value.absent(),
   });
   SearchQuerysCompanion.insert({
-    this.id = const Value.absent(),
+    required DateTime ts,
     required String query,
-  }) : query = Value(query);
+  })  : ts = Value(ts),
+        query = Value(query);
   static Insertable<SearchQuery> custom({
-    Expression<int>? id,
+    Expression<DateTime>? ts,
     Expression<String>? query,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (ts != null) 'ts': ts,
       if (query != null) 'query': query,
     });
   }
 
-  SearchQuerysCompanion copyWith({Value<int>? id, Value<String>? query}) {
+  SearchQuerysCompanion copyWith({Value<DateTime>? ts, Value<String>? query}) {
     return SearchQuerysCompanion(
-      id: id ?? this.id,
+      ts: ts ?? this.ts,
       query: query ?? this.query,
     );
   }
@@ -155,8 +154,8 @@ class SearchQuerysCompanion extends UpdateCompanion<SearchQuery> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (ts.present) {
+      map['ts'] = Variable<DateTime>(ts.value);
     }
     if (query.present) {
       map['query'] = Variable<String>(query.value);
@@ -167,7 +166,7 @@ class SearchQuerysCompanion extends UpdateCompanion<SearchQuery> {
   @override
   String toString() {
     return (StringBuffer('SearchQuerysCompanion(')
-          ..write('id: $id, ')
+          ..write('ts: $ts, ')
           ..write('query: $query')
           ..write(')'))
         .toString();
