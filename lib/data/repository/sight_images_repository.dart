@@ -16,7 +16,7 @@ class SightImagesRepository {
         );
 
   final Dio _dio;
-  static final _dioTimeout = 3000;
+  static final _dioTimeout = 10000;
   final Map<String, File> _repositoryFileCach = {};
 
   Future<File?> getImage(String url) async {
