@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/data/database/app_db.dart';
+import 'package:places/data/repository/favorit_sights_repository.dart';
 import 'package:places/data/repository/search_repository.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/repository/sight_repository.dart';
@@ -61,7 +62,7 @@ class _AppDependenciesState extends State<AppDependencies> {
       child: BlocProvider(
         lazy: false,
         create: (context) => VisitingBloc(
-          sightRepository: context.read<SightRepository>(),
+          favoriteSightRepository: FavoritSightsRepository(_appDb),
         )..add(VisitingEvent.loadSights()),
         child: widget.app,
       ),
