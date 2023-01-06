@@ -21,7 +21,8 @@ abstract class ISightDetailsScreenWidgetModel extends IWidgetModel {
   void onHeartBtnPressed();
 }
 
-SightDetailsScreenWidgetModel defaultSightDetailsScreenWidgetModelFactory(BuildContext context) {
+SightDetailsScreenWidgetModel defaultSightDetailsScreenWidgetModelFactory(
+    BuildContext context) {
   return SightDetailsScreenWidgetModel(
     SightDetailsScreenModel(
       context.read<DefaultErrorHandler>(),
@@ -86,7 +87,7 @@ class SightDetailsScreenWidgetModel
   }
 
   void _checkAndSetIsSightInWantToVisitList() {
-    Future.delayed(Duration.zero, () {
+    Future.delayed(Duration(milliseconds: 100), () {
       final isInVisitList = model.isSightInWantToVisitList(widget.sight);
       _isInWantToVisitList.accept(isInVisitList);
     });
