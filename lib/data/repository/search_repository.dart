@@ -26,8 +26,8 @@ class SearchRepository {
   Future<List<SearchedSight>> getSightsBy({required String name}) async {
     final requestFilter = SightsFilterRequestDto(nameFilter: name);
     try {
-      final sights = await _sightApi.getFilteredSights(requestFilter);
       saveQueryNameToHystory(name);
+      final sights = await _sightApi.getFilteredSights(requestFilter);
 
       return sights.map((s) => SearchedSight(s, name)).toList();
     } on DioError catch (e) {
