@@ -8,7 +8,7 @@ class FavoritSightsRepository {
   final AppDb _appDb;
 
   Future<List<SightWantToVisit>> getWantToVisitSights() async {
-    return _appDb.getAllWantToVisitSights();
+    return await _appDb.getAllWantToVisitSights();
   }
 
   Future<bool> addToWantToVisit(Sight sight, [DateTime? date]) async {
@@ -29,11 +29,14 @@ class FavoritSightsRepository {
   }
 
   Future<List<SightWantToVisit>> changeWantToVisitCardsSequences(
-    int fromIndex,
-    int toIndex,
+    SightWantToVisit sight,
+    SightWantToVisit? putAboveSight,
   ) async {
-    // !TODO: написать метод по изменению последовательности в базе данных
-    return _appDb.getAllWantToVisitSights();
+    await _appDb.changeSequenceWantToVisit(
+      sight: sight,
+      putAboveThisSight: putAboveSight,
+    );
+    return await _appDb.getAllWantToVisitSights();
   }
 
   Future<List<SightWantToVisit>> getVisitedSights() async {
@@ -58,10 +61,13 @@ class FavoritSightsRepository {
   }
 
   Future<List<SightWantToVisit>> changeVisitedCardsSequences(
-    int fromIndex,
-    int toIndex,
+    SightWantToVisit sight,
+    SightWantToVisit? putAboveSight,
   ) async {
-    // !TODO: написать метод по изменению последовательности в базе данных
-    return _appDb.getAllVisitiedSights();
+    await _appDb.changeSequenceVisited(
+      sight: sight,
+      putAboveThisSight: putAboveSight,
+    );
+    return await _appDb.getAllVisitiedSights();
   }
 }

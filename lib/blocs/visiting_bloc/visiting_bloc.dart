@@ -58,8 +58,14 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
 
   Future<void> _changeVisitedCardsSequences(
       _ChangeVisitedCardsSequences event, Emitter<VisitingState> emitter) async {
+    final changedSight = state.visitedSights[event.fromIndex];
+    final aboveIndex = event.toIndex;
+    final putAboveSight =
+        aboveIndex < state.visitedSights.length ? state.visitedSights[aboveIndex] : null;
     final visitedSights = await _favoriteSightRepository.changeVisitedCardsSequences(
-        event.fromIndex, event.toIndex);
+      changedSight,
+      putAboveSight,
+    );
     emitter(
       VisitingState.sightsReadyState(
         wantToVisitSights: state.wantToVisitSights,
@@ -70,8 +76,16 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
 
   Future<void> _changeWantToVisitCardsSequences(
       _ChangeWantToVisitCardsSequences event, Emitter<VisitingState> emitter) async {
-    final wantToVisitSights = await _favoriteSightRepository
-        .changeWantToVisitCardsSequences(event.fromIndex, event.toIndex);
+    final changedSight = state.wantToVisitSights[event.fromIndex];
+    final aboveIndex = event.toIndex;
+    final putAboveSight = aboveIndex < state.wantToVisitSights.length
+        ? state.wantToVisitSights[aboveIndex]
+        : null;
+    final wantToVisitSights =
+        await _favoriteSightRepository.changeWantToVisitCardsSequences(
+      changedSight,
+      putAboveSight,
+    );
     emitter(
       VisitingState.sightsReadyState(
         wantToVisitSights: [...wantToVisitSights],
