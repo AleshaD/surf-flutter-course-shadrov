@@ -174,7 +174,7 @@ class SearchQuerysCompanion extends UpdateCompanion<SearchQuery> {
 }
 
 class $WantToVisitSightsTable extends WantToVisitSights
-    with TableInfo<$WantToVisitSightsTable, SightWantToVisit> {
+    with TableInfo<$WantToVisitSightsTable, SightCompanion> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -255,7 +255,7 @@ class $WantToVisitSightsTable extends WantToVisitSights
   @override
   String get actualTableName => 'want_to_visit_sights';
   @override
-  VerificationContext validateIntegrity(Insertable<SightWantToVisit> instance,
+  VerificationContext validateIntegrity(Insertable<SightCompanion> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -316,9 +316,9 @@ class $WantToVisitSightsTable extends WantToVisitSights
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  SightWantToVisit map(Map<String, dynamic> data, {String? tablePrefix}) {
+  SightCompanion map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SightWantToVisit(
+    return SightCompanion(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       lat: attachedDatabase.typeMapping
@@ -335,6 +335,8 @@ class $WantToVisitSightsTable extends WantToVisitSights
               DriftSqlType.string, data['${effectivePrefix}sight_type'])!),
       description: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      sequenceId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}sequence_id'])!,
       wantToVisitTime: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}want_to_visit_time']),
       visitedTime: attachedDatabase.typeMapping
@@ -353,7 +355,7 @@ class $WantToVisitSightsTable extends WantToVisitSights
       const EnumNameConverter<SightType>(SightType.values);
 }
 
-class WantToVisitSightsCompanion extends UpdateCompanion<SightWantToVisit> {
+class WantToVisitSightsCompanion extends UpdateCompanion<SightCompanion> {
   final Value<int> id;
   final Value<double> lat;
   final Value<double> lng;
@@ -394,7 +396,7 @@ class WantToVisitSightsCompanion extends UpdateCompanion<SightWantToVisit> {
         description = Value(description),
         sightType = Value(sightType),
         sequenceId = Value(sequenceId);
-  static Insertable<SightWantToVisit> custom({
+  static Insertable<SightCompanion> custom({
     Expression<int>? id,
     Expression<double>? lat,
     Expression<double>? lng,
@@ -502,7 +504,7 @@ class WantToVisitSightsCompanion extends UpdateCompanion<SightWantToVisit> {
 }
 
 class $VisitedSightsTable extends VisitedSights
-    with TableInfo<$VisitedSightsTable, SightWantToVisit> {
+    with TableInfo<$VisitedSightsTable, SightCompanion> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -582,7 +584,7 @@ class $VisitedSightsTable extends VisitedSights
   @override
   String get actualTableName => 'visited_sights';
   @override
-  VerificationContext validateIntegrity(Insertable<SightWantToVisit> instance,
+  VerificationContext validateIntegrity(Insertable<SightCompanion> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -643,9 +645,9 @@ class $VisitedSightsTable extends VisitedSights
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  SightWantToVisit map(Map<String, dynamic> data, {String? tablePrefix}) {
+  SightCompanion map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SightWantToVisit(
+    return SightCompanion(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       lat: attachedDatabase.typeMapping
@@ -662,6 +664,8 @@ class $VisitedSightsTable extends VisitedSights
               DriftSqlType.string, data['${effectivePrefix}sight_type'])!),
       description: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      sequenceId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}sequence_id'])!,
       wantToVisitTime: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}want_to_visit_time']),
       visitedTime: attachedDatabase.typeMapping
@@ -680,7 +684,7 @@ class $VisitedSightsTable extends VisitedSights
       const EnumNameConverter<SightType>(SightType.values);
 }
 
-class VisitedSightsCompanion extends UpdateCompanion<SightWantToVisit> {
+class VisitedSightsCompanion extends UpdateCompanion<SightCompanion> {
   final Value<int> id;
   final Value<double> lat;
   final Value<double> lng;
@@ -721,7 +725,7 @@ class VisitedSightsCompanion extends UpdateCompanion<SightWantToVisit> {
         description = Value(description),
         sightType = Value(sightType),
         sequenceId = Value(sequenceId);
-  static Insertable<SightWantToVisit> custom({
+  static Insertable<SightCompanion> custom({
     Expression<int>? id,
     Expression<double>? lat,
     Expression<double>? lng,

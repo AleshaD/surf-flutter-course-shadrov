@@ -6,6 +6,7 @@ import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:places/data/database/tables/search_querys.dart';
+import 'package:places/data/database/tables/sights_table.dart';
 import 'package:places/data/database/tables/visited_sights.dart';
 import 'package:places/data/database/tables/want_to_visit_sights.dart';
 import 'package:places/data/database/type_converters/list_in_column_converter.dart';
@@ -60,48 +61,133 @@ class AppDb extends _$AppDb {
     return delete(searchQuerys).go();
   }
 
-  Future<int> addToWantToVisitSights(SightWantToVisit sight) async {
-    final list = await getAllWantToVisitSights();
-    return into(wantToVisitSights).insert(
-      SightCompanion.fromSightWantToVisit(sight, list.length),
-      mode: InsertMode.insertOrReplace,
+  Future<int> addToWantToVisitSights(SightWantToVisit sight, {int? sequenceId}) async {
+    return await _addSightTo(wantToVisitSights, sight, sequenceId: sequenceId);
+  }
+
+  Future<List<SightWantToVisit>> getAllWantToVisitSights() async {
+    return await _getAllSightsFrom(wantToVisitSights);
+  }
+
+  Future<int> deleteFromWantToVisitSights(Sight sight) async {
+    return await _deleteSightFrom(wantToVisitSights, sight);
+  }
+
+  Future<void> changeSequenceWantToVisit({
+    required SightWantToVisit sight,
+    required SightWantToVisit? putAboveThisSight,
+  }) async {
+    await _changeCardSequencesIn(
+      wantToVisitSights,
+      sight: sight,
+      putAboveThisSight: putAboveThisSight,
     );
-  }
-
-  Future<List<SightWantToVisit>> getAllWantToVisitSights() {
-    return (select(wantToVisitSights)
-          ..orderBy(
-            [
-              ((tbl) => OrderingTerm.desc(tbl.sequenceId)),
-            ],
-          ))
-        .get();
-  }
-
-  Future<int> deleteFromWantToVisitSights(Sight sight) {
-    return (delete(wantToVisitSights)..where((tbl) => tbl.id.equals(sight.id))).go();
   }
 
   Future<int> addToVisitedSights(SightWantToVisit sight) async {
-    final list = await getAllVisitiedSights();
-    return into(visitedSights).insert(
-      SightCompanion.fromSightWantToVisit(sight, list.length),
-      mode: InsertMode.insertOrReplace,
+    return await _addSightTo(visitedSights, sight);
+  }
+
+  Future<List<SightWantToVisit>> getAllVisitiedSights() async {
+    return await _getAllSightsFrom(visitedSights);
+  }
+
+  Future<int> deleteFromVisitedSights(Sight sight) {
+    return _deleteSightFrom(visitedSights, sight);
+  }
+
+  Future<void> changeSequenceVisited({
+    required SightWantToVisit sight,
+    required SightWantToVisit? putAboveThisSight,
+  }) async {
+    await _changeCardSequencesIn(
+      visitedSights,
+      sight: sight,
+      putAboveThisSight: putAboveThisSight,
     );
   }
 
-  Future<List<SightWantToVisit>> getAllVisitiedSights() {
-    return (select(visitedSights)
+  int get _nowMsSinceEpoch => DateTime.now().millisecondsSinceEpoch;
+
+  Future<List<SightWantToVisit>>
+      _getAllSightsFrom<M extends SightsTable, T extends TableInfo<M, SightCompanion>>(
+    T table,
+  ) async {
+    final listCompanions = await (select(table)
           ..orderBy(
             [
               ((tbl) => OrderingTerm.desc(tbl.sequenceId)),
             ],
           ))
         .get();
+    return listCompanions;
   }
 
-  Future<int> deleteFromVisitedSights(Sight sight) {
-    return (delete(visitedSights)..where((tbl) => tbl.id.equals(sight.id))).go();
+  Future<int> _addSightTo<M extends SightsTable, T extends TableInfo<M, SightCompanion>>(
+    T table,
+    SightWantToVisit sight, {
+    int? sequenceId,
+  }) async {
+    if (sequenceId == null) {
+      final sightInDb = await (select(table)..where((tbl) => tbl.id.equals(sight.id)))
+          .getSingleOrNull();
+      if (sightInDb != null) sequenceId = sightInDb.sequenceId;
+    }
+    return into(table).insert(
+      SightCompanion.fromSightWantToVisit(sight, sequenceId ?? _nowMsSinceEpoch),
+      mode: InsertMode.insertOrReplace,
+    );
+  }
+
+  Future<int>
+      _deleteSightFrom<M extends SightsTable, T extends TableInfo<M, SightCompanion>>(
+    T table,
+    Sight sight,
+  ) async {
+    return await (delete(table)..where((tbl) => tbl.id.equals(sight.id))).go();
+  }
+
+  Future<void> _changeCardSequencesIn<M extends SightsTable,
+      T extends TableInfo<M, SightCompanion>>(
+    T table, {
+    required SightWantToVisit sight,
+    required SightWantToVisit? putAboveThisSight,
+  }) async {
+    final putToStart = putAboveThisSight == null;
+    int? newSequenceId;
+    if (putToStart) {
+      newSequenceId = 0;
+    } else {
+      final putAboveThisSightCompanion = await (select(table)
+            ..where((tbl) => tbl.id.equals(putAboveThisSight!.id)))
+          .getSingle();
+      newSequenceId = putAboveThisSightCompanion.sequenceId + 1;
+    }
+
+    await _updateIdInAllTopSights(
+      fromSequenceId: newSequenceId,
+      table: table,
+    );
+    await _addSightTo(table, sight, sequenceId: newSequenceId);
+  }
+
+  Future<void> _updateIdInAllTopSights<M extends SightsTable,
+      T extends TableInfo<M, SightCompanion>>({
+    required int fromSequenceId,
+    required T table,
+  }) async {
+    final topSights = await (select(table)
+          ..where((tbl) => tbl.sequenceId.isBiggerOrEqualValue(fromSequenceId)))
+        .get();
+
+    await batch(
+      (batch) => batch.insertAllOnConflictUpdate(
+        wantToVisitSights,
+        topSights
+            .map((e) => SightCompanion.fromSightWantToVisit(e, e.sequenceId + 1))
+            .toList(),
+      ),
+    );
   }
 }
 
