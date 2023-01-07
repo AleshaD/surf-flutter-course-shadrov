@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 import 'package:places/data/database/tables/sights_table.dart';
-import 'package:places/data/model/sights/sight_want_to_visit.dart';
+import 'package:places/data/model/sights/sight_companion.dart';
 
-@UseRowClass(SightWantToVisit)
+@UseRowClass(SightCompanion)
 class VisitedSights extends SightsTable {
   @override
   String? get tableName => 'visited_sights';
