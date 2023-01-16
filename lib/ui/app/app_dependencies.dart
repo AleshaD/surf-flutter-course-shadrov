@@ -29,7 +29,7 @@ class _AppDependenciesState extends State<AppDependencies> {
   final AppDb _appDb = AppDb();
   final LocalStorage _localStorage = LocalStorage();
   var dependeciesInited = false;
- 
+
   @override
   void initState() {
     super.initState();
@@ -62,7 +62,8 @@ class _AppDependenciesState extends State<AppDependencies> {
         providers: [
           Provider<SightsApi>(create: (context) => _sightApi),
           Provider<SightRepository>(create: (_) => SightRepository(_sightApi)),
-          Provider<SearchRepository>(create: (_) => SearchRepository(_sightApi,  _appDb),
+          Provider<SearchRepository>(
+            create: (_) => SearchRepository(_sightApi, _appDb),
             lazy: false,
           ),
           Provider<SettingsRepository>(create: (_) => SettingsRepository(_localStorage)),
@@ -76,7 +77,7 @@ class _AppDependenciesState extends State<AppDependencies> {
         child: BlocProvider(
           lazy: false,
           create: (context) => VisitingBloc(
-            sightRepository: context.read<SightRepository>(),
+            favoriteSightRepository: FavoritSightsRepository(_appDb),
           )..add(VisitingEvent.loadSights()),
           child: widget.app,
         ),

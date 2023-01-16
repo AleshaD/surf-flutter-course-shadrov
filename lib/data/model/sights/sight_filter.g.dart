@@ -31,6 +31,5 @@ const _$SightTypeEnumMap = {
   SightType.hotel: 'hotel',
   SightType.restaurant: 'restaurant',
   SightType.cafe: 'cafe',
-  SightType.theatre: 'theatre',
   SightType.other: 'other',
 };
