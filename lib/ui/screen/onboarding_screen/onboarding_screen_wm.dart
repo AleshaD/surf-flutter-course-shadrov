@@ -1,9 +1,11 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/onboarding_page.dart';
+import 'package:provider/provider.dart';
 import 'onboarding_screen_model.dart';
 import 'onboarding_screen_widget.dart';
 
@@ -20,12 +22,17 @@ abstract class IOnboardingScreenWidgetModel extends IWidgetModel {
   void onPageChanged(int value);
 }
 
-OnboardingScreenWidgetModel onboardingScreenWidgetModelFactory(BuildContext _) {
-  return OnboardingScreenWidgetModel(OnboardingScreenModel());
+OnboardingScreenWidgetModel onboardingScreenWidgetModelFactory(BuildContext context) {
+  return OnboardingScreenWidgetModel(
+    OnboardingScreenModel(
+      context.read<SettingsRepository>(),
+    ),
+  );
 }
 
 /// Default widget model for OnboardingScreenWidget
-class OnboardingScreenWidgetModel extends WidgetModel<OnboardingScreenWidget, OnboardingScreenModel>
+class OnboardingScreenWidgetModel
+    extends WidgetModel<OnboardingScreenWidget, OnboardingScreenModel>
     implements IOnboardingScreenWidgetModel {
   OnboardingScreenWidgetModel(OnboardingScreenModel model) : super(model);
 
@@ -94,5 +101,11 @@ class OnboardingScreenWidgetModel extends WidgetModel<OnboardingScreenWidget, On
         builder: (context) => HomeScreen(),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    model.setWatchedOnboarding();
+    super.dispose();
   }
 }

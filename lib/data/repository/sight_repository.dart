@@ -27,10 +27,8 @@ class SightRepository with LocationService {
   final List<SightWantToVisit> _visitedSights = [];
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
   final Completer<bool> _favoriteSightsAndVisitedCompleter = new Completer();
-  late final Future<bool> initedFavotireAndVisitedSights = _favoriteSightsAndVisitedCompleter.future;
-
-  //В будущем созранять в каком-нить локальном хранилище
-  SightFilter userFilter = SightFilter.dafult();
+  late final Future<bool> initedFavotireAndVisitedSights =
+      _favoriteSightsAndVisitedCompleter.future;
 
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
     final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
@@ -46,7 +44,8 @@ class SightRepository with LocationService {
       typeFilter: categorys,
     );
 
-    List<SightDto> sights = await _doRepoRequestWithHandleErrors(_sightApi.getFilteredSights(filter)) ?? [];
+    List<SightDto> sights =
+        await _doRepoRequestWithHandleErrors(_sightApi.getFilteredSights(filter)) ?? [];
 
     return _filterSightsByDistanceFrom(_myCoordinate, sights);
   }
