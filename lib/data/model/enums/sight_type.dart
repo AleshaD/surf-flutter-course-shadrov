@@ -10,6 +10,5 @@ enum SightType {
   hotel,
   restaurant,
   cafe,
-  theatre,
   other,
 }

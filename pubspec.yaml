@@ -6,11 +6,12 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
+  drift: ^2.4.2
   elementary: ^1.5.0
   flutter:
     sdk: flutter
@@ -21,14 +22,17 @@ dependencies:
   freezed_annotation: ^2.2.0
   intl: ^0.17.0
   json_annotation: ^4.7.0
+  path: ^1.8.2
   path_provider: ^2.0.11
   provider: ^6.0.4
   retrofit: ^3.3.1
+  sqlite3_flutter_libs: ^0.5.12
   shared_preferences: ^2.0.15
 
 dev_dependencies:
   build_runner: ^2.3.2
   dart_code_metrics: ^5.0.1
+  drift_dev: ^2.4.1
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter

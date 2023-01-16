@@ -12,7 +12,9 @@ Sight _$SightFromJson(Map<String, dynamic> json) => Sight(
       lng: (json['lng'] as num).toDouble(),
       name: json['name'] as String,
       urls: (json['urls'] as List<dynamic>).map((e) => e as String).toList(),
-      sightType: $enumDecode(_$SightTypeEnumMap, json['placeType']),
+      sightType: $enumDecodeNullable(_$SightTypeEnumMap, json['placeType'],
+              unknownValue: SightType.other) ??
+          SightType.other,
       description: json['description'] as String,
     );
 
@@ -35,6 +37,5 @@ const _$SightTypeEnumMap = {
   SightType.hotel: 'hotel',
   SightType.restaurant: 'restaurant',
   SightType.cafe: 'cafe',
-  SightType.theatre: 'theatre',
   SightType.other: 'other',
 };

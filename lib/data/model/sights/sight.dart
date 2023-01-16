@@ -37,7 +37,11 @@ class Sight {
   final double lng;
   final String name;
   final List<String> urls;
-  @JsonKey(name: 'placeType')
+  @JsonKey(
+    name: 'placeType',
+    defaultValue: SightType.other,
+    unknownEnumValue: SightType.other,
+  )
   final SightType sightType;
   final String description;
 
@@ -77,9 +81,7 @@ class Sight {
       case SightType.other:
         return CustomIcons.particular_place;
       default:
-        CustomIcons.particular_place;
+        return CustomIcons.particular_place;
     }
-
-    return Icons.abc;
   }
 }
