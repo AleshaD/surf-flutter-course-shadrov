@@ -19,9 +19,9 @@ class SightRepository with LocationService {
   final SightsApi _sightApi;
   final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
-
-  //В будущем созранять в каком-нить локальном хранилище
-  SightFilter userFilter = SightFilter.dafult();
+  final Completer<bool> _favoriteSightsAndVisitedCompleter = new Completer();
+  late final Future<bool> initedFavotireAndVisitedSights =
+      _favoriteSightsAndVisitedCompleter.future;
 
   Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
     final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());

@@ -5,6 +5,7 @@ import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
+import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/ui/screen/searched_sights_screen/searched_sights_screen.dart';
 import 'package:places/util/default_error_handler.dart';
@@ -40,6 +41,7 @@ FilterScreenWidgetModel filterScreenWidgetModelFactory(BuildContext context) {
   final model = FilterScreenModel(
     context.read<DefaultErrorHandler>(),
     sightRepository: context.read<SightRepository>(),
+    settingsRepository: context.read<SettingsRepository>(),
   );
 
   return FilterScreenWidgetModel(model);
@@ -49,7 +51,8 @@ class FilterScreenWidgetModel extends WidgetModel<FilterScreenWidget, FilterScre
     implements IFilterScreenWidgetModel {
   FilterScreenWidgetModel(FilterScreenModel model) : super(model);
 
-  late final _btnTitleEntityState = EntityStateNotifier<String>(EntityState(data: _showBtnTitle()));
+  late final _btnTitleEntityState =
+      EntityStateNotifier<String>(EntityState(data: _showBtnTitle()));
   var _sightFilter = StateNotifier<SightFilter>(initValue: SightFilter.dafult());
   var _foundedSights = <Sight>[];
 

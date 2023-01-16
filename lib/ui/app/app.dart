@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/model/enums/theme_type.dart';
+import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/res/app_theme_config.dart';
-import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
-import 'package:places/ui/screen/splash_screen/splash_screen.dart';
+import 'package:places/ui/app/app_dependencies_notifier.dart';
+import 'package:places/ui/screen/splash_screen/splash_screen_widget.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -18,8 +21,25 @@ class AppState extends State<App> {
 
   void changeTheme(bool toDarkTheme) {
     setState(() {
-      toDarkTheme ? _appThemeConfig = AppThemeConfig.dark() : _appThemeConfig = AppThemeConfig.light();
+      var type = ThemeType.light;
+      if (toDarkTheme) {
+        type = ThemeType.dark;
+      }
+      context.read<SettingsRepository>().setThemeType(type);
+      _appThemeConfig = AppThemeConfig(type);
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final inited = AppDependenciesNotifier.of(context).dependencyesInited;
+    if (inited) {
+      setState(() {
+        final themeType = context.read<SettingsRepository>().getThemeType();
+        _appThemeConfig = AppThemeConfig(themeType);
+      });
+    }
   }
 
   @override
@@ -32,7 +52,7 @@ class AppState extends State<App> {
       supportedLocales: [const Locale('en'), const Locale('ru')],
       title: AppStrings.appTitle,
       theme: _appThemeConfig.data,
-      home: HomeScreen(),
+      home: SplashScreenWidget(),
     );
   }
 }
