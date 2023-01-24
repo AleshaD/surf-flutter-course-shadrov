@@ -95,4 +95,7 @@ class AppStrings {
   static const msgForUserTotalError = 'Сервис временно недоступен';
 
   static const reload = 'Перезагрузить';
+
+  static const pleaseCheckCameraPermisions =
+      'Проверьте пожалуйста разрешение на испольование галереи в приложении';
 }

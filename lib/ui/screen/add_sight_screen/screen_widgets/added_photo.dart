@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/buttons/suffix_button.dart';
 
 class AddedPhoto extends StatelessWidget {
   const AddedPhoto({
-    required this.photoPath,
+    required this.photoFile,
     required this.photoSize,
     required this.borderRadius,
     required this.onDelete,
   });
 
-  final String photoPath;
+  final File photoFile;
   final double photoSize;
   final BorderRadius borderRadius;
   final VoidCallback onDelete;
@@ -30,7 +32,10 @@ class AddedPhoto extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: borderRadius,
-                image: DecorationImage(image: AssetImage(photoPath), fit: BoxFit.cover),
+                image: DecorationImage(
+                  image: FileImage(photoFile),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Align(
