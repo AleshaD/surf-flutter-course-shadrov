@@ -36,7 +36,7 @@ class AddSightPhotoList extends StatelessWidget {
               btnSize: cardSize,
             ),
           ),
-          ...imageFiles
+          ...imageFiles.reversed
               .map(
                 (file) => Align(
                   alignment: Alignment.bottomCenter,
