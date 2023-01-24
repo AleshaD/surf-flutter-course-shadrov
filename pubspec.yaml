@@ -13,6 +13,7 @@ dependencies:
   dio: ^4.0.6
   drift: ^2.4.2
   elementary: ^1.5.0
+  file_picker: ^5.2.4
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
