@@ -26,6 +26,7 @@ class AppDependencies extends StatefulWidget {
 
 class _AppDependenciesState extends State<AppDependencies> {
   late final SightsApi _sightApi;
+  late final _imgRepo;
   final AppDb _appDb = AppDb();
   final LocalStorage _localStorage = LocalStorage();
   var dependeciesInited = false;
@@ -44,6 +45,7 @@ class _AppDependenciesState extends State<AppDependencies> {
         ),
       ),
     );
+    _imgRepo = SightImagesRepository.withDefaultDio(_sightApi);
     _initDependecies();
   }
 
@@ -67,9 +69,10 @@ class _AppDependenciesState extends State<AppDependencies> {
             lazy: false,
           ),
           Provider<SettingsRepository>(create: (_) => SettingsRepository(_localStorage)),
+          Provider<SightImagesRepository>(create: (_) => _imgRepo),
           Provider<SightImagesInteractor>(
             create: (_) => SightImagesInteractor(
-              SightImagesRepository.withDefaultDio(),
+              _imgRepo,
             ),
           ),
           Provider<DefaultErrorHandler>(create: (_) => DefaultErrorHandler()),
