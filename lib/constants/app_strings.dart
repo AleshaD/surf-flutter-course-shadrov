@@ -93,6 +93,7 @@ class AppStrings {
   static const msgForUserReceive = 'Данные с сервера не получны, попробуйте позже';
   static const msgForUserCancelRequest = 'Ошибка на сервере, исправляем';
   static const msgForUserTotalError = 'Сервис временно недоступен';
+  static const msgUploadFileError = 'Не удалось загрузить фото, попробуйте позже';
 
   static const reload = 'Перезагрузить';
 
