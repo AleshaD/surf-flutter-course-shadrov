@@ -64,6 +64,25 @@ class Sight {
     return _$SightTypeEnumMap[type]!;
   }
 
+  Sight copyWith({
+    int? id,
+    double? lat,
+    double? lng,
+    String? name,
+    List<String>? urls,
+    SightType? sightType,
+    String? description,
+  }) =>
+      Sight(
+        id: id ?? this.id,
+        lat: lat ?? this.lat,
+        lng: lng ?? this.lng,
+        name: name ?? this.name,
+        urls: urls ?? this.urls,
+        sightType: sightType ?? this.sightType,
+        description: description ?? this.description,
+      );
+
   static IconData getTypeIconBy(SightType type) {
     switch (type) {
       case SightType.cafe:
