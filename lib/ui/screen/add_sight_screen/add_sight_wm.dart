@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/repository/sight_images_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/sights/sight.dart';
@@ -53,6 +54,7 @@ abstract class IAddSightWidgetModel extends IWidgetModel {
 AddSightWidgetModel defaultAddSightWidgetModelFactory(BuildContext context) {
   final model = AddSightModel(
     sightRepository: context.read<SightRepository>(),
+    imgRepo: context.read<SightImagesRepository>(),
   );
 
   return AddSightWidgetModel(
@@ -220,7 +222,10 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
       sightType: _chosenSightType!,
     );
     try {
-      await context.read<SightRepository>().addNewSight(sightForAdd);
+      await model.createSightWithPhotos(
+        sightForAdd,
+        _filesForSightPhotosState.value!.data!,
+      );
       _showDialog(AppStrings.placeIsSaved, context);
     } catch (e) {
       _showDialog(AppStrings.placeDoesNotSave, context);
@@ -282,7 +287,7 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
           }
           break;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       if (Platform.isIOS)
         _showDialog(AppStrings.pleaseCheckCameraPermisions, context);
       else
@@ -304,7 +309,6 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
         );
       },
     );
-    if (fromSource != null) print('pick from $fromSource');
     return fromSource;
   }
 
