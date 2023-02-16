@@ -16,7 +16,9 @@ SightDto _$SightDtoFromJson(Map<String, dynamic> json) => SightDto(
               unknownValue: SightType.other) ??
           SightType.other,
       description: json['description'] as String,
-      urls: (json['urls'] as List<dynamic>).map((e) => e as String).toList(),
+      urls:
+          (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              [],
     );
 
 Map<String, dynamic> _$SightDtoToJson(SightDto instance) => <String, dynamic>{
@@ -24,10 +26,10 @@ Map<String, dynamic> _$SightDtoToJson(SightDto instance) => <String, dynamic>{
       'lat': instance.lat,
       'lng': instance.lng,
       'name': instance.name,
-      'urls': instance.urls,
       'placeType': _$SightTypeEnumMap[instance.sightType]!,
       'description': instance.description,
       'distance': instance.distance,
+      'urls': instance.urls,
     };
 
 const _$SightTypeEnumMap = {
