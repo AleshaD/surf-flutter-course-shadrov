@@ -17,30 +17,53 @@ class SightRepository with LocationService {
   SightRepository(this._sightApi);
 
   final SightsApi _sightApi;
-  final Coordinate _myCoordinate = Coordinate(lat: 55.75583, lng: 37.6173);
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
   final Completer<bool> _favoriteSightsAndVisitedCompleter = new Completer();
   late final Future<bool> initedFavotireAndVisitedSights =
       _favoriteSightsAndVisitedCompleter.future;
 
-  Future<List<Sight>> getSightsFromFilter(SightFilter filter) async {
-    final searchedSights = await getSights(filter.toDist, filter.activeTypes.toList());
+  Future<List<Sight>> getSightsWithFilter(
+    SightFilter filter,
+    Coordinate? coordinate,
+  ) async {
+    final searchedSights = await getSights(
+      filter.toDist,
+      filter.activeTypes.toList(),
+      coordinate,
+    );
 
-    return searchedSights.where((s) => filter.sightInFilter(s, _myCoordinate)).toList();
+    if (coordinate != null)
+      return searchedSights.where((s) => filter.sightInFilter(s, coordinate)).toList();
+    else
+      return searchedSights;
   }
 
-  Future<List<Sight>> getSights(double radius, List<SightType> categorys) async {
-    final filter = SightsFilterRequestDto(
-      lat: _myCoordinate.lat,
-      lng: _myCoordinate.lng,
-      radius: radius,
-      typeFilter: categorys,
-    );
+  Future<List<Sight>> getSights(
+    double radius,
+    List<SightType> categorys, [
+    Coordinate? coordinate,
+  ]) async {
+    final SightsFilterRequestDto filter;
+    if (coordinate != null) {
+      filter = SightsFilterRequestDto(
+        lat: coordinate.lat,
+        lng: coordinate.lng,
+        radius: radius,
+        typeFilter: categorys,
+      );
+    } else {
+      filter = SightsFilterRequestDto(
+        typeFilter: categorys,
+      );
+    }
 
     List<SightDto> sights =
         await _doRepoRequestWithHandleErrors(_sightApi.getFilteredSights(filter)) ?? [];
 
-    return _filterSightsByDistanceFrom(_myCoordinate, sights);
+    if (coordinate != null) {
+      return _filterSightsByDistanceFrom(coordinate, sights);
+    } else
+      return sights;
   }
 
   Future<Sight?> getSightDetails(int id) {

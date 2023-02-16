@@ -5,6 +5,7 @@ import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
+import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/ui/screen/searched_sights_screen/searched_sights_screen.dart';
@@ -42,6 +43,7 @@ FilterScreenWidgetModel filterScreenWidgetModelFactory(BuildContext context) {
     context.read<DefaultErrorHandler>(),
     sightRepository: context.read<SightRepository>(),
     settingsRepository: context.read<SettingsRepository>(),
+    locationRepository: context.read<LocationRepository>(),
   );
 
   return FilterScreenWidgetModel(model);

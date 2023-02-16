@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
+import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
@@ -28,11 +29,13 @@ SightListScreenWidgetModel sightListScreenWidgetModelFactory(BuildContext contex
     SightListScreenModel(
       context.read<DefaultErrorHandler>(),
       sightRepository: context.read<SightRepository>(),
+      locationRepository: context.read<LocationRepository>(),
     ),
   );
 }
 
-class SightListScreenWidgetModel extends WidgetModel<SightListScreenWidget, SightListScreenModel>
+class SightListScreenWidgetModel
+    extends WidgetModel<SightListScreenWidget, SightListScreenModel>
     implements ISightListScreenWidgetModel {
   SightListScreenWidgetModel(SightListScreenModel model) : super(model);
 
@@ -46,10 +49,11 @@ class SightListScreenWidgetModel extends WidgetModel<SightListScreenWidget, Sigh
   ThemeData get theme => Theme.of(context);
 
   @override
-  bool get isPortraitOrientation => MediaQuery.of(context).orientation == Orientation.portrait;
+  bool get isPortraitOrientation =>
+      MediaQuery.of(context).orientation == Orientation.portrait;
 
   @override
-  bool get showNewPlaceBtn => _sightsEntityState.value!.data!.isNotEmpty;
+  bool get showNewPlaceBtn => _sightsEntityState.value!.data != null;
 
   @override
   String get errorMsg => _errorMessage;
@@ -88,7 +92,9 @@ class SightListScreenWidgetModel extends WidgetModel<SightListScreenWidget, Sigh
   @override
   void onErrorHandle(Object error) {
     super.onErrorHandle(error);
-    error is NetworkExceptions ? _errorMessage = error.msgForUser : _errorMessage = AppStrings.unknownError;
+    error is NetworkExceptions
+        ? _errorMessage = error.msgForUser
+        : _errorMessage = AppStrings.unknownError;
     _sightsEntityState.error(error as Exception, []);
   }
 
