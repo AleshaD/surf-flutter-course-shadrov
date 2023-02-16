@@ -5,6 +5,7 @@ import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/data/database/app_db.dart';
 import 'package:places/data/repository/favorit_sights_repository.dart';
 import 'package:places/data/providers/local_storage.dart';
+import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/search_repository.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/repository/settings_repository.dart';
@@ -73,6 +74,11 @@ class _AppDependenciesState extends State<AppDependencies> {
           Provider<SightImagesInteractor>(
             create: (_) => SightImagesInteractor(
               _imgRepo,
+            ),
+          ),
+          Provider<LocationRepository>(
+            create: (_) => LocationRepository(
+              storage: _localStorage,
             ),
           ),
           Provider<DefaultErrorHandler>(create: (_) => DefaultErrorHandler()),
