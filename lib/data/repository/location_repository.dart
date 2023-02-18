@@ -10,7 +10,7 @@ class LocationRepository {
 
   final LocalStorage _storage;
 
-  Future<Coordinate?> getCurrentLocation() async {
+  Future<Position?> getUserPosition() async {
     bool hasAccess;
     if (await _hasPermission()) {
       hasAccess = true;
@@ -18,13 +18,26 @@ class LocationRepository {
       hasAccess = await _requestPermission();
     }
 
+    Position? position;
     if (hasAccess) {
-      Position position =
+      position =
           await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      return Coordinate(lat: position.latitude, lng: position.longitude);
     } else {
-      return null;
+      try {
+        position = await Geolocator.getLastKnownPosition();
+      } catch (e) {
+        return null;
+      }
     }
+
+    return position;
+  }
+
+  Future<Coordinate?> getCurrentOrPreviousCoordinate() async {
+    final position = await getUserPosition();
+    return position != null
+        ? Coordinate(lat: position.latitude, lng: position.longitude)
+        : null;
   }
 
   Future<bool> _hasPermission() async {
