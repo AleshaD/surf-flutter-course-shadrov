@@ -10,12 +10,12 @@ class LocationRepository {
 
   final LocalStorage _storage;
 
-  Future<Position?> getUserPosition() async {
+  Future<Position?> getUserPosition({bool withRequest = false}) async {
     bool hasAccess;
     if (await _hasPermission()) {
       hasAccess = true;
     } else {
-      hasAccess = await _requestPermission();
+      hasAccess = await _requestPermission(forced: withRequest);
     }
 
     Position? position;
@@ -49,11 +49,11 @@ class LocationRepository {
     return !_isDenied(permission);
   }
 
-  Future<bool> _requestPermission() async {
+  Future<bool> _requestPermission({bool forced = false}) async {
     /// не запрашиваем разрешение на координаты чаще чем раз в сутки
     final prevRequestedTime = _storage.getPreviousLocationRequestTime();
     final now = DateTime.now();
-    if (now.difference(prevRequestedTime).inHours < 24) return false;
+    if (now.difference(prevRequestedTime).inHours < 24 && !forced) return false;
 
     _storage.setPreviousLocationRequestTime(now);
     final permission = await Geolocator.requestPermission();
