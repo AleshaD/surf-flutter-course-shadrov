@@ -28,6 +28,7 @@ class AppDependencies extends StatefulWidget {
 class _AppDependenciesState extends State<AppDependencies> {
   late final SightsApi _sightApi;
   late final SettingsRepository _settingsRepository;
+  late final FavoritSightsRepository _favoritSightsRepository;
   late final _imgRepo;
   final AppDb _appDb = AppDb();
   final LocalStorage _localStorage = LocalStorage();
@@ -49,6 +50,7 @@ class _AppDependenciesState extends State<AppDependencies> {
     );
     _imgRepo = SightImagesRepository.withDefaultDio(_sightApi);
     _settingsRepository = SettingsRepository(_localStorage);
+    _favoritSightsRepository = FavoritSightsRepository(_appDb);
     _initDependecies();
   }
 
@@ -67,7 +69,11 @@ class _AppDependenciesState extends State<AppDependencies> {
         providers: [
           Provider<SightsApi>(create: (context) => _sightApi),
           Provider<SightRepository>(
-              create: (_) => SightRepository(_sightApi, _settingsRepository)),
+            create: (_) => SightRepository(_sightApi, _settingsRepository),
+          ),
+          Provider<FavoritSightsRepository>(
+            create: (_) => _favoritSightsRepository,
+          ),
           Provider<SearchRepository>(
             create: (_) => SearchRepository(_sightApi, _appDb),
             lazy: false,
@@ -83,7 +89,7 @@ class _AppDependenciesState extends State<AppDependencies> {
         child: BlocProvider(
           lazy: false,
           create: (context) => VisitingBloc(
-            favoriteSightRepository: FavoritSightsRepository(_appDb),
+            favoriteSightRepository: _favoritSightsRepository,
           )..add(VisitingEvent.loadSights()),
           child: widget.app,
         ),
