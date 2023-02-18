@@ -52,13 +52,18 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
           StateNotifierBuilder<Sight?>(
             listenableState: wm.activeSightState,
             builder: (_, sight) {
-              return Align(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16),
+              return Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 150),
+                      padding: EdgeInsets.only(
+                        left: 16,
+                        top: 16,
+                        right: 16,
+                        bottom: wm.isShowedActivePlace ? 231.0 : 16.0,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -68,7 +73,7 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
                             onTaped: wm.updatePlacesOnMap,
                           ),
                           AnimatedSwitcher(
-                            duration: Duration(milliseconds: 900),
+                            duration: Duration(milliseconds: 200),
                             child: wm.isShowedActivePlace
                                 ? SizedBox.shrink()
                                 : AddNewPlaceButton(
@@ -84,25 +89,31 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
                         ],
                       ),
                     ),
-                    AnimatedSwitcher(
-                      duration: Duration(milliseconds: 200),
-                      child: wm.isShowedActivePlace
-                          ? Padding(
-                              key: ValueKey(sight!.id),
-                              padding: const EdgeInsets.only(
-                                right: 16,
-                                left: 16,
-                                bottom: 16,
-                              ),
-                              child: GestureDetector(
-                                onVerticalDragUpdate: wm.onCardVerticalDrag,
-                                child: SightCard(sight),
-                              ),
-                            )
-                          : SizedBox.shrink(),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      height: 215,
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 150),
+                        child: wm.isShowedActivePlace
+                            ? Padding(
+                                key: ValueKey(sight!.id),
+                                padding: const EdgeInsets.only(
+                                  right: 16,
+                                  left: 16,
+                                  bottom: 16,
+                                ),
+                                child: GestureDetector(
+                                  onVerticalDragUpdate: wm.onCardVerticalDrag,
+                                  child: SightCard(sight),
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),
