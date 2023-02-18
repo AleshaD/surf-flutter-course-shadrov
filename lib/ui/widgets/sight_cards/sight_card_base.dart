@@ -18,6 +18,9 @@ class SightCardBase extends StatelessWidget {
   final Widget topRightIcons = const Text('');
 
   Widget aboutVisitInfo(BuildContext context) => const Text('');
+  Widget? botomRightWidget(BuildContext context) => null;
+
+  double get paddingRightForBottomRightWidget => 0;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,12 @@ class SightCardBase extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.only(
+                left: 16,
+                top: 16,
+                right: 16 + paddingRightForBottomRightWidget,
+                bottom: 16,
+              ),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.only(
@@ -140,8 +148,18 @@ class SightCardBase extends StatelessWidget {
           child: Align(
             alignment: Alignment.topRight,
             child: Padding(
-              padding: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.only(right: 16),
               child: topRightIcons,
+            ),
+          ),
+        ),
+        Material(
+          type: MaterialType.transparency,
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: EdgeInsets.only(right: 16, bottom: 32),
+              child: botomRightWidget(context),
             ),
           ),
         ),
