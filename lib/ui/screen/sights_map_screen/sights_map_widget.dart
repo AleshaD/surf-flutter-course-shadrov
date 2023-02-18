@@ -5,7 +5,7 @@ import 'package:places/data/model/sights/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/buttons/add_new_place_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
-import 'package:places/ui/widgets/sight_cards/sight_card.dart';
+import 'package:places/ui/widgets/sight_cards/sight_card_with_route_button.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'sights_map_wm.dart';
 
@@ -96,17 +96,32 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
                       height: 215,
                       child: AnimatedSwitcher(
                         duration: Duration(milliseconds: 150),
+                        transitionBuilder: (child, animation) {
+                          final offsetAnimation = Tween(
+                            begin: const Offset(0.0, 1.0),
+                            end: const Offset(0.0, 0.0),
+                          ).animate(animation);
+                          return ClipRect(
+                            child: SlideTransition(
+                              position: offsetAnimation,
+                              child: child,
+                            ),
+                          );
+                        },
                         child: wm.isShowedActivePlace
                             ? Padding(
-                                key: ValueKey(sight!.id),
                                 padding: const EdgeInsets.only(
                                   right: 16,
                                   left: 16,
                                   bottom: 16,
                                 ),
                                 child: GestureDetector(
+                                  key: ValueKey(sight!.id),
                                   onVerticalDragUpdate: wm.onCardVerticalDrag,
-                                  child: SightCard(sight),
+                                  child: SightCardWithRouteButton(
+                                    sight,
+                                    onRoutePressed: wm.onCreateRoutePressed,
+                                  ),
                                 ),
                               )
                             : SizedBox.shrink(),

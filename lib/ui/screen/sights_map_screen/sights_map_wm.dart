@@ -58,6 +58,9 @@ abstract class ISightsMapWidgetModel extends IWidgetModel {
 
   /// Создание нового места
   void onNewPlaceTaped();
+
+  /// Нажатие на кнопку "Проложить маршрут до места"
+  void onCreateRoutePressed();
 }
 
 SightsMapWidgetModel defaultSightsMapWidgetModelFactory(BuildContext context) {
@@ -184,6 +187,9 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
           (_) => _updatePlaceMarks(withLoad: true),
         );
   }
+
+  @override
+  void onCreateRoutePressed() {}
 
   @override
   void initWidgetModel() {
