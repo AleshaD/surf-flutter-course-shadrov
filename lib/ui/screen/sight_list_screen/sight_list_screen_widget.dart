@@ -2,11 +2,10 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sight_list_landscape_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sight_list_portrate_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sight_list_search_bar_delegate.dart';
-import 'package:places/ui/widgets/buttons/rounded_gradient_button.dart';
+import 'package:places/ui/widgets/buttons/add_new_place_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'sight_list_screen_wm.dart';
@@ -52,7 +51,8 @@ class SightListScreenWidget extends ElementaryWidget<ISightListScreenWidgetModel
                           AppStrings.sightListScrAppBar,
                           style: wm.theme.textTheme.headline5,
                         ),
-                        titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        titlePadding:
+                            const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       ),
                     ),
                     SliverPersistentHeader(
@@ -74,22 +74,8 @@ class SightListScreenWidget extends ElementaryWidget<ISightListScreenWidgetModel
                     alignment: Alignment.bottomCenter,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
-                      child: RoundedGradientButton(
+                      child: AddNewPlaceButton(
                         onPressed: wm.onNewPlaceTaped,
-                        titleWidgets: [
-                          Icon(
-                            CustomIcons.plus,
-                            size: 16,
-                            color: wm.theme.textTheme.button!.color,
-                          ),
-                          SizedBox(
-                            width: 14,
-                          ),
-                          Text(
-                            AppStrings.newPlace.toUpperCase(),
-                            style: wm.theme.textTheme.button,
-                          ),
-                        ],
                       ),
                     ),
                   ),
