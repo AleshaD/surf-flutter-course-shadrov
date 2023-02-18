@@ -21,7 +21,7 @@ class SightListScreenModel extends ElementaryModel {
   late final StreamSubscription<NetworkExceptions> _networkRepoErrorSubscription;
 
   Future<List<Sight>> loadSights() async {
-    final coordinate = await _locationRepository.getCurrentLocation();
+    final coordinate = await _locationRepository.getCurrentOrPreviousCoordinate();
     return await _sightRepository.getSightsWithFilter(SightFilter.dafult(), coordinate);
   }
 

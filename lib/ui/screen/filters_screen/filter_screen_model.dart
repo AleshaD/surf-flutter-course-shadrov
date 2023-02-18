@@ -33,7 +33,7 @@ class FilterScreenModel extends ElementaryModel {
   }
 
   Future<List<Sight>> getSightFromFilter(SightFilter filter) async {
-    final coordinate = await _locationRepository.getCurrentLocation();
+    final coordinate = await _locationRepository.getCurrentOrPreviousCoordinate();
     final sights = await _sightRepository.getSightsWithFilter(filter, coordinate);
 
     return sights;
