@@ -5,6 +5,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/ui/widgets/pickers.dart';
 import 'package:places/util/default_error_handler.dart';
+import 'package:places/util/map_launcher_to_sight.dart';
 import 'package:provider/provider.dart';
 import 'sight_details_screen_model.dart';
 import 'sight_details_screen_widget.dart';
@@ -34,6 +35,7 @@ SightDetailsScreenWidgetModel defaultSightDetailsScreenWidgetModelFactory(
 
 class SightDetailsScreenWidgetModel
     extends WidgetModel<SightDetailsScreenWidget, SightDetailsScreenModel>
+    with MapLauncherToSight
     implements ISightDetailsScreenWidgetModel {
   SightDetailsScreenWidgetModel(SightDetailsScreenModel model) : super(model);
 
@@ -58,7 +60,11 @@ class SightDetailsScreenWidgetModel
 
   @override
   void createRoutePressed() {
-    print('Create route');
+    showBottomSheetForMapLaunch(
+      context,
+      sight: widget.sight,
+      onLaunch: () => model.addToVisitedList(widget.sight),
+    );
   }
 
   @override

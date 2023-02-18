@@ -6,8 +6,10 @@ import 'package:places/data/model/sights/sight.dart';
 
 class SightDetailsScreenModel extends ElementaryModel {
   SightDetailsScreenModel(
-      ErrorHandler errorHandler, VisitingBloc visitingBloc, SightImagesInteractor imageInteractor)
-      : this._visitingBloc = visitingBloc,
+    ErrorHandler errorHandler,
+    VisitingBloc visitingBloc,
+    SightImagesInteractor imageInteractor,
+  )   : this._visitingBloc = visitingBloc,
         this._imageInteractor = imageInteractor,
         super(errorHandler: errorHandler);
 
@@ -33,6 +35,10 @@ class SightDetailsScreenModel extends ElementaryModel {
 
   void addToWantToVisitingList(Sight sight) {
     _visitingBloc.add(VisitingEvent.addToWantToVisit(sight: sight));
+  }
+
+  void addToVisitedList(Sight sight) {
+    _visitingBloc.add(VisitingEvent.addToVisited(sight: sight));
   }
 
   Image getImageWidgetWithoutImageData() {
