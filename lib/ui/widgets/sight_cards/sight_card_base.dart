@@ -29,7 +29,9 @@ class SightCardBase extends StatelessWidget {
             Container(
               height: 96,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: sight.urls.isNotEmpty
+                    ? Colors.transparent
+                    : Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(cornerRadius),
                   topRight: Radius.circular(cornerRadius),
