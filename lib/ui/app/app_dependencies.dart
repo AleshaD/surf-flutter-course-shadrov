@@ -27,6 +27,7 @@ class AppDependencies extends StatefulWidget {
 
 class _AppDependenciesState extends State<AppDependencies> {
   late final SightsApi _sightApi;
+  late final SettingsRepository _settingsRepository;
   late final _imgRepo;
   final AppDb _appDb = AppDb();
   final LocalStorage _localStorage = LocalStorage();
@@ -47,6 +48,7 @@ class _AppDependenciesState extends State<AppDependencies> {
       ),
     );
     _imgRepo = SightImagesRepository.withDefaultDio(_sightApi);
+    _settingsRepository = SettingsRepository(_localStorage);
     _initDependecies();
   }
 
@@ -64,22 +66,17 @@ class _AppDependenciesState extends State<AppDependencies> {
       child: MultiProvider(
         providers: [
           Provider<SightsApi>(create: (context) => _sightApi),
-          Provider<SightRepository>(create: (_) => SightRepository(_sightApi)),
+          Provider<SightRepository>(
+              create: (_) => SightRepository(_sightApi, _settingsRepository)),
           Provider<SearchRepository>(
             create: (_) => SearchRepository(_sightApi, _appDb),
             lazy: false,
           ),
-          Provider<SettingsRepository>(create: (_) => SettingsRepository(_localStorage)),
+          Provider<SettingsRepository>(create: (_) => _settingsRepository),
           Provider<SightImagesRepository>(create: (_) => _imgRepo),
-          Provider<SightImagesInteractor>(
-            create: (_) => SightImagesInteractor(
-              _imgRepo,
-            ),
-          ),
+          Provider<SightImagesInteractor>(create: (_) => SightImagesInteractor(_imgRepo)),
           Provider<LocationRepository>(
-            create: (_) => LocationRepository(
-              storage: _localStorage,
-            ),
+            create: (_) => LocationRepository(storage: _localStorage),
           ),
           Provider<DefaultErrorHandler>(create: (_) => DefaultErrorHandler()),
         ],

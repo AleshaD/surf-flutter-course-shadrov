@@ -9,18 +9,24 @@ import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/providers/sights_api.dart';
+import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/data/services/location_service.dart';
 
 import '../model/sights/sight_dto.dart';
 
 class SightRepository with LocationService {
-  SightRepository(this._sightApi);
+  SightRepository(this._sightApi, this._settingsRepository);
 
   final SightsApi _sightApi;
+  final SettingsRepository _settingsRepository;
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
   final Completer<bool> _favoriteSightsAndVisitedCompleter = new Completer();
   late final Future<bool> initedFavotireAndVisitedSights =
       _favoriteSightsAndVisitedCompleter.future;
+
+  Future<List<Sight>> getSightsWithUserChosenFilter(Coordinate? coordinate) async {
+    return getSightsWithFilter(_settingsRepository.getSightFilter(), coordinate);
+  }
 
   Future<List<Sight>> getSightsWithFilter(
     SightFilter filter,
