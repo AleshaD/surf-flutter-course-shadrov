@@ -23,6 +23,7 @@ class AppStrings {
   static const enterTheTitle = 'Введите название места';
   static const enterTheDescription = 'Введите описание места';
   static const pickOnMap = 'Указать на карте';
+  static const map = 'Карта';
   static const description = 'Описание';
   static const enterTheText = 'Введите текст';
   static const placeIsSaved = 'Место сохранено';
