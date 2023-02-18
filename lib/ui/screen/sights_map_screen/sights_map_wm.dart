@@ -7,12 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/sights/sight.dart';
+import 'package:places/data/repository/favorit_sights_repository.dart';
 import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/ui/app/app.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
 import 'package:places/util/default_error_handler.dart';
+import 'package:places/util/map_launcher_to_sight.dart';
 import 'package:provider/provider.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'sights_map_model.dart';
@@ -69,11 +71,13 @@ SightsMapWidgetModel defaultSightsMapWidgetModelFactory(BuildContext context) {
       context.read<DefaultErrorHandler>(),
       context.read<LocationRepository>(),
       context.read<SightRepository>(),
+      context.read<FavoritSightsRepository>(),
     ),
   );
 }
 
 class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
+    with MapLauncherToSight
     implements ISightsMapWidgetModel {
   SightsMapWidgetModel(SightsMapModel model) : super(model);
 
@@ -189,7 +193,15 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   }
 
   @override
-  void onCreateRoutePressed() {}
+  void onCreateRoutePressed() async {
+    final sight = _activeSightState.value;
+    if (sight != null)
+      showBottomSheetForMapLaunch(
+        context,
+        sight: sight,
+        onLaunch: () => model.addToVisitedSights(sight),
+      );
+  }
 
   @override
   void initWidgetModel() {
