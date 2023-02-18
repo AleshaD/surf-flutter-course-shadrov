@@ -21,8 +21,8 @@ class SightsMapModel extends ElementaryModel {
     return await _locationRepository.getCurrentOrPreviousCoordinate();
   }
 
-  Future<Position?> getUserPosition() async {
-    return await _locationRepository.getUserPosition();
+  Future<Position?> getUserPosition({bool forcesRequest = false}) async {
+    return await _locationRepository.getUserPosition(withRequest: forcesRequest);
   }
 
   Future<List<Sight>> getSights(
