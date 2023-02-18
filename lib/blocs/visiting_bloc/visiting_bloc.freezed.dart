@@ -27,6 +27,7 @@ mixin _$VisitingEvent {
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +40,7 @@ mixin _$VisitingEvent {
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +53,7 @@ mixin _$VisitingEvent {
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +69,7 @@ mixin _$VisitingEvent {
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,6 +83,7 @@ mixin _$VisitingEvent {
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -92,6 +97,7 @@ mixin _$VisitingEvent {
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -190,6 +196,7 @@ class _$_LoadSights implements _LoadSights {
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) {
     return loadSights(hideLoading);
   }
@@ -205,6 +212,7 @@ class _$_LoadSights implements _LoadSights {
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) {
     return loadSights?.call(hideLoading);
   }
@@ -220,6 +228,7 @@ class _$_LoadSights implements _LoadSights {
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) {
     if (loadSights != null) {
@@ -241,6 +250,7 @@ class _$_LoadSights implements _LoadSights {
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) {
     return loadSights(this);
   }
@@ -257,6 +267,7 @@ class _$_LoadSights implements _LoadSights {
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) {
     return loadSights?.call(this);
   }
@@ -273,6 +284,7 @@ class _$_LoadSights implements _LoadSights {
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) {
     if (loadSights != null) {
@@ -365,6 +377,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) {
     return deleteFromVisited(sight);
   }
@@ -380,6 +393,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) {
     return deleteFromVisited?.call(sight);
   }
@@ -395,6 +409,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) {
     if (deleteFromVisited != null) {
@@ -416,6 +431,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) {
     return deleteFromVisited(this);
   }
@@ -432,6 +448,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) {
     return deleteFromVisited?.call(this);
   }
@@ -448,6 +465,7 @@ class _$_DeleteFromVisited implements _DeleteFromVisited {
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) {
     if (deleteFromVisited != null) {
@@ -541,6 +559,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) {
     return deleteFromWantToVisit(sight);
   }
@@ -556,6 +575,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) {
     return deleteFromWantToVisit?.call(sight);
   }
@@ -571,6 +591,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) {
     if (deleteFromWantToVisit != null) {
@@ -592,6 +613,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) {
     return deleteFromWantToVisit(this);
   }
@@ -608,6 +630,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) {
     return deleteFromWantToVisit?.call(this);
   }
@@ -624,6 +647,7 @@ class _$_DeleteFromWantToVisit implements _DeleteFromWantToVisit {
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) {
     if (deleteFromWantToVisit != null) {
@@ -729,6 +753,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) {
     return changeVisitedCardsSequences(fromIndex, toIndex);
   }
@@ -744,6 +769,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) {
     return changeVisitedCardsSequences?.call(fromIndex, toIndex);
   }
@@ -759,6 +785,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) {
     if (changeVisitedCardsSequences != null) {
@@ -780,6 +807,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) {
     return changeVisitedCardsSequences(this);
   }
@@ -796,6 +824,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) {
     return changeVisitedCardsSequences?.call(this);
   }
@@ -812,6 +841,7 @@ class _$_ChangeVisitedCardsSequences implements _ChangeVisitedCardsSequences {
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) {
     if (changeVisitedCardsSequences != null) {
@@ -922,6 +952,7 @@ class _$_ChangeWantToVisitCardsSequences
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) {
     return changeWantToVisitCardsSequences(fromIndex, toIndex);
   }
@@ -937,6 +968,7 @@ class _$_ChangeWantToVisitCardsSequences
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) {
     return changeWantToVisitCardsSequences?.call(fromIndex, toIndex);
   }
@@ -952,6 +984,7 @@ class _$_ChangeWantToVisitCardsSequences
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) {
     if (changeWantToVisitCardsSequences != null) {
@@ -973,6 +1006,7 @@ class _$_ChangeWantToVisitCardsSequences
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) {
     return changeWantToVisitCardsSequences(this);
   }
@@ -989,6 +1023,7 @@ class _$_ChangeWantToVisitCardsSequences
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) {
     return changeWantToVisitCardsSequences?.call(this);
   }
@@ -1005,6 +1040,7 @@ class _$_ChangeWantToVisitCardsSequences
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) {
     if (changeWantToVisitCardsSequences != null) {
@@ -1109,6 +1145,7 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) {
     return addWantToVisitTime(sight, date);
   }
@@ -1124,6 +1161,7 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) {
     return addWantToVisitTime?.call(sight, date);
   }
@@ -1139,6 +1177,7 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) {
     if (addWantToVisitTime != null) {
@@ -1160,6 +1199,7 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) {
     return addWantToVisitTime(this);
   }
@@ -1176,6 +1216,7 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) {
     return addWantToVisitTime?.call(this);
   }
@@ -1192,6 +1233,7 @@ class _$_AddWantToVisitTime implements _AddWantToVisitTime {
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) {
     if (addWantToVisitTime != null) {
@@ -1286,6 +1328,7 @@ class _$_AddToWantToVisit implements _AddToWantToVisit {
         changeWantToVisitCardsSequences,
     required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
     required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
   }) {
     return addToWantToVisit(sight);
   }
@@ -1301,6 +1344,7 @@ class _$_AddToWantToVisit implements _AddToWantToVisit {
         changeWantToVisitCardsSequences,
     TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
   }) {
     return addToWantToVisit?.call(sight);
   }
@@ -1316,6 +1360,7 @@ class _$_AddToWantToVisit implements _AddToWantToVisit {
         changeWantToVisitCardsSequences,
     TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
     TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
     required TResult orElse(),
   }) {
     if (addToWantToVisit != null) {
@@ -1337,6 +1382,7 @@ class _$_AddToWantToVisit implements _AddToWantToVisit {
         changeWantToVisitCardsSequences,
     required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
     required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
   }) {
     return addToWantToVisit(this);
   }
@@ -1353,6 +1399,7 @@ class _$_AddToWantToVisit implements _AddToWantToVisit {
         changeWantToVisitCardsSequences,
     TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
   }) {
     return addToWantToVisit?.call(this);
   }
@@ -1369,6 +1416,7 @@ class _$_AddToWantToVisit implements _AddToWantToVisit {
         changeWantToVisitCardsSequences,
     TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
     TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
     required TResult orElse(),
   }) {
     if (addToWantToVisit != null) {
@@ -1385,6 +1433,186 @@ abstract class _AddToWantToVisit implements VisitingEvent {
   Sight get sight;
   @JsonKey(ignore: true)
   _$$_AddToWantToVisitCopyWith<_$_AddToWantToVisit> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_AddToVisitedCopyWith<$Res> {
+  factory _$$_AddToVisitedCopyWith(
+          _$_AddToVisited value, $Res Function(_$_AddToVisited) then) =
+      __$$_AddToVisitedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Sight sight});
+}
+
+/// @nodoc
+class __$$_AddToVisitedCopyWithImpl<$Res>
+    extends _$VisitingEventCopyWithImpl<$Res, _$_AddToVisited>
+    implements _$$_AddToVisitedCopyWith<$Res> {
+  __$$_AddToVisitedCopyWithImpl(
+      _$_AddToVisited _value, $Res Function(_$_AddToVisited) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sight = null,
+  }) {
+    return _then(_$_AddToVisited(
+      sight: null == sight
+          ? _value.sight
+          : sight // ignore: cast_nullable_to_non_nullable
+              as Sight,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AddToVisited implements _AddToVisited {
+  const _$_AddToVisited({required this.sight});
+
+  @override
+  final Sight sight;
+
+  @override
+  String toString() {
+    return 'VisitingEvent.addToVisited(sight: $sight)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AddToVisited &&
+            (identical(other.sight, sight) || other.sight == sight));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, sight);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AddToVisitedCopyWith<_$_AddToVisited> get copyWith =>
+      __$$_AddToVisitedCopyWithImpl<_$_AddToVisited>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool hideLoading) loadSights,
+    required TResult Function(Sight sight) deleteFromVisited,
+    required TResult Function(Sight sight) deleteFromWantToVisit,
+    required TResult Function(int fromIndex, int toIndex)
+        changeVisitedCardsSequences,
+    required TResult Function(int fromIndex, int toIndex)
+        changeWantToVisitCardsSequences,
+    required TResult Function(Sight sight, DateTime date) addWantToVisitTime,
+    required TResult Function(Sight sight) addToWantToVisit,
+    required TResult Function(Sight sight) addToVisited,
+  }) {
+    return addToVisited(sight);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool hideLoading)? loadSights,
+    TResult? Function(Sight sight)? deleteFromVisited,
+    TResult? Function(Sight sight)? deleteFromWantToVisit,
+    TResult? Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
+    TResult? Function(int fromIndex, int toIndex)?
+        changeWantToVisitCardsSequences,
+    TResult? Function(Sight sight, DateTime date)? addWantToVisitTime,
+    TResult? Function(Sight sight)? addToWantToVisit,
+    TResult? Function(Sight sight)? addToVisited,
+  }) {
+    return addToVisited?.call(sight);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool hideLoading)? loadSights,
+    TResult Function(Sight sight)? deleteFromVisited,
+    TResult Function(Sight sight)? deleteFromWantToVisit,
+    TResult Function(int fromIndex, int toIndex)? changeVisitedCardsSequences,
+    TResult Function(int fromIndex, int toIndex)?
+        changeWantToVisitCardsSequences,
+    TResult Function(Sight sight, DateTime date)? addWantToVisitTime,
+    TResult Function(Sight sight)? addToWantToVisit,
+    TResult Function(Sight sight)? addToVisited,
+    required TResult orElse(),
+  }) {
+    if (addToVisited != null) {
+      return addToVisited(sight);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadSights value) loadSights,
+    required TResult Function(_DeleteFromVisited value) deleteFromVisited,
+    required TResult Function(_DeleteFromWantToVisit value)
+        deleteFromWantToVisit,
+    required TResult Function(_ChangeVisitedCardsSequences value)
+        changeVisitedCardsSequences,
+    required TResult Function(_ChangeWantToVisitCardsSequences value)
+        changeWantToVisitCardsSequences,
+    required TResult Function(_AddWantToVisitTime value) addWantToVisitTime,
+    required TResult Function(_AddToWantToVisit value) addToWantToVisit,
+    required TResult Function(_AddToVisited value) addToVisited,
+  }) {
+    return addToVisited(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadSights value)? loadSights,
+    TResult? Function(_DeleteFromVisited value)? deleteFromVisited,
+    TResult? Function(_DeleteFromWantToVisit value)? deleteFromWantToVisit,
+    TResult? Function(_ChangeVisitedCardsSequences value)?
+        changeVisitedCardsSequences,
+    TResult? Function(_ChangeWantToVisitCardsSequences value)?
+        changeWantToVisitCardsSequences,
+    TResult? Function(_AddWantToVisitTime value)? addWantToVisitTime,
+    TResult? Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult? Function(_AddToVisited value)? addToVisited,
+  }) {
+    return addToVisited?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadSights value)? loadSights,
+    TResult Function(_DeleteFromVisited value)? deleteFromVisited,
+    TResult Function(_DeleteFromWantToVisit value)? deleteFromWantToVisit,
+    TResult Function(_ChangeVisitedCardsSequences value)?
+        changeVisitedCardsSequences,
+    TResult Function(_ChangeWantToVisitCardsSequences value)?
+        changeWantToVisitCardsSequences,
+    TResult Function(_AddWantToVisitTime value)? addWantToVisitTime,
+    TResult Function(_AddToWantToVisit value)? addToWantToVisit,
+    TResult Function(_AddToVisited value)? addToVisited,
+    required TResult orElse(),
+  }) {
+    if (addToVisited != null) {
+      return addToVisited(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddToVisited implements VisitingEvent {
+  const factory _AddToVisited({required final Sight sight}) = _$_AddToVisited;
+
+  Sight get sight;
+  @JsonKey(ignore: true)
+  _$$_AddToVisitedCopyWith<_$_AddToVisited> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
