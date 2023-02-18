@@ -10,6 +10,7 @@ import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/ui/app/app.dart';
+import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,9 @@ abstract class ISightsMapWidgetModel extends IWidgetModel {
   /// Чтобы затемнить при необходимости карту при построении
   bool get isDarkTheme;
 
+  /// Показать ли активное место на карте
+  bool get isShowedActivePlace;
+
   /// Размер экрана для bottom appBar, завязан на didChangeDependencies
   double get screenWidth;
 
@@ -33,12 +37,27 @@ abstract class ISightsMapWidgetModel extends IWidgetModel {
   /// Оповестить карту чтобы обновила объекты
   EntityStateNotifier<List<MapObject>> get mapObjectsNotifier;
 
+  /// Изменение активного места на карте
+  StateNotifier<Sight?> get activeSightState;
+
   /// Завершение построения карты.
   /// По этому коллбэку формируем стиль карты и добавляем объекты на карту
   void onMapCreated(YandexMapController controller);
 
-  /// нажатие на поиск в appBar
+  /// Нажатие на поиск в appBar
   void onSearchFieldTaped();
+
+  /// Обновить места на карте по нажатию кнопки
+  void updatePlacesOnMap();
+
+  /// Переместить камеру на пользователя
+  void moveCameraToUserOrRequestPermission();
+
+  /// Определить свайп по карточке, чтобы её скрыть
+  void onCardVerticalDrag(DragUpdateDetails details);
+
+  /// Создание нового места
+  void onNewPlaceTaped();
 }
 
 SightsMapWidgetModel defaultSightsMapWidgetModelFactory(BuildContext context) {
@@ -57,9 +76,15 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
 
   double _screenWidth = 0;
 
+  /// Контроллер для управления яндекс картами
+  YandexMapController? _yandexMapCtrl;
+
   /// Опопвещение view чтобы изменить отобаражемые места на карте
   final _mapObjectsNotifier =
       EntityStateNotifier<List<MapObject>>(EntityState.content([]));
+
+  /// Изменение активного места на карте
+  final _activeSightState = StateNotifier<Sight?>(initValue: null);
 
   /// Ключ для виджета яндекс карт, чтобы не перестраивать карту при изменении
   /// объектов на карте
@@ -87,29 +112,55 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   bool get isDarkTheme => AppState.of(context)!.isDarkTheme;
 
   @override
+  bool get isShowedActivePlace => _activeSightState.value != null;
+
+  @override
   double get screenWidth => _screenWidth;
 
   @override
   EntityStateNotifier<List<MapObject>> get mapObjectsNotifier => _mapObjectsNotifier;
 
   @override
+  StateNotifier<Sight?> get activeSightState => _activeSightState;
+
+  @override
+  void updatePlacesOnMap() {
+    _updatePlaceMarks(withLoad: true);
+  }
+
+  @override
+  void moveCameraToUserOrRequestPermission() async {
+    final userPosition = await model.getUserPosition(forcesRequest: true);
+    if (userPosition != null) {
+      _moveCameraTo(
+        Point(latitude: userPosition.latitude, longitude: userPosition.longitude),
+        durationInSec: 0.15,
+      );
+    }
+  }
+
+  @override
   void onMapCreated(YandexMapController mapCtrl) async {
     final userCoordinate = await model.getUserCoordinate();
-    mapCtrl
-      ..setMapStyle(_mapStyle())
-      ..moveCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: Point(
-              latitude: userCoordinate?.lat ?? 55.7,
-              longitude: userCoordinate?.lng ?? 37.61,
-            ),
-            zoom: userCoordinate != null ? 14 : 8,
-          ),
-        ),
-        animation: MapAnimation(duration: 1),
-      );
+    _yandexMapCtrl = mapCtrl..setMapStyle(_mapStyle());
+    _moveCameraTo(
+      Point(
+        latitude: userCoordinate?.lat ?? 55.7,
+        longitude: userCoordinate?.lng ?? 37.61,
+      ),
+      zoom: userCoordinate != null ? 14 : 8,
+      durationInSec: 0.15,
+    );
     _updatePlaceMarks(withLoad: true);
+  }
+
+  @override
+  void onCardVerticalDrag(DragUpdateDetails details) {
+    int sensitivity = 8;
+    if (details.delta.dy > sensitivity) {
+      _activeSightState.accept(null);
+      _updatePlaceMarks();
+    }
   }
 
   @override
@@ -119,6 +170,19 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
         builder: (context) => SightSearchScreenWidget(),
       ),
     );
+  }
+
+  @override
+  void onNewPlaceTaped() {
+    Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (context) => AddSightWidget(),
+          ),
+        )
+        .then(
+          (_) => _updatePlaceMarks(withLoad: true),
+        );
   }
 
   @override
@@ -135,10 +199,14 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   /// Подсветить выбранную точку на карте.
   /// Или убрать подсвеченную с карты.
   void _onPlacemarkTaped(MapObject mapObject, Point point) {
-    if (_activePlacemark?.mapId != mapObject.mapId) {
-      _activePlacemark = mapObject;
+    final activeSightId = _activeSightState.value?.id.toString();
+    final mObjId = mapObject.mapId.value;
+    if (activeSightId != mObjId) {
+      final sight = _getSightFromMapedSightsById(mObjId);
+      _activeSightState.accept(_getSightFromMapedSightsById(mObjId));
+      _moveCameraTo(Point(latitude: sight.lat, longitude: sight.lng));
     } else if (_activePlacemark?.mapId == mapObject.mapId) {
-      _activePlacemark = null;
+      _activeSightState.accept(null);
     }
 
     _updatePlaceMarks();
@@ -174,9 +242,10 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
       theme.colorScheme.secondary,
     );
 
+    final activeSightId = _activeSightState.value?.id.toString();
     for (var s in _sightsOnMap) {
       var id = MapObjectId('${s.id}');
-      final isActive = id == _activePlacemark?.mapId;
+      final isActive = id.value == activeSightId;
       mapObjects.add(
         PlacemarkMapObject(
           mapId: id,
@@ -286,6 +355,25 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
     final pngBytes = await image.toByteData(format: ui.ImageByteFormat.png);
 
     return pngBytes!.buffer.asUint8List();
+  }
+
+  void _moveCameraTo(Point point, {double? zoom, double durationInSec = 1}) {
+    if (_yandexMapCtrl != null) {
+      _yandexMapCtrl!.moveCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: point,
+            zoom: zoom ?? 14,
+          ),
+        ),
+        animation: MapAnimation(duration: durationInSec),
+      );
+    }
+  }
+
+  Sight _getSightFromMapedSightsById(String id) {
+    final sId = int.parse(id);
+    return _sightsOnMap.firstWhere((s) => s.id == sId);
   }
 
   /// Серый стиль карты
