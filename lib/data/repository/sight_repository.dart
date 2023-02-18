@@ -20,9 +20,6 @@ class SightRepository with LocationService {
   final SightsApi _sightApi;
   final SettingsRepository _settingsRepository;
   final exceptionStream = StreamController<NetworkExceptions>.broadcast();
-  final Completer<bool> _favoriteSightsAndVisitedCompleter = new Completer();
-  late final Future<bool> initedFavotireAndVisitedSights =
-      _favoriteSightsAndVisitedCompleter.future;
 
   Future<List<Sight>> getSightsWithUserChosenFilter(Coordinate? coordinate) async {
     return getSightsWithFilter(_settingsRepository.getSightFilter(), coordinate);
