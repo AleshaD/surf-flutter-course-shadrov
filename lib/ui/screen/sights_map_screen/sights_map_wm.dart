@@ -181,13 +181,15 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   void onNewPlaceTaped() {
     Navigator.of(context)
         .push(
-          MaterialPageRoute(
-            builder: (context) => AddSightWidget(),
-          ),
-        )
+      MaterialPageRoute(
+        builder: (context) => AddSightWidget(),
+      ),
+    )
         .then(
-          (_) => _updatePlaceMarks(withLoad: true),
-        );
+      (_) {
+        if (isMounted) _updatePlaceMarks(withLoad: true);
+      },
+    );
   }
 
   @override
