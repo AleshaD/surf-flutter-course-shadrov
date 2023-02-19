@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'dart:ui' as ui;
-
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/repository/favorit_sights_repository.dart';
@@ -15,6 +11,7 @@ import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:places/util/map_launcher_to_sight.dart';
+import 'package:places/util/yandex_map_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'sights_map_model.dart';
@@ -77,7 +74,7 @@ SightsMapWidgetModel defaultSightsMapWidgetModelFactory(BuildContext context) {
 }
 
 class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
-    with MapLauncherToSight
+    with MapLauncherToSight, YandexMapHelper
     implements ISightsMapWidgetModel {
   SightsMapWidgetModel(SightsMapModel model) : super(model);
 
@@ -107,7 +104,6 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   /// картинки для объектов
   Uint8List? _sightImageBytes;
   Uint8List? _activeSightImageBytes;
-  List<MapObject> _userPlaceMarks = [];
 
   @override
   ThemeData get theme => Theme.of(context);
@@ -139,7 +135,8 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   void moveCameraToUserOrRequestPermission() async {
     final userPosition = await model.getUserPosition(forcesRequest: true);
     if (userPosition != null) {
-      _moveCameraTo(
+      moveCameraTo(
+        _yandexMapCtrl,
         Point(latitude: userPosition.latitude, longitude: userPosition.longitude),
         durationInSec: 0.15,
       );
@@ -149,11 +146,12 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   @override
   void onMapCreated(YandexMapController mapCtrl) async {
     final userCoordinate = await model.getUserCoordinate();
-    _yandexMapCtrl = mapCtrl..setMapStyle(_mapStyle());
-    _moveCameraTo(
+    _yandexMapCtrl = mapCtrl..setMapStyle(mapStyle());
+    moveCameraTo(
+      _yandexMapCtrl,
       Point(
-        latitude: userCoordinate?.lat ?? 55.7,
-        longitude: userCoordinate?.lng ?? 37.61,
+        latitude: userCoordinate?.lat ?? mskPoint.latitude,
+        longitude: userCoordinate?.lng ?? mskPoint.longitude,
       ),
       zoom: userCoordinate != null ? 14 : 8,
       durationInSec: 0.15,
@@ -222,7 +220,7 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
     if (activeSightId != mObjId) {
       final sight = _getSightFromMapedSightsById(mObjId);
       _activeSightState.accept(_getSightFromMapedSightsById(mObjId));
-      _moveCameraTo(Point(latitude: sight.lat, longitude: sight.lng));
+      moveCameraTo(_yandexMapCtrl, Point(latitude: sight.lat, longitude: sight.lng));
     } else if (_activePlacemark?.mapId == mapObject.mapId) {
       _activeSightState.accept(null);
     }
@@ -242,20 +240,23 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
       _sightsOnMap = await model.getSights(userCoordinate);
     }
 
-    /// Размер кружка места на карте
-    final placeMarkSize = 40.0;
+    /// Размер кружка места на карте, [userMarkDefaultSize] из миксина
+    final placeMarkSize = userMarkDefaultSize / 2;
 
-    /// _userPlacemark добавлет в список объектов точку пользователя
+    /// userPlacemark добавлет в список объектов точку пользователя
     /// с кругом точности определения координат, если userPosition = null, то
     /// возращает пустой список
-    final mapObjects = await _userPlacemark(userPosition, placeMarkSize * 2);
+    final mapObjects = await userPlacemark(
+      position: userPosition,
+      theme: theme,
+    );
 
     /// Картинка обычного места, закрашенный кружок в соответствии с темой приложеня
     _sightImageBytes ??=
-        await _rawPlacemarkImage(placeMarkSize, theme.colorScheme.onBackground);
+        await rawPlacemarkImage(placeMarkSize, theme.colorScheme.onBackground);
 
     /// Картинка активного места на карте
-    _activeSightImageBytes ??= await _rawPlacemarkImage(
+    _activeSightImageBytes ??= await rawPlacemarkImage(
       placeMarkSize * 2,
       theme.colorScheme.secondary,
     );
@@ -291,119 +292,8 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
     _mapObjectsNotifier.content(mapObjects);
   }
 
-  Future<List<MapObject>> _userPlacemark(Position? position, double size) async {
-    if (position == null) return [];
-    if (_userPlaceMarks.isNotEmpty) return _userPlaceMarks;
-
-    final paint = Paint()
-      ..shader = ui.Gradient.linear(Offset(0, 0), Offset(size, size), [
-        theme.colorScheme.secondaryContainer,
-        theme.colorScheme.secondary,
-      ]);
-    final userPlaceMark = await _rawPlacemarkImage(
-      size,
-      Colors.green,
-      borderColor: Colors.white,
-      customPaint: paint,
-    );
-
-    final userPoint = Point(latitude: position.latitude, longitude: position.longitude);
-
-    _userPlaceMarks
-      ..add(
-        PlacemarkMapObject(
-          mapId: MapObjectId('user_point'),
-          point: userPoint,
-          opacity: 1,
-          icon: PlacemarkIcon.composite([
-            PlacemarkCompositeIconItem(
-              style: PlacemarkIconStyle(
-                zIndex: 2,
-                image: BitmapDescriptor.fromBytes(userPlaceMark),
-              ),
-              name: 'user_point',
-            )
-          ]),
-        ),
-      )
-      ..add(
-        CircleMapObject(
-          mapId: MapObjectId('user_accuracy'),
-          circle: Circle(
-            center: userPoint,
-            radius: 8,
-          ),
-          strokeColor: theme.colorScheme.secondary,
-          strokeWidth: 1.0,
-          fillColor: theme.colorScheme.secondary.withAlpha(80),
-          zIndex: 1,
-        ),
-      );
-
-    return _userPlaceMarks;
-  }
-
-  Future<Uint8List> _rawPlacemarkImage(
-    double widthAndHeight,
-    Color fillColor, {
-    Color? borderColor,
-    Paint? customPaint,
-  }) async {
-    final recorder = ui.PictureRecorder();
-    final canvas = Canvas(recorder);
-    final size = Size(widthAndHeight, widthAndHeight);
-    final fillPaint = customPaint ?? Paint()
-      ..color = fillColor
-      ..style = PaintingStyle.fill;
-    final radius = widthAndHeight / 2 - widthAndHeight / 10;
-
-    final circleOffset = Offset(size.height / 2, size.width / 2);
-    canvas.drawCircle(circleOffset, radius, fillPaint);
-
-    if (borderColor != null) {
-      final strokePaint = Paint()
-        ..color = borderColor
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 6;
-      canvas.drawCircle(circleOffset, radius, strokePaint);
-    }
-
-    final image =
-        await recorder.endRecording().toImage(size.width.toInt(), size.height.toInt());
-    final pngBytes = await image.toByteData(format: ui.ImageByteFormat.png);
-
-    return pngBytes!.buffer.asUint8List();
-  }
-
-  void _moveCameraTo(Point point, {double? zoom, double durationInSec = 1}) {
-    if (_yandexMapCtrl != null) {
-      _yandexMapCtrl!.moveCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: point,
-            zoom: zoom ?? 14,
-          ),
-        ),
-        animation: MapAnimation(duration: durationInSec),
-      );
-    }
-  }
-
   Sight _getSightFromMapedSightsById(String id) {
     final sId = int.parse(id);
     return _sightsOnMap.firstWhere((s) => s.id == sId);
-  }
-
-  /// Серый стиль карты
-  String _mapStyle() {
-    final land = [
-      {
-        "stylers": {
-          "saturation": -1,
-          "lightness": 0,
-        }
-      }
-    ];
-    return json.encode(land);
   }
 }
