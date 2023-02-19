@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/repository/sight_images_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/ui/screen/add_sight_screen/screen_widgets/choose_category_screen.dart';
+import 'package:places/ui/screen/pick_coordinate_on_map/pick_coordinate_on_map.dart';
 import 'package:provider/provider.dart';
 import 'add_sight_model.dart';
 import 'add_sight_widget.dart';
@@ -234,8 +236,18 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   }
 
   @override
-  void pickCoordinateOnMap() {
-    print(AppStrings.pickOnMap);
+  void pickCoordinateOnMap() async {
+    final Coordinate? coordinate = await Navigator.of(context).push<Coordinate?>(
+      MaterialPageRoute(
+        builder: (context) {
+          return PickCoordinateOnMap();
+        },
+      ),
+    );
+    if (coordinate != null) {
+      longitudeController.text = coordinate.lng.toString();
+      latitudeController.text = coordinate.lat.toString();
+    }
   }
 
   @override
