@@ -4,6 +4,7 @@ import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/styles/custom_icons.dart';
 import 'package:places/ui/widgets/buttons/add_new_place_button.dart';
+import 'package:places/ui/widgets/buttons/circle_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_with_route_button.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -67,7 +68,7 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _CircleButton(
+                          CircleButton(
                             iconData: CustomIcons.refresh,
                             elevation: 4,
                             onTaped: wm.updatePlacesOnMap,
@@ -81,7 +82,7 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
                                     elevation: 4,
                                   ),
                           ),
-                          _CircleButton(
+                          CircleButton(
                             elevation: 4,
                             iconData: CustomIcons.geolocation,
                             onTaped: wm.moveCameraToUserOrRequestPermission,
@@ -116,7 +117,7 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
                                   bottom: 16,
                                 ),
                                 child: GestureDetector(
-                                  key: ValueKey(sight!.id),
+                                  key: ValueKey('s_on_map_${sight!.id}'),
                                   onVerticalDragUpdate: wm.onCardVerticalDrag,
                                   child: SightCardWithRouteButton(
                                     sight,
@@ -134,39 +135,6 @@ class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _CircleButton extends StatelessWidget {
-  const _CircleButton({
-    Key? key,
-    required this.onTaped,
-    required this.iconData,
-    this.elevation = 0,
-  }) : super(key: key);
-
-  final VoidCallback onTaped;
-  final IconData iconData;
-  final double elevation;
-  final double radius = 24.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-            backgroundColor: MaterialStatePropertyAll(
-              Theme.of(context).colorScheme.primary,
-            ),
-            shape: MaterialStatePropertyAll(CircleBorder()),
-            elevation: MaterialStatePropertyAll(elevation),
-          ),
-      child: Icon(
-        iconData,
-        size: radius,
-        color: Theme.of(context).colorScheme.onPrimary,
-      ),
-      onPressed: onTaped,
     );
   }
 }
