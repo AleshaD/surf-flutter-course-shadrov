@@ -13,6 +13,7 @@ class AppStrings {
   static const goalIsAchieved = 'Цель достигнута';
 
   static const ok = 'Ok';
+  static const ready = 'Готово';
   static const save = 'Сохранить';
   static const newPlace = 'Новое место';
   static const cancel = 'Отмена';
@@ -29,6 +30,7 @@ class AppStrings {
   static const placeIsSaved = 'Место сохранено';
   static const placeDoesNotSave = 'Ошибка при сохранении';
   static const create = 'Создать';
+  static const location = 'Местоположение';
 
   static const longitude = 'Долгота';
   static const latitude = 'Широта';
@@ -100,4 +102,6 @@ class AppStrings {
 
   static const pleaseCheckCameraPermisions =
       'Проверьте пожалуйста разрешение на испольование галереи в приложении';
+  static const moveMapForChooseCoordinate =
+      'потяните карту чтобы выбрать правильное местоположение';
 }
