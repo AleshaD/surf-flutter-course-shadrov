@@ -57,7 +57,7 @@ mixin YandexMapHelper {
     required ThemeData theme,
   }) async {
     if (position == null) return [];
-    if (_userPlaceMarks.isNotEmpty) return _userPlaceMarks;
+    if (_userPlaceMarks.isNotEmpty) return [..._userPlaceMarks];
     size ??= userMarkDefaultSize;
 
     final paint = Paint()
@@ -105,7 +105,7 @@ mixin YandexMapHelper {
         ),
       );
 
-    return _userPlaceMarks;
+    return [..._userPlaceMarks];
   }
 
   List<MapObject> chossenPointPlaceMark(Point? point) {
