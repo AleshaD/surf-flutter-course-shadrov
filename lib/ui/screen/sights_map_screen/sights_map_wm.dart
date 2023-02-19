@@ -187,7 +187,7 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
     )
         .then(
       (_) {
-        if (isMounted) _updatePlaceMarks(withLoad: true);
+        _updatePlaceMarks(withLoad: true);
       },
     );
   }
@@ -231,6 +231,7 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   }
 
   Future<void> _updatePlaceMarks({bool withLoad = false}) async {
+    if (!isMounted) return;
     final userPosition = await model.getUserPosition();
     final userCoordinate = userPosition != null
         ? Coordinate(lat: userPosition.latitude, lng: userPosition.longitude)
