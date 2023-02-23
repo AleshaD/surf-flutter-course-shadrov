@@ -4,6 +4,7 @@ import 'package:elementary/elementary.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
+import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 
@@ -12,12 +13,15 @@ class FilterScreenModel extends ElementaryModel {
     ErrorHandler errorHandler, {
     required SightRepository sightRepository,
     required SettingsRepository settingsRepository,
+    required LocationRepository locationRepository,
   })  : this._sightRepository = sightRepository,
         this._settingsRepository = settingsRepository,
+        this._locationRepository = locationRepository,
         super(errorHandler: errorHandler);
 
   final SightRepository _sightRepository;
   final SettingsRepository _settingsRepository;
+  final LocationRepository _locationRepository;
   late final StreamSubscription<NetworkExceptions> _networkRepoErrorSubscription;
 
   void updateUserSightFilter(SightFilter filter) {
@@ -29,7 +33,8 @@ class FilterScreenModel extends ElementaryModel {
   }
 
   Future<List<Sight>> getSightFromFilter(SightFilter filter) async {
-    final sights = await _sightRepository.getSightsFromFilter(filter);
+    final coordinate = await _locationRepository.getCurrentOrPreviousCoordinate();
+    final sights = await _sightRepository.getSightsWithFilter(filter, coordinate);
 
     return sights;
   }

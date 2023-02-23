@@ -168,7 +168,7 @@ class _SightsApi implements SightsApi {
   }
 
   @override
-  Future<String> mediaUpload(file) async {
+  Future<HttpResponse<String>> mediaUpload(file) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -178,22 +178,25 @@ class _SightsApi implements SightsApi {
       MultipartFile.fromFileSync(
         file.path,
         filename: file.path.split(Platform.pathSeparator).last,
+        contentType: MediaType.parse('image/jpeg'),
       ),
     ));
-    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+    final _result =
+        await _dio.fetch<String>(_setStreamType<HttpResponse<String>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/upload_file',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              '/upload_file',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
-    return value;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 
   @override

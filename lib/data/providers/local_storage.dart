@@ -5,6 +5,7 @@ class LocalStorage {
   final String _themeKey = 'theme_type';
   final String _sightFilterKey = 'sight_filter';
   final String _isWatchedOnboardingKey = 'watched_onboarding';
+  final String _previousLocationRequestTime = 'previous_location_request_time';
 
   Future<void> init() async {
     pref = await SharedPreferences.getInstance();
@@ -32,5 +33,15 @@ class LocalStorage {
 
   void setIsWatchedOnboarding() {
     pref.setBool(_isWatchedOnboardingKey, true);
+  }
+
+  DateTime getPreviousLocationRequestTime() {
+    final ms = pref.getInt(_previousLocationRequestTime);
+
+    return DateTime.fromMillisecondsSinceEpoch(ms ?? 0);
+  }
+
+  void setPreviousLocationRequestTime(DateTime time) {
+    pref.setInt(_previousLocationRequestTime, time.millisecondsSinceEpoch);
   }
 }

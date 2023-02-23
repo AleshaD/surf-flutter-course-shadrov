@@ -24,7 +24,8 @@ class AppThemeConfig {
   Color get inactiveClr => isLight ? lmInactiveBlack : dmInactiveBlack;
   Color get whiteClr => isLight ? lmWhiteColor : dmWhiteColor;
   Color get yellowClr => isLight ? lmYellowColor : dmYellowColor;
-  Color get backgroundClr => isLight ? lmBackgroundColor : dmDarkColor; // в тёмной теме нету
+  Color get backgroundClr =>
+      isLight ? lmBackgroundColor : dmDarkColor; // в тёмной теме нету
 
   Color get lightSecondaryDarkIsWhite => isLight ? secondaryClr : whiteClr;
   Color get lightWhiteDarkIsMain => isLight ? whiteClr : mainClr;
@@ -45,10 +46,12 @@ class AppThemeConfig {
           onSurface: inactiveClr,
           onBackground: lightSecondaryDarkIsWhite,
           onError: lightWhiteDarkIsMain,
+          onTertiaryContainer: secondaryClr2,
           brightness: isLight ? Brightness.light : Brightness.dark,
         ),
         textTheme: TextTheme(
-          headline3: textStyle.copyWith(fontWeight: FontWeight.w500, color: secondaryClr2),
+          headline3:
+              textStyle.copyWith(fontWeight: FontWeight.w500, color: secondaryClr2),
           headline4: largeTitleStyle.apply(color: lightSecondaryDarkIsWhite),
           headline5: titleStyle.apply(color: lightSecondaryDarkIsWhite),
           headline6: subtitleStyle.apply(color: lightSecondaryDarkIsWhite),
@@ -60,7 +63,8 @@ class AppThemeConfig {
           caption: superSmallw400TxtStyle.apply(color: inactiveClr),
         ),
         primaryTextTheme: TextTheme(
-          subtitle1: smallBoldTxtStyle.apply(color: isLight ? secondaryClr : secondaryClr2),
+          subtitle1:
+              smallBoldTxtStyle.apply(color: isLight ? secondaryClr : secondaryClr2),
           subtitle2: smallTxtStyle.apply(color: isLight ? secondaryClr : whiteClr),
         ),
         appBarTheme: AppBarTheme(
@@ -117,7 +121,8 @@ class AppThemeConfig {
           enabledBorder: _outlineInputBorderBuilder(),
           focusedBorder: _outlineInputBorderBuilder(borderWidth: 2),
           errorBorder: _outlineInputBorderBuilder(borderSideClr: errorClr),
-          focusedErrorBorder: _outlineInputBorderBuilder(borderSideClr: errorClr, borderWidth: 2),
+          focusedErrorBorder:
+              _outlineInputBorderBuilder(borderSideClr: errorClr, borderWidth: 2),
           contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
           suffixIconColor: mainClr,
         ),
@@ -126,10 +131,15 @@ class AppThemeConfig {
             textStyle: MaterialStateProperty.resolveWith(
               (states) => textStyle.copyWith(fontWeight: FontWeight.w500),
             ),
-            foregroundColor: MaterialStateProperty.resolveWith(
-              (states) =>
-                  states.contains(MaterialState.pressed) ? greenClr.withAlpha(70) : greenClr,
-            ),
+            foregroundColor: MaterialStateProperty.resolveWith((states) {
+              if (states.contains(MaterialState.disabled)) {
+                return inactiveClr;
+              } else if (states.contains(MaterialState.pressed)) {
+                return greenClr.withAlpha(70);
+              } else {
+                return greenClr;
+              }
+            }),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
             alignment: Alignment.centerLeft,
           ),
@@ -165,15 +175,14 @@ class AppThemeConfig {
       );
 
   ThemeData get datePickerTheme => data.copyWith(
-        colorScheme: data.colorScheme.copyWith(
-          primary: mainClr,
-          onPrimary: whiteClr,
-          onSurface: isLight ? secondaryClr2 : whiteClr,
-        ),
-        textTheme: data.textTheme.copyWith(
-          subtitle1: smallBoldTxtStyle.apply(color: lightSecondaryDarkIsWhite),
-        )
-      );
+      colorScheme: data.colorScheme.copyWith(
+        primary: mainClr,
+        onPrimary: whiteClr,
+        onSurface: isLight ? secondaryClr2 : whiteClr,
+      ),
+      textTheme: data.textTheme.copyWith(
+        subtitle1: smallBoldTxtStyle.apply(color: lightSecondaryDarkIsWhite),
+      ));
 
   SliderThemeData _sliderThemeDataBuilder({Color? thumbClr}) => SliderThemeData(
         trackHeight: 1,
@@ -183,7 +192,8 @@ class AppThemeConfig {
         overlayShape: SliderComponentShape.noOverlay,
       );
 
-  OutlineInputBorder _outlineInputBorderBuilder({Color? borderSideClr, double borderWidth = 1.0}) {
+  OutlineInputBorder _outlineInputBorderBuilder(
+      {Color? borderSideClr, double borderWidth = 1.0}) {
     borderSideClr = borderSideClr ?? greenClr.withAlpha(40);
 
     return OutlineInputBorder(

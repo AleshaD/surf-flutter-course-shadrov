@@ -15,15 +15,17 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
         super(const VisitingState.loadingState()) {
     on<VisitingEvent>(
       (event, emitter) => event.map<Future<void>>(
-          loadSights: (event) => _loadSights(event, emitter),
-          deleteFromVisited: (event) => _deleteFromVisited(event, emitter),
-          deleteFromWantToVisit: (event) => _deleteFromWantToVisit(event, emitter),
-          changeVisitedCardsSequences: (event) =>
-              _changeVisitedCardsSequences(event, emitter),
-          changeWantToVisitCardsSequences: (event) =>
-              _changeWantToVisitCardsSequences(event, emitter),
-          addWantToVisitTime: (event) => _addWantToVisitTime(event, emitter),
-          addToWantToVisit: (event) => _addToWantToVisit(event, emitter)),
+        loadSights: (event) => _loadSights(event, emitter),
+        deleteFromVisited: (event) => _deleteFromVisited(event, emitter),
+        deleteFromWantToVisit: (event) => _deleteFromWantToVisit(event, emitter),
+        changeVisitedCardsSequences: (event) =>
+            _changeVisitedCardsSequences(event, emitter),
+        changeWantToVisitCardsSequences: (event) =>
+            _changeWantToVisitCardsSequences(event, emitter),
+        addWantToVisitTime: (event) => _addWantToVisitTime(event, emitter),
+        addToWantToVisit: (event) => _addToWantToVisit(event, emitter),
+        addToVisited: (event) => _addToVisited(event, emitter),
+      ),
     );
   }
 
@@ -128,6 +130,17 @@ class VisitingBloc extends Bloc<VisitingEvent, VisitingState> {
       VisitingState.sightsReadyState(
         wantToVisitSights: [...wantToVisitSights],
         visitedSights: state.visitedSights,
+      ),
+    );
+  }
+
+  Future<void> _addToVisited(_AddToVisited event, Emitter<VisitingState> emitter) async {
+    await _favoriteSightRepository.addToVisited(event.sight, DateTime.now());
+    final visited = await _favoriteSightRepository.getVisitedSights();
+    emitter(
+      VisitingState.sightsReadyState(
+        wantToVisitSights: state.wantToVisitSights,
+        visitedSights: [...visited],
       ),
     );
   }

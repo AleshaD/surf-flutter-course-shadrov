@@ -5,6 +5,7 @@ import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/data/database/app_db.dart';
 import 'package:places/data/repository/favorit_sights_repository.dart';
 import 'package:places/data/providers/local_storage.dart';
+import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/search_repository.dart';
 import 'package:places/data/interactor/sight_images_interactor.dart';
 import 'package:places/data/repository/settings_repository.dart';
@@ -26,6 +27,9 @@ class AppDependencies extends StatefulWidget {
 
 class _AppDependenciesState extends State<AppDependencies> {
   late final SightsApi _sightApi;
+  late final SettingsRepository _settingsRepository;
+  late final FavoritSightsRepository _favoritSightsRepository;
+  late final _imgRepo;
   final AppDb _appDb = AppDb();
   final LocalStorage _localStorage = LocalStorage();
   var dependeciesInited = false;
@@ -44,6 +48,9 @@ class _AppDependenciesState extends State<AppDependencies> {
         ),
       ),
     );
+    _imgRepo = SightImagesRepository.withDefaultDio(_sightApi);
+    _settingsRepository = SettingsRepository(_localStorage);
+    _favoritSightsRepository = FavoritSightsRepository(_appDb);
     _initDependecies();
   }
 
@@ -61,23 +68,28 @@ class _AppDependenciesState extends State<AppDependencies> {
       child: MultiProvider(
         providers: [
           Provider<SightsApi>(create: (context) => _sightApi),
-          Provider<SightRepository>(create: (_) => SightRepository(_sightApi)),
+          Provider<SightRepository>(
+            create: (_) => SightRepository(_sightApi, _settingsRepository),
+          ),
+          Provider<FavoritSightsRepository>(
+            create: (_) => _favoritSightsRepository,
+          ),
           Provider<SearchRepository>(
             create: (_) => SearchRepository(_sightApi, _appDb),
             lazy: false,
           ),
-          Provider<SettingsRepository>(create: (_) => SettingsRepository(_localStorage)),
-          Provider<SightImagesInteractor>(
-            create: (_) => SightImagesInteractor(
-              SightImagesRepository.withDefaultDio(),
-            ),
+          Provider<SettingsRepository>(create: (_) => _settingsRepository),
+          Provider<SightImagesRepository>(create: (_) => _imgRepo),
+          Provider<SightImagesInteractor>(create: (_) => SightImagesInteractor(_imgRepo)),
+          Provider<LocationRepository>(
+            create: (_) => LocationRepository(storage: _localStorage),
           ),
           Provider<DefaultErrorHandler>(create: (_) => DefaultErrorHandler()),
         ],
         child: BlocProvider(
           lazy: false,
           create: (context) => VisitingBloc(
-            favoriteSightRepository: FavoritSightsRepository(_appDb),
+            favoriteSightRepository: _favoritSightsRepository,
           )..add(VisitingEvent.loadSights()),
           child: widget.app,
         ),

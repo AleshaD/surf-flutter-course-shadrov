@@ -18,6 +18,11 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   AppThemeConfig _appThemeConfig = AppThemeConfig.light();
   AppThemeConfig get currentThemeConfig => _appThemeConfig;
+  bool get isDarkTheme => currentThemeConfig.isDark;
+
+  static AppState? of(BuildContext context) {
+    return context.findAncestorStateOfType<AppState>();
+  }
 
   void changeTheme(bool toDarkTheme) {
     setState(() {

@@ -1,17 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/add_sight_screen/screen_widgets/add_photo_button.dart';
 import 'package:places/ui/screen/add_sight_screen/screen_widgets/added_photo.dart';
 
 class AddSightPhotoList extends StatelessWidget {
   AddSightPhotoList({
-    required this.imagePaths,
+    required this.imageFiles,
     required this.addNewPhotoPressed,
     required this.onDeletePhoto,
   });
 
-  final List<String> imagePaths;
+  final List<File> imageFiles;
   final VoidCallback addNewPhotoPressed;
-  final Function(String) onDeletePhoto;
+  final Function(File) onDeletePhoto;
 
   final cardSize = 72.0;
 
@@ -22,7 +24,7 @@ class AddSightPhotoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 96,
+      height: 88,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
@@ -34,15 +36,15 @@ class AddSightPhotoList extends StatelessWidget {
               btnSize: cardSize,
             ),
           ),
-          ...imagePaths
+          ...imageFiles.reversed
               .map(
-                (path) => Align(
+                (file) => Align(
                   alignment: Alignment.bottomCenter,
                   child: AddedPhoto(
-                    photoPath: path,
+                    photoFile: file,
                     photoSize: cardSize,
                     borderRadius: _borderRadius,
-                    onDelete: () => onDeletePhoto(path),
+                    onDelete: () => onDeletePhoto(file),
                   ),
                 ),
               )

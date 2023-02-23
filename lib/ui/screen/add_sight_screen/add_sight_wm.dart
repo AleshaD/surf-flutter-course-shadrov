@@ -1,14 +1,19 @@
 import 'dart:io';
 
 import 'package:elementary/elementary.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/data/model/coordinate.dart';
+import 'package:places/data/repository/sight_images_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/mocks.dart';
 import 'package:places/ui/screen/add_sight_screen/screen_widgets/choose_category_screen.dart';
+import 'package:places/ui/screen/pick_coordinate_on_map/pick_coordinate_on_map.dart';
 import 'package:provider/provider.dart';
 import 'add_sight_model.dart';
 import 'add_sight_widget.dart';
@@ -32,13 +37,12 @@ abstract class IAddSightWidgetModel extends IWidgetModel {
   double get sideScreenPadding;
   double get spaceBetwenTextFields;
 
-  ListenableState<EntityState<List<String>>> get pathsToSightPhotos;
+  ListenableState<EntityState<List<File>>> get filesForSightPhotos;
   ListenableState<EntityState<String>> get chosenSightTypeStr;
   ListenableState<EntityState<bool>> get isCreateBtnActive;
 
   void popScreen();
-  void showBottomSheetForNewPhoto();
-  void removePhotoByPath(String path);
+  void removePhotoByPath(File path);
   void chooseSightTypeTaped();
   void checkIsCreateBtnActive();
   void requestFocusTo(FocusNode node);
@@ -46,11 +50,13 @@ abstract class IAddSightWidgetModel extends IWidgetModel {
   void onLongitudeEditingComplete();
   void createSight();
   void pickCoordinateOnMap();
+  void pickPhotoForSight();
 }
 
 AddSightWidgetModel defaultAddSightWidgetModelFactory(BuildContext context) {
   final model = AddSightModel(
     sightRepository: context.read<SightRepository>(),
+    imgRepo: context.read<SightImagesRepository>(),
   );
 
   return AddSightWidgetModel(
@@ -79,6 +85,7 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   final FocusNode nameNode = FocusNode();
   final ScrollController scrollController = ScrollController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final ImagePicker _imagePicker = ImagePicker();
 
   final descriptionValidator = (value) {
     if (value == null || value.isEmpty) {
@@ -96,9 +103,9 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
     return null;
   };
 
-  final _pathsToSightPhotosState = EntityStateNotifier<List<String>>(
+  final _filesForSightPhotosState = EntityStateNotifier<List<File>>(
     EntityState(
-      data: mockImagesPaths.toList(),
+      data: [],
     ),
   );
   final _chosenSightTypeStr = EntityStateNotifier<String>(
@@ -113,7 +120,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   double get sideScreenPadding => 16;
 
   @override
-  ListenableState<EntityState<List<String>>> get pathsToSightPhotos => _pathsToSightPhotosState;
+  ListenableState<EntityState<List<File>>> get filesForSightPhotos =>
+      _filesForSightPhotosState;
 
   @override
   ListenableState<EntityState<String>> get chosenSightTypeStr => _chosenSightTypeStr;
@@ -176,24 +184,21 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   }
 
   @override
-  void removePhotoByPath(String path) {
-    final currentPaths = _pathsToSightPhotosState.value!.data!;
-    currentPaths.removeWhere((photoPath) => photoPath == path);
-    _pathsToSightPhotosState.content(currentPaths);
+  void removePhotoByPath(File file) {
+    final currentFiles = _filesForSightPhotosState.value!.data!;
+    currentFiles.removeWhere((cf) => cf == file);
+    _filesForSightPhotosState.content(currentFiles);
   }
 
   @override
-  void showBottomSheetForNewPhoto() async {
-    PickPhotoSourceType? fromSource = await showModalBottomSheet<PickPhotoSourceType>(
-      context: context,
-      builder: (context) {
-        return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: AddPhotoPickSourcePage(),
-        );
-      },
-    );
-    if (fromSource != null) print('pick from $fromSource');
+  void pickPhotoForSight() async {
+    final source = await _chooseSourceInBottomSheetForNewPhoto();
+    if (source != null) {
+      final imges = await _pickImages(source);
+      final alreadyPicked = _filesForSightPhotosState.value!.data!;
+      alreadyPicked.addAll(imges);
+      _filesForSightPhotosState.content(alreadyPicked);
+    }
   }
 
   @override
@@ -219,7 +224,10 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
       sightType: _chosenSightType!,
     );
     try {
-      await context.read<SightRepository>().addNewSight(sightForAdd);
+      await model.createSightWithPhotos(
+        sightForAdd,
+        _filesForSightPhotosState.value!.data!,
+      );
       _showDialog(AppStrings.placeIsSaved, context);
     } catch (e) {
       _showDialog(AppStrings.placeDoesNotSave, context);
@@ -228,16 +236,27 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   }
 
   @override
-  void pickCoordinateOnMap() {
-    print(AppStrings.pickOnMap);
+  void pickCoordinateOnMap() async {
+    final Coordinate? coordinate = await Navigator.of(context).push<Coordinate?>(
+      MaterialPageRoute(
+        builder: (context) {
+          return PickCoordinateOnMap();
+        },
+      ),
+    );
+    if (coordinate != null) {
+      longitudeController.text = coordinate.lng.toString();
+      latitudeController.text = coordinate.lat.toString();
+    }
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _themeState = Theme.of(context);
-    _widthOfCoordinateTxtFields =
-        (MediaQuery.of(context).size.width - (sideScreenPadding * 2 + spaceBetwenTextFields)) / 2;
+    _widthOfCoordinateTxtFields = (MediaQuery.of(context).size.width -
+            (sideScreenPadding * 2 + spaceBetwenTextFields)) /
+        2;
   }
 
   @override
@@ -252,6 +271,57 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
     latitudeNode.dispose();
     longitudeNode.dispose();
     nameNode.dispose();
+  }
+
+  Future<List<File>> _pickImages(PickPhotoSourceType sourceType) async {
+    List<File> pickedImages = [];
+    try {
+      switch (sourceType) {
+        case PickPhotoSourceType.camera:
+          final XFile? img = await _imagePicker.pickImage(source: ImageSource.camera);
+          if (img != null) pickedImages.add(File(img.path));
+          break;
+        case PickPhotoSourceType.gallery:
+          final List<XFile> imges =
+              await _imagePicker.pickMultiImage(requestFullMetadata: false);
+          pickedImages.addAll(imges.map((xf) => File(xf.path)));
+          break;
+        case PickPhotoSourceType.file:
+          FilePickerResult? pickedFiles = await FilePicker.platform.pickFiles(
+            type: FileType.image,
+          );
+          if (pickedFiles != null) {
+            pickedImages.addAll(
+              pickedFiles.files.where((f) => f.path != null).map(
+                    (f) => File(f.path!),
+                  ),
+            );
+          }
+          break;
+      }
+    } on PlatformException catch (_) {
+      if (Platform.isIOS)
+        _showDialog(AppStrings.pleaseCheckCameraPermisions, context);
+      else
+        _showDialog(AppStrings.unknownError, context);
+    } catch (e) {
+      super.onErrorHandle(e);
+    } finally {
+      return pickedImages;
+    }
+  }
+
+  Future<PickPhotoSourceType?> _chooseSourceInBottomSheetForNewPhoto() async {
+    PickPhotoSourceType? fromSource = await showModalBottomSheet<PickPhotoSourceType>(
+      context: context,
+      builder: (context) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: AddPhotoPickSourcePage(),
+        );
+      },
+    );
+    return fromSource;
   }
 
   void _showDialog(String title, BuildContext context) {

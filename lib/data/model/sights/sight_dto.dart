@@ -15,7 +15,7 @@ class SightDto extends Sight {
     required String name,
     required SightType sightType,
     required String description,
-    required List<String> urls,
+    required this.urls,
   }) : super(
           id: id,
           lat: lat,
@@ -27,6 +27,9 @@ class SightDto extends Sight {
         );
 
   final double? distance;
+
+  @JsonKey(defaultValue: [])
+  final List<String> urls;
 
   factory SightDto.fromJson(Map<String, dynamic> json) => _$SightDtoFromJson(json);
 

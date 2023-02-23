@@ -6,7 +6,7 @@ import 'package:places/ui/widgets/buttons/large_app_button.dart';
 
 enum PickPhotoSourceType {
   camera,
-  photo,
+  gallery,
   file,
 }
 
@@ -42,7 +42,7 @@ class AddPhotoPickSourcePage extends StatelessWidget {
                     PickPhotoSourceRow(
                       CustomIcons.photo,
                       AppStrings.photo,
-                      () => Navigator.of(context).pop(PickPhotoSourceType.photo),
+                      () => Navigator.of(context).pop(PickPhotoSourceType.gallery),
                     ),
                     Divider(),
                     PickPhotoSourceRow(
@@ -61,8 +61,8 @@ class AddPhotoPickSourcePage extends StatelessWidget {
               data: Theme.of(context).copyWith(
                 elevatedButtonTheme: ElevatedButtonThemeData(
                   style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                        backgroundColor:
-                            MaterialStateProperty.all(Theme.of(context).scaffoldBackgroundColor),
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).scaffoldBackgroundColor),
                       ),
                 ),
               ),

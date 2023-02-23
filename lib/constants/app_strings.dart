@@ -13,6 +13,7 @@ class AppStrings {
   static const goalIsAchieved = 'Цель достигнута';
 
   static const ok = 'Ok';
+  static const ready = 'Готово';
   static const save = 'Сохранить';
   static const newPlace = 'Новое место';
   static const cancel = 'Отмена';
@@ -23,11 +24,13 @@ class AppStrings {
   static const enterTheTitle = 'Введите название места';
   static const enterTheDescription = 'Введите описание места';
   static const pickOnMap = 'Указать на карте';
+  static const map = 'Карта';
   static const description = 'Описание';
   static const enterTheText = 'Введите текст';
   static const placeIsSaved = 'Место сохранено';
   static const placeDoesNotSave = 'Ошибка при сохранении';
   static const create = 'Создать';
+  static const location = 'Местоположение';
 
   static const longitude = 'Долгота';
   static const latitude = 'Широта';
@@ -93,6 +96,12 @@ class AppStrings {
   static const msgForUserReceive = 'Данные с сервера не получны, попробуйте позже';
   static const msgForUserCancelRequest = 'Ошибка на сервере, исправляем';
   static const msgForUserTotalError = 'Сервис временно недоступен';
+  static const msgUploadFileError = 'Не удалось загрузить фото, попробуйте позже';
 
   static const reload = 'Перезагрузить';
+
+  static const pleaseCheckCameraPermisions =
+      'Проверьте пожалуйста разрешение на испольование галереи в приложении';
+  static const moveMapForChooseCoordinate =
+      'потяните карту чтобы выбрать правильное местоположение';
 }

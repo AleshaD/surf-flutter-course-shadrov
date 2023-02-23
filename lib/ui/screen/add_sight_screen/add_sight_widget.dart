@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -48,12 +50,12 @@ class AddSightWidget extends ElementaryWidget<IAddSightWidgetModel> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    EntityStateNotifierBuilder<List<String>>(
-                      listenableEntityState: wm.pathsToSightPhotos,
+                    EntityStateNotifierBuilder<List<File>>(
+                      listenableEntityState: wm.filesForSightPhotos,
                       builder: (context, data) {
                         return AddSightPhotoList(
-                          imagePaths: data!,
-                          addNewPhotoPressed: wm.showBottomSheetForNewPhoto,
+                          imageFiles: data!,
+                          addNewPhotoPressed: wm.pickPhotoForSight,
                           onDeletePhoto: wm.removePhotoByPath,
                         );
                       },
@@ -80,7 +82,8 @@ class AddSightWidget extends ElementaryWidget<IAddSightWidgetModel> {
                               builder: (context, chosenSightTypeStr) {
                                 return Text(
                                   chosenSightTypeStr!,
-                                  style: wm.theme.textTheme.subtitle2!.copyWith(fontSize: 16),
+                                  style: wm.theme.textTheme.subtitle2!
+                                      .copyWith(fontSize: 16),
                                 );
                               },
                             ),
@@ -177,24 +180,27 @@ class AddSightWidget extends ElementaryWidget<IAddSightWidgetModel> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: EntityStateNotifierBuilder<bool>(
-                  listenableEntityState: wm.isCreateBtnActive,
-                  builder: (
-                    context,
-                    isActive,
-                  ) {
-                    return LargeAppButton(
-                      isActive: isActive!,
-                      onPressed: wm.createSight,
-                      titleWidgets: [
-                        Text(
-                          AppStrings.create.toUpperCase(),
-                        ),
-                      ],
-                    );
-                  },
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: EntityStateNotifierBuilder<bool>(
+                    listenableEntityState: wm.isCreateBtnActive,
+                    builder: (
+                      context,
+                      isActive,
+                    ) {
+                      return LargeAppButton(
+                        isActive: isActive!,
+                        onPressed: wm.createSight,
+                        titleWidgets: [
+                          Text(
+                            AppStrings.create.toUpperCase(),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
