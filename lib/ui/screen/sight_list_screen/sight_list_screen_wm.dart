@@ -5,6 +5,7 @@ import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
+import 'package:places/enviroment/enviroment.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
 import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
 import 'package:places/util/default_error_handler.dart';
@@ -18,13 +19,15 @@ abstract class ISightListScreenWidgetModel extends IWidgetModel {
   bool get isPortraitOrientation;
   bool get showNewPlaceBtn;
   String get errorMsg;
+  String get appBarTitle;
 
   void onErrorReloadTaped();
   void onSearchBarTaped();
   void onNewPlaceTaped();
 }
 
-SightListScreenWidgetModel sightListScreenWidgetModelFactory(BuildContext context) {
+SightListScreenWidgetModel sightListScreenWidgetModelFactory(
+    BuildContext context) {
   return SightListScreenWidgetModel(
     SightListScreenModel(
       context.read<DefaultErrorHandler>(),
@@ -39,7 +42,8 @@ class SightListScreenWidgetModel
     implements ISightListScreenWidgetModel {
   SightListScreenWidgetModel(SightListScreenModel model) : super(model);
 
-  final _sightsEntityState = EntityStateNotifier<List<Sight>>(EntityState.loading());
+  final _sightsEntityState =
+      EntityStateNotifier<List<Sight>>(EntityState.loading());
   var _errorMessage = AppStrings.unknownError;
 
   @override
@@ -57,6 +61,11 @@ class SightListScreenWidgetModel
 
   @override
   String get errorMsg => _errorMessage;
+
+  @override
+  String get appBarTitle => Enviroment.instance().buildType == BuildType.dev
+      ? 'Debug сборка приложения'
+      : AppStrings.sightListScrAppBar;
 
   @override
   void onSearchBarTaped() {
