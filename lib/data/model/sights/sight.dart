@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/enums/sight_type.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 
 part 'sight.g.dart';
 

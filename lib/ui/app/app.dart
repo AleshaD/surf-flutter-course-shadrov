@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/theme_type.dart';
 import 'package:places/data/repository/settings_repository.dart';
-import 'package:places/res/app_theme_config.dart';
+import 'package:places/ui/styles/app_theme_config.dart';
 import 'package:places/ui/app/app_dependencies_notifier.dart';
 import 'package:places/ui/screen/splash_screen/splash_screen_widget.dart';
 import 'package:provider/provider.dart';

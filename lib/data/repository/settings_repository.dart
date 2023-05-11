@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/enums/theme_type.dart';
-import 'package:places/data/providers/local_storage.dart';
+import 'package:places/data/database/local_storage.dart';
 import 'package:places/data/repository/i_settings_repository.dart';
 
 class SettingsRepository implements ISettingsRepository {

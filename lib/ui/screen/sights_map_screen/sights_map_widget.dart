@@ -2,7 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/widgets/buttons/add_new_place_button.dart';
 import 'package:places/ui/widgets/buttons/circle_button.dart';
 import 'package:places/ui/widgets/search_bar.dart';

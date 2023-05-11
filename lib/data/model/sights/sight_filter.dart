@@ -3,12 +3,12 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
-import 'package:places/data/services/location_service.dart';
+import 'package:places/util/location_helper.dart';
 
 part 'sight_filter.g.dart';
 
 @JsonSerializable()
-class SightFilter with LocationService {
+class SightFilter with LocationHelper {
   SightFilter({
     required fromDist,
     required toDist,

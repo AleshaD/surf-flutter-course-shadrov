@@ -6,7 +6,7 @@ import 'package:places/data/database/app_db.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/searched_sight.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
-import 'package:places/data/providers/sights_api.dart';
+import 'package:places/data/api/sights_api.dart';
 
 class SearchRepository {
   SearchRepository(

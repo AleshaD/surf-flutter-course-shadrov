@@ -8,13 +8,13 @@ import 'package:places/data/model/exceptions/network_exceptions.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/sights/sights_filter_request_dto.dart';
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/data/providers/sights_api.dart';
+import 'package:places/data/api/sights_api.dart';
 import 'package:places/data/repository/settings_repository.dart';
-import 'package:places/data/services/location_service.dart';
+import 'package:places/util/location_helper.dart';
 
 import '../model/sights/sight_dto.dart';
 
-class SightRepository with LocationService {
+class SightRepository with LocationHelper {
   SightRepository(this._sightApi, this._settingsRepository);
 
   final SightsApi _sightApi;

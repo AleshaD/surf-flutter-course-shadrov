@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/screen/visiting_screen/widgets/empty_list_page.dart';
 
 class NetworkErrorPage extends EmptyListPage {

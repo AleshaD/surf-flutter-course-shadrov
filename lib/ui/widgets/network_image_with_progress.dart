@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/sight_images_interactor.dart';
+import 'package:places/data/services/sight_images_service.dart';
 import 'package:provider/provider.dart';
 
 class NetworkImageWithProgress extends StatefulWidget {
@@ -22,7 +22,7 @@ class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
   @override
   void initState() {
     super.initState();
-    imageWidget = context.read<SightImagesInteractor>().getImageSync(
+    imageWidget = context.read<SightImagesService>().getImageSync(
           url: widget.url,
         );
     if (imageWidget == null) {
@@ -34,7 +34,7 @@ class _NetworkImageWithProgressState extends State<NetworkImageWithProgress> {
   }
 
   void _loadImage() async {
-    imageWidget = await context.read<SightImagesInteractor>().getImageFrom(
+    imageWidget = await context.read<SightImagesService>().getImageFrom(
           url: widget.url,
         );
     if (mounted)

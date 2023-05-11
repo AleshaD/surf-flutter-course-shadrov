@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/enums/sight_type.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 
 class FilterCategory extends StatelessWidget {
   const FilterCategory({

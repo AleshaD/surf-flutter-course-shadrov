@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/screen/add_sight_screen/screen_widgets/pick_photo_source_row.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 

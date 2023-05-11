@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/coordinate.dart';
 import 'package:places/data/repository/location_repository.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/app/app.dart';
 import 'package:places/ui/widgets/buttons/circle_button.dart';
 import 'package:places/util/yandex_map_helper.dart';

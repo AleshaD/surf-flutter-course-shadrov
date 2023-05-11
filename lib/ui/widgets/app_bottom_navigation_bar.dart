@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'dart:math' as Math;
 
-import '../model/coordinate.dart';
+import '../data/model/coordinate.dart';
 
-mixin LocationService {
+mixin LocationHelper {
   double getDistanceBeatwenCoordinates(Coordinate first, Coordinate second) {
     final ky = 40000 / 360;
     final kx = Math.cos(Math.pi * second.lat / 180.0) * ky;

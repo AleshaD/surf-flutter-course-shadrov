@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 
 class SearchHystoryTile extends StatelessWidget {
   const SearchHystoryTile({

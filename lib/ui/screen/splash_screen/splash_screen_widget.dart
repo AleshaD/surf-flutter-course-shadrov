@@ -1,6 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'splash_screen_wm.dart';
 
 class SplashScreenWidget extends ElementaryWidget<ISplashScreenWidgetModel> {

@@ -2,7 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/repository/settings_repository.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/onboarding_page.dart';
 import 'package:provider/provider.dart';

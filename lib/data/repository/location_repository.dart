@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 
 import 'package:places/data/model/coordinate.dart';
-import 'package:places/data/providers/local_storage.dart';
+import 'package:places/data/database/local_storage.dart';
 
 class LocationRepository {
   LocationRepository({

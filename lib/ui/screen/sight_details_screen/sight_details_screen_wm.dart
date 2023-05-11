@@ -2,7 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/data/interactor/sight_images_interactor.dart';
+import 'package:places/data/services/sight_images_service.dart';
 import 'package:places/ui/widgets/pickers.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:places/util/map_launcher_to_sight.dart';
@@ -28,7 +28,7 @@ SightDetailsScreenWidgetModel defaultSightDetailsScreenWidgetModelFactory(
     SightDetailsScreenModel(
       context.read<DefaultErrorHandler>(),
       context.read<VisitingBloc>(),
-      context.read<SightImagesInteractor>(),
+      context.read<SightImagesService>(),
     ),
   );
 }

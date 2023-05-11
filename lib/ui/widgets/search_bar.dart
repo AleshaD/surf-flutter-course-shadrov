@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/screen/filters_screen/filter_screen_widget.dart';
 import 'package:places/ui/widgets/buttons/suffix_button.dart';
 

@@ -4,7 +4,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/coordinate_type.dart';
-import 'package:places/styles/custom_icons.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'add_sight_wm.dart';
 import 'screen_widgets/add_sight_photo_list.dart';

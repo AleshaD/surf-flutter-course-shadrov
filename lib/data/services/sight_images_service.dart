@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:places/data/repository/sight_images_repository.dart';
 
-class SightImagesInteractor {
-  SightImagesInteractor(this.repository);
+class SightImagesService {
+  SightImagesService(this.repository);
 
   final SightImagesRepository repository;
 

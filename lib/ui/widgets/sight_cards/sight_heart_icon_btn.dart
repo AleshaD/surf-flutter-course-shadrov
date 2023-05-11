@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/ui/widgets/sight_cards/sight_card_icon_button.dart';
 import '../../../data/model/sights/sight.dart';
-import '../../../styles/custom_icons.dart';
+import '../../styles/custom_icons.dart';
 
 class SightHeartIconBtn extends StatefulWidget {
   const SightHeartIconBtn({

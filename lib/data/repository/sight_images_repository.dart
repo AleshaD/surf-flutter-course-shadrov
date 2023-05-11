@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/exceptions/network_exceptions.dart';
-import 'package:places/data/providers/sights_api.dart';
+import 'package:places/data/api/sights_api.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class SightImagesRepository {
