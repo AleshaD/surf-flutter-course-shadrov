@@ -38,13 +38,8 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(
-          path: asPath(SplashRoute.name),
-          page: SplashRoute.page,
-          initial: true,
-        ),
-        AutoRoute(
-            path: asPath(OnboardingRoute.name), page: OnboardingRoute.page),
+        AutoRoute(page: SplashRoute.page, initial: true),
+        AutoRoute(page: OnboardingRoute.page),
         AutoRoute(
           path: asPath(HomeRoute.name),
           page: HomeRoute.page,
@@ -59,33 +54,12 @@ class AppRouter extends _$AppRouter {
             AutoRoute(path: SettingsRoute.name, page: SettingsRoute.page),
           ],
         ),
-        AutoRoute(
-          path: asPath(AddSightRoute.name),
-          page: AddSightRoute.page,
-        ),
-        AutoRoute(
-          path: asPath(FilterRoute.name),
-          page: FilterRoute.page,
-        ),
-        AutoRoute(
-          path: asPath(PickCoordinateOnMapRoute.name),
-          page: PickCoordinateOnMapRoute.page,
-        ),
-        AutoRoute(
-          path: asPath(SearchedSightsRoute.name),
-          page: SearchedSightsRoute.page,
-        ),
-        AutoRoute(
-          path: asPath(SightDetailsRoute.name),
-          page: SightDetailsRoute.page,
-        ),
-        AutoRoute(
-          path: asPath(SightDetailsRoute.name),
-          page: SightDetailsRoute.page,
-        ),
-        AutoRoute(
-          path: asPath(SightSearchRoute.name),
-          page: SightSearchRoute.page,
-        ),
+        AutoRoute(page: AddSightRoute.page),
+        AutoRoute(page: FilterRoute.page),
+        AutoRoute(page: PickCoordinateOnMapRoute.page),
+        AutoRoute(page: SearchedSightsRoute.page),
+        AutoRoute(page: SightDetailsRoute.page),
+        AutoRoute(page: SightDetailsRoute.page),
+        AutoRoute(page: SightSearchRoute.page),
       ];
 }
