@@ -2,7 +2,7 @@ import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 
-import 'data/model/coordinate.dart';
+import '../lib/data/model/coordinate.dart';
 
 final myCoordinateMock = Coordinate(
   lat: 44.467748,
