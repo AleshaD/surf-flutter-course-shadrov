@@ -21,6 +21,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SettingsScreen(),
       );
     },
+    SearchedSightsRoute.name: (routeData) {
+      final args = routeData.argsAs<SearchedSightsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SearchedSightsScreen(
+          key: args.key,
+          sights: args.sights,
+        ),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -82,6 +92,61 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    AddSightRoute.name: (routeData) {
+      final args = routeData.argsAs<AddSightRouteArgs>(
+          orElse: () => const AddSightRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AddSightScreen(
+          key: args.key,
+          wmFactory: args.wmFactory,
+        ),
+      );
+    },
+    FilterRoute.name: (routeData) {
+      final args = routeData.argsAs<FilterRouteArgs>(
+          orElse: () => const FilterRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FilterScreen(
+          key: args.key,
+          wmFactory: args.wmFactory,
+        ),
+      );
+    },
+    PickCoordinateOnMapRoute.name: (routeData) {
+      final args = routeData.argsAs<PickCoordinateOnMapRouteArgs>(
+          orElse: () => const PickCoordinateOnMapRouteArgs());
+      return AutoRoutePage<Coordinate?>(
+        routeData: routeData,
+        child: PickCoordinateOnMapScreen(key: args.key),
+      );
+    },
+    SightDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<SightDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SightDetailsScreen(
+          sight: args.sight,
+          topCornersRadius: args.topCornersRadius,
+          showBottomSheetNav: args.showBottomSheetNav,
+          scrollController: args.scrollController,
+          key: args.key,
+          wmFactory: args.wmFactory,
+        ),
+      );
+    },
+    SightSearchRoute.name: (routeData) {
+      final args = routeData.argsAs<SightSearchRouteArgs>(
+          orElse: () => const SightSearchRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SightSearchScreen(
+          key: args.key,
+          wmFactory: args.wmFactory,
+        ),
+      );
+    },
   };
 }
 
@@ -97,6 +162,44 @@ class SettingsRoute extends PageRouteInfo<void> {
   static const String name = 'SettingsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SearchedSightsScreen]
+class SearchedSightsRoute extends PageRouteInfo<SearchedSightsRouteArgs> {
+  SearchedSightsRoute({
+    Key? key,
+    required List<Sight> sights,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SearchedSightsRoute.name,
+          args: SearchedSightsRouteArgs(
+            key: key,
+            sights: sights,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SearchedSightsRoute';
+
+  static const PageInfo<SearchedSightsRouteArgs> page =
+      PageInfo<SearchedSightsRouteArgs>(name);
+}
+
+class SearchedSightsRouteArgs {
+  const SearchedSightsRouteArgs({
+    this.key,
+    required this.sights,
+  });
+
+  final Key? key;
+
+  final List<Sight> sights;
+
+  @override
+  String toString() {
+    return 'SearchedSightsRouteArgs{key: $key, sights: $sights}';
+  }
 }
 
 /// generated route for
@@ -314,5 +417,218 @@ class SplashRouteArgs {
   @override
   String toString() {
     return 'SplashRouteArgs{key: $key, wmFactory: $wmFactory}';
+  }
+}
+
+/// generated route for
+/// [AddSightScreen]
+class AddSightRoute extends PageRouteInfo<AddSightRouteArgs> {
+  AddSightRoute({
+    Key? key,
+    WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+            BuildContext)
+        wmFactory = defaultAddSightWidgetModelFactory,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AddSightRoute.name,
+          args: AddSightRouteArgs(
+            key: key,
+            wmFactory: wmFactory,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AddSightRoute';
+
+  static const PageInfo<AddSightRouteArgs> page =
+      PageInfo<AddSightRouteArgs>(name);
+}
+
+class AddSightRouteArgs {
+  const AddSightRouteArgs({
+    this.key,
+    this.wmFactory = defaultAddSightWidgetModelFactory,
+  });
+
+  final Key? key;
+
+  final WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+      BuildContext) wmFactory;
+
+  @override
+  String toString() {
+    return 'AddSightRouteArgs{key: $key, wmFactory: $wmFactory}';
+  }
+}
+
+/// generated route for
+/// [FilterScreen]
+class FilterRoute extends PageRouteInfo<FilterRouteArgs> {
+  FilterRoute({
+    Key? key,
+    WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+            BuildContext)
+        wmFactory = filterScreenWidgetModelFactory,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FilterRoute.name,
+          args: FilterRouteArgs(
+            key: key,
+            wmFactory: wmFactory,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'FilterRoute';
+
+  static const PageInfo<FilterRouteArgs> page = PageInfo<FilterRouteArgs>(name);
+}
+
+class FilterRouteArgs {
+  const FilterRouteArgs({
+    this.key,
+    this.wmFactory = filterScreenWidgetModelFactory,
+  });
+
+  final Key? key;
+
+  final WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+      BuildContext) wmFactory;
+
+  @override
+  String toString() {
+    return 'FilterRouteArgs{key: $key, wmFactory: $wmFactory}';
+  }
+}
+
+/// generated route for
+/// [PickCoordinateOnMapScreen]
+class PickCoordinateOnMapRoute
+    extends PageRouteInfo<PickCoordinateOnMapRouteArgs> {
+  PickCoordinateOnMapRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PickCoordinateOnMapRoute.name,
+          args: PickCoordinateOnMapRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'PickCoordinateOnMapRoute';
+
+  static const PageInfo<PickCoordinateOnMapRouteArgs> page =
+      PageInfo<PickCoordinateOnMapRouteArgs>(name);
+}
+
+class PickCoordinateOnMapRouteArgs {
+  const PickCoordinateOnMapRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PickCoordinateOnMapRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [SightDetailsScreen]
+class SightDetailsRoute extends PageRouteInfo<SightDetailsRouteArgs> {
+  SightDetailsRoute({
+    required Sight sight,
+    double topCornersRadius = 0,
+    bool showBottomSheetNav = false,
+    ScrollController? scrollController,
+    Key? key,
+    WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+            BuildContext)
+        wmFactory = defaultSightDetailsScreenWidgetModelFactory,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SightDetailsRoute.name,
+          args: SightDetailsRouteArgs(
+            sight: sight,
+            topCornersRadius: topCornersRadius,
+            showBottomSheetNav: showBottomSheetNav,
+            scrollController: scrollController,
+            key: key,
+            wmFactory: wmFactory,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SightDetailsRoute';
+
+  static const PageInfo<SightDetailsRouteArgs> page =
+      PageInfo<SightDetailsRouteArgs>(name);
+}
+
+class SightDetailsRouteArgs {
+  const SightDetailsRouteArgs({
+    required this.sight,
+    this.topCornersRadius = 0,
+    this.showBottomSheetNav = false,
+    this.scrollController,
+    this.key,
+    this.wmFactory = defaultSightDetailsScreenWidgetModelFactory,
+  });
+
+  final Sight sight;
+
+  final double topCornersRadius;
+
+  final bool showBottomSheetNav;
+
+  final ScrollController? scrollController;
+
+  final Key? key;
+
+  final WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+      BuildContext) wmFactory;
+
+  @override
+  String toString() {
+    return 'SightDetailsRouteArgs{sight: $sight, topCornersRadius: $topCornersRadius, showBottomSheetNav: $showBottomSheetNav, scrollController: $scrollController, key: $key, wmFactory: $wmFactory}';
+  }
+}
+
+/// generated route for
+/// [SightSearchScreen]
+class SightSearchRoute extends PageRouteInfo<SightSearchRouteArgs> {
+  SightSearchRoute({
+    Key? key,
+    WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+            BuildContext)
+        wmFactory = defaultSightSearchScreenWidgetModelFactory,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SightSearchRoute.name,
+          args: SightSearchRouteArgs(
+            key: key,
+            wmFactory: wmFactory,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SightSearchRoute';
+
+  static const PageInfo<SightSearchRouteArgs> page =
+      PageInfo<SightSearchRouteArgs>(name);
+}
+
+class SightSearchRouteArgs {
+  const SightSearchRouteArgs({
+    this.key,
+    this.wmFactory = defaultSightSearchScreenWidgetModelFactory,
+  });
+
+  final Key? key;
+
+  final WidgetModel<ElementaryWidget<IWidgetModel>, ElementaryModel> Function(
+      BuildContext) wmFactory;
+
+  @override
+  String toString() {
+    return 'SightSearchRouteArgs{key: $key, wmFactory: $wmFactory}';
   }
 }

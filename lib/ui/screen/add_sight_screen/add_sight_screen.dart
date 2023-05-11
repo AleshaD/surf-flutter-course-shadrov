@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -11,8 +12,9 @@ import 'screen_widgets/add_sight_photo_list.dart';
 import 'screen_widgets/app_text_form_field.dart';
 import 'screen_widgets/coordinate_text_field.dart';
 
-class AddSightWidget extends ElementaryWidget<IAddSightWidgetModel> {
-  const AddSightWidget({
+@RoutePage()
+class AddSightScreen extends ElementaryWidget<IAddSightWidgetModel> {
+  const AddSightScreen({
     Key? key,
     WidgetModelFactory wmFactory = defaultAddSightWidgetModelFactory,
   }) : super(wmFactory, key: key);

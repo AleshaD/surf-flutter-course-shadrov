@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/coordinate.dart';
@@ -9,16 +10,17 @@ import 'package:places/util/yandex_map_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
-class PickCoordinateOnMap extends StatefulWidget {
-  PickCoordinateOnMap({
+@RoutePage<Coordinate?>()
+class PickCoordinateOnMapScreen extends StatefulWidget {
+  PickCoordinateOnMapScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  _PickCoordinateOnMapState createState() => _PickCoordinateOnMapState();
+  _PickCoordinateOnMapScreenState createState() => _PickCoordinateOnMapScreenState();
 }
 
-class _PickCoordinateOnMapState extends State<PickCoordinateOnMap> with YandexMapHelper {
+class _PickCoordinateOnMapScreenState extends State<PickCoordinateOnMapScreen> with YandexMapHelper {
   YandexMapController? _yaMapCtrl;
   Coordinate? _pickedCoordinate;
   late final LocationRepository _locationRepository;

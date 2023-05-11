@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
+import 'package:places/ui/router/app_router.dart';
 import 'package:places/ui/styles/custom_icons.dart';
-import 'package:places/ui/screen/filters_screen/filter_screen_widget.dart';
+import 'package:places/ui/screen/filters_screen/filter_screen.dart';
 import 'package:places/ui/widgets/buttons/suffix_button.dart';
 
 class SearchBar extends StatefulWidget implements PreferredSizeWidget {
@@ -79,7 +81,8 @@ class _SearchBarState extends State<SearchBar> {
         onEditingComplete: widget.onEditingComplete,
         decoration: InputDecoration(
           hintText: AppStrings.searh,
-          hintStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 16),
+          hintStyle:
+              Theme.of(context).textTheme.caption!.copyWith(fontSize: 16),
           border: defaultBorder,
           enabledBorder: defaultBorder,
           focusedBorder: defaultBorder,
@@ -99,13 +102,7 @@ class _SearchBarState extends State<SearchBar> {
             padding: EdgeInsets.only(right: 8),
             child: widget.showFilterBtn
                 ? SuffixButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => FilterScreenWidget(),
-                        ),
-                      );
-                    },
+                    onPressed: () => context.pushRoute(FilterRoute()),
                     iconData: CustomIcons.filter,
                     iconColor: Theme.of(context).colorScheme.secondary,
                   )

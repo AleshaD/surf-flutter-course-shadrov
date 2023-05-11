@@ -1,10 +1,7 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/settings_screen/settings_screen.dart';
-import 'package:places/ui/screen/sight_list_screen/sight_list_screen.dart';
-import 'package:places/ui/screen/sights_map_screen/sights_map_screen.dart';
-import 'package:places/ui/screen/visiting_screen/visiting_screen.dart';
-import 'package:places/ui/widgets/app_bottom_navigation_bar.dart';
+import 'package:places/ui/router/app_router.dart';
+import 'package:places/ui/styles/custom_icons.dart';
 
 enum HomeScreenTypes {
   mainSightList,
@@ -14,58 +11,61 @@ enum HomeScreenTypes {
 }
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-
-  static _HomeScreenState? of(BuildContext context) {
-    return context.findAncestorStateOfType<_HomeScreenState>();
-  }
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  HomeScreenTypes currentScreenType = HomeScreenTypes.mainSightList;
-  final mapKey = GlobalKey();
-
-  void changeCurrentPageTo(HomeScreenTypes type) {
-    setState(() {
-      currentScreenType = type;
-    });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  BottomNavigationBarItem _navigationBarItem({
+    required IconData icon,
+    required IconData activeIcon,
+  }) {
+    final double iconSize = 18;
+    return BottomNavigationBarItem(
+      icon: Icon(
+        icon,
+        size: iconSize,
+      ),
+      activeIcon: Icon(
+        activeIcon,
+        size: iconSize,
+      ),
+      label: '',
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget currentScreen = SizedBox.shrink();
-    switch (currentScreenType) {
-      case HomeScreenTypes.mainSightList:
-        currentScreen = SightListScreen();
-        break;
-      case HomeScreenTypes.sightsMap:
-        currentScreen = SightsMapScreen(
-          key: mapKey,
+    return AutoTabsScaffold(
+      transitionBuilder: (_, child, __) => child,
+      routes: [
+        SightListRoute(),
+        SightsMapRoute(),
+        VisitingRoute(),
+        SettingsRoute(),
+      ],
+      bottomNavigationBuilder: (context, tabsRouter) {
+        return BottomNavigationBar(
+          onTap: tabsRouter.setActiveIndex,
+          currentIndex: tabsRouter.activeIndex,
+          items: [
+            _navigationBarItem(
+              icon: CustomIcons.menu_list,
+              activeIcon: CustomIcons.menu_list_full,
+            ),
+            _navigationBarItem(
+              icon: CustomIcons.menu_map,
+              activeIcon: CustomIcons.menu_map_full,
+            ),
+            _navigationBarItem(
+              icon: CustomIcons.menu_heart,
+              activeIcon: CustomIcons.menu_heart_full,
+            ),
+            _navigationBarItem(
+              icon: CustomIcons.menu_settings,
+              activeIcon: CustomIcons.menu_settings_fill,
+            ),
+          ],
         );
-        break;
-      case HomeScreenTypes.visited:
-        currentScreen = VisitingScreen();
-        break;
-      case HomeScreenTypes.settings:
-        currentScreen = SettingsScreen();
-        break;
-      default:
-    }
-
-    return Scaffold(
-      bottomNavigationBar: AppBottomNavigationBar(
-        currentPage: currentScreenType,
-      ),
-      body: currentScreen,
+      },
     );
   }
 }
