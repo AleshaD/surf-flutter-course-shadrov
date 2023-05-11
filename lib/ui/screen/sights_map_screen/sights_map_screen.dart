@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -10,8 +11,9 @@ import 'package:places/ui/widgets/sight_cards/sight_card_with_route_button.dart'
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'sights_map_wm.dart';
 
-class SightsMapWidget extends ElementaryWidget<ISightsMapWidgetModel> {
-  const SightsMapWidget({
+@RoutePage()
+class SightsMapScreen extends ElementaryWidget<ISightsMapWidgetModel> {
+  const SightsMapScreen({
     Key? key,
     WidgetModelFactory wmFactory = defaultSightsMapWidgetModelFactory,
   }) : super(wmFactory, key: key);

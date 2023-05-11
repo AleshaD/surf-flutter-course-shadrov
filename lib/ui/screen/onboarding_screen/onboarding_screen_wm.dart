@@ -7,7 +7,7 @@ import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/onboarding_page.dart';
 import 'package:provider/provider.dart';
 import 'onboarding_screen_model.dart';
-import 'onboarding_screen_widget.dart';
+import 'onboarding_screen.dart';
 
 abstract class IOnboardingScreenWidgetModel extends IWidgetModel {
   List<OnboardingPage> get onboardingPages;
@@ -32,7 +32,7 @@ OnboardingScreenWidgetModel onboardingScreenWidgetModelFactory(BuildContext cont
 
 /// Default widget model for OnboardingScreenWidget
 class OnboardingScreenWidgetModel
-    extends WidgetModel<OnboardingScreenWidget, OnboardingScreenModel>
+    extends WidgetModel<OnboardingScreen, OnboardingScreenModel>
     implements IOnboardingScreenWidgetModel {
   OnboardingScreenWidgetModel(OnboardingScreenModel model) : super(model);
 

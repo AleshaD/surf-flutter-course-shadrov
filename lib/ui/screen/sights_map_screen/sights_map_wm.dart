@@ -15,7 +15,7 @@ import 'package:places/util/yandex_map_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'sights_map_model.dart';
-import 'sights_map_widget.dart';
+import 'sights_map_screen.dart';
 
 abstract class ISightsMapWidgetModel extends IWidgetModel {
   /// Тема приложения
@@ -73,7 +73,7 @@ SightsMapWidgetModel defaultSightsMapWidgetModelFactory(BuildContext context) {
   );
 }
 
-class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
+class SightsMapWidgetModel extends WidgetModel<SightsMapScreen, SightsMapModel>
     with MapLauncherToSight, YandexMapHelper
     implements ISightsMapWidgetModel {
   SightsMapWidgetModel(SightsMapModel model) : super(model);

@@ -1,6 +1,6 @@
+import 'package:auto_route/annotations.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/sights/sight.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sight_list_landscape_orientation.dart';
 import 'package:places/ui/screen/sight_list_screen/widgets/sight_list_portrate_orientation.dart';
@@ -10,9 +10,10 @@ import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'sight_list_screen_wm.dart';
 
-class SightListScreenWidget
+@RoutePage()
+class SightListScreen
     extends ElementaryWidget<ISightListScreenWidgetModel> {
-  const SightListScreenWidget({
+  const SightListScreen({
     Key? key,
     WidgetModelFactory wmFactory = sightListScreenWidgetModelFactory,
   }) : super(wmFactory, key: key);

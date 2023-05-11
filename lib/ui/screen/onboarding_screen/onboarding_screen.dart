@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -5,8 +6,9 @@ import 'package:places/ui/screen/onboarding_screen/widgets/onboard_page_paginati
 import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'onboarding_screen_wm.dart';
 
-class OnboardingScreenWidget extends ElementaryWidget<IOnboardingScreenWidgetModel> {
-  const OnboardingScreenWidget({
+@RoutePage()
+class OnboardingScreen extends ElementaryWidget<IOnboardingScreenWidgetModel> {
+  const OnboardingScreen({
     Key? key,
     WidgetModelFactory wmFactory = onboardingScreenWidgetModelFactory,
   }) : super(wmFactory, key: key);

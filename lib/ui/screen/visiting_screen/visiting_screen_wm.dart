@@ -6,7 +6,7 @@ import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:provider/provider.dart';
 import 'visiting_screen_model.dart';
-import 'visiting_screen_widget.dart';
+import 'visiting_screen.dart';
 
 abstract class IVisitingScreenWidgetModel extends IWidgetModel {
   ThemeData get theme;
@@ -26,7 +26,7 @@ VisitingScreenWidgetModel visitingScreenWidgetModelFactory(BuildContext context)
 }
 
 class VisitingScreenWidgetModel
-    extends WidgetModel<VisitingScreenWidget, VisitingScreenModel>
+    extends WidgetModel<VisitingScreen, VisitingScreenModel>
     implements IVisitingScreenWidgetModel {
   VisitingScreenWidgetModel(VisitingScreenModel model) : super(model);
 

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/blocs/visiting_bloc/visiting_bloc.dart';
@@ -8,8 +9,9 @@ import 'package:places/ui/screen/visiting_screen/widgets/want_to_visit_page.dart
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'visiting_screen_wm.dart';
 
-class VisitingScreenWidget extends ElementaryWidget<IVisitingScreenWidgetModel> {
-  const VisitingScreenWidget({
+@RoutePage()
+class VisitingScreen extends ElementaryWidget<IVisitingScreenWidgetModel> {
+  const VisitingScreen({
     Key? key,
     WidgetModelFactory wmFactory = visitingScreenWidgetModelFactory,
   }) : super(wmFactory, key: key);

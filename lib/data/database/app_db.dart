@@ -159,7 +159,7 @@ class AppDb extends _$AppDb {
       newSequenceId = 0;
     } else {
       final putAboveThisSightCompanion = await (select(table)
-            ..where((tbl) => tbl.id.equals(putAboveThisSight!.id)))
+            ..where((tbl) => tbl.id.equals(putAboveThisSight.id)))
           .getSingle();
       newSequenceId = putAboveThisSightCompanion.sequenceId + 1;
     }

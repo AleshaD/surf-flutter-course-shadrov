@@ -125,29 +125,36 @@ class SearchQuery extends DataClass implements Insertable<SearchQuery> {
 class SearchQuerysCompanion extends UpdateCompanion<SearchQuery> {
   final Value<DateTime> ts;
   final Value<String> query;
+  final Value<int> rowid;
   const SearchQuerysCompanion({
     this.ts = const Value.absent(),
     this.query = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   SearchQuerysCompanion.insert({
     required DateTime ts,
     required String query,
+    this.rowid = const Value.absent(),
   })  : ts = Value(ts),
         query = Value(query);
   static Insertable<SearchQuery> custom({
     Expression<DateTime>? ts,
     Expression<String>? query,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (ts != null) 'ts': ts,
       if (query != null) 'query': query,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
-  SearchQuerysCompanion copyWith({Value<DateTime>? ts, Value<String>? query}) {
+  SearchQuerysCompanion copyWith(
+      {Value<DateTime>? ts, Value<String>? query, Value<int>? rowid}) {
     return SearchQuerysCompanion(
       ts: ts ?? this.ts,
       query: query ?? this.query,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -160,6 +167,9 @@ class SearchQuerysCompanion extends UpdateCompanion<SearchQuery> {
     if (query.present) {
       map['query'] = Variable<String>(query.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -167,7 +177,8 @@ class SearchQuerysCompanion extends UpdateCompanion<SearchQuery> {
   String toString() {
     return (StringBuffer('SearchQuerysCompanion(')
           ..write('ts: $ts, ')
-          ..write('query: $query')
+          ..write('query: $query, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
