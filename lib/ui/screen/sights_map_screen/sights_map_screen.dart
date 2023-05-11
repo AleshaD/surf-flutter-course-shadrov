@@ -65,7 +65,7 @@ class SightsMapScreen extends ElementaryWidget<ISightsMapWidgetModel> {
                         left: 16,
                         top: 16,
                         right: 16,
-                        bottom: wm.isShowedActivePlace ? 231.0 : 16.0,
+                        bottom: wm.isShowedActivePlace ? 246.0 : 16.0,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +96,7 @@ class SightsMapScreen extends ElementaryWidget<ISightsMapWidgetModel> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: SizedBox(
-                      height: 215,
+                      height: 230,
                       child: AnimatedSwitcher(
                         duration: Duration(milliseconds: 150),
                         transitionBuilder: (child, animation) {

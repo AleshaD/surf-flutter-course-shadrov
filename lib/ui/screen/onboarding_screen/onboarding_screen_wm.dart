@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/repository/settings_repository.dart';
+import 'package:places/ui/router/app_router.dart';
 import 'package:places/ui/styles/custom_icons.dart';
-import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/widgets/onboarding_page.dart';
 import 'package:provider/provider.dart';
 import 'onboarding_screen_model.dart';
@@ -22,7 +23,8 @@ abstract class IOnboardingScreenWidgetModel extends IWidgetModel {
   void onPageChanged(int value);
 }
 
-OnboardingScreenWidgetModel onboardingScreenWidgetModelFactory(BuildContext context) {
+OnboardingScreenWidgetModel onboardingScreenWidgetModelFactory(
+    BuildContext context) {
   return OnboardingScreenWidgetModel(
     OnboardingScreenModel(
       context.read<SettingsRepository>(),
@@ -95,13 +97,7 @@ class OnboardingScreenWidgetModel
   }
 
   @override
-  void onStartBtnPressed() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => HomeScreen(),
-      ),
-    );
-  }
+  void onStartBtnPressed() => context.replaceRoute(HomeRoute());
 
   @override
   void dispose() {
