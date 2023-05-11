@@ -1,17 +1,17 @@
 import 'dart:math' as Math;
 
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_colors.dart';
 import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/ui/app/app_dependencies_notifier.dart';
-import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
-import 'package:places/ui/screen/onboarding_screen/onboarding_screen_widget.dart';
+import 'package:places/ui/router/app_router.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:places/util/elementary_single_ticker_provider.dart';
 import 'package:provider/provider.dart';
 import 'splash_screen_model.dart';
-import 'splash_screen_widget.dart';
+import 'splash_screen.dart';
 
 abstract class ISplashScreenWidgetModel extends IWidgetModel {
   ThemeData get theme;
@@ -22,7 +22,8 @@ abstract class ISplashScreenWidgetModel extends IWidgetModel {
   double degreeToRadian(double degree);
 }
 
-SplashScreenWidgetModel defaultSplashScreenWidgetModelFactory(BuildContext context) {
+SplashScreenWidgetModel defaultSplashScreenWidgetModelFactory(
+    BuildContext context) {
   return SplashScreenWidgetModel(
     SplashScreenModel(
       context.read<DefaultErrorHandler>(),
@@ -31,7 +32,8 @@ SplashScreenWidgetModel defaultSplashScreenWidgetModelFactory(BuildContext conte
   );
 }
 
-class SplashScreenWidgetModel extends WidgetModel<SplashScreenWidget, SplashScreenModel>
+class SplashScreenWidgetModel
+    extends WidgetModel<SplashScreen, SplashScreenModel>
     with ElementarySingleTickerProvider
     implements ISplashScreenWidgetModel {
   SplashScreenWidgetModel(SplashScreenModel model) : super(model);
@@ -96,13 +98,11 @@ class SplashScreenWidgetModel extends WidgetModel<SplashScreenWidget, SplashScre
 
   void _goToAppAfterDelay() {
     Future.delayed(Duration(milliseconds: rotateInMs), () {
-      final destination =
-          model.isWatchedOnboarding() ? HomeScreen() : OnboardingScreenWidget();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => destination,
-        ),
-      );
+      final PageRouteInfo destination = (!model.isWatchedOnboarding()
+          ? HomeRoute()
+          : OnboardingRoute()) as PageRouteInfo;
+
+      context.replaceRoute(destination);
     });
   }
 }

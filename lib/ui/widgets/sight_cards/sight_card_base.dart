@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/services/sight_images_service.dart';
 import 'package:places/data/model/sights/sight.dart';
-import 'package:places/ui/screen/sight_details_screen/sight_details_screen_widget.dart';
+import 'package:places/ui/router/app_router.dart';
 import 'package:places/ui/widgets/network_image_with_progress.dart';
 import 'package:provider/provider.dart';
 
@@ -40,25 +41,19 @@ class SightCardBase extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  Hero(
-                    tag: sight.id,
-                    child: Container(
-                      width: double.infinity,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(cornerRadius),
-                          topRight: Radius.circular(cornerRadius),
-                        ),
-                        child: sight.urls.isNotEmpty
-                            ? NetworkImageWithProgress(sight.urls.first)
-                            : Provider.of<SightImagesService>(context, listen: false)
-                                .noImage(),
+                  Container(
+                    width: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(cornerRadius),
+                        topRight: Radius.circular(cornerRadius),
                       ),
+                      child: sight.urls.isNotEmpty
+                          ? NetworkImageWithProgress(sight.urls.first)
+                          : Provider.of<SightImagesService>(context,
+                                  listen: false)
+                              .noImage(),
                     ),
-                  ),
-                  Hero(
-                    tag: '${sight.idStr}_backbtn',
-                    child: Container(),
                   ),
                   Align(
                     alignment: Alignment.topLeft,
@@ -130,15 +125,7 @@ class SightCardBase extends StatelessWidget {
                 Radius.circular(cornerRadius),
               ),
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SightDetailsScreenWidget(
-                        sight: sight,
-                      );
-                    },
-                  ),
-                );
+                context.pushRoute(SightDetailsRoute(sight: sight));
               },
             ),
           ),

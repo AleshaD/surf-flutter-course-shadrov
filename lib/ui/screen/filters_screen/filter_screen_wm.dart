@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -8,11 +9,12 @@ import 'package:places/data/model/sights/sight_filter.dart';
 import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/settings_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
+import 'package:places/ui/router/app_router.dart';
 import 'package:places/ui/screen/searched_sights_screen/searched_sights_screen.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:provider/provider.dart';
 import 'filter_screen_model.dart';
-import 'filter_screen_widget.dart';
+import 'filter_screen.dart';
 
 abstract class IFilterScreenWidgetModel extends IWidgetModel {
   StateNotifier<SightFilter> get sightFilter;
@@ -49,7 +51,7 @@ FilterScreenWidgetModel filterScreenWidgetModelFactory(BuildContext context) {
   return FilterScreenWidgetModel(model);
 }
 
-class FilterScreenWidgetModel extends WidgetModel<FilterScreenWidget, FilterScreenModel>
+class FilterScreenWidgetModel extends WidgetModel<FilterScreen, FilterScreenModel>
     implements IFilterScreenWidgetModel {
   FilterScreenWidgetModel(FilterScreenModel model) : super(model);
 
@@ -113,12 +115,8 @@ class FilterScreenWidgetModel extends WidgetModel<FilterScreenWidget, FilterScre
 
   @override
   void showSightsPressed() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SearchedSightsScreen(
-          sights: _foundedSights,
-        ),
-      ),
+    context.pushRoute(
+      SearchedSightsRoute(sights: _foundedSights)
     );
   }
 

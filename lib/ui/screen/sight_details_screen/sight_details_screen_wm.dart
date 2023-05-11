@@ -8,7 +8,7 @@ import 'package:places/util/default_error_handler.dart';
 import 'package:places/util/map_launcher_to_sight.dart';
 import 'package:provider/provider.dart';
 import 'sight_details_screen_model.dart';
-import 'sight_details_screen_widget.dart';
+import 'sight_details_screen.dart';
 
 abstract class ISightDetailsScreenWidgetModel extends IWidgetModel {
   ThemeData get theme;
@@ -34,7 +34,7 @@ SightDetailsScreenWidgetModel defaultSightDetailsScreenWidgetModelFactory(
 }
 
 class SightDetailsScreenWidgetModel
-    extends WidgetModel<SightDetailsScreenWidget, SightDetailsScreenModel>
+    extends WidgetModel<SightDetailsScreen, SightDetailsScreenModel>
     with MapLauncherToSight
     implements ISightDetailsScreenWidgetModel {
   SightDetailsScreenWidgetModel(SightDetailsScreenModel model) : super(model);

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,15 +8,16 @@ import 'package:places/data/repository/favorit_sights_repository.dart';
 import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/ui/app/app.dart';
-import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
-import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
+import 'package:places/ui/router/app_router.dart';
+import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:places/util/map_launcher_to_sight.dart';
 import 'package:places/util/yandex_map_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'sights_map_model.dart';
-import 'sights_map_widget.dart';
+import 'sights_map_screen.dart';
 
 abstract class ISightsMapWidgetModel extends IWidgetModel {
   /// Тема приложения
@@ -73,7 +75,7 @@ SightsMapWidgetModel defaultSightsMapWidgetModelFactory(BuildContext context) {
   );
 }
 
-class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
+class SightsMapWidgetModel extends WidgetModel<SightsMapScreen, SightsMapModel>
     with MapLauncherToSight, YandexMapHelper
     implements ISightsMapWidgetModel {
   SightsMapWidgetModel(SightsMapModel model) : super(model);
@@ -121,7 +123,8 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   double get screenWidth => _screenWidth;
 
   @override
-  EntityStateNotifier<List<MapObject>> get mapObjectsNotifier => _mapObjectsNotifier;
+  EntityStateNotifier<List<MapObject>> get mapObjectsNotifier =>
+      _mapObjectsNotifier;
 
   @override
   StateNotifier<Sight?> get activeSightState => _activeSightState;
@@ -137,7 +140,8 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
     if (userPosition != null) {
       moveCameraTo(
         _yandexMapCtrl,
-        Point(latitude: userPosition.latitude, longitude: userPosition.longitude),
+        Point(
+            latitude: userPosition.latitude, longitude: userPosition.longitude),
         durationInSec: 0.15,
       );
     }
@@ -169,23 +173,11 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
   }
 
   @override
-  void onSearchFieldTaped() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SightSearchScreenWidget(),
-      ),
-    );
-  }
+  void onSearchFieldTaped() => context.pushRoute(SightSearchRoute());
 
   @override
   void onNewPlaceTaped() {
-    Navigator.of(context)
-        .push(
-      MaterialPageRoute(
-        builder: (context) => AddSightWidget(),
-      ),
-    )
-        .then(
+    context.pushRoute(AddSightRoute()).then(
       (_) {
         _updatePlaceMarks(withLoad: true);
       },
@@ -222,7 +214,8 @@ class SightsMapWidgetModel extends WidgetModel<SightsMapWidget, SightsMapModel>
     if (activeSightId != mObjId) {
       final sight = _getSightFromMapedSightsById(mObjId);
       _activeSightState.accept(_getSightFromMapedSightsById(mObjId));
-      moveCameraTo(_yandexMapCtrl, Point(latitude: sight.lat, longitude: sight.lng));
+      moveCameraTo(
+          _yandexMapCtrl, Point(latitude: sight.lat, longitude: sight.lng));
     } else if (_activePlacemark?.mapId == mapObject.mapId) {
       _activeSightState.accept(null);
     }

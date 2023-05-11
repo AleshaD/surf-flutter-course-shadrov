@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -9,8 +10,9 @@ import 'package:places/ui/widgets/icon_text_button.dart';
 import 'package:places/ui/widgets/photo_page_view/photo_page_view.dart';
 import 'sight_details_screen_wm.dart';
 
-class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidgetModel> {
-  SightDetailsScreenWidget({
+@RoutePage()
+class SightDetailsScreen extends ElementaryWidget<ISightDetailsScreenWidgetModel> {
+  SightDetailsScreen({
     required this.sight,
     this.topCornersRadius = 0,
     this.showBottomSheetNav = false,
@@ -50,7 +52,7 @@ class SightDetailsScreenWidget extends ElementaryWidget<ISightDetailsScreenWidge
               minChildSize: 0.8,
               snap: true,
               builder: (_, scrollController) {
-                return SightDetailsScreenWidget(
+                return SightDetailsScreen(
                   sight: sight,
                   scrollController: scrollController,
                   topCornersRadius: topCornerRadius,

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,11 +13,12 @@ import 'package:places/data/repository/sight_images_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/data/model/enums/sight_type.dart';
 import 'package:places/data/model/sights/sight.dart';
+import 'package:places/ui/router/app_router.dart';
 import 'package:places/ui/screen/add_sight_screen/screen_widgets/choose_category_screen.dart';
-import 'package:places/ui/screen/pick_coordinate_on_map/pick_coordinate_on_map.dart';
+import 'package:places/ui/screen/pick_coordinate_on_map/pick_coordinate_on_map_screen.dart';
 import 'package:provider/provider.dart';
 import 'add_sight_model.dart';
-import 'add_sight_widget.dart';
+import 'add_sight_screen.dart';
 import 'screen_widgets/add_photo_pick_source_page.dart';
 
 abstract class IAddSightWidgetModel extends IWidgetModel {
@@ -64,7 +66,7 @@ AddSightWidgetModel defaultAddSightWidgetModelFactory(BuildContext context) {
   );
 }
 
-class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
+class AddSightWidgetModel extends WidgetModel<AddSightScreen, AddSightModel>
     implements IAddSightWidgetModel {
   AddSightWidgetModel(AddSightModel model) : super(model);
 
@@ -111,7 +113,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   final _chosenSightTypeStr = EntityStateNotifier<String>(
     EntityState(data: AppStrings.noPick),
   );
-  final _isCreateBtnActive = EntityStateNotifier<bool>(EntityState(data: false));
+  final _isCreateBtnActive =
+      EntityStateNotifier<bool>(EntityState(data: false));
 
   @override
   double get spaceBetwenTextFields => 16;
@@ -124,10 +127,12 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
       _filesForSightPhotosState;
 
   @override
-  ListenableState<EntityState<String>> get chosenSightTypeStr => _chosenSightTypeStr;
+  ListenableState<EntityState<String>> get chosenSightTypeStr =>
+      _chosenSightTypeStr;
 
   @override
-  ListenableState<EntityState<bool>> get isCreateBtnActive => _isCreateBtnActive;
+  ListenableState<EntityState<bool>> get isCreateBtnActive =>
+      _isCreateBtnActive;
 
   late ThemeData _themeState;
   @override
@@ -237,13 +242,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
 
   @override
   void pickCoordinateOnMap() async {
-    final Coordinate? coordinate = await Navigator.of(context).push<Coordinate?>(
-      MaterialPageRoute(
-        builder: (context) {
-          return PickCoordinateOnMap();
-        },
-      ),
-    );
+    final Coordinate? coordinate =
+        await context.pushRoute<Coordinate?>(PickCoordinateOnMapRoute());
     if (coordinate != null) {
       longitudeController.text = coordinate.lng.toString();
       latitudeController.text = coordinate.lat.toString();
@@ -278,7 +278,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
     try {
       switch (sourceType) {
         case PickPhotoSourceType.camera:
-          final XFile? img = await _imagePicker.pickImage(source: ImageSource.camera);
+          final XFile? img =
+              await _imagePicker.pickImage(source: ImageSource.camera);
           if (img != null) pickedImages.add(File(img.path));
           break;
         case PickPhotoSourceType.gallery:
@@ -312,7 +313,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   }
 
   Future<PickPhotoSourceType?> _chooseSourceInBottomSheetForNewPhoto() async {
-    PickPhotoSourceType? fromSource = await showModalBottomSheet<PickPhotoSourceType>(
+    PickPhotoSourceType? fromSource =
+        await showModalBottomSheet<PickPhotoSourceType>(
       context: context,
       builder: (context) {
         return GestureDetector(
@@ -325,7 +327,13 @@ class AddSightWidgetModel extends WidgetModel<AddSightWidget, AddSightModel>
   }
 
   void _showDialog(String title, BuildContext context) {
-    Text okTxt = Text(AppStrings.ok);
+    Text okTxt = Text(
+      AppStrings.ok,
+      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+    );
+
     Platform.isAndroid
         ? showDialog(
             context: context,

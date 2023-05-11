@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -10,8 +11,9 @@ import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'sight_search_screen_wm.dart';
 
-class SightSearchScreenWidget extends ElementaryWidget<ISightSearchScreenWidgetModel> {
-  const SightSearchScreenWidget({
+@RoutePage()
+class SightSearchScreen extends ElementaryWidget<ISightSearchScreenWidgetModel> {
+  const SightSearchScreen({
     Key? key,
     WidgetModelFactory wmFactory = defaultSightSearchScreenWidgetModelFactory,
   }) : super(wmFactory, key: key);

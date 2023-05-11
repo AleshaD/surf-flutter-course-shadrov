@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -6,12 +7,13 @@ import 'package:places/data/model/sights/sight.dart';
 import 'package:places/data/repository/location_repository.dart';
 import 'package:places/data/repository/sight_repository.dart';
 import 'package:places/enviroment/enviroment.dart';
-import 'package:places/ui/screen/add_sight_screen/add_sight_widget.dart';
-import 'package:places/ui/screen/sight_search_screen/sight_search_screen_widget.dart';
+import 'package:places/ui/router/app_router.dart';
+import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
+import 'package:places/ui/screen/sight_search_screen/sight_search_screen.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:provider/provider.dart';
 import 'sight_list_screen_model.dart';
-import 'sight_list_screen_widget.dart';
+import 'sight_list_screen.dart';
 
 abstract class ISightListScreenWidgetModel extends IWidgetModel {
   EntityStateNotifier<List<Sight>> get sights;
@@ -38,7 +40,7 @@ SightListScreenWidgetModel sightListScreenWidgetModelFactory(
 }
 
 class SightListScreenWidgetModel
-    extends WidgetModel<SightListScreenWidget, SightListScreenModel>
+    extends WidgetModel<SightListScreen, SightListScreenModel>
     implements ISightListScreenWidgetModel {
   SightListScreenWidgetModel(SightListScreenModel model) : super(model);
 
@@ -68,23 +70,11 @@ class SightListScreenWidgetModel
       : AppStrings.sightListScrAppBar;
 
   @override
-  void onSearchBarTaped() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SightSearchScreenWidget(),
-      ),
-    );
-  }
+  void onSearchBarTaped() => context.pushRoute(SightSearchRoute());
 
   @override
   void onNewPlaceTaped() {
-    Navigator.of(context)
-        .push(
-          MaterialPageRoute(
-            builder: (context) => AddSightWidget(),
-          ),
-        )
-        .then((_) => _loadSights());
+    context.pushRoute(AddSightRoute()).then((_) => _loadSights());
   }
 
   @override

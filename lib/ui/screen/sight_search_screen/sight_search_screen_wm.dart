@@ -9,7 +9,7 @@ import 'package:places/data/repository/search_repository.dart';
 import 'package:places/util/default_error_handler.dart';
 import 'package:provider/provider.dart';
 import 'sight_search_screen_model.dart';
-import 'sight_search_screen_widget.dart';
+import 'sight_search_screen.dart';
 
 enum SearchScreenType { searchHystory, searchedSights, noResults, emptyPage }
 
@@ -41,7 +41,7 @@ SightSearchScreenWidgetModel defaultSightSearchScreenWidgetModelFactory(
 }
 
 class SightSearchScreenWidgetModel
-    extends WidgetModel<SightSearchScreenWidget, SightSearchScreenModel>
+    extends WidgetModel<SightSearchScreen, SightSearchScreenModel>
     implements ISightSearchScreenWidgetModel {
   SightSearchScreenWidgetModel(
     SightSearchScreenModel model,

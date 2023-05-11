@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:places/constants/app_strings.dart';
@@ -9,8 +10,9 @@ import 'package:places/ui/widgets/buttons/large_app_button.dart';
 import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'filter_screen_wm.dart';
 
-class FilterScreenWidget extends ElementaryWidget<IFilterScreenWidgetModel> {
-  const FilterScreenWidget({
+@RoutePage()
+class FilterScreen extends ElementaryWidget<IFilterScreenWidgetModel> {
+  const FilterScreen({
     Key? key,
     WidgetModelFactory wmFactory = filterScreenWidgetModelFactory,
   }) : super(wmFactory, key: key);

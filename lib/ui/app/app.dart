@@ -3,9 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/constants/app_strings.dart';
 import 'package:places/data/model/enums/theme_type.dart';
 import 'package:places/data/repository/settings_repository.dart';
+import 'package:places/ui/router/app_router.dart';
 import 'package:places/ui/styles/app_theme_config.dart';
 import 'package:places/ui/app/app_dependencies_notifier.dart';
-import 'package:places/ui/screen/splash_screen/splash_screen_widget.dart';
+import 'package:places/ui/screen/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
@@ -16,6 +17,7 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
+  final _appRouter = AppRouter(); 
   AppThemeConfig _appThemeConfig = AppThemeConfig.light();
   AppThemeConfig get currentThemeConfig => _appThemeConfig;
   bool get isDarkTheme => currentThemeConfig.isDark;
@@ -49,7 +51,8 @@ class AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _appRouter.config(),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -57,7 +60,7 @@ class AppState extends State<App> {
       supportedLocales: [const Locale('en'), const Locale('ru')],
       title: AppStrings.appTitle,
       theme: _appThemeConfig.data,
-      home: SplashScreenWidget(),
+      // home: SplashScreenWidget(),
     );
   }
 }
