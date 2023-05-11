@@ -113,7 +113,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightScreen, AddSightModel>
   final _chosenSightTypeStr = EntityStateNotifier<String>(
     EntityState(data: AppStrings.noPick),
   );
-  final _isCreateBtnActive = EntityStateNotifier<bool>(EntityState(data: false));
+  final _isCreateBtnActive =
+      EntityStateNotifier<bool>(EntityState(data: false));
 
   @override
   double get spaceBetwenTextFields => 16;
@@ -126,10 +127,12 @@ class AddSightWidgetModel extends WidgetModel<AddSightScreen, AddSightModel>
       _filesForSightPhotosState;
 
   @override
-  ListenableState<EntityState<String>> get chosenSightTypeStr => _chosenSightTypeStr;
+  ListenableState<EntityState<String>> get chosenSightTypeStr =>
+      _chosenSightTypeStr;
 
   @override
-  ListenableState<EntityState<bool>> get isCreateBtnActive => _isCreateBtnActive;
+  ListenableState<EntityState<bool>> get isCreateBtnActive =>
+      _isCreateBtnActive;
 
   late ThemeData _themeState;
   @override
@@ -239,9 +242,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightScreen, AddSightModel>
 
   @override
   void pickCoordinateOnMap() async {
-    final Coordinate? coordinate = await context.pushRoute<Coordinate?>(
-      PickCoordinateOnMapRoute()
-    );
+    final Coordinate? coordinate =
+        await context.pushRoute<Coordinate?>(PickCoordinateOnMapRoute());
     if (coordinate != null) {
       longitudeController.text = coordinate.lng.toString();
       latitudeController.text = coordinate.lat.toString();
@@ -276,7 +278,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightScreen, AddSightModel>
     try {
       switch (sourceType) {
         case PickPhotoSourceType.camera:
-          final XFile? img = await _imagePicker.pickImage(source: ImageSource.camera);
+          final XFile? img =
+              await _imagePicker.pickImage(source: ImageSource.camera);
           if (img != null) pickedImages.add(File(img.path));
           break;
         case PickPhotoSourceType.gallery:
@@ -310,7 +313,8 @@ class AddSightWidgetModel extends WidgetModel<AddSightScreen, AddSightModel>
   }
 
   Future<PickPhotoSourceType?> _chooseSourceInBottomSheetForNewPhoto() async {
-    PickPhotoSourceType? fromSource = await showModalBottomSheet<PickPhotoSourceType>(
+    PickPhotoSourceType? fromSource =
+        await showModalBottomSheet<PickPhotoSourceType>(
       context: context,
       builder: (context) {
         return GestureDetector(
@@ -323,7 +327,13 @@ class AddSightWidgetModel extends WidgetModel<AddSightScreen, AddSightModel>
   }
 
   void _showDialog(String title, BuildContext context) {
-    Text okTxt = Text(AppStrings.ok);
+    Text okTxt = Text(
+      AppStrings.ok,
+      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+    );
+
     Platform.isAndroid
         ? showDialog(
             context: context,

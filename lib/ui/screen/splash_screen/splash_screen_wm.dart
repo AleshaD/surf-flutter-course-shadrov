@@ -98,7 +98,7 @@ class SplashScreenWidgetModel
 
   void _goToAppAfterDelay() {
     Future.delayed(Duration(milliseconds: rotateInMs), () {
-      final PageRouteInfo destination = (model.isWatchedOnboarding()
+      final PageRouteInfo destination = (!model.isWatchedOnboarding()
           ? HomeRoute()
           : OnboardingRoute()) as PageRouteInfo;
 
