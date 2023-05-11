@@ -17,12 +17,12 @@ void main() {
 }
 
 void _defineEnviroment({required BuildConfig buildConfig}) {
-  Enviroment.init(buildConfig, BuildType.dev);
+  Enviroment.init(buildConfig, BuildType.prod);
 }
 
 BuildConfig _setupConfig() {
   return BuildConfig(
-    envString: 'Debug',
-    envColor: Colors.red,
+    envString: 'Prod',
+    envColor: Colors.green,
   );
 }

@@ -10,7 +10,8 @@ import 'package:places/ui/widgets/error_pages/network_error_page.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'sight_list_screen_wm.dart';
 
-class SightListScreenWidget extends ElementaryWidget<ISightListScreenWidgetModel> {
+class SightListScreenWidget
+    extends ElementaryWidget<ISightListScreenWidgetModel> {
   const SightListScreenWidget({
     Key? key,
     WidgetModelFactory wmFactory = sightListScreenWidgetModelFactory,
@@ -48,11 +49,11 @@ class SightListScreenWidget extends ElementaryWidget<ISightListScreenWidgetModel
                       pinned: true,
                       flexibleSpace: FlexibleSpaceBar(
                         title: Text(
-                          AppStrings.sightListScrAppBar,
+                          wm.appBarTitle,
                           style: wm.theme.textTheme.headline5,
                         ),
-                        titlePadding:
-                            const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        titlePadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
                       ),
                     ),
                     SliverPersistentHeader(

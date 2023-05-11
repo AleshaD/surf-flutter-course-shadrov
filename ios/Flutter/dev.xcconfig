@@ -1,0 +1,15 @@
+//
+//  dev.xcconfig
+//  Runner
+//
+//  Created by A on 24.02.2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
+#include "Generated.xcconfig"
+
+bundle_suffix=.dev
+name=Dev_places
