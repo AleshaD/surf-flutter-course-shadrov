@@ -7,7 +7,7 @@ import 'package:places/ui/screen/add_sight_screen/add_sight_screen.dart';
 import 'package:places/ui/screen/add_sight_screen/add_sight_wm.dart';
 import 'package:places/ui/screen/filters_screen/filter_screen.dart';
 import 'package:places/ui/screen/filters_screen/filter_screen_wm.dart';
-import 'package:places/ui/screen/home_screen.dart/home_screen.dart';
+import 'package:places/ui/screen/home_screen/home_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:places/ui/screen/onboarding_screen/onboarding_screen_wm.dart';
 import 'package:places/ui/screen/pick_coordinate_on_map/pick_coordinate_on_map_screen.dart';
